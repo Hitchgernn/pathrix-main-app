@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: pathrix
+      POSTGRES_PASSWORD: pathrix
+      POSTGRES_DB: pathrix
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://pathrix:pathrix@db:5432/pathrix
+      REDIS_URL: redis://cache:6379/0
+    depends_on:
+      - db
+      - cache
+    ports:
+      - "8000:8000"
+
+volumes:
+  db-data:
