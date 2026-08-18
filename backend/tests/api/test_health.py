@@ -1,3 +1,5 @@
+from unittest.mock import AsyncMock, patch
+
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -13,9 +15,13 @@ def test_health_returns_200_with_expected_shape():
     assert body["graph_loaded"] is False
 
 
-def test_health_degrades_without_db_or_redis_running():
+def test_health_degrades_when_db_and_redis_are_unreachable():
     client = TestClient(app)
-    response = client.get("/api/health")
+    with (
+        patch("app.api.routes._check_db", new=AsyncMock(return_value="down")),
+        patch("app.api.routes._check_redis", new=AsyncMock(return_value="down")),
+    ):
+        response = client.get("/api/health")
     body = response.json()
     assert body["db"] == "down"
     assert body["redis"] == "down"
