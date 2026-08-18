@@ -1,0 +1,22 @@
+# local tool runtime state, machine-specific
+.omc/
+
+# CodeGraph data — handled by .codegraph/.gitignore, listed here for visibility
+.codegraph/*
+!.codegraph/.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# OS
+.DS_Store
