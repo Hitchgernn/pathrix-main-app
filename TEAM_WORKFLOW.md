@@ -15,14 +15,19 @@ it's wrong.
 
 | | Owns |
 |---|---|
-| **You (Hitchgernn)** | AI/agent (`agent/`), backend implementation (`api/`, `routing/` code, `data/` code), UI/UX design (Claude Design canvas — mockups and design system, not frontend code) |
-| **Your teammate** | Frontend implementation (`frontend/`, from your Claude Design handoff via MCP + `ARCHITECTURE.md`/`PLAN.md` as the structural reference), field survey + GIS digitization, dataset QC and metadata, routing *accuracy* validation (tuning against real Yogyakarta routes), DevOps/deployment, project coordination with MAPID, QA/usability testing, competition deliverables and presentation |
+| **You (Hitchgernn)** | AI/agent (`agent/`), backend implementation (`api/`, `routing/` code, `data/` code), UI/UX design (Claude Design canvas — mockups and design system, not frontend code), DevOps/deployment |
+| **Your teammate** | Frontend implementation (`frontend/`, from your Claude Design handoff via MCP + `ARCHITECTURE.md`/`PLAN.md` as the structural reference), field survey + GIS digitization, dataset QC and metadata, routing *accuracy* validation (tuning against real Yogyakarta routes), project coordination with MAPID, QA/usability testing, competition deliverables and presentation |
 
 This maps onto the proposal's original five roles (`proposal_pathrix.md` §12):
-you absorb *AI/Agent Engineer*, *UI/UX Designer*, and the implementation half of
-*Backend & Spatial Analyst*; your teammate absorbs *WebGIS Developer (Frontend)*,
-*Project Leader*, the domain half of *Backend & Spatial Analyst*, and the survey
-work.
+you absorb *AI/Agent Engineer*, *UI/UX Designer*, the implementation half of
+*Backend & Spatial Analyst*, and DevOps; your teammate absorbs *WebGIS Developer
+(Frontend)*, *Project Leader*, the domain half of *Backend & Spatial Analyst*,
+and the survey work.
+
+**Why DevOps moved to you.** Original split had it with your teammate. It moved
+because you're setting up the Compose topology and CI alongside the backend you're
+already building — splitting deploy config ownership from the code it deploys adds
+a handoff for no benefit at this team size.
 
 **Why the frontend moved.** Originally frontend sat with you because AI + backend
 + frontend is one person's flow when the codebase is small enough to hold in one
@@ -97,7 +102,7 @@ The two places work crosses the split, made explicit so neither side guesses:
 |---|---|---|
 | Survey + digitized routes | Teammate → You | CSV/GeoJSON into the ETL pipeline (`ARCHITECTURE.md` §6.3) — agree on the file shape *before* the survey finishes, not after |
 | Routing accuracy | You → Teammate | A route you can already compute, for teammate to check against ground truth and hand back `W_TRANSFER`/`W_WALK` tuning (`ARCHITECTURE.md` §7.2) |
-| Deploy target | Teammate → You | Once hosting is decided (`PLAN.md` §12.2), teammate hands you the actual host details; your Compose file (`ARCHITECTURE.md` §4.1) is written host-agnostic so this should be a config change, not a rebuild |
+| Hosting requirements | Teammate → You | Once hosting is decided (`PLAN.md` §12.2), teammate relays MAPID's finalist-subdomain requirements from their coordination role; you own the Compose topology and deploy end to end, so this is the only cross-lane step — the Compose file (`ARCHITECTURE.md` §4.1) is written host-agnostic so it's a config change, not a rebuild |
 | Design → frontend build | You → Teammate | Claude Design canvas (mockups + tokens) via the MCP you gave him, **plus** `ARCHITECTURE.md` §9–§10 for what the canvas can't show — state shape, the `ui_command` contract, why the map owns viewport truth and the store just mirrors it (§10.1). The MCP is visual truth; the docs are structural truth. Name canvas layers like component names (`AgentSheet`, `RouteCard`) since that's what carries through the handoff. |
 | Implemented screens | Teammate → You (for review) | A look before merge, since presentation-readiness is a stated deliverable and both names are on the submission |
 
