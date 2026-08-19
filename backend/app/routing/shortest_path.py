@@ -8,7 +8,23 @@ class NoRouteFoundError(Exception):
     pass
 
 
-def calculate_route(graph: nx.MultiDiGraph, start: str, end: str, optimize: Optimize) -> Route:
+def _restrict_modes(graph: nx.MultiDiGraph, allowed_modes: set[str]) -> nx.MultiDiGraph:
+    kept_edges = [
+        (u, v, k) for u, v, k, d in graph.edges(keys=True, data=True) if d["type"] in allowed_modes
+    ]
+    return graph.edge_subgraph(kept_edges)
+
+
+def calculate_route(
+    graph: nx.MultiDiGraph,
+    start: str,
+    end: str,
+    optimize: Optimize,
+    allowed_modes: set[str] | None = None,
+) -> Route:
+    if allowed_modes is not None:
+        graph = _restrict_modes(graph, allowed_modes | {"walk"})
+
     try:
         path = nx.shortest_path(graph, start, end, weight=multigraph_weight(optimize))
     except (nx.NetworkXNoPath, nx.NodeNotFound) as exc:

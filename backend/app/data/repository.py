@@ -1,9 +1,34 @@
-from sqlalchemy import func
+import json
+from typing import Literal
+
+from sqlalchemy import func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.data.schema import Poi, Properti
+from app.models.geo import BBox
 from app.models.mapid import Dataset, Feature
+
+ViewportDataType = Literal["poi", "properti"]
+
+_VIEWPORT_TABLES = {"poi": Poi, "properti": Properti}
+
+
+async def query_features_in_viewport(
+    session: AsyncSession, data_type: ViewportDataType, bbox: BBox, limit: int = 50
+) -> list[Feature]:
+    table = _VIEWPORT_TABLES[data_type]
+    envelope = func.ST_MakeEnvelope(bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat, 4326)
+    stmt = (
+        select(table.external_id, table.raw, func.ST_AsGeoJSON(table.geom).label("geom_json"))
+        .where(func.ST_Intersects(table.geom, envelope))
+        .limit(limit)
+    )
+    result = await session.execute(stmt)
+    return [
+        Feature(external_id=row.external_id, properties=row.raw, geometry=json.loads(row.geom_json))
+        for row in result
+    ]
 
 
 def _point_lon_lat(feature: Feature) -> tuple[float, float] | None:

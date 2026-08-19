@@ -63,3 +63,13 @@ class GraphBuilder:
 
     def build(self) -> nx.MultiDiGraph:
         return self.graph
+
+
+def nearest_node(coords: dict[str, tuple[float, float]], target: tuple[float, float]) -> str:
+    if not coords:
+        raise ValueError("coords is empty; cannot find a nearest node")
+
+    def sq_dist(point: tuple[float, float]) -> float:
+        return (point[0] - target[0]) ** 2 + (point[1] - target[1]) ** 2
+
+    return min(coords, key=lambda node_id: sq_dist(coords[node_id]))
