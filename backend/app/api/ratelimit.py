@@ -1,3 +1,4 @@
+from redis.exceptions import RedisError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -14,9 +15,15 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         client_host = request.client.host if request.client else "unknown"
         key = f"ratelimit:{client_host}"
         cache = request.app.state.cache
-        count = await cache.incr(key)
-        if count == 1:
-            await cache.expire(key, WINDOW_SECONDS)
+
+        try:
+            count = await cache.incr(key)
+            if count == 1:
+                await cache.expire(key, WINDOW_SECONDS)
+        except RedisError:
+            # Fail open — ARCHITECTURE.md §13: Redis down means slower/uncached,
+            # never a hard failure of the gateway itself.
+            return await call_next(request)
 
         if count > self._limit:
             return JSONResponse(
