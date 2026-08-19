@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     app.state.engine = engine
     app.state.cache = cache
-    app.state.runtime = AgentRuntime(settings, engine, http_client, cache)
+    app.state.runtime = await AgentRuntime.create(settings, engine, http_client, cache)
 
     yield
 

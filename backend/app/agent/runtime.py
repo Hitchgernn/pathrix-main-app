@@ -1,5 +1,4 @@
 import httpx
-import networkx as nx
 import redis.asyncio as redis
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.tools import BaseTool
@@ -18,37 +17,53 @@ from app.agent.tools import (
 from app.config import Settings
 from app.data.db import session_scope
 from app.data.geocode import GeocodeResolver
+from app.data.repository import fetch_emission_factors, fetch_network_data
+from app.routing.build import build_graph_from_network
 
 
 class AgentRuntime:
     """Wires the five tools and the LangGraph loop to real routing/data dependencies.
 
-    No routing graph is built from real Yogyakarta data yet (blocked on the
-    survey/digitization handoff, TEAM_WORKFLOW.md §4) — an empty graph makes
-    route/multistop tools fail through the same typed-error path as a graph
-    that failed to load, matching ARCHITECTURE.md §13's degrade-don't-fail
-    failure mode rather than needing a special case.
+    The routing graph is built once at startup from whatever's in the DB
+    (ARCHITECTURE.md §4.2 — process-local state), via AgentRuntime.create.
+    No OSMnx pedestrian network is wired in yet (ARCHITECTURE.md §7.1's walk
+    nodes) — that needs a real OSM fetch over the study area, a separate
+    task. An empty DB still produces a valid (empty) graph, so route/
+    multistop tools degrade through the same typed-error path either way.
     """
 
     def __init__(
-        self, settings: Settings, engine: AsyncEngine, http_client: httpx.AsyncClient, cache
+        self,
+        llm: BaseChatModel | None,
+        tools: list[BaseTool],
+        graph: CompiledStateGraph | None,
     ) -> None:
-        self.llm: BaseChatModel | None = self._build_llm(settings)
-        geocode_resolver = GeocodeResolver(http_client, cache)
-        graph_provider = lambda: nx.MultiDiGraph()  # noqa: E731
-        coords_provider = lambda: {}  # noqa: E731
-        factors_provider = lambda: {}  # noqa: E731
+        self.llm = llm
+        self.tools = tools
+        self.graph = graph
 
-        self.tools: list[BaseTool] = [
+    @classmethod
+    async def create(
+        cls, settings: Settings, engine: AsyncEngine, http_client: httpx.AsyncClient, cache
+    ) -> "AgentRuntime":
+        llm = cls._build_llm(settings)
+        geocode_resolver = GeocodeResolver(http_client, cache)
+
+        async with session_scope(engine) as session:
+            network = await fetch_network_data(session)
+            factors = await fetch_emission_factors(session)
+
+        routing_graph, coords = build_graph_from_network(network)
+
+        tools: list[BaseTool] = [
             make_toggle_layer_tool(),
             make_get_data_in_viewport_tool(lambda: session_scope(engine)),
-            make_calculate_route_tool(graph_provider, coords_provider, geocode_resolver),
-            make_plan_multistop_tool(graph_provider, coords_provider, geocode_resolver),
-            make_calculate_carbon_savings_tool(factors_provider),
+            make_calculate_route_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
+            make_plan_multistop_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
+            make_calculate_carbon_savings_tool(lambda: factors),
         ]
-        self.graph: CompiledStateGraph | None = (
-            build_agent_graph(self.llm, self.tools) if self.llm is not None else None
-        )
+        graph = build_agent_graph(llm, tools) if llm is not None else None
+        return cls(llm, tools, graph)
 
     @staticmethod
     def _build_llm(settings: Settings) -> BaseChatModel | None:

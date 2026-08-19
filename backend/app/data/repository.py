@@ -5,9 +5,12 @@ from sqlalchemy import func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.data.schema import Poi, Properti
+from app.data.schema import EmissionFactor as EmissionFactorRow
+from app.data.schema import Pangkalan, Poi, Properti, RouteStop, TransitRoute, TransitStop
 from app.models.geo import BBox
 from app.models.mapid import Dataset, Feature
+from app.models.network import NetworkData, PangkalanRow, RouteRow, RouteStopRow, StopRow
+from app.models.routing import EmissionFactor
 
 ViewportDataType = Literal["poi", "properti"]
 
@@ -29,6 +32,59 @@ async def query_features_in_viewport(
         Feature(external_id=row.external_id, properties=row.raw, geometry=json.loads(row.geom_json))
         for row in result
     ]
+
+
+async def fetch_network_data(session: AsyncSession) -> NetworkData:
+    stop_rows = await session.execute(
+        select(TransitStop.id, func.ST_X(TransitStop.geom), func.ST_Y(TransitStop.geom))
+    )
+    route_rows = await session.execute(
+        select(TransitRoute.id, TransitRoute.headway_min, TransitRoute.fare_idr)
+    )
+    route_stop_rows = await session.execute(
+        select(
+            RouteStop.route_id, RouteStop.stop_id, RouteStop.seq, RouteStop.travel_time_from_prev_s
+        )
+    )
+    pangkalan_rows = await session.execute(
+        select(
+            Pangkalan.id,
+            Pangkalan.type,
+            func.ST_X(Pangkalan.geom),
+            func.ST_Y(Pangkalan.geom),
+            Pangkalan.fare_base,
+            Pangkalan.fare_per_km,
+        ).where(Pangkalan.fare_base.is_not(None), Pangkalan.fare_per_km.is_not(None))
+    )
+
+    return NetworkData(
+        stops=[StopRow(id=r[0], lon=r[1], lat=r[2]) for r in stop_rows],
+        routes=[RouteRow(id=r[0], headway_min=r[1], fare_idr=r[2]) for r in route_rows],
+        route_stops=[
+            RouteStopRow(route_id=r[0], stop_id=r[1], seq=r[2], travel_time_from_prev_s=r[3])
+            for r in route_stop_rows
+        ],
+        pangkalan=[
+            PangkalanRow(id=r[0], type=r[1], lon=r[2], lat=r[3], fare_base=r[4], fare_per_km=r[5])
+            for r in pangkalan_rows
+        ],
+    )
+
+
+async def fetch_emission_factors(session: AsyncSession) -> dict[str, EmissionFactor]:
+    result = await session.execute(
+        select(
+            EmissionFactorRow.mode,
+            EmissionFactorRow.g_co2_per_km,
+            EmissionFactorRow.source_citation,
+        )
+    )
+    return {
+        row.mode: EmissionFactor(
+            mode=row.mode, g_co2_per_km=row.g_co2_per_km, source_citation=row.source_citation
+        )
+        for row in result
+    }
 
 
 def _point_lon_lat(feature: Feature) -> tuple[float, float] | None:

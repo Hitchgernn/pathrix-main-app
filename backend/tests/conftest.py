@@ -17,7 +17,8 @@ async def db_session():
 
     async with engine.begin() as conn:
         await conn.exec_driver_sql(
-            "TRUNCATE poi, properti, isochrones, transit_stops RESTART IDENTITY CASCADE"
+            "TRUNCATE poi, properti, isochrones, transit_stops, transit_routes, "
+            "pangkalan, emission_factors RESTART IDENTITY CASCADE"
         )
 
     session_factory = async_sessionmaker(engine, expire_on_commit=False)
