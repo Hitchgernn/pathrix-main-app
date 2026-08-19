@@ -16,5 +16,7 @@ class Settings(BaseSettings):
 
     study_area_polygon: str = ""
 
+    rate_limit_per_minute: int = 60
+
 
 settings = Settings()

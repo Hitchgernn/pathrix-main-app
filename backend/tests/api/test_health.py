@@ -6,8 +6,8 @@ from app.main import app
 
 
 def test_health_returns_200_with_expected_shape():
-    client = TestClient(app)
-    response = client.get("/api/health")
+    with TestClient(app) as client:
+        response = client.get("/api/health")
     assert response.status_code == 200
     body = response.json()
     assert body["db"] in ("ok", "degraded", "down")
@@ -16,12 +16,12 @@ def test_health_returns_200_with_expected_shape():
 
 
 def test_health_degrades_when_db_and_redis_are_unreachable():
-    client = TestClient(app)
-    with (
-        patch("app.api.routes._check_db", new=AsyncMock(return_value="down")),
-        patch("app.api.routes._check_redis", new=AsyncMock(return_value="down")),
-    ):
-        response = client.get("/api/health")
+    with TestClient(app) as client:
+        with (
+            patch("app.api.routes._check_db", new=AsyncMock(return_value="down")),
+            patch("app.api.routes._check_redis", new=AsyncMock(return_value="down")),
+        ):
+            response = client.get("/api/health")
     body = response.json()
     assert body["db"] == "down"
     assert body["redis"] == "down"

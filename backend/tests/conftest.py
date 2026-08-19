@@ -16,7 +16,9 @@ async def db_session():
         pytest.skip(f"PostGIS not reachable at {TEST_DATABASE_URL}: {exc}")
 
     async with engine.begin() as conn:
-        await conn.exec_driver_sql("TRUNCATE poi, properti RESTART IDENTITY")
+        await conn.exec_driver_sql(
+            "TRUNCATE poi, properti, isochrones, transit_stops RESTART IDENTITY CASCADE"
+        )
 
     session_factory = async_sessionmaker(engine, expire_on_commit=False)
     async with session_factory() as session:
