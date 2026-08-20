@@ -3,7 +3,7 @@ import math
 import networkx as nx
 
 from app.models.network import NetworkData
-from app.routing.graph import GraphBuilder
+from app.routing.graph import GraphBuilder, nearest_node
 
 PANGKALAN_CONNECT_RADIUS_M = 500.0  # first/last-mile walk range — placeholder, untuned
 ANDONG_SPEED_MPS = 2.2  # ~8 km/h
@@ -33,16 +33,21 @@ def _route_node(route_id: int, stop_id: int) -> str:
     return f"route:{route_id}:stop:{stop_id}"
 
 
+def walk_node(osm_id: int) -> str:
+    return f"walk:{osm_id}"
+
+
 def build_graph_from_network(
     network: NetworkData,
 ) -> tuple[nx.MultiDiGraph, dict[str, tuple[float, float]]]:
     """Assembles the routing graph from already-fetched network rows.
 
-    No pedestrian (OSMnx) network is wired in yet — that needs a real OSM
-    fetch over the study area, a separate task. Stops connect to each other
-    only through route board/ride/alight edges; pangkalan connect to any
-    stop within PANGKALAN_CONNECT_RADIUS_M as a stand-in for real walk
-    distance, since there's no walk-node graph to route through yet.
+    Stops connect to each other through route board/ride/alight edges, and to
+    the pedestrian network (network.walk_nodes/walk_edges, from OSMnx via
+    data/osm.py) by snapping each stop to its nearest walk node. When no walk
+    network is present — the common case until an ETL run populates it —
+    pangkalan still fall back to connecting directly to any stop within
+    PANGKALAN_CONNECT_RADIUS_M, a stand-in for real walk distance.
     """
     builder = GraphBuilder()
     coords: dict[str, tuple[float, float]] = {}
@@ -94,5 +99,28 @@ def build_graph_from_network(
                 continue
             add_edge(node, stop_node(stop.id), distance_m, speed, p.fare_base, p.fare_per_km)
             add_edge(stop_node(stop.id), node, distance_m, speed, p.fare_base, p.fare_per_km)
+
+    walk_coords: dict[str, tuple[float, float]] = {}
+    for wn in network.walk_nodes:
+        node = walk_node(wn.id)
+        walk_coords[node] = (wn.lon, wn.lat)
+        coords[node] = (wn.lon, wn.lat)
+
+    for we in network.walk_edges:
+        builder.add_walk_edge(walk_node(we.u), walk_node(we.v), we.length_m)
+
+    if walk_coords:
+        for stop in network.stops:
+            nearest = nearest_node(walk_coords, (stop.lon, stop.lat))
+            distance_m = _haversine_m((stop.lon, stop.lat), walk_coords[nearest])
+            builder.add_walk_edge(stop_node(stop.id), nearest, distance_m)
+            builder.add_walk_edge(nearest, stop_node(stop.id), distance_m)
+
+        for p in network.pangkalan:
+            node = pangkalan_node(p.id)
+            nearest = nearest_node(walk_coords, (p.lon, p.lat))
+            distance_m = _haversine_m((p.lon, p.lat), walk_coords[nearest])
+            builder.add_walk_edge(node, nearest, distance_m)
+            builder.add_walk_edge(nearest, node, distance_m)
 
     return builder.build(), coords

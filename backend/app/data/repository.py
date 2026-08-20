@@ -6,10 +6,27 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.data.schema import EmissionFactor as EmissionFactorRow
-from app.data.schema import Pangkalan, Poi, Properti, RouteStop, TransitRoute, TransitStop
+from app.data.schema import (
+    Pangkalan,
+    Poi,
+    Properti,
+    RouteStop,
+    TransitRoute,
+    TransitStop,
+    WalkEdge,
+    WalkNode,
+)
 from app.models.geo import BBox
 from app.models.mapid import Dataset, Feature
-from app.models.network import NetworkData, PangkalanRow, RouteRow, RouteStopRow, StopRow
+from app.models.network import (
+    NetworkData,
+    PangkalanRow,
+    RouteRow,
+    RouteStopRow,
+    StopRow,
+    WalkEdgeRow,
+    WalkNodeRow,
+)
 from app.models.routing import EmissionFactor
 
 ViewportDataType = Literal["poi", "properti"]
@@ -56,6 +73,10 @@ async def fetch_network_data(session: AsyncSession) -> NetworkData:
             Pangkalan.fare_per_km,
         ).where(Pangkalan.fare_base.is_not(None), Pangkalan.fare_per_km.is_not(None))
     )
+    walk_node_rows = await session.execute(
+        select(WalkNode.id, func.ST_X(WalkNode.geom), func.ST_Y(WalkNode.geom))
+    )
+    walk_edge_rows = await session.execute(select(WalkEdge.u, WalkEdge.v, WalkEdge.length_m))
 
     return NetworkData(
         stops=[StopRow(id=r[0], lon=r[1], lat=r[2]) for r in stop_rows],
@@ -68,7 +89,37 @@ async def fetch_network_data(session: AsyncSession) -> NetworkData:
             PangkalanRow(id=r[0], type=r[1], lon=r[2], lat=r[3], fare_base=r[4], fare_per_km=r[5])
             for r in pangkalan_rows
         ],
+        walk_nodes=[WalkNodeRow(id=r[0], lon=r[1], lat=r[2]) for r in walk_node_rows],
+        walk_edges=[WalkEdgeRow(u=r[0], v=r[1], length_m=r[2]) for r in walk_edge_rows],
     )
+
+
+async def upsert_walk_network(
+    session: AsyncSession, nodes: list[WalkNodeRow], edges: list[WalkEdgeRow]
+) -> tuple[int, int]:
+    if nodes:
+        node_stmt = pg_insert(WalkNode).values(
+            [
+                {"id": n.id, "geom": func.ST_SetSRID(func.ST_MakePoint(n.lon, n.lat), 4326)}
+                for n in nodes
+            ]
+        )
+        node_stmt = node_stmt.on_conflict_do_update(
+            index_elements=[WalkNode.id], set_={"geom": node_stmt.excluded.geom}
+        )
+        await session.execute(node_stmt)
+
+    if edges:
+        edge_stmt = pg_insert(WalkEdge).values(
+            [{"u": e.u, "v": e.v, "length_m": e.length_m} for e in edges]
+        )
+        edge_stmt = edge_stmt.on_conflict_do_update(
+            index_elements=[WalkEdge.u, WalkEdge.v], set_={"length_m": edge_stmt.excluded.length_m}
+        )
+        await session.execute(edge_stmt)
+
+    await session.commit()
+    return len(nodes), len(edges)
 
 
 async def fetch_emission_factors(session: AsyncSession) -> dict[str, EmissionFactor]:

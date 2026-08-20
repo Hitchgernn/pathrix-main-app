@@ -1,7 +1,8 @@
 from sqlalchemy import func, insert
 
-from app.data.repository import fetch_emission_factors, fetch_network_data
+from app.data.repository import fetch_emission_factors, fetch_network_data, upsert_walk_network
 from app.data.schema import EmissionFactor, Pangkalan, RouteStop, TransitRoute, TransitStop
+from app.models.network import WalkEdgeRow, WalkNodeRow
 
 
 async def test_fetch_network_data_returns_seeded_rows(db_session):
@@ -69,6 +70,26 @@ async def test_fetch_network_data_skips_pangkalan_missing_fares(db_session):
 
     network = await fetch_network_data(db_session)
     assert network.pangkalan == []
+
+
+async def test_upsert_walk_network_is_idempotent_and_fetch_returns_it(db_session):
+    nodes = [
+        WalkNodeRow(id=101, lon=110.30, lat=-7.80),
+        WalkNodeRow(id=102, lon=110.301, lat=-7.801),
+    ]
+    edges = [WalkEdgeRow(u=101, v=102, length_m=50.0)]
+
+    count1 = await upsert_walk_network(db_session, nodes, edges)
+    assert count1 == (2, 1)
+
+    updated_edges = [WalkEdgeRow(u=101, v=102, length_m=60.0)]
+    count2 = await upsert_walk_network(db_session, nodes, updated_edges)
+    assert count2 == (2, 1)
+
+    network = await fetch_network_data(db_session)
+    assert {n.id for n in network.walk_nodes} == {101, 102}
+    assert len(network.walk_edges) == 1
+    assert network.walk_edges[0].length_m == 60.0
 
 
 async def test_fetch_emission_factors_returns_a_mode_keyed_dict(db_session):

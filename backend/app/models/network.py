@@ -29,8 +29,22 @@ class PangkalanRow(BaseModel):
     fare_per_km: float
 
 
+class WalkNodeRow(BaseModel):
+    id: int
+    lon: float
+    lat: float
+
+
+class WalkEdgeRow(BaseModel):
+    u: int
+    v: int
+    length_m: float
+
+
 class NetworkData(BaseModel):
     stops: list[StopRow]
     routes: list[RouteRow]
     route_stops: list[RouteStopRow]
     pangkalan: list[PangkalanRow]
+    walk_nodes: list[WalkNodeRow] = []
+    walk_edges: list[WalkEdgeRow] = []

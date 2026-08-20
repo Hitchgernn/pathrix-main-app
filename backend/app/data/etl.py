@@ -2,7 +2,8 @@ from shapely import Polygon
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.data.mapid import MapidClient
-from app.data.repository import upsert_poi, upsert_properti
+from app.data.osm import WalkNetworkFetcher
+from app.data.repository import upsert_poi, upsert_properti, upsert_walk_network
 from app.models.mapid import Dataset
 
 
@@ -27,3 +28,10 @@ async def run_etl(
         offset += page_size
 
     return total
+
+
+async def run_walk_network_etl(
+    fetcher: WalkNetworkFetcher, session: AsyncSession, polygon: Polygon
+) -> tuple[int, int]:
+    nodes, edges = await fetcher.fetch(polygon)
+    return await upsert_walk_network(session, nodes, edges)

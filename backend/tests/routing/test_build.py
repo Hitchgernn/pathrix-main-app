@@ -1,9 +1,18 @@
-from app.models.network import NetworkData, PangkalanRow, RouteRow, RouteStopRow, StopRow
+from app.models.network import (
+    NetworkData,
+    PangkalanRow,
+    RouteRow,
+    RouteStopRow,
+    StopRow,
+    WalkEdgeRow,
+    WalkNodeRow,
+)
 from app.routing.build import (
     PANGKALAN_CONNECT_RADIUS_M,
     build_graph_from_network,
     pangkalan_node,
     stop_node,
+    walk_node,
 )
 from app.routing.shortest_path import NoRouteFoundError, calculate_route
 
@@ -69,3 +78,29 @@ def test_pangkalan_connects_only_within_radius():
     assert not graph.has_edge(pangkalan_node(5), stop_node(2))
     assert coords[pangkalan_node(5)] == (110.3002, -7.8002)
     assert PANGKALAN_CONNECT_RADIUS_M == 500.0
+
+
+def test_walk_network_connects_two_stops_with_no_route_between_them():
+    # Two isolated stops, no shared route, no pangkalan — only reachable
+    # through the walk network snapping each stop to its nearest walk node.
+    stop_a = StopRow(id=1, lon=110.300, lat=-7.800)
+    stop_b = StopRow(id=2, lon=110.302, lat=-7.800)
+    network = NetworkData(
+        stops=[stop_a, stop_b],
+        routes=[],
+        route_stops=[],
+        pangkalan=[],
+        walk_nodes=[
+            WalkNodeRow(id=1, lon=110.3005, lat=-7.800),
+            WalkNodeRow(id=2, lon=110.3015, lat=-7.800),
+        ],
+        walk_edges=[WalkEdgeRow(u=1, v=2, length_m=100.0), WalkEdgeRow(u=2, v=1, length_m=100.0)],
+    )
+
+    graph, coords = build_graph_from_network(network)
+
+    assert graph.has_edge(walk_node(1), walk_node(2))
+    route = calculate_route(graph, stop_node(1), stop_node(2), "tercepat")
+    assert all(leg.mode == "walk" for leg in route.legs)
+    assert route.total_fare_idr == 0
+    assert coords[walk_node(1)] == (110.3005, -7.800)
