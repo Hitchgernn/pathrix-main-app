@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 PATHRIX — a WebGIS AI agent for multimodal mobility navigation in Yogyakarta (TransJogja bus, KRL rail, YIA airport rail, plus andong/becak first/last-mile), built for the MAPID WebGIS Competition 2026. `docs/ARCHITECTURE.md` is the full system design; `docs/PLAN.md` has the build plan, schedule, and stack rationale. **When the docs and the code disagree, the code is right — update the relevant doc in the same change that invalidates it** (`docs/ARCHITECTURE.md` §16).
 
-`backend/` (FastAPI + LangGraph + PostGIS) is the only part of this repo with code so far. `frontend/` does not exist yet and is out of scope for this side of the team (see Team workflow below) — do not build it unless explicitly asked.
+`backend/` (FastAPI + LangGraph + PostGIS) and `frontend/` (Vite + React + MapLibre) both have code. Frontend implementation is the other person's lane (see Team workflow below) — don't extend it unless explicitly asked; what's there is a transcription of the Claude Design canvas, not an independent design.
 
 ## Commands
+
+### Backend
 
 All commands run from `backend/`, using `uv`:
 
@@ -33,6 +35,19 @@ docker compose up -d db cache    # from the repo root
 CI (`.github/workflows/backend-ci.yml`) runs `ruff check` + `pytest` with `postgis/postgis` and `redis:7-alpine` service containers on every push/PR touching `backend/` — both are required, since the rate-limit middleware and several fixtures hit Redis with no skip-if-unreachable path (unlike the DB-dependent tests).
 
 No LLM provider is configured by default (`LLM_PROVIDER` unset) — this is deliberate (see Agent below), not a setup step you're missing.
+
+### Frontend
+
+All commands run from `frontend/`:
+
+```sh
+npm install
+npm run dev      # :5173, proxies /api and /ws to :8000
+npm run lint     # tsc --noEmit
+npm run build    # typecheck + production build
+```
+
+`npm run build` **fails without `VITE_MAPID_BASEMAP_KEY`** and that guard is deliberate: Vite inlines `import.meta.env` at build time, so a keyless build folds away the guard in `MapCanvas` and Rollup drops the whole MapLibre chunk — you'd ship a working-looking app with no map in it. There is no test suite here yet; `tsc` is the gate.
 
 ## Architecture
 
@@ -74,6 +89,14 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 ### Data layer
 
 `app/data/schema.py` mirrors `ARCHITECTURE.md` §5.1's DDL via SQLAlchemy + GeoAlchemy2. `app/data/mapid.py` normalizes MAPID's two different mission-API response shapes (`menugo`/`propertigo`/`struckgo` vs `activities`) into one `MissionPage` — the mission endpoint is spelled **`struckgo`**, not `strukgo`. `FakeMapidClient` in the same file is the fixture-backed double for offline dev/tests. Mission data is mirrored into Postgres on a schedule (`app/data/etl.py`), never proxied live (`ARCHITECTURE.md` §6.3).
+
+### The frontend
+
+`frontend/` is a transcription of the Claude Design canvas `Pathrix App.dc.html` (project `a632566d-7c80-48f4-a429-67aa8da1eba8`) onto the stack `PLAN.md` §3.2 already committed to: Vite + React 18 + TS + Tailwind 4 + Zustand + MapLibre GL JS. **The canvas is the visual source of truth** — colours, type ramp, snap points, shadows, and the SVG itinerary schematic are its values, re-transcribed rather than tuned locally, so design and build can't drift. Component names follow the `TEAM_WORKFLOW.md` §4 handoff convention (`AgentSheet`, `RouteCard`, `LayerToggleList`, `SustainabilityStat`, `BasemapSwitcher`).
+
+`src/lib/bridge.ts` is the map ↔ agent bridge (`ARCHITECTURE.md` §10.2): a pure switch over the closed `UICommandAction` set. `toggle_layer` is store state and deliberately falls through to the Zustand store instead; the other three are imperative MapLibre calls. `src/lib/mapHandle.ts` holds the live map outside React, since a GL context is not renderable state.
+
+Two contract gaps are visible in the UI rather than papered over, both documented in `frontend/README.md`: the backend's `draw_route` payload is a `Route` with node ids and no coordinates, so the bridge draws nothing unless a `geometry` field is present; and with no LLM provider wired, `/ws` replies `llm_unavailable` and the store falls back to the canvas's scripted replies so every screen stays inspectable. All sample content lives in `src/lib/sample.ts`, in one place, labelled.
 
 ## Team workflow
 

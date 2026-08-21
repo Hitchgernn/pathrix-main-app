@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* Design tokens transcribed from the Claude Design canvas (Pathrix App.dc.html).
+   Values are the design's own — do not "improve" them here; change the canvas
+   and re-transcribe, per ARCHITECTURE.md §16 (docs and code stay in step). */
+@theme {
+  --color-ground: #dfeaf3;
+  --color-surface: #e7f0f7;
+  --color-surface-2: #eff5fa;
+  --color-ink: #17293a;
+  --color-ink-deep: #101e2a;
+  --color-blue: #1f6592;
+  --color-gold: #7c5e13;
+  --color-teal: #0f766e;
+  --color-purple: #5b3a8e;
+  --color-iso: #c6d9e8;
+
+  --color-line: rgba(16, 30, 42, 0.14);
+  --color-ink-72: rgba(16, 30, 42, 0.72);
+  --color-ink-66: rgba(16, 30, 42, 0.66);
+  --color-ink-60: rgba(16, 30, 42, 0.6);
+  --color-ink-55: rgba(16, 30, 42, 0.55);
+  --color-ink-50: rgba(16, 30, 42, 0.5);
+  --color-ink-45: rgba(16, 30, 42, 0.45);
+  --color-ink-40: rgba(16, 30, 42, 0.4);
+
+  --font-sans: Archivo, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --shadow-sheet: 0 -8px 24px -8px rgba(16, 30, 42, 0.28);
+  --shadow-rail: 8px 0 24px -8px rgba(16, 30, 42, 0.28);
+  --shadow-card: 0 4px 12px -4px rgba(16, 30, 42, 0.18);
+
+  --radius-sheet: 20px;
+  --radius-card: 16px;
+  --radius-bubble: 12px;
+
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --animate-pxfade: pxfade 0.18s ease;
+  --animate-pxrise: pxrise 0.2s ease;
+  --animate-pxrise-slow: pxrise 0.24s ease;
+  --animate-pxdim: pxdim 1.4s ease-in-out infinite;
+}
+
+@keyframes pxfade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pxrise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pxdim {
+  0%, 100% { opacity: 0.38; }
+  50% { opacity: 0.72; }
+}
+
+/* Sheets and floating chrome are translucent so the map reads through them;
+   the solid --color-surface token is for opaque cards. */
+@utility surface-sheet {
+  background: rgba(231, 240, 247, 0.96);
+  backdrop-filter: blur(8px);
+}
+
+/* Mono kicker — 11px / 500 / .16em. Every label, count, and unit in the design
+   uses it; prose never does. */
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+@utility hairline {
+  border-top: 1px solid var(--color-line);
+}
+
+@utility title-lg {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+@utility title-row {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+@utility body-15 {
+  font-size: 15px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+@utility body-13 {
+  font-size: 13px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font: inherit;
+}
+
+.maplibregl-ctrl-attrib {
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
