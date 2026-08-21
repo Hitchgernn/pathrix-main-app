@@ -433,7 +433,7 @@ WEIGHTS = {
 }
 ```
 
-`W_TRANSFER` and `W_WALK` are tunable constants that **must be documented with their chosen values** — they encode a subjective definition of "easiest" and a judge may reasonably ask.
+`W_TRANSFER` and `W_WALK` are tunable constants that **must be documented with their chosen values** — they encode a subjective definition of "easiest" and a judge may reasonably ask. Current placeholders (`app/routing/constants.py`): `W_TRANSFER = 300.0`, `W_WALK = 1.0` — untuned against real routes yet, see open question 8 below.
 
 ### 7.3 Derived analyses `[DESIGNED]`
 
@@ -467,11 +467,12 @@ class AgentState(TypedDict):
     viewport:      Viewport             # bbox, zoom, centre — pushed by client each turn
     active_layers: set[str]
     last_route:    Route | None         # enables "yang lebih murah dari tadi"
+    last_carbon:   CarbonResult | None
     ui_commands:   list[UICommand]      # drained after each turn
     locale:        str                  # "id" | "en"
 ```
 
-`viewport` makes viewport-awareness work — *"ada kuliner apa di area ini?"* resolves against what the user is actually looking at. `last_route` is what separates an agent with memory from a stateless chatbot.
+`viewport` makes viewport-awareness work — *"ada kuliner apa di area ini?"* resolves against what the user is actually looking at. `last_route`/`last_carbon` are what separate an agent with memory from a stateless chatbot — the most recent route and carbon-savings tool results, carried forward and sent on the `done` event.
 
 ### 8.2 Graph `[DESIGNED]`
 
@@ -709,7 +710,7 @@ Tracked, not resolved. Each will change part of this document.
 | 5 | Mission API real-key behaviour | §6.2 | Contract read from docs, not yet exercised |
 | 6 | Field survey density | §7.1 | Unknown until survey completes; affects connector radius |
 | 7 | Free-transfer window between TransJogja routes | §7.1 | Fare rule unconfirmed |
-| 8 | `W_TRANSFER` / `W_WALK` values | §7.2 | To be tuned against sample routes |
+| 8 | `W_TRANSFER` / `W_WALK` values | §7.2 | Placeholders in code (300.0 / 1.0) — to be tuned against sample routes |
 | 9 | Graph reload without restart | §7.4 | Deferred; restart is acceptable initially |
 
 ---

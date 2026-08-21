@@ -206,7 +206,6 @@ poi                id, source(menugo|struckgo|activities), nama_tempat, kategori
                    geom(Point), fetched_at
 properti           id, kategori_properti, jenis_properti, alamat, foto_url,
                    raw jsonb, geom(Point), fetched_at
-buildings          id, category, name, geom(Polygon)
 walk_nodes         id, geom(Point)
 walk_edges         u, v, length_m, geom(LineString)
 isochrones         stop_id, minutes, geom(Polygon), computed_at
@@ -389,12 +388,14 @@ class AgentState(TypedDict):
     viewport: Viewport             # bbox, zoom, centre — pushed by client each turn
     active_layers: set[str]
     last_route: Route | None       # enables "yang lebih murah dari tadi"
+    last_carbon: CarbonResult | None
     ui_commands: list[UICommand]   # drained after each turn, sent to client
+    locale: str
 ```
 
 `viewport` is what makes viewport-awareness work: the client sends its current bounding box with every message, so *"ada kuliner apa di area ini?"* resolves against what the user is actually looking at.
 
-`last_route` is what makes conversational follow-up work. It is the difference between a chatbot and an agent with memory.
+`last_route` and `last_carbon` are what make conversational follow-up work — the most recent `calculate_route`/`plan_multistop` and `calculate_carbon_savings` tool results, carried forward on the `done` event so the client doesn't have to re-parse them out of chat text. It is the difference between a chatbot and an agent with memory.
 
 ### 7.2 Graph topology
 
