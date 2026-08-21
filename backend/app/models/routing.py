@@ -14,6 +14,11 @@ class RouteLeg(BaseModel):
     time_s: float
     fare_idr: int
     distance_m: float = 0.0
+    # The leg's polyline as [lon, lat] pairs, for drawing it on the map. Two
+    # points today — node to node — since no shape geometry has been digitized
+    # yet; a real shape drops in here without changing the contract. Empty when
+    # either endpoint has no coordinate on the graph.
+    coordinates: list[list[float]] = []
 
 
 class Route(BaseModel):

@@ -8,6 +8,19 @@ class NoRouteFoundError(Exception):
     pass
 
 
+def _coord(graph: nx.MultiDiGraph, node: str) -> list[float] | None:
+    attrs = graph.nodes[node]
+    lon, lat = attrs.get("lon"), attrs.get("lat")
+    return None if lon is None or lat is None else [lon, lat]
+
+
+def _leg_coordinates(graph: nx.MultiDiGraph, u: str, v: str) -> list[list[float]]:
+    """A leg is drawable only if both ends are pinned. Half a line is worse than
+    none, so an unpinned endpoint yields no geometry at all."""
+    start, end = _coord(graph, u), _coord(graph, v)
+    return [] if start is None or end is None else [start, end]
+
+
 def _restrict_modes(graph: nx.MultiDiGraph, allowed_modes: set[str]) -> nx.MultiDiGraph:
     kept_edges = [
         (u, v, k) for u, v, k, d in graph.edges(keys=True, data=True) if d["type"] in allowed_modes
@@ -43,6 +56,7 @@ def calculate_route(
                 time_s=attrs["time_s"],
                 fare_idr=attrs["fare_idr"],
                 distance_m=attrs["distance_m"],
+                coordinates=_leg_coordinates(graph, u, v),
             )
         )
 

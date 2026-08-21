@@ -7,6 +7,11 @@ class GraphBuilder:
     def __init__(self) -> None:
         self.graph = nx.MultiDiGraph()
 
+    def set_coord(self, node: str, lon: float, lat: float) -> None:
+        """Pins a node to a position. Carried on the node rather than in a side
+        dict so shortest_path can build drawable legs from the graph alone."""
+        self.graph.add_node(node, lon=lon, lat=lat)
+
     def add_walk_edge(self, u: str, v: str, length_m: float) -> None:
         self.graph.add_edge(u, v, **edges.walk_edge_attrs(length_m))
 

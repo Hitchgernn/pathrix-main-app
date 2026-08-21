@@ -57,6 +57,7 @@ def build_graph_from_network(
 
     for stop in network.stops:
         coords[stop_node(stop.id)] = (stop.lon, stop.lat)
+        builder.set_coord(stop_node(stop.id), stop.lon, stop.lat)
 
     stops_by_route: dict[int, list] = {}
     for rs in sorted(network.route_stops, key=lambda rs: (rs.route_id, rs.seq)):
@@ -69,6 +70,10 @@ def build_graph_from_network(
         for rs in ordered_stops:
             if rs.stop_id not in stops_by_id:
                 continue
+            # A route node sits at its stop: a ride leg between two route nodes
+            # is drawn stop to stop, which is what the map needs.
+            stop = stops_by_id[rs.stop_id]
+            builder.set_coord(_route_node(route_id, rs.stop_id), stop.lon, stop.lat)
             builder.add_board_edge(
                 stop_node(rs.stop_id),
                 _route_node(route_id, rs.stop_id),
@@ -91,6 +96,7 @@ def build_graph_from_network(
     for p in network.pangkalan:
         node = pangkalan_node(p.id)
         coords[node] = (p.lon, p.lat)
+        builder.set_coord(node, p.lon, p.lat)
         speed = ANDONG_SPEED_MPS if p.type == "andong" else BECAK_SPEED_MPS
         add_edge = builder.add_andong_edge if p.type == "andong" else builder.add_becak_edge
         for stop in network.stops:
@@ -105,6 +111,7 @@ def build_graph_from_network(
         node = walk_node(wn.id)
         walk_coords[node] = (wn.lon, wn.lat)
         coords[node] = (wn.lon, wn.lat)
+        builder.set_coord(node, wn.lon, wn.lat)
 
     for we in network.walk_edges:
         builder.add_walk_edge(walk_node(we.u), walk_node(we.v), we.length_m)
