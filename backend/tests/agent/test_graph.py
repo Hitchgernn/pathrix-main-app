@@ -1,11 +1,13 @@
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
+from langchain_core.tools import tool
 
 from app.agent.graph import MAX_TOOL_ROUNDS, build_agent_graph
 from app.agent.tools import make_toggle_layer_tool
 from app.models.agent import Viewport
 from app.models.geo import BBox, Coord
+from app.models.routing import Route, RouteLeg
 
 
 class ScriptedChatModel(BaseChatModel):
@@ -35,6 +37,7 @@ def _initial_state():
         ),
         "active_layers": set(),
         "last_route": None,
+        "last_carbon": None,
         "ui_commands": [],
         "locale": "id",
     }
@@ -106,3 +109,35 @@ async def test_agent_stops_looping_after_the_tool_round_budget():
 
     tool_message_count = sum(1 for m in result["messages"] if isinstance(m, ToolMessage))
     assert tool_message_count == MAX_TOOL_ROUNDS
+
+
+async def test_agent_carries_the_last_route_tool_result_into_state():
+    route = Route(
+        legs=[RouteLeg(mode="walk", from_node="a", to_node="b", time_s=60, fare_idr=0)],
+        total_time_s=60,
+        total_fare_idr=0,
+        total_distance_m=80,
+        transfers=0,
+    )
+
+    @tool
+    async def calculate_route(start: str, end: str) -> Route:
+        """Compute a route."""
+        return route
+
+    llm = ScriptedChatModel(
+        responses=[
+            AIMessage(
+                content="",
+                tool_calls=[
+                    {"name": "calculate_route", "args": {"start": "a", "end": "b"}, "id": "call1"}
+                ],
+            ),
+            AIMessage(content="Here's your route."),
+        ]
+    )
+    graph = build_agent_graph(llm, [calculate_route])
+
+    result = await graph.ainvoke(_initial_state())
+
+    assert result["last_route"] == route

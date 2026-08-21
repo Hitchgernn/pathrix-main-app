@@ -10,6 +10,7 @@ from app.models.geo import BBox, Coord
 from app.models.mapid import Feature
 from app.models.routing import CarbonResult, EmissionFactor, Itinerary, Optimize, Route
 from app.routing.carbon import calculate_carbon_savings as routing_calculate_carbon_savings
+from app.routing.constants import W_TRANSFER, W_WALK
 from app.routing.graph import nearest_node
 from app.routing.multistop import plan_multistop as routing_plan_multistop
 from app.routing.shortest_path import calculate_route as routing_calculate_route
@@ -30,9 +31,8 @@ def _objective_scalar(route: Route, optimize: Optimize) -> float:
         return route.total_time_s
     if optimize == "termurah":
         return float(route.total_fare_idr)
-    return float(
-        route.transfers
-    )  # termudah: transfer count as a stand-in for the tuned §7.2 weight
+    walk_m = sum(leg.distance_m for leg in route.legs if leg.mode == "walk")
+    return route.transfers * W_TRANSFER + walk_m * W_WALK
 
 
 def _primary_mode(route: Route) -> str:

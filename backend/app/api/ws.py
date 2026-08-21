@@ -29,6 +29,7 @@ def _init_state(viewport: Viewport) -> AgentState:
         "viewport": viewport,
         "active_layers": set(),
         "last_route": None,
+        "last_carbon": None,
         "ui_commands": [],
         "locale": "id",
     }
@@ -88,7 +89,9 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
                 await websocket.send_json(
                     UICommandOut(action=command.action, payload=command.payload).model_dump()
                 )
-            await websocket.send_json(DoneOut().model_dump())
+            await websocket.send_json(
+                DoneOut(route=result["last_route"], carbon=result["last_carbon"]).model_dump()
+            )
 
             state = {**result, "ui_commands": []}
     except WebSocketDisconnect:

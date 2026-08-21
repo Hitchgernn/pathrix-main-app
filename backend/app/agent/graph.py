@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from app.agent.prompts import SYSTEM_PROMPT
 from app.agent.ui_commands import command_for_tool
 from app.models.agent import AgentState
+from app.models.routing import CarbonResult, Route
 
 MAX_TOOL_ROUNDS = 5  # per-turn tool-call budget, ARCHITECTURE.md §8.4/§12
 
@@ -44,6 +45,8 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
         last = state["messages"][-1]
         tool_messages = []
         new_commands = []
+        last_route = None
+        last_carbon = None
         for call in last.tool_calls:
             selected = tools_by_name.get(call["name"])
             if selected is None:
@@ -70,6 +73,10 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
                 )
                 if command is not None:
                     new_commands.append(command)
+                if isinstance(result, Route):
+                    last_route = result
+                elif isinstance(result, CarbonResult):
+                    last_carbon = result
             except Exception as exc:
                 tool_messages.append(
                     ToolMessage(
@@ -80,7 +87,12 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
                     )
                 )
 
-        return {"messages": tool_messages, "ui_commands": state["ui_commands"] + new_commands}
+        update = {"messages": tool_messages, "ui_commands": state["ui_commands"] + new_commands}
+        if last_route is not None:
+            update["last_route"] = last_route
+        if last_carbon is not None:
+            update["last_carbon"] = last_carbon
+        return update
 
     def respond(state: AgentState) -> dict:
         return {}

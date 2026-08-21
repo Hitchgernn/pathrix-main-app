@@ -4,7 +4,7 @@ from langgraph.graph.message import add_messages
 from pydantic import BaseModel
 
 from app.models.geo import BBox, Coord
-from app.models.routing import Route
+from app.models.routing import CarbonResult, Route
 
 UICommandAction = Literal["toggle_layer", "fly_to", "draw_route", "highlight"]
 
@@ -30,5 +30,6 @@ class AgentState(TypedDict):
     viewport: Viewport
     active_layers: set[str]
     last_route: Route | None
+    last_carbon: CarbonResult | None
     ui_commands: list[UICommand]
     locale: str

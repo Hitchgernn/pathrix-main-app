@@ -2,10 +2,12 @@ from fastapi.testclient import TestClient
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
+from langchain_core.tools import tool
 
 from app.agent.graph import build_agent_graph
 from app.agent.tools import make_toggle_layer_tool
 from app.main import app
+from app.models.routing import Route, RouteLeg
 
 _VIEWPORT = {
     "bbox": {"min_lon": 110.3, "min_lat": -7.85, "max_lon": 110.4, "max_lat": -7.75},
@@ -108,6 +110,46 @@ def test_full_turn_streams_token_then_ui_command_then_done():
         "payload": {"layer_id": "transjogja", "on": True},
     }
     assert done_msg == {"type": "done", "route": None, "carbon": None}
+
+
+def test_done_carries_the_route_computed_this_turn():
+    route = Route(
+        legs=[RouteLeg(mode="walk", from_node="a", to_node="b", time_s=60, fare_idr=0)],
+        total_time_s=60,
+        total_fare_idr=0,
+        total_distance_m=80,
+        transfers=0,
+    )
+
+    @tool
+    async def calculate_route(start: str, end: str) -> Route:
+        """Compute a route."""
+        return route
+
+    llm = ScriptedChatModel(
+        responses=[
+            AIMessage(
+                content="",
+                tool_calls=[
+                    {"name": "calculate_route", "args": {"start": "a", "end": "b"}, "id": "call1"}
+                ],
+            ),
+            AIMessage(content="Here's your route."),
+        ]
+    )
+    graph = build_agent_graph(llm, [calculate_route])
+
+    with TestClient(app) as client:
+        client.app.state.runtime = _FakeRuntime(graph)
+        with client.websocket_connect("/ws") as ws:
+            ws.send_json({"type": "user_message", "text": "route me there", "viewport": _VIEWPORT})
+            ws.receive_json()  # token
+            ws.receive_json()  # ui_command (draw_route)
+            done_msg = ws.receive_json()
+
+    assert done_msg["type"] == "done"
+    assert done_msg["route"] == route.model_dump()
+    assert done_msg["carbon"] is None
 
 
 def test_agent_error_is_reported_not_raised():
