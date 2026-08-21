@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import type { Map as MapLibreMap } from "maplibre-gl";
 import { useStore } from "../store";
 import { setMap } from "../lib/mapHandle";
-import { RAIL_W } from "../lib/tokens";
+import { reapplyRoute } from "../lib/bridge";
+import { paletteFor, RAIL_W } from "../lib/tokens";
 import type { Basemap } from "../lib/tokens";
 
 const STYLE_ID: Record<Basemap, string> = {
@@ -59,6 +60,12 @@ export function MapCanvas() {
 
       instance.on("load", publish);
       instance.on("moveend", publish);
+      // setStyle discards every source and layer the bridge added, so the drawn
+      // route is put back once the incoming style is ready.
+      instance.on("styledata", () => {
+        if (!instance.isStyleLoaded()) return;
+        reapplyRoute(instance, paletteFor(useStore.getState().basemap));
+      });
 
       map.current = instance;
       setMap(instance);
@@ -74,8 +81,8 @@ export function MapCanvas() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Basemap switch. setStyle drops the style's own layers, so anything the
-  // bridge added is re-applied by the caller on the next ui_command.
+  // Basemap switch. The styledata handler above re-applies the drawn route in
+  // the incoming palette.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;

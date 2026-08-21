@@ -96,7 +96,9 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 
 `src/lib/bridge.ts` is the map ↔ agent bridge (`ARCHITECTURE.md` §10.2): a pure switch over the closed `UICommandAction` set. `toggle_layer` is store state and deliberately falls through to the Zustand store instead; the other three are imperative MapLibre calls. `src/lib/mapHandle.ts` holds the live map outside React, since a GL context is not renderable state.
 
-Two contract gaps are visible in the UI rather than papered over, both documented in `frontend/README.md`: the backend's `draw_route` payload is a `Route` with node ids and no coordinates, so the bridge draws nothing unless a `geometry` field is present; and with no LLM provider wired, `/ws` replies `llm_unavailable` and the store falls back to the canvas's scripted replies so every screen stays inspectable. All sample content lives in `src/lib/sample.ts`, in one place, labelled.
+`draw_route` draws real geometry: `RouteLeg.coordinates` carries the leg's `[lon, lat]` polyline, pinned onto graph nodes by `routing/build.py` and read back in `shortest_path.calculate_route`. The bridge builds the GeoJSON client-side and paints it in the design's grammar (halo casing, colour and weight by mode, walk dashed) — rendering stays a client concern. A leg with an unpinned endpoint yields an empty list rather than half a line, and `AppShell` falls back to the canvas's authored schematic while nothing is drawable.
+
+One contract gap remains, visible in the UI rather than papered over: with no LLM provider wired, `/ws` replies `llm_unavailable` and the store falls back to the canvas's scripted replies so every screen stays inspectable. All sample content lives in `src/lib/sample.ts`, in one place, labelled.
 
 ## Team workflow
 

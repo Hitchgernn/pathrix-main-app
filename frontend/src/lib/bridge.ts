@@ -1,6 +1,8 @@
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
-import type { GeoJSON } from "geojson";
-import type { ServerMessage, UICommandAction } from "./types";
+import type { Feature, FeatureCollection, GeoJSON, LineString } from "geojson";
+import type { MapPalette } from "./tokens";
+import { MODE_KEY } from "./tokens";
+import type { Route, ServerMessage, UICommandAction } from "./types";
 
 /** The map ↔ agent bridge — ARCHITECTURE.md §10.2.
  *
@@ -10,11 +12,17 @@ import type { ServerMessage, UICommandAction } from "./types";
  */
 
 const ROUTE_SOURCE = "pathrix-agent-route";
-const ROUTE_LAYER = "pathrix-agent-route-line";
+const ROUTE_CASING = "pathrix-agent-route-casing";
+const ROUTE_LINE = "pathrix-agent-route-line";
+const ROUTE_WALK = "pathrix-agent-route-walk";
 const HIGHLIGHT_SOURCE = "pathrix-agent-highlight";
 const HIGHLIGHT_LAYER = "pathrix-agent-highlight-circle";
 
 type Command = Extract<ServerMessage, { type: "ui_command" }>;
+
+/** setStyle drops everything the bridge added, so the last route is kept here
+ *  and re-applied when the new style finishes loading. */
+let lastRoute: Route | null = null;
 
 function flyTo(map: MapLibreMap, payload: Record<string, unknown>): void {
   const { lon, lat, zoom, bbox } = payload as {
@@ -40,33 +48,92 @@ function flyTo(map: MapLibreMap, payload: Record<string, unknown>): void {
 
 function setGeoJson(map: MapLibreMap, id: string, data: GeoJSON): void {
   const existing = map.getSource(id);
-  if (existing && "setData" in existing) {
+  if (existing) {
     (existing as GeoJSONSource).setData(data);
     return;
   }
   map.addSource(id, { type: "geojson", data });
 }
 
-function drawRoute(map: MapLibreMap, payload: Record<string, unknown>, color: string): void {
-  // The backend's draw_route payload is a Route (models/routing.py): legs carry
-  // node ids and costs, not coordinates. Until route geometry is part of that
-  // contract there is nothing to draw, so leave the map alone rather than
-  // inventing a line.
-  const geometry = payload.geometry as GeoJSON | undefined;
-  if (!geometry) return;
+/** One LineString per leg, tagged with the design's visual mode family so the
+ *  paint expressions can colour and weight each leg without a layer per mode. */
+function routeToGeoJson(route: Route): FeatureCollection<LineString> {
+  const features: Feature<LineString>[] = route.legs
+    .filter((leg) => leg.coordinates.length >= 2)
+    .map((leg, index) => ({
+      type: "Feature",
+      properties: { mode: leg.mode, family: MODE_KEY[leg.mode] ?? "blue", index },
+      geometry: { type: "LineString", coordinates: leg.coordinates },
+    }));
+  return { type: "FeatureCollection", features };
+}
 
-  setGeoJson(map, ROUTE_SOURCE, geometry);
-  if (!map.getLayer(ROUTE_LAYER)) {
+const familyColor = (palette: MapPalette) => [
+  "match",
+  ["get", "family"],
+  "walk",
+  palette.walk,
+  "gold",
+  palette.gold,
+  "krl",
+  palette.krl,
+  palette.blue,
+];
+
+const familyWidth = ["match", ["get", "family"], "walk", 3, "gold", 5, "krl", 7, 4];
+const casingWidth = ["match", ["get", "family"], "walk", 9, "gold", 11, "krl", 13, 9];
+
+/** Draws the itinerary in the design's grammar: a halo casing under every leg
+ *  so the colours hold contrast on both basemaps, coloured strokes above it,
+ *  and walk legs dashed and thin — walk is never the hero. */
+function drawRoute(map: MapLibreMap, route: Route, palette: MapPalette): void {
+  const data = routeToGeoJson(route);
+  lastRoute = route;
+
+  // The backend sends coordinates only for legs whose endpoints are pinned on
+  // the graph. Nothing pinned means nothing to draw; leave the map alone.
+  if (data.features.length === 0) return;
+
+  setGeoJson(map, ROUTE_SOURCE, data);
+
+  if (!map.getLayer(ROUTE_CASING)) {
     map.addLayer({
-      id: ROUTE_LAYER,
+      id: ROUTE_CASING,
       type: "line",
       source: ROUTE_SOURCE,
       layout: { "line-cap": "round", "line-join": "round" },
-      paint: { "line-color": color, "line-width": 5 },
+      paint: {
+        "line-color": palette.halo,
+        "line-width": casingWidth as never,
+        "line-opacity": ["match", ["get", "family"], "walk", 0.5, 1] as never,
+      },
     });
-  } else {
-    map.setPaintProperty(ROUTE_LAYER, "line-color", color);
+    map.addLayer({
+      id: ROUTE_LINE,
+      type: "line",
+      source: ROUTE_SOURCE,
+      filter: ["!=", ["get", "family"], "walk"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: { "line-color": familyColor(palette) as never, "line-width": familyWidth as never },
+    });
+    map.addLayer({
+      id: ROUTE_WALK,
+      type: "line",
+      source: ROUTE_SOURCE,
+      filter: ["==", ["get", "family"], "walk"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": palette.walk,
+        "line-width": 3,
+        "line-dasharray": [0.5, 2],
+      },
+    });
+    return;
   }
+
+  map.setPaintProperty(ROUTE_CASING, "line-color", palette.halo);
+  map.setPaintProperty(ROUTE_LINE, "line-color", familyColor(palette) as never);
+  map.setPaintProperty(ROUTE_WALK, "line-color", palette.walk);
 }
 
 function highlight(map: MapLibreMap, payload: Record<string, unknown>, color: string): void {
@@ -93,7 +160,7 @@ function highlight(map: MapLibreMap, payload: Record<string, unknown>, color: st
 export function applyUICommand(
   map: MapLibreMap,
   command: Command,
-  colors: { route: string; highlight: string },
+  palette: MapPalette,
 ): boolean {
   const action: UICommandAction = command.action;
   switch (action) {
@@ -101,14 +168,32 @@ export function applyUICommand(
       flyTo(map, command.payload);
       return true;
     case "draw_route":
-      drawRoute(map, command.payload, colors.route);
+      drawRoute(map, command.payload as unknown as Route, palette);
       return true;
     case "highlight":
-      highlight(map, command.payload, colors.highlight);
+      highlight(map, command.payload, palette.blue);
       return true;
     case "toggle_layer":
       return false;
   }
 }
 
-export const ROUTE_LAYER_ID = ROUTE_LAYER;
+/** Re-draws the last route after a basemap swap, in the new palette. */
+export function reapplyRoute(map: MapLibreMap, palette: MapPalette): void {
+  if (lastRoute) drawRoute(map, lastRoute, palette);
+}
+
+/** Fits the camera to a drawn route. */
+export function fitRoute(map: MapLibreMap, route: Route): void {
+  const points = route.legs.flatMap((leg) => leg.coordinates);
+  if (points.length === 0) return;
+  const lons = points.map((p) => p[0]);
+  const lats = points.map((p) => p[1]);
+  map.fitBounds(
+    [
+      [Math.min(...lons), Math.min(...lats)],
+      [Math.max(...lons), Math.max(...lats)],
+    ],
+    { padding: 72, duration: 900 },
+  );
+}

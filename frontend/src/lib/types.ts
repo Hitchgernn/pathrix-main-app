@@ -27,6 +27,8 @@ export interface RouteLeg {
   time_s: number;
   fare_idr: number;
   distance_m: number;
+  /** [lon, lat] pairs. Empty when either endpoint is unpinned on the graph. */
+  coordinates: [number, number][];
 }
 
 export interface Route {

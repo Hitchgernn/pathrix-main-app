@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { AppShell } from "./components/AppShell";
 import { Dashboard } from "./components/Dashboard";
 import { fetchLayers } from "./lib/api";
-import { applyUICommand } from "./lib/bridge";
+import { applyUICommand, fitRoute } from "./lib/bridge";
 import { getMap } from "./lib/mapHandle";
 import { paletteFor } from "./lib/tokens";
 import { useWindowSize } from "./lib/useWindowSize";
@@ -22,7 +22,9 @@ export default function App() {
           const map = getMap();
           if (map) {
             const palette = paletteFor(useStore.getState().basemap);
-            applyUICommand(map, message, { route: palette.krl, highlight: palette.blue });
+            if (applyUICommand(map, message, palette) && message.action === "draw_route") {
+              fitRoute(map, message.payload as never);
+            }
           }
         }
         useStore.getState().handleServerMessage(message);

@@ -42,20 +42,26 @@ The basemap key necessarily reaches the browser (MapLibre fetches the style URL
 directly). The mission key is server-only and must never appear here —
 `ARCHITECTURE.md` §13.2.
 
+## Drawing a route
+
+`RouteLeg.coordinates` carries each leg's `[lon, lat]` polyline. `lib/bridge.ts`
+turns the legs into a `FeatureCollection`, tags each with its visual mode family,
+and paints three layers in the canvas's grammar: a halo casing under everything,
+coloured strokes weighted by mode, and walk legs dashed and thin. Colour and
+weight are MapLibre `match` expressions rather than a layer per mode.
+
+Rendering is deliberately a client concern — the backend emits coordinates, not
+styling. A leg whose endpoints are unpinned on the routing graph comes back with
+an empty list, and `AppShell` shows the canvas's authored schematic instead of a
+half-drawn line. `setStyle` discards everything the bridge added, so `MapCanvas`
+re-applies the drawn route on `styledata` in the incoming palette.
+
 ## Where the design and the live backend still differ
 
-Both are real gaps, not shortcuts, and both are visible in the UI rather than
-papered over:
-
-- **`draw_route` carries no geometry.** The backend's `draw_route` payload is a
-  `Route` (`models/routing.py`): legs have node ids and costs, not coordinates.
-  `lib/bridge.ts` draws a line when the payload has a `geometry` field and
-  otherwise leaves the map alone. The schematic in `RouteOverlay` is the
-  canvas's authored itinerary, not live geometry.
-- **No LLM provider is wired** (`ARCHITECTURE.md` §15.1). `/ws` answers
-  `llm_unavailable`, and the store falls back to the canvas's scripted replies
-  so every screen stays inspectable. Live replies take over the moment a
-  provider is configured; nothing here needs to change.
+**No LLM provider is wired** (`ARCHITECTURE.md` §15.1). `/ws` answers
+`llm_unavailable`, and the store falls back to the canvas's scripted replies so
+every screen stays inspectable. Live replies take over the moment a provider is
+configured; nothing here needs to change.
 
 Field survey data has not landed either, so layer counts, the POI card, and the
 carbon figures render the canvas's sample content. `lib/sample.ts` holds all of
