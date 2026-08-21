@@ -30,7 +30,7 @@ docker compose up -d db cache    # from the repo root
 
 `routing/` tests are pure — synthetic graphs, no network, no DB, no LLM — and always run.
 
-CI (`.github/workflows/backend-ci.yml`) runs `ruff check` + `pytest` with a `postgis/postgis` service container on every push/PR touching `backend/`.
+CI (`.github/workflows/backend-ci.yml`) runs `ruff check` + `pytest` with `postgis/postgis` and `redis:7-alpine` service containers on every push/PR touching `backend/` — both are required, since the rate-limit middleware and several fixtures hit Redis with no skip-if-unreachable path (unlike the DB-dependent tests).
 
 No LLM provider is configured by default (`LLM_PROVIDER` unset) — this is deliberate (see Agent below), not a setup step you're missing.
 
@@ -55,7 +55,7 @@ One `networkx.MultiDiGraph`, built once at FastAPI startup from whatever's in Po
 
 Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `transfer`, `andong`, `becak` — each computes `time_s`/`fare_idr`/`transfers`/`walk_m` from a headway/distance model (no GTFS feed exists for TransJogja, so service is frequency-based, not timetabled — see `ARCHITECTURE.md` §7.1 for why plain Dijkstra is correct here). One graph, three weight functions (`app/routing/weights.py`): `tercepat` (time), `termurah` (fare), `termudah` (transfers + walk distance, tunable weights still unpicked — `ARCHITECTURE.md` §15.8).
 
-`app/routing/build.py` connects route stops via board→ride→alight chains and pangkalan (andong/becak) to any stop within a fixed radius — there's no pedestrian (OSMnx) walk-node network wired in yet, that's a separate unstarted task.
+`app/routing/build.py` connects route stops via board→ride→alight chains, and snaps stops/pangkalan onto the nearest OSMnx pedestrian walk node (`app/data/osm.py` fetches the walk network — `OsmnxWalkNetworkFetcher` hits the real Overpass API, `FakeWalkNetworkFetcher` is the test double, same `Protocol` pattern as `MapidClient`). Pangkalan also keep a direct-to-stop radius fallback for when no walk network has been ETL'd yet (`PANGKALAN_CONNECT_RADIUS_M`). Live Overpass calls are deliberately excluded from the automated test suite (external API, would make CI flaky) — verify `OsmnxWalkNetworkFetcher` manually before relying on it in a new environment.
 
 ### The agent
 
@@ -66,6 +66,10 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 ### Two-channel WebSocket contract
 
 `/ws` (`app/api/ws.py`) follows `ARCHITECTURE.md` §9.1 exactly: `user_message`/`viewport_changed` in, `token`/`ui_command`/`done`/`error` out. Prose and map-manipulation commands are never mixed in one message — `app/agent/ui_commands.py` derives a `UICommand` from a tool call's typed result, so the client never has to parse instructions out of chat text.
+
+### REST + gateway concerns
+
+`app/api/layers.py` serves `/api/layers` (a static catalogue grounded in what `data/schema.py` actually has tables for — `proposal_pathrix.md`/the PRD aren't in this repo, so it's not a literal transcription of an external doc), `/api/layers/{id}/features` (bbox query, 501 for layers with no repository query wired yet rather than a fake empty response), and `/api/isochrone/{stop_id}` (404 until something's been precomputed). `app/api/ratelimit.py` is a fixed-window Redis `INCR`/`EXPIRE` limiter applied as global middleware — it fails open on a Redis error (`ARCHITECTURE.md` §13: Redis down means slower/uncached, never a hard failure), so don't reintroduce a bare `await cache.incr(...)` without the `RedisError` guard around it.
 
 ### Data layer
 
