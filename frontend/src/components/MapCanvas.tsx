@@ -120,7 +120,12 @@ export function MapCanvas() {
 
   return (
     <div className="absolute inset-0 bg-ground" style={{ left: inset }}>
-      <div ref={container} className="absolute inset-0" />
+      {/* maplibre-gl sets this container's position to relative, which drops
+          Tailwind's inset-0 auto-sizing (that only fills the parent while the
+          element is absolute/fixed) — the div collapsed to height:0 and the
+          canvas never got real dimensions. h-full/w-full sizes it explicitly
+          instead of relying on inset offsets. */}
+      <div ref={container} className="absolute inset-0 h-full w-full" />
       <div
         className="absolute inset-0 pointer-events-none bg-ground transition-opacity"
         style={{ opacity: veiled ? 1 : 0, transitionDuration: `${FADE_MS}ms` }}
