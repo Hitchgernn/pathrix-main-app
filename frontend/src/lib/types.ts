@@ -2,6 +2,8 @@
  *  contract break is a TypeScript error, not a silent runtime shape change.
  *  ARCHITECTURE.md §9.1 is the authority for the WebSocket envelope. */
 
+import type { Geometry } from "geojson";
+
 export interface BBox {
   min_lon: number;
   min_lat: number;
@@ -51,6 +53,15 @@ export interface LayerMeta {
   name: string;
   queryable: boolean;
   description: string;
+}
+
+/** Mirrors models/mapid.py's Feature — a mission-derived row (poi/properti),
+ *  read back from Postgres via /api/layers/{id}/features. geometry is
+ *  whatever GeoJSON geometry ST_AsGeoJSON produced, almost always a Point. */
+export interface MissionFeature {
+  external_id: string;
+  properties: Record<string, unknown>;
+  geometry: Geometry;
 }
 
 /** The closed action set. Adding one means changing models/agent.py and this

@@ -3,6 +3,9 @@ import type { Map as MapLibreMap } from "maplibre-gl";
 import { useStore } from "../store";
 import { setMap } from "../lib/mapHandle";
 import { reapplyRoute } from "../lib/bridge";
+import { fetchLayerFeatures } from "../lib/api";
+import { reapplyMissionLayers, removeMissionLayer, syncMissionLayer } from "../lib/missionLayers";
+import { LAYER_ROWS } from "../lib/sample";
 import { paletteFor, RAIL_W } from "../lib/tokens";
 import type { Basemap } from "../lib/tokens";
 
@@ -12,6 +15,10 @@ const STYLE_ID: Record<Basemap, string> = {
 };
 
 const BASEMAP_KEY = import.meta.env.VITE_MAPID_BASEMAP_KEY ?? "";
+
+/** Matches lib/ws.ts's viewport debounce — the camera fires continuously while
+ *  panning, so a fetch per moveend would spam the layer endpoint. */
+const MISSION_FETCH_DEBOUNCE_MS = 400;
 
 /** MAPID MAPS is a plain MapLibre style-spec v8 document behind a key — there
  *  is no SDK (ARCHITECTURE.md §6.1). */
@@ -27,8 +34,12 @@ export function MapCanvas() {
   const map = useRef<MapLibreMap | null>(null);
   const basemap = useStore((s) => s.basemap);
   const wide = useStore((s) => s.wide);
+  const active = useStore((s) => s.active);
+  const bbox = useStore((s) => s.bbox);
+  const catalogue = useStore((s) => s.catalogue);
   const setCamera = useStore((s) => s.setCamera);
   const [veiled, setVeiled] = useState(false);
+  const drawnMissionLayers = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     if (!BASEMAP_KEY || !container.current) return;
@@ -65,6 +76,7 @@ export function MapCanvas() {
       instance.on("styledata", () => {
         if (!instance.isStyleLoaded()) return;
         reapplyRoute(instance, paletteFor(useStore.getState().basemap));
+        reapplyMissionLayers(instance);
       });
 
       map.current = instance;
@@ -100,6 +112,44 @@ export function MapCanvas() {
     const timer = window.setTimeout(() => instance.resize(), 280);
     return () => window.clearTimeout(timer);
   }, [wide]);
+
+  // Mission layers (poi/properti — the only two /api/layers ids that aren't a
+  // 501 today, per catalogue.queryable): fetch-and-draw whichever are toggled
+  // on, scoped to the current viewport, debounced against the moveend flood.
+  // A layer that's toggled off is removed immediately, no debounce needed for
+  // that direction.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance || !bbox) return;
+
+    const queryable = new Set(catalogue.filter((l) => l.queryable).map((l) => l.id));
+    const liveRows = LAYER_ROWS.filter(
+      (row) => row.backendId !== null && queryable.has(row.backendId) && active.has(row.id),
+    );
+    const liveIds = new Set(liveRows.map((row) => row.backendId as string));
+
+    for (const layerId of drawnMissionLayers.current) {
+      if (!liveIds.has(layerId)) {
+        removeMissionLayer(instance, layerId);
+        drawnMissionLayers.current.delete(layerId);
+      }
+    }
+
+    const timer = window.setTimeout(() => {
+      for (const row of liveRows) {
+        const layerId = row.backendId as string;
+        fetchLayerFeatures(layerId, bbox)
+          .then((features) => {
+            if (!map.current) return;
+            syncMissionLayer(map.current, layerId, features, row.color);
+            drawnMissionLayers.current.add(layerId);
+          })
+          .catch(() => undefined); // a failed mission fetch must never break the map
+      }
+    }, MISSION_FETCH_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [active, bbox, catalogue]);
 
   const inset = wide ? RAIL_W + 14 : 0;
 

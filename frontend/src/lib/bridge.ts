@@ -46,7 +46,10 @@ function flyTo(map: MapLibreMap, payload: Record<string, unknown>): void {
   }
 }
 
-function setGeoJson(map: MapLibreMap, id: string, data: GeoJSON): void {
+/** Adds a GeoJSON source, or updates it in place if it already exists. Shared
+ *  with `missionLayers.ts`, which is a separate viewport-driven REST sync, not
+ *  an agent `ui_command` — the two never overlap in source ids. */
+export function setGeoJson(map: MapLibreMap, id: string, data: GeoJSON): void {
   const existing = map.getSource(id);
   if (existing) {
     (existing as GeoJSONSource).setData(data);
