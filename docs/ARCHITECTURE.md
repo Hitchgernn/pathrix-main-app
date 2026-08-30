@@ -712,6 +712,7 @@ Tracked, not resolved. Each will change part of this document.
 | 7 | Free-transfer window between TransJogja routes | §7.1 | Fare rule unconfirmed |
 | 8 | `W_TRANSFER` / `W_WALK` values | §7.2 | Placeholders in code (300.0 / 1.0) — to be tuned against sample routes |
 | 9 | Graph reload without restart | §7.4 | Deferred; restart is acceptable initially |
+| 10 | MAPID routing API | §7 | Resolved: no public directions API exists. The only routing MAPID's own web app calls is an undocumented, session-JWT-authenticated internal endpoint (`server.mapid.io/sini_v2/routing/...`) — not a stable contract we can build against. Our own Dijkstra graph stays the routing source of truth; `nominatim.mapid.io/search`+`/reverse` is a real, keyless Nominatim mirror worth considering for geocoding if `GeocodeResolver` ever needs a live backend |
 
 ---
 

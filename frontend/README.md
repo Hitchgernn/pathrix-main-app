@@ -8,9 +8,12 @@ Vite + React 18 + TypeScript + Tailwind CSS 4 + Zustand + MapLibre GL JS, per
 
 Every screen here is a transcription of the Claude Design canvas
 `Pathrix App.dc.html` (project `a632566d-7c80-48f4-a429-67aa8da1eba8`). Colours,
-type ramp, spacing, shadows, snap points, and the SVG route schematic are the
-canvas's own values — change the canvas and re-transcribe rather than tuning
-them here, so the design and the build cannot drift apart.
+type ramp, spacing, shadows, and snap points are the canvas's own values —
+change the canvas and re-transcribe rather than tuning them here, so the design
+and the build cannot drift apart. One exception: the canvas's SVG route
+schematic (`RouteOverlay`) was deleted — it drew a fixed diagonal line with no
+relationship to the real MAPID basemap underneath it, which reads as broken
+rather than as a placeholder once the map actually renders.
 
 Component names match the handoff convention in `TEAM_WORKFLOW.md` §4:
 `AgentSheet`, `RouteCard`, `RouteDetail`, `LayerToggleList`,
@@ -52,9 +55,26 @@ weight are MapLibre `match` expressions rather than a layer per mode.
 
 Rendering is deliberately a client concern — the backend emits coordinates, not
 styling. A leg whose endpoints are unpinned on the routing graph comes back with
-an empty list, and `AppShell` shows the canvas's authored schematic instead of a
-half-drawn line. `setStyle` discards everything the bridge added, so `MapCanvas`
-re-applies the drawn route on `styledata` in the incoming palette.
+an empty list, and the map just shows nothing extra rather than a half-drawn
+line or a fake placeholder. `setStyle` discards everything the bridge added, so
+`MapCanvas` re-applies the drawn route on `styledata` in the incoming palette.
+
+## Mission layers
+
+`poi` and `properti` — the two `/api/layers` ids the backend actually serves a
+`GET /api/layers/{id}/features` for (`transit`/`pangkalan` are still a 501) —
+render as real markers on the map, fetched live rather than baked into the
+toggle list. `MapCanvas` watches the Zustand `active` set, the current
+viewport, and the fetched catalogue's `queryable` flags; whenever a queryable
+layer is toggled on, it debounces (400ms, against the `moveend` flood) a call
+to `lib/api.ts::fetchLayerFeatures(layerId, bbox)` and hands the result to
+`lib/missionLayers.ts::syncMissionLayer`, which adds/updates a
+`pathrix-mission-{id}` GeoJSON source and a matching `-circle` layer — the same
+naming convention `lib/bridge.ts` uses for the route and highlight layers.
+Toggling off removes the source/layer immediately; a basemap `setStyle` wipes
+and `reapplyMissionLayers` redraws every currently-on layer from its own small
+cache, same pattern as the route's `reapplyRoute`. A failed or empty fetch is
+swallowed — a missing mission layer degrades to "nothing drawn," never an error.
 
 ## Where the design and the live backend still differ
 
@@ -63,6 +83,8 @@ re-applies the drawn route on `styledata` in the incoming palette.
 every screen stays inspectable. Live replies take over the moment a provider is
 configured; nothing here needs to change.
 
-Field survey data has not landed either, so layer counts, the POI card, and the
-carbon figures render the canvas's sample content. `lib/sample.ts` holds all of
-it in one place, clearly labelled.
+Field survey data has not landed either, so the ETL that would populate `poi`/
+`properti` hasn't run — mission layers are wired end-to-end but will render
+empty until it does. Layer counts, the POI card, and the carbon figures still
+render the canvas's sample content for the same reason. `lib/sample.ts` holds
+all of it in one place, clearly labelled.
