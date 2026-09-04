@@ -35,7 +35,14 @@ export function MapChrome() {
           </span>
         </button>
 
-        <div className="flex flex-none flex-col items-end gap-2">
+        {/* Desktop has the width to sit the two map-wide switches on one row
+            beside the search field. Narrow stacks them so neither eats into the
+            search pill at 390px. */}
+        <div
+          className={`flex flex-none gap-2 ${
+            wide ? "flex-row items-center" : "flex-col items-end"
+          }`}
+        >
           <BasemapSwitcher />
           <button
             onClick={() => togglePanel("sustain")}
