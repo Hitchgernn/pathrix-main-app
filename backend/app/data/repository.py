@@ -28,6 +28,7 @@ from app.models.network import (
     WalkNodeRow,
 )
 from app.models.routing import EmissionFactor
+from app.models.search import PlaceHit
 
 ViewportDataType = Literal["poi", "properti"]
 
@@ -49,6 +50,117 @@ async def query_features_in_viewport(
         Feature(external_id=row.external_id, properties=row.raw, geometry=json.loads(row.geom_json))
         for row in result
     ]
+
+
+async def search_places(session: AsyncSession, query: str, limit: int = 8) -> list[PlaceHit]:
+    """Name search over every mirrored table that has a point and a label.
+
+    Ordered transit stops first, then andong/becak stands, then mission rows:
+    someone typing into a mobility app's search box is far more often looking
+    for a halte than for a listing that happens to share the word. Matching is
+    a case-insensitive substring (`ILIKE`), not full-text — the corpus is a few
+    hundred rows per table, and a tsvector index would be machinery without a
+    workload to justify it yet.
+    """
+    term = f"%{query.strip()}%"
+    if not query.strip():
+        return []
+
+    hits: list[PlaceHit] = []
+
+    stops = await session.execute(
+        select(
+            TransitStop.id,
+            TransitStop.name,
+            TransitStop.operator,
+            func.ST_X(TransitStop.geom),
+            func.ST_Y(TransitStop.geom),
+        )
+        .where(TransitStop.name.ilike(term))
+        .limit(limit)
+    )
+    for stop_id, name, operator, lon, lat in stops:
+        hits.append(
+            PlaceHit(
+                id=f"transit:{stop_id}",
+                name=name,
+                kind="transit",
+                subtitle=operator,
+                lon=lon,
+                lat=lat,
+            )
+        )
+
+    stands = await session.execute(
+        select(
+            Pangkalan.id,
+            Pangkalan.name,
+            Pangkalan.type,
+            func.ST_X(Pangkalan.geom),
+            func.ST_Y(Pangkalan.geom),
+        )
+        .where(Pangkalan.name.ilike(term))
+        .limit(limit)
+    )
+    for stand_id, name, kind, lon, lat in stands:
+        hits.append(
+            PlaceHit(
+                id=f"pangkalan:{stand_id}",
+                name=name or f"Pangkalan {kind}",
+                kind="pangkalan",
+                subtitle=kind,
+                lon=lon,
+                lat=lat,
+            )
+        )
+
+    pois = await session.execute(
+        select(
+            Poi.external_id,
+            Poi.nama_tempat,
+            Poi.kategori,
+            func.ST_X(Poi.geom),
+            func.ST_Y(Poi.geom),
+        )
+        .where(Poi.nama_tempat.ilike(term))
+        .limit(limit)
+    )
+    for external_id, name, kategori, lon, lat in pois:
+        hits.append(
+            PlaceHit(
+                id=f"poi:{external_id}",
+                name=name or "Tempat",
+                kind="poi",
+                subtitle=kategori,
+                lon=lon,
+                lat=lat,
+            )
+        )
+
+    properti = await session.execute(
+        select(
+            Properti.external_id,
+            Properti.alamat,
+            Properti.jenis_properti,
+            func.ST_X(Properti.geom),
+            func.ST_Y(Properti.geom),
+        )
+        .where(Properti.alamat.ilike(term))
+        .limit(limit)
+    )
+    for external_id, alamat, jenis, lon, lat in properti:
+        hits.append(
+            PlaceHit(
+                id=f"properti:{external_id}",
+                name=alamat or "Properti",
+                kind="properti",
+                subtitle=jenis,
+                lon=lon,
+                lat=lat,
+            )
+        )
+
+    return hits[:limit]
 
 
 async def fetch_network_data(session: AsyncSession) -> NetworkData:
