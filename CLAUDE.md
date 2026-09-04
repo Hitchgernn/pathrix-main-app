@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 PATHRIX — a WebGIS AI agent for multimodal mobility navigation in Yogyakarta (TransJogja bus, KRL rail, YIA airport rail, plus andong/becak first/last-mile), built for the MAPID WebGIS Competition 2026. `docs/ARCHITECTURE.md` is the full system design; `docs/PLAN.md` has the build plan, schedule, and stack rationale. **When the docs and the code disagree, the code is right — update the relevant doc in the same change that invalidates it** (`docs/ARCHITECTURE.md` §16).
 
-`backend/` (FastAPI + LangGraph + PostGIS) and `frontend/` (Vite + React + MapLibre) both have code. Frontend implementation is the other person's lane (see Team workflow below) — don't extend it unless explicitly asked; what's there is a transcription of the Claude Design canvas, not an independent design.
+`backend/` (FastAPI + LangGraph + PostGIS) and `frontend/` (Vite + React + MapLibre) both have code. Frontend implementation is nominally the other person's lane (see Team workflow below) — don't extend it unless explicitly asked.
 
 ## Commands
 
@@ -84,7 +84,12 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 
 ### REST + gateway concerns
 
-`app/api/layers.py` serves `/api/layers` (a static catalogue grounded in what `data/schema.py` actually has tables for — `proposal_pathrix.md`/the PRD aren't in this repo, so it's not a literal transcription of an external doc), `/api/layers/{id}/features` (bbox query, 501 for layers with no repository query wired yet rather than a fake empty response), and `/api/isochrone/{stop_id}` (404 until something's been precomputed). `app/api/ratelimit.py` is a fixed-window Redis `INCR`/`EXPIRE` limiter applied as global middleware — it fails open on a Redis error (`ARCHITECTURE.md` §13: Redis down means slower/uncached, never a hard failure), so don't reintroduce a bare `await cache.incr(...)` without the `RedisError` guard around it.
+`app/api/search.py` serves `GET /api/geocode?q=&limit=` — the search box behind
+Home and Explore. It reuses `data/repository.search_places` (an `ILIKE` sweep
+over `transit_stops`, `pangkalan`, `poi`, `properti`, transit-first) and
+`GeocodeResolver.search`, which is Nominatim bounded to `YOGYA_VIEWBOX` because
+answering "Malioboro" with a street in Surabaya is a wrong answer, not a broader
+one. `app/api/layers.py` serves `/api/layers` (a static catalogue grounded in what `data/schema.py` actually has tables for — `proposal_pathrix.md`/the PRD aren't in this repo, so it's not a literal transcription of an external doc), `/api/layers/{id}/features` (bbox query, 501 for layers with no repository query wired yet rather than a fake empty response), and `/api/isochrone/{stop_id}` (404 until something's been precomputed). `app/api/ratelimit.py` is a fixed-window Redis `INCR`/`EXPIRE` limiter applied as global middleware — it fails open on a Redis error (`ARCHITECTURE.md` §13: Redis down means slower/uncached, never a hard failure), so don't reintroduce a bare `await cache.incr(...)` without the `RedisError` guard around it.
 
 ### Data layer
 
@@ -92,15 +97,98 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 
 ### The frontend
 
-`frontend/` is a transcription of the Claude Design canvas `Pathrix App.dc.html` (project `a632566d-7c80-48f4-a429-67aa8da1eba8`) onto the stack `PLAN.md` §3.2 already committed to: Vite + React 18 + TS + Tailwind 4 + Zustand + MapLibre GL JS. **The canvas is the visual source of truth** — colours, type ramp, snap points, shadows, and the SVG itinerary schematic are its values, re-transcribed rather than tuned locally, so design and build can't drift. Component names follow the `TEAM_WORKFLOW.md` §4 handoff convention (`AgentSheet`, `RouteCard`, `LayerToggleList`, `SustainabilityStat`, `BasemapSwitcher`).
+`frontend/` is a five-destination map app on the stack `PLAN.md` §3.2 committed
+to: Vite + React 18 + TS + Tailwind 4 + Zustand + MapLibre GL JS, plus
+`lucide-react` for iconography and a handful of Radix primitives vendored
+shadcn-style into `src/components/ui/` (tabs, switch, avatar) with `cmdk` behind
+the search palette. It began as a transcription of the Claude Design canvas
+`Pathrix App.dc.html`; **that canvas is no longer the visual source of truth** —
+`docs/DESIGN.md` is, and `src/styles/index.css` is its implementation.
 
-`src/lib/bridge.ts` is the map ↔ agent bridge (`ARCHITECTURE.md` §10.2): a pure switch over the closed `UICommandAction` set. `toggle_layer` is store state and deliberately falls through to the Zustand store instead; the other three are imperative MapLibre calls. `src/lib/mapHandle.ts` holds the live map outside React, since a GL context is not renderable state.
+**Surfaces:** `home` (greeting, search, quick actions, saved strip, recents),
+`explore` (the map plus its floating chrome), `agent`, `saved`, `profile`, plus
+a one-time location-permission screen and a place-detail sheet. One definition
+list (`components/nav/tabs.ts`) drives both the mobile tab bar and the desktop
+sidebar so they cannot drift.
 
-`draw_route` draws real geometry: `RouteLeg.coordinates` carries the leg's `[lon, lat]` polyline, pinned onto graph nodes by `routing/build.py` and read back in `shortest_path.calculate_route`. The bridge builds the GeoJSON client-side and paints it in the design's grammar (halo casing, colour and weight by mode, walk dashed) — rendering stays a client concern. A leg with an unpinned endpoint yields an empty list rather than half a line, and the map simply shows nothing extra while no route is drawable — the canvas's authored route schematic (`RouteOverlay`) was removed because it drew a fixed diagonal line unrelated to the real basemap underneath it, not a genuine fallback.
+**The layout switch is `components/AppShell.tsx` and there is only one.** Below
+900px the active screen stacks over the map with a floating `TabBar`; at or
+above it the nav promotes to `NavSidebar` (248px, collapsible to 76px) and the
+screen to a 384px context panel beside a map that stays in frame. Both branches
+render the same components — desktop is the mobile design promoted, not a second
+product. The map mounts once (first Explore visit, or on idle when wide) and is
+then only hidden, never unmounted: MapLibre stays out of the first paint per
+`ARCHITECTURE.md` §14, but tearing down a GL context per tab switch costs far
+more than keeping it.
 
-Mission-derived layers (`poi`, `properti` — the two `/api/layers` ids the backend actually serves; `transit`/`pangkalan` still 501) render as real map markers, not just a toggle-list row: `MapCanvas` watches the Zustand `active` set, the current viewport, and `/api/layers`' `queryable` flags, and fetches `/api/layers/{id}/features` (debounced against `moveend`) for whichever are both toggled on and queryable, drawing them via `lib/missionLayers.ts` (`pathrix-mission-{id}` source/circle-layer, mirroring `bridge.ts`'s naming). A failed fetch is swallowed the same way `fetchLayers` is — a missing/slow mission layer must never break the map.
+**Colour:** `docs/DESIGN.md` is the visual source of truth and
+`src/styles/index.css` is its implementation. Warm bone ground (`#f3f1ee`),
+white and frosted surfaces, **near-black as the action colour** so every filled
+control is the same ink the body text is set in, and one gold accent doing
+exactly one job per screen. There is no blue in the chrome and no coloured
+button anywhere: a saturated primary competes with route lines on the one
+screen where route lines are the product.
 
-One contract gap remains, visible in the UI rather than papered over: with no LLM provider wired, `/ws` replies `llm_unavailable` and the store falls back to the canvas's scripted replies so every screen stays inspectable. All sample content lives in `src/lib/sample.ts`, in one place, labelled.
+Every ink step is a measured composite, recorded with its ratio in
+`styles/index.css` — `--color-ink-3` is the smallest step still AA for text and
+`--color-ink-4` is non-text only. `lib/tokens.ts` mirrors what JS needs and must
+move with the CSS. The **map category palette in `tokens.ts` is inherited
+unchanged** and is the only place `instrument-blue` still appears: those hexes
+were verified against MAPID's real `street-v2.0`/`dark-v2.0` paint, and
+repainting the chrome did not change the basemap under a route line.
+
+Archivo carries every label in sentence case; **IBM Plex Mono is reserved for
+figures** (fares, durations, distances, coordinates, counts) and is loaded at
+400/500 only, so a figure never goes above `font-medium`. No uppercase
+tracked-out eyebrows above headings — that was most of what made the earlier
+build read as an instrument panel rather than an app.
+
+Base resets live inside `@layer base` — an unlayered `button { background: none }`
+outranks every layered utility and silently turns each button-shaped floating
+control transparent over the map.
+
+**Photographs are real or absent.** `lib/photos.ts` resolves named Yogyakarta
+landmarks against Wikipedia's REST summary endpoint (keyless, cached a week,
+credited in the place sheet) via a hand-curated article map, because a fuzzy
+title search always returns a photograph of *something*. Anything it cannot
+honestly identify renders the drawn placeholder instead. Only a real answer is
+cached: a 200 with no thumbnail counts, a 429 or a network failure does not.
+
+**Persistence is localStorage only** (`store/persist.ts`, one `pathrix.v1` key):
+profile, saved places, saved routes, recents, location permission, onboarding.
+There is no auth and no user table, so the UI says "tersimpan di perangkat ini"
+rather than implying an account. Every read tolerates a missing or corrupt value.
+
+`src/lib/bridge.ts` is the map ↔ agent bridge (`ARCHITECTURE.md` §10.2): a pure
+switch over the closed `UICommandAction` set. `toggle_layer` is store state and
+deliberately falls through to Zustand; the other three are imperative MapLibre
+calls. `src/lib/mapHandle.ts` holds the live map outside React, and
+`src/lib/actions.ts` holds the gestures that touch both (go to a place, ask from
+anywhere, recentre) so no component reaches for a GL context itself.
+
+`draw_route` draws real geometry: `RouteLeg.coordinates` carries the leg's
+`[lon, lat]` polyline, pinned onto graph nodes by `routing/build.py` and read
+back in `shortest_path.calculate_route`. A leg with an unpinned endpoint yields
+an empty list rather than half a line.
+
+Mission-derived layers (`poi`, `properti` — the two `/api/layers` ids the backend
+actually serves; `transit`/`pangkalan` still 501) render as real map markers:
+`MapCanvas` watches the Zustand `active` set, the viewport, and the catalogue's
+`queryable` flags, and fetches `/api/layers/{id}/features` (debounced against
+`moveend`), drawing them via `lib/missionLayers.ts`. Tapping one opens the place
+sheet. Filter chips and the layer panel write to the same `active` set — one
+source of truth at two densities. A failed fetch is swallowed: a missing or slow
+mission layer must never break the map.
+
+Search is real: `GET /api/geocode` (`backend/app/api/search.py`) returns mirrored
+halte/pangkalan/mission rows first, then Nominatim addresses biased to the
+Yogyakarta viewbox, and a Nominatim failure degrades to DB-only results.
+
+One contract gap remains, visible in the UI rather than papered over: with no LLM
+provider wired, `/ws` replies `llm_unavailable`, the agent header reads "MODE
+CONTOH · LLM BELUM TERPASANG", and the store falls back to the canvas's scripted
+replies so every screen stays inspectable. All sample content lives in
+`src/lib/sample.ts`, in one place, labelled.
 
 ## Team workflow
 
