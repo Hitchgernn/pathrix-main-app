@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { AppShell } from "./components/AppShell";
-import { Dashboard } from "./components/Dashboard";
 import { fetchLayers } from "./lib/api";
 import { applyUICommand, fitRoute } from "./lib/bridge";
 import { getMap } from "./lib/mapHandle";
@@ -10,8 +9,9 @@ import { AgentSocket } from "./lib/ws";
 import { useStore } from "./store";
 
 export default function App() {
-  const screen = useStore((s) => s.screen);
   useWindowSize(); // also keeps the wide/narrow breakpoint in the store
+  const wide = useStore((s) => s.wide);
+  const mapMounted = useStore((s) => s.mapMounted);
 
   // One socket for the session. ui_commands fan out: map-affecting ones to the
   // bridge, layer visibility to the store (ARCHITECTURE.md §10.2).
@@ -57,9 +57,25 @@ export default function App() {
       .catch(() => undefined);
   }, []);
 
+  // On wide viewports the map is in frame under every screen, so it is mounted
+  // once the browser is idle rather than on the first visit to Explore. The
+  // first paint still has no MapLibre in it — which is what the §14 load budget
+  // actually asks for — but the desktop layout is not missing its base layer.
+  useEffect(() => {
+    if (!wide || mapMounted) return;
+    const mount = () => useStore.setState({ mapMounted: true });
+    const idle = window.requestIdleCallback;
+    if (idle) {
+      const handle = idle(mount, { timeout: 2000 });
+      return () => window.cancelIdleCallback?.(handle);
+    }
+    const timer = window.setTimeout(mount, 600);
+    return () => window.clearTimeout(timer);
+  }, [wide, mapMounted]);
+
   return (
     <div className="fixed inset-0 overflow-hidden bg-ground font-sans text-ink">
-      {screen === "dashboard" ? <Dashboard /> : <AppShell />}
+      <AppShell />
     </div>
   );
 }

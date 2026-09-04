@@ -1,28 +1,35 @@
+import { LocateFixed, Locate } from "lucide-react";
+import { recenterOnUser } from "../lib/actions";
 import { getMap } from "../lib/mapHandle";
 import { useStore, YOGYA_CENTER, YOGYA_ZOOM } from "../store";
 
 interface RecenterFabProps {
-  /** Sits above the agent sheet on mobile, so it moves with the snap point. */
+  /** Sits above whatever is anchored to the bottom, so it moves with the sheet. */
   bottom: number;
 }
 
+/** Centre on you if you have granted location, otherwise on the Kraton. The
+ *  icon says which of the two it will do — a filled crosshair only once a real
+ *  fix exists, so the control never promises a position it does not have. */
 export function RecenterFab({ bottom }: RecenterFabProps) {
-  const wide = useStore((s) => s.wide);
+  const userCoord = useStore((s) => s.userCoord);
+  const hasFix = userCoord !== null;
 
   return (
     <button
-      onClick={() =>
-        getMap()?.flyTo({ center: YOGYA_CENTER, zoom: YOGYA_ZOOM, duration: 900 })
-      }
-      aria-label="Pusatkan peta"
-      className="surface-sheet absolute right-4 z-25 flex h-12 w-12 items-center justify-center rounded-full shadow-card transition-[bottom] duration-[260ms] ease-[var(--ease-snap)]"
-      style={{ bottom: wide ? 24 : bottom }}
+      onClick={() => {
+        if (recenterOnUser()) return;
+        getMap()?.flyTo({ center: YOGYA_CENTER, zoom: YOGYA_ZOOM, duration: 900 });
+      }}
+      aria-label={hasFix ? "Pusatkan ke lokasi Anda" : "Pusatkan ke Yogyakarta"}
+      className="surface-float absolute right-3 z-40 flex h-12 w-12 items-center justify-center rounded-full shadow-float ring-1 ring-line transition-[bottom] duration-300 ease-[var(--ease-out-expo)]"
+      style={{ bottom }}
     >
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#17293a" strokeWidth="1.8">
-        <circle cx="12" cy="12" r="3.2" />
-        <circle cx="12" cy="12" r="7.6" opacity=".45" />
-        <path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3" />
-      </svg>
+      {hasFix ? (
+        <LocateFixed size={20} strokeWidth={1.9} className="text-ink" />
+      ) : (
+        <Locate size={20} strokeWidth={1.9} className="text-ink-2" />
+      )}
     </button>
   );
 }
