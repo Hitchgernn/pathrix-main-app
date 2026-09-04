@@ -42,9 +42,9 @@ export const paletteFor = (basemap: Basemap): MapPalette => PALETTE[basemap];
  *  action colour is ink, not a hue. */
 export const SURFACE = "#ffffff";
 export const SURFACE_FLOAT = "rgba(255,255,255,.86)";
-export const GROUND = "#f3f1ee";
+export const GROUND = "#ffffff";
 export const INK = "#17171a";
-export const LINE = "rgba(23,23,26,.08)";
+export const LINE = "rgba(23,23,26,.1)";
 /** Fill-only accent (3.04:1 on white — a graphical object, never text) and the
  *  deep pair for anything that has to be read (6.06:1). */
 export const GOLD = "#c08a2e";

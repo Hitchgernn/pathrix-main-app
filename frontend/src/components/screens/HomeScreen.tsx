@@ -6,7 +6,7 @@ import { usePhoto } from "../../lib/usePhoto";
 import { recentsForDisplay, useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
 import { Carriage, type GlyphProps } from "../icons";
-import { SearchField } from "../search/SearchField";
+import { SearchBar } from "../search/SearchPanel";
 
 const TILE_ICON: Record<QuickAction["icon"], ComponentType<GlyphProps>> = {
   route: Route,
@@ -68,7 +68,7 @@ export function HomeScreen() {
         <span className="font-medium">Mau ke mana hari ini?</span>
       </h1>
 
-      <SearchField className="mt-6" />
+      <SearchBar variant="page" className="mt-6" />
 
       {/* The reference's wide "Book a ride" card: one filled action against a
           quiet surface, with the useful figure sitting beside it. */}

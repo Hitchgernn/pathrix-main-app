@@ -1,8 +1,9 @@
-import { Leaf, Search } from "lucide-react";
+import { Leaf } from "lucide-react";
 import { NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
 import { useStore } from "../store";
 import { BasemapSwitcher } from "./BasemapSwitcher";
 import { FilterChips } from "./explore/FilterChips";
+import { SearchBar } from "./search/SearchPanel";
 
 /** Everything floating over the map on the Explore tab.
  *
@@ -16,7 +17,7 @@ export function MapChrome() {
   const navCollapsed = useStore((s) => s.navCollapsed);
   const panel = useStore((s) => s.panel);
   const togglePanel = useStore((s) => s.togglePanel);
-  const setSearchOpen = useStore((s) => s.setSearchOpen);
+  const searchOpen = useStore((s) => s.searchOpen);
 
   return (
     <div
@@ -24,18 +25,18 @@ export function MapChrome() {
       style={{ left: wide ? (navCollapsed ? NAV_W_COLLAPSED : NAV_W) + 8 : 0 }}
     >
       <div className="flex items-start gap-2">
-        <button
-          onClick={() => setSearchOpen(true)}
-          className="surface-float pointer-events-auto flex min-w-0 flex-1 items-center gap-[10px] rounded-control px-[15px] py-[12px] text-left shadow-float ring-1 ring-line transition-colors hover:bg-surface"
-          style={wide ? { maxWidth: 420 } : undefined}
-        >
-          <Search size={18} strokeWidth={1.9} className="flex-none text-ink-4" />
-          <span className="min-w-0 flex-1 truncate text-[15px] text-ink-3">
-            Cari halte, tempat, atau alamat
-          </span>
-        </button>
+        <div className="min-w-0 flex-1" style={wide ? { maxWidth: 420 } : undefined}>
+          <SearchBar variant="map" />
+        </div>
 
-        <div className="flex flex-none flex-col items-end gap-2">
+        {/* Desktop has the width to sit the two map-wide switches on one row
+            beside the search field. Narrow stacks them so neither eats into the
+            search pill at 390px. */}
+        <div
+          className={`flex flex-none gap-2 ${
+            wide ? "flex-row items-center" : "flex-col items-end"
+          }`}
+        >
           <BasemapSwitcher />
           <button
             onClick={() => togglePanel("sustain")}
@@ -50,7 +51,7 @@ export function MapChrome() {
         </div>
       </div>
 
-      <FilterChips />
+      {!searchOpen && <FilterChips />}
     </div>
   );
 }
