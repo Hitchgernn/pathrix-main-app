@@ -392,7 +392,9 @@ class MapidClient(Protocol):
 
 `https://nominatim.mapid.io` — standard Nominatim, forward and reverse, **no key required**. Verified on Yogyakarta (`Malioboro` → `-7.7952921, 110.3657274`; reverse at Tugu returns an OSM way).
 
-**Deliberately not an agent tool.** It is an internal resolver in `app/data/geocode.py`, called inside `calculate_route` and `plan_multistop` so their arguments accept a coordinate *or* a place string. This preserves the exact five-tool surface the PRD commits to (§8.3). Promote it only if standalone place search becomes necessary.
+**Deliberately not an agent tool.** It is an internal resolver in `app/data/geocode.py`, called inside `calculate_route` and `plan_multistop` so their arguments accept a coordinate *or* a place string. This preserves the exact five-tool surface the PRD commits to (§8.3).
+
+**It is, however, exposed over REST** as `GET /api/geocode` (§9.2) — the app's search box needs standalone place search, and that is a client concern, not a sixth agent tool. `GeocodeResolver.search()` returns several candidates where `forward()` returns one coordinate, and bounds the query to `YOGYA_VIEWBOX` (`110.00,-7.50,110.95,-8.25`): the product only routes inside the special region, so answering "Malioboro" with a street in Surabaya is a wrong answer, not a broader one.
 
 Cache resolutions in Redis keyed by normalised query string — place names repeat heavily and this is free latency.
 
@@ -553,9 +555,12 @@ WebSocket carries the conversation. REST carries everything else:
 ```
 GET  /api/layers                 layer catalogue + metadata
 GET  /api/layers/{id}/features   bbox-filtered features (also feeds vector tiles)
+GET  /api/geocode?q=&limit=      place search: mirrored rows, then addresses
 GET  /api/isochrone/{stop_id}    precomputed polygon
 GET  /api/health                 db · redis · graph-loaded
 ```
+
+`/api/geocode` ranks local rows above geocoded ones — a halte we hold data for beats a street that merely shares a word — and a Nominatim failure returns the DB-only results rather than a 500, per §2.5.
 
 `/api/health` reporting graph state matters — an API that is up but has no routing graph is worse than one that is down, because it fails silently.
 
@@ -568,10 +573,14 @@ GET  /api/health                 db · redis · graph-loaded
 Three Zustand slices with one rule: **the map is the source of truth for viewport; the store mirrors it.** MapLibre owns camera state, the store subscribes. Two-way binding on a camera is how you get feedback loops and jitter.
 
 ```ts
-interface MapSlice    { bbox: BBox; zoom: number; center: LngLat }
-interface LayerSlice  { active: Set<string>; catalogue: LayerMeta[] }
-interface AgentSlice  { messages: Message[]; streaming: boolean; lastRoute: Route | null }
+interface MapSlice     { bbox: BBox; zoom: number; center: LngLat; userCoord: LngLat | null }
+interface LayerSlice   { active: Set<string>; catalogue: LayerMeta[] }
+interface AgentSlice   { messages: Message[]; streaming: boolean; lastRoute: Route | null }
+interface UiSlice      { tab: Tab; mapMounted: boolean; selectedPlace: Place | null; … }
+interface PersistSlice { profile; savedPlaces; savedRoutes; recents; locationPermission }
 ```
+
+`PersistSlice` is backed by localStorage under one `pathrix.v1` key (`store/persist.ts`), debounced on write and defensive on read. **There is no auth and no user table** (§5.1 has none), so this is genuinely per-device state and the Profile screen says so rather than implying an account.
 
 ### 10.2 The map ↔ agent bridge `[DESIGNED]`
 
@@ -582,15 +591,42 @@ The single most integration-sensitive piece. One module, `lib/bridge.ts`:
 
 `ui_command` handling is a **pure switch over a closed action set**. Adding an action means changing the schema in `models/` and both ends deliberately — not sending a new string and hoping.
 
-### 10.3 Layout `[DESIGNED]`
+### 10.3 Layout `[IMPLEMENTED]`
 
-Full-bleed map. Agent in a bottom sheet with three snap points (peek / half / full). Layer panel is a second sheet, not a sidebar — a sidebar at 390px is precisely how existing WebGIS tools lose the users this product exists for. Desktop promotes the sheet to a left rail without changing the component tree.
+Five destinations — Beranda, Peta, Agen, Tersimpan, Profil — from one definition list (`components/nav/tabs.ts`), and **one layout switch** (`components/AppShell.tsx`).
 
-### 10.4 Basemap and tokens `[DESIGNED]`
+Below the 900px breakpoint the active screen stacks over the map with a floating tab bar; at or above it the nav promotes to a 248px sidebar (collapsible to 76px) and the screen to a 384px context panel beside a map that stays in frame. Both branches render the same components: desktop is the mobile design promoted, not a second product.
 
-`street-v2.0` default, `dark-v2.0` for the dark treatment. Design tokens are copied from the landing page's `src/styles/tokens.css` into the Tailwind theme (copied, not cross-imported).
+On Peta the map is full-bleed with everything else floating over it. The agent keeps its three-snap bottom sheet (peek / half / full — peek is sized to fit its composer, not an arbitrary 96px), and the layer panel is a second sheet rather than a sidebar: a sidebar at 390px is precisely how existing WebGIS tools lose the users this product exists for.
 
-Verify route and marker contrast against **both** basemap styles — a line colour that reads on street disappears on satellite.
+The map mounts once — on the first visit to Peta, or on browser idle at the wide breakpoint — and is thereafter hidden rather than unmounted. That keeps MapLibre out of the first paint (§14) while avoiding a WebGL context teardown per tab switch.
+
+### 10.4 Basemap and tokens `[IMPLEMENTED]`
+
+`street-v2.0` default, `dark-v2.0` for the dark treatment.
+
+**`docs/DESIGN.md` is the visual source of truth**, implemented in
+`frontend/src/styles/index.css`. The chrome register is a warm bone ground, white
+and frosted surfaces, near-black as the action colour, and one gold accent. Ink
+steps are measured composites recorded with their ratios, not values chosen by
+eye: `--color-ink-3` is the smallest step still ≥4.5:1 on both surfaces, and
+`--color-ink-4` is restricted to non-text use at ≥3:1 (WCAG 1.4.11).
+
+**The map category palette is untouched by that chrome.** Those hexes were
+verified against MAPID's real `street-v2.0`/`dark-v2.0` paint, and it is the only
+place the brand blue still appears in the product. `lib/tokens.ts` mirrors every
+value JS needs (MapLibre paint props, inline styles) and must move with the CSS.
+
+Verify route and marker contrast against **both** basemap styles: a line colour
+that reads on street disappears on dark.
+
+Two implementation traps worth recording. Base element resets must live inside
+`@layer base`; an unlayered `button { background: none }` outranks every layered
+Tailwind utility, which silently rendered each button-shaped floating control
+transparent over the map. And a failed remote lookup must never be cached as a
+negative result: `lib/photos.ts` writes only real answers, because a transient
+Wikipedia 429 was otherwise persisted for a week as "this place has no
+photograph".
 
 ---
 

@@ -1,9 +1,10 @@
+import { Moon, Sun } from "lucide-react";
 import { useStore } from "../store";
 import type { Basemap } from "../lib/tokens";
 
-const OPTIONS: { id: Basemap; label: string }[] = [
-  { id: "street", label: "STREET" },
-  { id: "dark", label: "DARK" },
+const OPTIONS: { id: Basemap; label: string; Icon: typeof Sun }[] = [
+  { id: "street", label: "Peta terang", Icon: Sun },
+  { id: "dark", label: "Peta gelap", Icon: Moon },
 ];
 
 /** Route and marker contrast is verified against both treatments — a stroke
@@ -13,18 +14,24 @@ export function BasemapSwitcher() {
   const setBasemap = useStore((s) => s.setBasemap);
 
   return (
-    <div className="surface-sheet flex gap-[2px] rounded-full p-[3px] shadow-sheet">
-      {OPTIONS.map((option) => {
-        const active = basemap === option.id;
+    <div
+      role="group"
+      aria-label="Gaya peta"
+      className="surface-float pointer-events-auto flex gap-[2px] rounded-control p-[3px] shadow-card ring-1 ring-line"
+    >
+      {OPTIONS.map(({ id, label, Icon }) => {
+        const active = basemap === id;
         return (
           <button
-            key={option.id}
-            onClick={() => setBasemap(option.id)}
-            className={`kicker pointer-events-auto rounded-full px-[14px] py-[7px] transition-colors ${
-              active ? "bg-blue text-surface" : "text-ink-60"
+            key={id}
+            onClick={() => setBasemap(id)}
+            aria-label={label}
+            aria-pressed={active}
+            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+              active ? "bg-ink text-surface" : "text-ink-3 hover:bg-surface-2"
             }`}
           >
-            {option.label}
+            <Icon size={16} strokeWidth={1.9} />
           </button>
         );
       })}

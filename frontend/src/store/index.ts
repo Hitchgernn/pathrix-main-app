@@ -8,10 +8,20 @@ import type {
   ServerMessage,
 } from "../lib/types";
 import type { Basemap } from "../lib/tokens";
-import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE } from "../lib/sample";
+import type { Place, RecentEntry, SavedRoute } from "../lib/places";
+import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE, SEED_RECENTS } from "../lib/sample";
 import type { AgentSocket } from "../lib/ws";
+import {
+  capRecents,
+  clearPersisted,
+  loadPersisted,
+  savePersisted,
+  type LocationPermission,
+  type PersistedState,
+  type Profile,
+} from "./persist";
 
-export type Screen = "dashboard" | "app";
+export type Tab = "home" | "explore" | "saved" | "agent" | "profile";
 export type AgentSnap = "peek" | "half" | "full";
 export type PanelName = "layers" | "route" | "sustain";
 export type PanelSnap = "half" | "full";
@@ -29,15 +39,19 @@ interface MapSlice {
   zoom: number;
   center: [number, number];
   basemap: Basemap;
+  /** Where the browser says the user is, once they allow it. */
+  userCoord: [number, number] | null;
   /** MapLibre owns camera state; the store mirrors it. Never bind back. */
   setCamera(center: [number, number], zoom: number, bbox: BBox): void;
   setBasemap(basemap: Basemap): void;
+  setUserCoord(coord: [number, number] | null): void;
 }
 
 interface LayerSlice {
   active: Set<string>;
   catalogue: LayerMeta[];
   toggleLayer(id: string, on?: boolean): void;
+  setLayers(ids: string[]): void;
   setCatalogue(catalogue: LayerMeta[]): void;
 }
 
@@ -56,18 +70,22 @@ interface AgentSlice {
 }
 
 interface UiSlice {
-  screen: Screen;
+  tab: Tab;
+  /** True once Explore has been opened. MapLibre is kept out of the first paint
+   *  (ARCHITECTURE.md §14) but never unmounted afterwards — tearing down a GL
+   *  context on every tab switch is far more expensive than hiding it. */
+  mapMounted: boolean;
   agentSnap: AgentSnap;
   dragH: number | null;
   panel: PanelName | null;
   panelSnap: PanelSnap;
   legOpen: number | null;
-  poi: boolean;
-  barOpen: boolean;
+  selectedPlace: Place | null;
+  searchOpen: boolean;
+  navCollapsed: boolean;
   input: string;
   wide: boolean;
-  sustainEmpty: boolean;
-  setScreen(screen: Screen): void;
+  setTab(tab: Tab): void;
   setAgentSnap(snap: AgentSnap): void;
   setDragH(height: number | null): void;
   cycleAgentSnap(): void;
@@ -76,36 +94,44 @@ interface UiSlice {
   closePanel(): void;
   cyclePanelSnap(): void;
   setLegOpen(index: number | null): void;
-  setPoi(open: boolean): void;
-  setBarOpen(open: boolean): void;
+  selectPlace(place: Place | null): void;
+  setSearchOpen(open: boolean): void;
+  setNavCollapsed(collapsed: boolean): void;
   setInput(value: string): void;
   setWide(wide: boolean): void;
-  setSustainEmpty(empty: boolean): void;
-  jump(state: JumpState): void;
 }
 
-export type JumpState =
-  | "empty"
-  | "thinking"
-  | "route"
-  | "leg"
-  | "layers"
-  | "poi"
-  | "sustain"
-  | "sustainEmpty"
-  | "dark";
+interface PersistSlice extends PersistedState {
+  setProfile(profile: Partial<Profile>): void;
+  toggleSavedPlace(place: Place): void;
+  isSaved(id: string): boolean;
+  toggleSavedRoute(route: SavedRoute): void;
+  isRouteSaved(id: string): boolean;
+  pushRecent(entry: Omit<RecentEntry, "at">): void;
+  setLocationPermission(permission: LocationPermission): void;
+  setOnboarded(onboarded: boolean): void;
+  resetLocalData(): void;
+}
 
-export type Store = MapSlice & LayerSlice & AgentSlice & UiSlice;
+export type Store = MapSlice & LayerSlice & AgentSlice & UiSlice & PersistSlice;
 
 /** Demo timer, module-scoped so a second ask cancels the first. */
 let demoTimer: number | null = null;
 
-const looksLikeRoute = (text: string) => /prambanan|malioboro/i.test(text);
+const looksLikeRoute = (text: string) => /prambanan|malioboro|→|ke\s/i.test(text);
 
-const seedConversation = (): ChatMessage[] => [
-  { who: "user", text: "Malioboro → Candi Prambanan" },
-  { who: "agent", text: REPLY_ROUTE, route: null },
-];
+const persisted = loadPersisted();
+
+/** Snapshot only the persisted keys, so a camera move never writes to disk. */
+const persistNow = (state: Store): void =>
+  savePersisted({
+    profile: state.profile,
+    savedPlaces: state.savedPlaces,
+    savedRoutes: state.savedRoutes,
+    recents: state.recents,
+    locationPermission: state.locationPermission,
+    onboarded: state.onboarded,
+  });
 
 export const useStore = create<Store>()((set, get) => ({
   // ---- map ----------------------------------------------------------------
@@ -113,8 +139,10 @@ export const useStore = create<Store>()((set, get) => ({
   zoom: YOGYA_ZOOM,
   center: YOGYA_CENTER,
   basemap: "street",
+  userCoord: null,
   setCamera: (center, zoom, bbox) => set({ center, zoom, bbox }),
   setBasemap: (basemap) => set({ basemap }),
+  setUserCoord: (userCoord) => set({ userCoord }),
 
   // ---- layers -------------------------------------------------------------
   active: initialLayers,
@@ -127,6 +155,7 @@ export const useStore = create<Store>()((set, get) => ({
       else next.delete(id);
       return { active: next };
     }),
+  setLayers: (ids) => set({ active: new Set(ids) }),
   setCatalogue: (catalogue) => set({ catalogue }),
 
   // ---- agent --------------------------------------------------------------
@@ -147,13 +176,13 @@ export const useStore = create<Store>()((set, get) => ({
       messages: s.messages.concat([{ who: "user", text: trimmed }]),
       input: "",
       streaming: true,
-      agentSnap: "half",
+      agentSnap: s.agentSnap === "peek" ? "half" : s.agentSnap,
       panel: null,
-      barOpen: false,
+      searchOpen: false,
     }));
+    get().pushRecent({ title: trimmed, prompt: trimmed });
 
-    const sent =
-      socket !== null && bbox !== null && socket.ask(trimmed, { bbox, zoom });
+    const sent = socket !== null && bbox !== null && socket.ask(trimmed, { bbox, zoom });
     if (sent) return;
 
     // No socket, or no camera yet: fall back to the design's scripted reply so
@@ -227,80 +256,117 @@ export const useStore = create<Store>()((set, get) => ({
   },
 
   // ---- ui -----------------------------------------------------------------
-  screen: "dashboard",
+  tab: "home",
+  mapMounted: false,
   agentSnap: "peek",
   dragH: null,
   panel: null,
   panelSnap: "half",
   legOpen: null,
-  poi: false,
-  barOpen: false,
+  selectedPlace: null,
+  searchOpen: false,
+  navCollapsed: false,
   input: "",
   wide: false,
-  sustainEmpty: false,
 
-  setScreen: (screen) => set({ screen }),
+  setTab: (tab) =>
+    set((s) => ({
+      tab,
+      mapMounted: s.mapMounted || tab === "explore",
+      // Leaving Explore closes what was floating over the map, so coming back
+      // shows the map rather than a stale sheet.
+      panel: tab === "explore" ? s.panel : null,
+      searchOpen: false,
+      agentSnap: tab === "explore" ? s.agentSnap : "peek",
+      dragH: null,
+    })),
   setAgentSnap: (snap) =>
-    set(snap === "full" ? { agentSnap: snap, dragH: null, panel: null } : { agentSnap: snap, dragH: null }),
+    set(
+      snap === "full"
+        ? { agentSnap: snap, dragH: null, panel: null }
+        : { agentSnap: snap, dragH: null },
+    ),
   setDragH: (dragH) => set({ dragH }),
   cycleAgentSnap: () => {
     const current = get().agentSnap;
     get().setAgentSnap(current === "peek" ? "half" : current === "half" ? "full" : "peek");
   },
   openPanel: (panel) =>
-    set({ panel, panelSnap: "half", agentSnap: "peek", dragH: null, barOpen: false, poi: false }),
-  togglePanel: (panel) =>
-    get().panel === panel ? set({ panel: null }) : get().openPanel(panel),
+    set({ panel, panelSnap: "half", agentSnap: "peek", dragH: null, selectedPlace: null }),
+  togglePanel: (panel) => (get().panel === panel ? set({ panel: null }) : get().openPanel(panel)),
   closePanel: () => set({ panel: null }),
   cyclePanelSnap: () => set((s) => ({ panelSnap: s.panelSnap === "full" ? "half" : "full" })),
   setLegOpen: (legOpen) => set({ legOpen, panelSnap: "full" }),
-  setPoi: (poi) => set({ poi }),
-  setBarOpen: (barOpen) => set({ barOpen }),
+  selectPlace: (selectedPlace) =>
+    set(selectedPlace ? { selectedPlace, panel: null, searchOpen: false } : { selectedPlace: null }),
+  setSearchOpen: (searchOpen) => set({ searchOpen }),
+  setNavCollapsed: (navCollapsed) => set({ navCollapsed }),
   setInput: (input) => set({ input }),
   setWide: (wide) => set({ wide }),
-  setSustainEmpty: (sustainEmpty) => set({ sustainEmpty }),
 
-  /** State jumper from the design's PROTOTYPE menu — every screen state the
-   *  canvas can show, reachable without walking the whole flow. */
-  jump: (state) => {
-    if (demoTimer !== null) {
-      window.clearTimeout(demoTimer);
-      demoTimer = null;
-    }
-    const base = {
-      screen: "app" as Screen,
-      barOpen: false,
-      poi: false,
-      panel: null as PanelName | null,
-      streaming: false,
-      legOpen: null as number | null,
-      sustainEmpty: false,
-      dragH: null,
-    };
-    const seed = seedConversation();
-    const map: Record<JumpState, Partial<Store>> = {
-      empty: { agentSnap: "half", messages: [] },
-      thinking: {
-        agentSnap: "half",
-        messages: [{ who: "user", text: "Malioboro → Candi Prambanan" }],
-        streaming: true,
-      },
-      route: { agentSnap: "peek", messages: seed, panel: "route", panelSnap: "half" },
-      leg: { agentSnap: "peek", messages: seed, panel: "route", panelSnap: "full", legOpen: 2 },
-      layers: { agentSnap: "peek", messages: seed, panel: "layers", panelSnap: "full" },
-      poi: { agentSnap: "peek", messages: seed, poi: true },
-      sustain: { agentSnap: "peek", messages: seed, panel: "sustain", panelSnap: "half" },
-      sustainEmpty: {
-        agentSnap: "peek",
-        messages: [],
-        panel: "sustain",
-        panelSnap: "half",
-        sustainEmpty: true,
-      },
-      dark: { agentSnap: "peek", messages: seed, basemap: "dark" },
-    };
-    set({ ...base, ...map[state] });
+  // ---- persisted (localStorage, this device only) --------------------------
+  ...persisted,
+
+  setProfile: (profile) => {
+    set((s) => ({ profile: { ...s.profile, ...profile } }));
+    persistNow(get());
+  },
+
+  toggleSavedPlace: (place) => {
+    set((s) => ({
+      savedPlaces: s.savedPlaces.some((p) => p.id === place.id)
+        ? s.savedPlaces.filter((p) => p.id !== place.id)
+        : [place, ...s.savedPlaces],
+    }));
+    persistNow(get());
+  },
+  isSaved: (id) => get().savedPlaces.some((p) => p.id === id),
+
+  toggleSavedRoute: (route) => {
+    set((s) => ({
+      savedRoutes: s.savedRoutes.some((r) => r.id === route.id)
+        ? s.savedRoutes.filter((r) => r.id !== route.id)
+        : [route, ...s.savedRoutes],
+    }));
+    persistNow(get());
+  },
+  isRouteSaved: (id) => get().savedRoutes.some((r) => r.id === id),
+
+  pushRecent: (entry) => {
+    set((s) => ({
+      recents: capRecents([
+        { ...entry, at: Date.now() },
+        ...s.recents.filter((r) => r.prompt !== entry.prompt),
+      ]),
+    }));
+    persistNow(get());
+  },
+
+  setLocationPermission: (locationPermission) => {
+    set({ locationPermission });
+    persistNow(get());
+  },
+  setOnboarded: (onboarded) => {
+    set({ onboarded });
+    persistNow(get());
+  },
+
+  resetLocalData: () => {
+    clearPersisted();
+    set({
+      profile: { name: "Tamu", avatar: null },
+      savedPlaces: [],
+      savedRoutes: [],
+      recents: [],
+      locationPermission: "unknown",
+      onboarded: false,
+    });
   },
 }));
+
+/** Recents fall back to the labelled sample entries only while the real list is
+ *  empty, so a first-run Home screen is not a blank rectangle. */
+export const recentsForDisplay = (recents: RecentEntry[]): RecentEntry[] =>
+  recents.length > 0 ? recents : SEED_RECENTS;
 
 export const QUICK_PROMPTS = QUICK;

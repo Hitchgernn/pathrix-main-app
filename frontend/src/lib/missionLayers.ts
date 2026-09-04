@@ -42,11 +42,24 @@ function ensureCircleLayer(map: MapLibreMap, layerId: string, color: string): vo
     type: "circle",
     source: sourceId(layerId),
     paint: {
-      "circle-radius": 6,
+      // Markers grow with zoom: at city scale they are dots in a field, at
+      // street scale they are targets you can actually hit with a thumb.
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 4, 14, 6, 17, 9],
       "circle-color": color,
-      "circle-stroke-width": 1.5,
-      "circle-stroke-color": "#e7f0f7",
+      "circle-stroke-width": 1.6,
+      "circle-stroke-color": "#ffffff",
+      "circle-opacity": 0.92,
     },
+  });
+
+  // The markers are tappable (MapCanvas opens the place sheet), so they say so
+  // on a pointer device.
+  const id = circleLayerId(layerId);
+  map.on("mouseenter", id, () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+  map.on("mouseleave", id, () => {
+    map.getCanvas().style.cursor = "";
   });
 }
 

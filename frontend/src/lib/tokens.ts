@@ -1,4 +1,4 @@
-/** Palette values that JS needs (SVG overlay strokes, MapLibre paint props).
+/** Palette values that JS needs (MapLibre paint props, inline styles).
  *  CSS-only values live in styles/index.css; these two must stay in step. */
 
 export type Basemap = "street" | "dark";
@@ -12,8 +12,11 @@ export interface MapPalette {
   stopFill: string;
 }
 
-/** Route and marker colours are verified against both basemap treatments —
- *  a line colour that reads on street disappears on dark (ARCHITECTURE.md §10.4). */
+/** Inherited unchanged from docs/DESIGN.md §Map category palette. These are
+ *  cartographic, not chrome: each hex was measured against MAPID's real
+ *  street-v2.0 / dark-v2.0 paint colours at the WCAG 1.4.11 3:1 threshold. The
+ *  white repaint of the app's chrome does not touch them — the basemap under a
+ *  route line did not change. */
 const PALETTE: Record<Basemap, MapPalette> = {
   street: {
     krl: "#0f766e",
@@ -21,7 +24,7 @@ const PALETTE: Record<Basemap, MapPalette> = {
     blue: "#1f6592",
     walk: "#17293a",
     halo: "#17293a",
-    stopFill: "#e7f0f7",
+    stopFill: "#ffffff",
   },
   dark: {
     krl: "#2dd4bf",
@@ -35,11 +38,26 @@ const PALETTE: Record<Basemap, MapPalette> = {
 
 export const paletteFor = (basemap: Basemap): MapPalette => PALETTE[basemap];
 
-export const SURFACE_SHEET = "rgba(231,240,247,.96)";
-export const LINE = "rgba(16,30,42,.14)";
-export const SHEET_LIFT = "0 -8px 24px -8px rgba(16, 30, 42, 0.28)";
-export const RAIL_LIFT = "8px 0 24px -8px rgba(16, 30, 42, 0.28)";
-export const CARD_LIFT = "0 4px 12px -4px rgba(16, 30, 42, 0.18)";
+/** Chrome values, mirroring @theme in styles/index.css. Warm neutral: the
+ *  action colour is ink, not a hue. */
+export const SURFACE = "#ffffff";
+export const SURFACE_FLOAT = "rgba(255,255,255,.86)";
+export const GROUND = "#f3f1ee";
+export const INK = "#17171a";
+export const LINE = "rgba(23,23,26,.08)";
+/** Fill-only accent (3.04:1 on white — a graphical object, never text) and the
+ *  deep pair for anything that has to be read (6.06:1). */
+export const GOLD = "#c08a2e";
+export const GOLD_TEXT = "#7c5e13";
+
+export const CARD_LIFT =
+  "0 1px 2px rgba(23,23,26,.04), 0 8px 20px -8px rgba(23,23,26,.1)";
+export const FLOAT_LIFT =
+  "0 2px 6px rgba(23,23,26,.05), 0 16px 40px -12px rgba(23,23,26,.16)";
+export const SHEET_LIFT =
+  "0 -1px 3px rgba(23,23,26,.03), 0 -20px 48px -16px rgba(23,23,26,.14)";
+export const RAIL_LIFT =
+  "1px 0 3px rgba(23,23,26,.03), 20px 0 48px -16px rgba(23,23,26,.12)";
 
 /** Which stroke colour each itinerary leg mode draws in. Backend EdgeType maps
  *  onto the design's four visual families. */
@@ -53,8 +71,16 @@ export const MODE_KEY: Record<string, keyof MapPalette> = {
   becak: "gold",
 };
 
-/** Desktop left rail width. The breakpoint promotes both sheets to rails
- *  without changing the component tree (ARCHITECTURE.md §10.3). */
-export const RAIL_W = 392;
+/** Desktop shell metrics. Above WIDE_BREAKPOINT the mobile tab bar promotes to
+ *  a nav sidebar and the active screen promotes to a context panel beside it —
+ *  same component tree, repositioned (ARCHITECTURE.md §10.3). */
+export const NAV_W = 248;
+export const NAV_W_COLLAPSED = 76;
+export const PANEL_W = 384;
 export const WIDE_BREAKPOINT = 900;
+
+/** Mobile bottom-nav height, and the gap every bottom-anchored floating control
+ *  keeps above it. */
+export const TABBAR_H = 64;
+export const TABBAR_GAP = 12;
 export const PEEK_H = 96;

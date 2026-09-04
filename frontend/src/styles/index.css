@@ -1,45 +1,75 @@
 @import "tailwindcss";
 
-/* Design tokens transcribed from the Claude Design canvas (Pathrix App.dc.html).
-   Values are the design's own — do not "improve" them here; change the canvas
-   and re-transcribe, per ARCHITECTURE.md §16 (docs and code stay in step). */
+/* PATHRIX app tokens — warm neutral, black actions, one gold accent.
+ *
+ * The chrome register is derived from inspirations/: a bone ground, white and
+ * frosted surfaces, near-black as the action colour, and a single amber accent
+ * in the role the place reference gives its rating star. That accent is the
+ * tugu gold docs/DESIGN.md already reserves under the One Warm Rule, so the two
+ * systems converge rather than compete.
+ *
+ * Blue is gone from the chrome entirely. It survives only in lib/tokens.ts's
+ * map category palette, whose hexes were measured against MAPID's real
+ * street-v2.0 / dark-v2.0 paint — repainting the app does not change what sits
+ * under a route line.
+ *
+ * Every step below was composited and measured before it was written here
+ * (the Measured-Step Rule). Ratios are stated so the next person does not have
+ * to re-derive them.
+ */
 @theme {
-  --color-ground: #dfeaf3;
-  --color-surface: #e7f0f7;
-  --color-surface-2: #eff5fa;
-  --color-ink: #17293a;
-  --color-ink-deep: #101e2a;
-  --color-blue: #1f6592;
-  --color-gold: #7c5e13;
-  --color-teal: #0f766e;
-  --color-purple: #5b3a8e;
-  --color-iso: #c6d9e8;
+  /* --- surface ramp ------------------------------------------------------ */
+  --color-ground: #f3f1ee; /* warm bone page ground */
+  --color-surface: #ffffff; /* cards, sheets, nav — 1.13 against ground */
+  --color-surface-2: #faf8f6; /* inset rows, quiet fields */
+  --color-surface-3: #efece8; /* pressed / hovered */
 
-  --color-line: rgba(16, 30, 42, 0.14);
-  --color-ink-72: rgba(16, 30, 42, 0.72);
-  --color-ink-66: rgba(16, 30, 42, 0.66);
-  --color-ink-60: rgba(16, 30, 42, 0.6);
-  --color-ink-55: rgba(16, 30, 42, 0.55);
-  --color-ink-50: rgba(16, 30, 42, 0.5);
-  --color-ink-45: rgba(16, 30, 42, 0.45);
-  --color-ink-40: rgba(16, 30, 42, 0.4);
+  /* --- ink ---------------------------------------------------------------
+   * Warm near-black. Also the primary fill: white on --color-ink is 17.89:1,
+   * which is why every filled button in this system is black rather than
+   * coloured. */
+  --color-ink: #17171a; /* 17.89 on white · 15.87 on ground */
+  --color-ink-2: rgba(23, 23, 26, 0.74); /* secondary body — 7.67 · 7.14 */
+  --color-ink-3: rgba(23, 23, 26, 0.64); /* metadata — 5.32 · 5.15 */
+  --color-ink-4: rgba(23, 23, 26, 0.56); /* NON-TEXT ONLY — 4.11 · 3.96 */
+
+  --color-line: rgba(23, 23, 26, 0.08); /* hairline between rows */
+  --color-line-strong: rgba(23, 23, 26, 0.14); /* field and chip borders */
+
+  /* --- the one accent ----------------------------------------------------
+   * Two values, one colour, exactly as the landing page's DESIGN.md documents:
+   * the saturated one is a fill (the star, a marker), the deep one is for
+   * anything that has to be read. Never swap them. */
+  --color-gold: #c08a2e; /* FILL ONLY — 3.04 on white, graphics threshold */
+  --color-gold-text: #7c5e13; /* 6.06 on white · 5.26 on the tint */
+  --color-gold-tint: #f7eedd;
 
   --font-sans: Archivo, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --shadow-sheet: 0 -8px 24px -8px rgba(16, 30, 42, 0.28);
-  --shadow-rail: 8px 0 24px -8px rgba(16, 30, 42, 0.28);
-  --shadow-card: 0 4px 12px -4px rgba(16, 30, 42, 0.18);
+  /* --- elevation ---------------------------------------------------------
+   * The Earns-Its-Float Rule holds: a shadow needs something to float over.
+   * Tinted warm to match the ground rather than the old blue-grey. */
+  --shadow-card: 0 1px 2px rgba(23, 23, 26, 0.04), 0 8px 20px -8px rgba(23, 23, 26, 0.1);
+  --shadow-float: 0 2px 6px rgba(23, 23, 26, 0.05), 0 16px 40px -12px rgba(23, 23, 26, 0.16);
+  --shadow-sheet: 0 -1px 3px rgba(23, 23, 26, 0.03), 0 -20px 48px -16px rgba(23, 23, 26, 0.14);
+  --shadow-rail: 1px 0 3px rgba(23, 23, 26, 0.03), 20px 0 48px -16px rgba(23, 23, 26, 0.12);
 
-  --radius-sheet: 20px;
-  --radius-card: 16px;
-  --radius-bubble: 12px;
+  /* --- shape -------------------------------------------------------------
+   * One documented scale, applied everywhere. Anything interactive is a pill;
+   * containers step 16 / 20 / 24 / 28 by how much they float. */
+  --radius-control: 999px;
+  --radius-field: 16px;
+  --radius-card: 20px;
+  --radius-tile: 24px;
+  --radius-sheet: 28px;
 
-  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --animate-pxfade: pxfade 0.18s ease;
-  --animate-pxrise: pxrise 0.2s ease;
-  --animate-pxrise-slow: pxrise 0.24s ease;
+  --animate-pxrise: pxrise 0.34s var(--ease-out-expo);
+  --animate-pxrise-slow: pxrise 0.42s var(--ease-out-expo);
   --animate-pxdim: pxdim 1.4s ease-in-out infinite;
 }
 
@@ -48,28 +78,47 @@
   to { opacity: 1; }
 }
 @keyframes pxrise {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
 @keyframes pxdim {
-  0%, 100% { opacity: 0.38; }
-  50% { opacity: 0.72; }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.75; }
 }
 
-/* Sheets and floating chrome are translucent so the map reads through them;
-   the solid --color-surface token is for opaque cards. */
-@utility surface-sheet {
-  background: rgba(231, 240, 247, 0.96);
-  backdrop-filter: blur(8px);
+/* Chrome sitting directly over the map: white, slightly permeable, so the
+   basemap still reads as the layer underneath. Solid fallback for anyone who
+   has asked their OS to reduce transparency. */
+@utility surface-float {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .surface-float {
+    background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
-/* Mono kicker — 11px / 500 / .16em. Every label, count, and unit in the design
-   uses it; prose never does. */
-@utility kicker {
+/* Labels are sentence-case Archivo, not tracked-out mono caps. The references
+   have no mono anywhere, and an uppercase eyebrow over every heading is what
+   made the previous build read as an instrument panel rather than an app. */
+@utility label-sm {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+}
+
+/* Mono survives for exactly one job: figures. Fares, durations, distances,
+   coordinates, counts. Tabular so they do not jitter as they stream in. */
+@utility figure {
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
 }
 
 @utility hairline {
@@ -77,17 +126,27 @@
 }
 
 @utility title-lg {
-  font-size: clamp(20px, 2.4vw, 28px);
+  font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* The reference's greeting is set light and large. Reserved for the one
+   welcome line on Home; everything else uses title-lg. */
+@utility title-greeting {
+  font-size: clamp(28px, 7vw, 36px);
+  font-weight: 400;
   line-height: 1.15;
-  letter-spacing: -0.02em;
-  text-wrap: pretty;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 @utility title-row {
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
 
 @utility body-15 {
@@ -102,31 +161,68 @@
   text-wrap: pretty;
 }
 
-* {
-  box-sizing: border-box;
+/* These MUST stay inside @layer base. An unlayered `button { background: none }`
+   outranks every layered utility, which silently turned each button-shaped
+   floating control (search pill, filter chips, FABs) transparent over the map. */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  input {
+    font: inherit;
+  }
 }
 
-body {
-  margin: 0;
-  background: var(--color-ground);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+/* One focus treatment for the whole app, on ink so it belongs to the same
+   system as every filled control. */
+:where(button, a, input, [role="switch"], [role="tab"], [tabindex]):focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
 }
 
-button {
-  font: inherit;
-  cursor: pointer;
-  border: 0;
-  background: none;
-  color: inherit;
-}
-
-input {
-  font: inherit;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .maplibregl-ctrl-attrib {
   font-family: var(--font-mono);
   font-size: 10px;
+}
+
+/* The map's own controls are chrome we did not design; keep them from
+   colliding with the floating nav and sheets. */
+.maplibregl-ctrl-bottom-right,
+.maplibregl-ctrl-bottom-left {
+  z-index: 1;
+}
+
+/* Hide scrollbars on horizontal strips without losing the scroll itself. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -1,3 +1,5 @@
+import type { Place, PlaceHit } from "./places";
+import { placeFromHit } from "./places";
 import type { BBox, LayerMeta, MissionFeature } from "./types";
 
 const base = import.meta.env.VITE_API_BASE ?? "";
@@ -29,4 +31,16 @@ export async function fetchLayerFeatures(
   const response = await fetch(`${base}/api/layers/${layerId}/features?${params}`);
   if (!response.ok) throw new Error(`GET /api/layers/${layerId}/features → ${response.status}`);
   return (await response.json()) as MissionFeature[];
+}
+
+/** Location search — mirrored halte/pangkalan/mission rows first, then geocoded
+ *  addresses (`backend/app/api/search.py`). Same error discipline as the layer
+ *  calls: a failure surfaces as no results, never as a broken screen. */
+export async function searchPlaces(query: string, limit = 8): Promise<Place[]> {
+  const trimmed = query.trim();
+  if (!trimmed) return [];
+  const params = new URLSearchParams({ q: trimmed, limit: String(limit) });
+  const response = await fetch(`${base}/api/geocode?${params}`);
+  if (!response.ok) throw new Error(`GET /api/geocode → ${response.status}`);
+  return ((await response.json()) as PlaceHit[]).map(placeFromHit);
 }

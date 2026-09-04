@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import type { Map as MapLibreMap } from "maplibre-gl";
 import { useStore } from "../store";
-import { setMap } from "../lib/mapHandle";
+import { getMap as getMapHandle, setMap } from "../lib/mapHandle";
 import { reapplyRoute } from "../lib/bridge";
 import { fetchLayerFeatures } from "../lib/api";
 import { reapplyMissionLayers, removeMissionLayer, syncMissionLayer } from "../lib/missionLayers";
 import { LAYER_ROWS } from "../lib/sample";
-import { paletteFor, RAIL_W } from "../lib/tokens";
+import { paletteFor, NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
+import { placeFromFeature } from "../lib/places";
+import type { MissionFeature } from "../lib/types";
 import type { Basemap } from "../lib/tokens";
 
 const STYLE_ID: Record<Basemap, string> = {
@@ -34,6 +36,8 @@ export function MapCanvas() {
   const map = useRef<MapLibreMap | null>(null);
   const basemap = useStore((s) => s.basemap);
   const wide = useStore((s) => s.wide);
+  const navCollapsed = useStore((s) => s.navCollapsed);
+  const userCoord = useStore((s) => s.userCoord);
   const active = useStore((s) => s.active);
   const bbox = useStore((s) => s.bbox);
   const catalogue = useStore((s) => s.catalogue);
@@ -79,6 +83,29 @@ export function MapCanvas() {
         reapplyMissionLayers(instance);
       });
 
+      // Tapping a mission marker opens the place sheet. Registered with a
+      // layer-agnostic hit test rather than per-layer handlers, because the
+      // drawn layer set changes every time a filter chip is toggled.
+      instance.on("click", (event) => {
+        const hits = instance.queryRenderedFeatures(event.point).filter((hit) =>
+          hit.layer.id.startsWith("pathrix-mission-"),
+        );
+        const hit = hits[0];
+        if (!hit) return;
+        const layerId = hit.layer.id.replace("pathrix-mission-", "").replace("-circle", "");
+        const geometry = hit.geometry;
+        if (geometry.type !== "Point") return;
+        const place = placeFromFeature(
+          {
+            external_id: String(hit.properties?.external_id ?? hit.id ?? ""),
+            properties: (hit.properties ?? {}) as MissionFeature["properties"],
+            geometry,
+          },
+          layerId,
+        );
+        if (place) useStore.getState().selectPlace(place);
+      });
+
       map.current = instance;
       setMap(instance);
     })();
@@ -104,14 +131,15 @@ export function MapCanvas() {
     return () => window.clearTimeout(timer);
   }, [basemap]);
 
-  // The rail occupies the left edge on wide viewports; the canvas is inset to
-  // match so the map's own centre is not hidden behind it.
+  // The nav sidebar occupies the left edge on wide viewports, and can collapse;
+  // the canvas is inset to match so the map's own centre is not hidden behind
+  // it. The delay lets the width transition finish before the GL resize.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;
-    const timer = window.setTimeout(() => instance.resize(), 280);
+    const timer = window.setTimeout(() => instance.resize(), 320);
     return () => window.clearTimeout(timer);
-  }, [wide]);
+  }, [wide, navCollapsed]);
 
   // Mission layers (poi/properti — the only two /api/layers ids that aren't a
   // 501 today, per catalogue.queryable): fetch-and-draw whichever are toggled
@@ -151,7 +179,7 @@ export function MapCanvas() {
     return () => window.clearTimeout(timer);
   }, [active, bbox, catalogue]);
 
-  const inset = wide ? RAIL_W + 14 : 0;
+  const inset = wide ? (navCollapsed ? NAV_W_COLLAPSED : NAV_W) : 0;
 
   if (!BASEMAP_KEY) {
     return (
@@ -159,10 +187,8 @@ export function MapCanvas() {
         className="absolute inset-0 bg-ground flex items-center justify-center px-8"
         style={{ left: inset }}
       >
-        <p className="kicker text-ink-40 text-center leading-[1.9]">
-          BASEMAP KEY NOT SET
-          <br />
-          SET VITE_MAPID_BASEMAP_KEY TO LOAD MAPID MAPS
+        <p className="body-13 max-w-[30ch] text-center text-ink-3">
+          Kunci basemap belum diatur. Setel VITE_MAPID_BASEMAP_KEY untuk memuat MAPID Maps.
         </p>
       </div>
     );
@@ -176,10 +202,79 @@ export function MapCanvas() {
           canvas never got real dimensions. h-full/w-full sizes it explicitly
           instead of relying on inset offsets. */}
       <div ref={container} className="absolute inset-0 h-full w-full" />
+      {userCoord && <UserDot />}
+      <SelectedPin />
       <div
         className="absolute inset-0 pointer-events-none bg-ground transition-opacity"
         style={{ opacity: veiled ? 1 : 0, transitionDuration: `${FADE_MS}ms` }}
       />
     </div>
   );
+}
+
+/** The user's own position, drawn as a MapLibre marker rather than a DOM
+ *  overlay so it stays pinned while the camera moves. */
+function UserDot() {
+  const userCoord = useStore((s) => s.userCoord);
+
+  useEffect(() => {
+    const map = getMapHandle();
+    if (!map || !userCoord) return;
+    let marker: { remove(): void } | null = null;
+    let cancelled = false;
+
+    void import("maplibre-gl").then((maplibre) => {
+      if (cancelled) return;
+      const element = document.createElement("div");
+      element.setAttribute("aria-label", "Lokasi Anda");
+      element.style.cssText =
+        "width:18px;height:18px;border-radius:999px;background:#1d76bd;" +
+        "box-shadow:0 0 0 4px rgba(29,118,189,.22),0 1px 3px rgba(16,30,42,.4);" +
+        "border:2.5px solid #fff";
+      marker = new maplibre.Marker({ element }).setLngLat(userCoord).addTo(map);
+    });
+
+    return () => {
+      cancelled = true;
+      marker?.remove();
+    };
+  }, [userCoord]);
+
+  return null;
+}
+
+/** The place the sheet is describing, pinned on the map. Without it the sheet
+ *  names a coordinate the map never marks — the camera flies there, but nothing
+ *  says which point on screen the card is about. */
+function SelectedPin() {
+  const place = useStore((s) => s.selectedPlace);
+
+  useEffect(() => {
+    const map = getMapHandle();
+    if (!map || !place) return;
+    let marker: { remove(): void } | null = null;
+    let cancelled = false;
+
+    void import("maplibre-gl").then((maplibre) => {
+      if (cancelled) return;
+      const element = document.createElement("div");
+      element.style.cssText = "will-change:transform";
+      element.innerHTML =
+        '<svg width="30" height="38" viewBox="0 0 30 38" fill="none" aria-hidden>' +
+        '<ellipse cx="15" cy="35" rx="6" ry="2.2" fill="rgba(16,30,42,.22)"/>' +
+        '<path d="M15 2c-6.1 0-11 4.9-11 11 0 8 9.9 18.4 10.3 18.8a1 1 0 0 0 1.4 0C16.1 31.4 26 21 26 13c0-6.1-4.9-11-11-11Z" ' +
+        'fill="#1f6592" stroke="#fff" stroke-width="2.4"/>' +
+        '<circle cx="15" cy="13" r="4" fill="#fff"/></svg>';
+      marker = new maplibre.Marker({ element, anchor: "bottom" })
+        .setLngLat(place.coord)
+        .addTo(map);
+    });
+
+    return () => {
+      cancelled = true;
+      marker?.remove();
+    };
+  }, [place]);
+
+  return null;
 }

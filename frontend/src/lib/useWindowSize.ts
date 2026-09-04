@@ -35,7 +35,9 @@ export function useWindowSize(): WindowSize {
 /** Sheet snap points: peek is a fixed handle strip, half and full are fractions
  *  of viewport height. Values are the design's. */
 export const snapPoints = (vh: number) => ({
-  peek: 96,
-  half: Math.round(vh * 0.44),
-  full: Math.round(vh * 0.86),
+  // Tall enough for the agent header and its composer row — a shorter peek
+  // clips the input, which is the one control that must always be reachable.
+  peek: 152,
+  half: Math.round(vh * 0.46),
+  full: Math.round(vh * 0.84),
 });

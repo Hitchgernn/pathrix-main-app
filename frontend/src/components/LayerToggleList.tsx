@@ -1,5 +1,6 @@
 import { LAYER_ROWS } from "../lib/sample";
 import { useStore } from "../store";
+import { Switch } from "./ui/switch";
 
 /** Layer catalogue. Data is fetched when a layer is switched on, not all at
  *  boot — that is most of the load budget (ARCHITECTURE.md §14). */
@@ -12,7 +13,7 @@ export function LayerToggleList() {
 
   return (
     <div>
-      <div className="body-13 mb-[14px] max-w-[48ch] text-ink-66">
+      <div className="body-13 mb-[14px] max-w-[48ch] text-ink-2">
         Data dimuat saat layer diaktifkan, bukan sekaligus di awal.
       </div>
 
@@ -32,21 +33,15 @@ export function LayerToggleList() {
             />
             <div className="min-w-0 flex-1">
               <div className="title-row">{row.name}</div>
-              <div className="kicker mt-1 text-ink-50">
-                {live || catalogue.length === 0 ? row.meta : `${row.meta} · BELUM TERSAMBUNG`}
+              <div className="body-13 mt-[3px] text-ink-3">
+                {live || catalogue.length === 0 ? row.meta : `${row.meta}, belum tersambung`}
               </div>
             </div>
-            <button
-              onClick={() => toggleLayer(row.id)}
-              role="switch"
-              aria-checked={on}
+            <Switch
+              checked={on}
+              onCheckedChange={() => toggleLayer(row.id)}
               aria-label={row.name}
-              className={`flex h-[26px] w-[46px] flex-none rounded-full p-[3px] transition-colors duration-200 ${
-                on ? "justify-end bg-blue" : "justify-start bg-line"
-              }`}
-            >
-              <span className="block h-5 w-5 rounded-full bg-surface" />
-            </button>
+            />
           </div>
         );
       })}

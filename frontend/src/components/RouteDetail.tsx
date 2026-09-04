@@ -48,7 +48,7 @@ export function RouteDetail() {
     <div>
       <div className="flex flex-wrap gap-x-5 gap-y-[6px] pb-4">
         {summary.map((stat) => (
-          <span key={stat} className="kicker text-ink-55">
+          <span key={stat} className="figure text-[12px] text-ink-3">
             {stat}
           </span>
         ))}
@@ -70,19 +70,19 @@ export function RouteDetail() {
             />
             <span className="flex min-w-0 flex-1 flex-col gap-[5px]">
               <span className="flex items-center gap-[9px]">
-                <span className="kicker" style={{ color: walk ? "rgba(16,30,42,.5)" : color }}>
+                <span className="label-sm" style={{ color: walk ? "rgba(23,23,26,.64)" : color }}>
                   {row.mode}
                 </span>
-                <span className="kicker text-ink-40">
+                <span className="figure text-[12px] text-ink-3">
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </span>
               <span className="title-row" style={{ textWrap: "pretty" }}>
                 {row.title}
               </span>
-              <span className="body-13 text-ink-66">{row.sub}</span>
+              <span className="body-13 text-ink-2">{row.sub}</span>
               {open && row.detail && (
-                <span className="body-13 mt-[5px] block animate-pxrise rounded-card border border-line bg-surface px-[14px] py-3 text-ink-66">
+                <span className="body-13 mt-[5px] block animate-pxrise rounded-card border border-line bg-surface px-[14px] py-3 text-ink-2">
                   {row.detail}
                 </span>
               )}
@@ -93,11 +93,11 @@ export function RouteDetail() {
 
       {/* The cheaper option is offered alongside, never swapped in silently. */}
       <div className="hairline flex gap-[13px] pt-4">
-        <span className="w-1 flex-none self-stretch rounded-[1px] bg-blue" />
+        <span className="w-1 flex-none self-stretch rounded-[1px] bg-ink" />
         <div>
-          <div className="kicker text-blue">{SAMPLE_ALTERNATIVE.kicker}</div>
+          <div className="label-sm text-ink-2">{SAMPLE_ALTERNATIVE.label}</div>
           <div className="title-row mt-[6px]">{SAMPLE_ALTERNATIVE.title}</div>
-          <div className="body-13 mt-[3px] text-ink-66">{SAMPLE_ALTERNATIVE.sub}</div>
+          <div className="body-13 mt-[3px] text-ink-2">{SAMPLE_ALTERNATIVE.sub}</div>
         </div>
       </div>
     </div>

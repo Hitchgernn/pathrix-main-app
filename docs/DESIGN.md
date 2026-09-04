@@ -2,18 +2,25 @@
 name: Pathrix App
 description: Design system for the WebGIS AI Agent — dashboard, map, and agent UI (extends the marketing-site system, not a replacement for it)
 colors:
+  ink: "#17171a"
+  ink-2: "rgba(23,23,26,.74)"
+  ink-3: "rgba(23,23,26,.64)"
+  ink-4: "rgba(23,23,26,.56)"
+  ground: "#f3f1ee"
+  surface: "#ffffff"
+  surface-2: "#faf8f6"
+  surface-3: "#efece8"
+  line: "rgba(23,23,26,.08)"
+  line-strong: "rgba(23,23,26,.14)"
+  tugu-gold: "#c08a2e"
+  tugu-gold-deep: "#7c5e13"
+  tugu-gold-tint: "#f7eedd"
   instrument-blue: "#1f6592"
   instrument-blue-lift: "#5aa9dd"
-  tugu-gold: "#d9a521"
-  tugu-gold-lit: "#f2c94c"
-  tugu-gold-deep: "#7c5e13"
-  sky-pale: "#eff5fa"
-  sky: "#dfeaf3"
-  sky-deep: "#c6d9e8"
-  ink: "#101e2a"
-  ink-deep: "#0c1822"
-  ink-soft: "#17293a"
-  paper: "#e7f0f7"
+  krl-teal: "#0f766e"
+  krl-teal-lift: "#2dd4bf"
+  yia-violet: "#5b3a8e"
+  yia-violet-lift: "#b399e0"
 typography:
   headline:
     fontFamily: "Archivo, system-ui, sans-serif"
@@ -55,75 +62,147 @@ spacing:
 
 # Design System: Pathrix App
 
-**Status:** 🚧 provisional — same standing as `ARCHITECTURE.md`/`PLAN.md`. Nothing
-below has been through the Claude Design canvas yet; treat this as the brief
-that canvas works from, not a finished spec. Update it once real screens exist.
+**Status:** ✅ implemented. This document is the app's visual source of truth
+and `frontend/src/styles/index.css` is its implementation. The Claude Design
+canvas that seeded the first build is not authoritative and has not been since
+the warm-neutral repaint.
+
+## The world, in one paragraph
+
+Warm bone ground. White and frosted surfaces. Near-black as the action colour,
+so every filled control on every screen is the same ink the body text is set in.
+One accent, tugu gold, doing exactly one job per screen. Archivo carries all
+language; IBM Plex Mono is reserved for figures. The map is the only saturated
+thing on screen, and that is the point: everything in the chrome recedes so the
+cartography can be read.
+
+The register was derived from `inspirations/` — a pearl/glass ride-hailing
+concept and a place-detail screen whose only colour is an amber rating star.
+That star's role is the role this system already reserved for tugu gold, so the
+reference and the brand converged rather than competing. What the references
+replaced was the earlier blue-on-blue-grey chrome, which read as generic and
+competed with the basemap it sat on.
 
 ## Relationship to the marketing site's `DESIGN.md`
 
-This is not a new brand — it's the same brand under load. The landing page's
-`DESIGN.md` (`pathrix-landingpage/DESIGN.md`) is the source of truth for color,
-type family, and the instrument philosophy; this document extends it into
-surfaces the brochure never needed: a live map, a chat interface, stacked
-sheets, data-dense lists. Where the two disagree, it's because a dashboard has
-constraints a five-section poster doesn't — each divergence below says so
-explicitly and says why.
+Same brand, different load. The landing page's `DESIGN.md`
+(`pathrix-landingpage/DESIGN.md`) owns the instrument philosophy, both type
+families, and the warm accent's scarcity discipline. This document extends that
+into surfaces a brochure never needed: a live map, a chat interface, stacked
+sheets, data-dense lists.
 
-**Inherited unchanged:** every color token, both type families, the mono-only
-IBM Plex Mono discipline for metadata, the pill-radius rule for controls, the
-warm accent's scarcity discipline.
+**Inherited unchanged:** both type families, the warm accent's scarcity rule and
+its fill/read pair, the pill radius for controls, and the whole map category
+palette below.
 
-**Deliberately diverges:** the Two-Background Rule (an app needs surface
-elevation — sheets stack over a map, popups stack over sheets), the
-Flat-Unless-Floating Rule (loosened, not dropped — see Elevation below), type
-scale (UI density replaces editorial cinema-scale `clamp()`), and the
-Hairline-Grid-not-Cards stance (loosened for list rows, held for anything that
-would read as a bordered dashboard card).
+**Deliberately diverges, and why:**
 
-**New, because the product needs it:** map/layer color coding, the bottom
-sheet, agent chat bubbles, route/itinerary components, a basemap-aware
-contrast discipline.
+- **Surface colour.** The landing page's sky/paper blue-grey does not survive
+  contact with a basemap: blue-grey chrome over a blue-grey map leaves the
+  cartography nothing to be the loudest thing on screen. The app's ramp is warm
+  bone and white instead.
+- **The action colour is ink, not the brand blue.** A saturated button competes
+  with route lines for the same attention. White on `#17171a` is 17.89:1 and
+  needs no further justification.
+- **Mono is figures only.** The landing page's Mono-Is-Metadata rule put mono on
+  every label; at app density that produced an uppercase eyebrow over every
+  heading and made the product read as an instrument panel. Mono keeps fares,
+  durations, distances, coordinates and counts, where tabular numerals earn it.
+- **The Two-Background Rule** does not apply; an app needs surface elevation.
+- **Flat-Unless-Floating** is loosened into the Earns-Its-Float Rule below.
+
+**New, because the product needs it:** the surface elevation ramp, the map
+category palette, the bottom sheet, agent chat bubbles, route components, and a
+basemap-aware contrast discipline.
 
 ## Overview
 
-**Working name for the app's version of the instrument idea: "The Instrument,
-Live."** The landing page *describes* a field instrument; the app *is* one. The
-same restraint applies — no bordered-card dashboard aesthetic, no ambient
-shadow soup, mono labels for metadata only — but an instrument you operate
-needs affordances a poster doesn't: something to press, something that floats
-above the map to stay reachable, a place state changes read at a glance.
+**The app's version of the instrument idea: "The Instrument, Live."** The
+landing page *describes* a field instrument; the app *is* one. The restraint
+carries over — no bordered-card dashboard aesthetic, no ambient shadow soup —
+but an instrument you operate needs affordances a poster does not: something to
+press, something that floats above the map to stay reachable, a place where a
+state change reads at a glance.
 
-The map is the instrument face. Everything else — the agent, the layers, the
-route — is a control surface laid over it, and control surfaces are allowed to
-float where the page's sections were not.
+The map is the instrument face. Everything else, the agent and the layers and
+the route, is a control surface laid over it, and control surfaces are allowed
+to float where the page's sections were not.
 
 ## Colors
 
-No new brand hues. Two additions, both scoped narrowly and explained below:
-a **surface elevation ramp** (steps of the existing ink/sky families, not new
-colors — same discipline as the Opacity-Not-New-Color Rule) and a **map
-category palette** (a cartographic problem, not a brand-chrome one — see its
-own section).
+The chrome is a warm neutral ramp plus one accent. Everything else on screen is
+either the map or a photograph. Two color systems live here and must not be
+confused: the **chrome ramp** (this section) and the **map category palette**
+(its own section below), which is cartographic and was measured against real
+basemap tiles.
+
+### Named rule
+**The Measured-Step Rule.** No grey, tint, or accent enters this system without
+its contrast ratio computed against the surfaces it will actually sit on, and
+recorded in the tables below. The map palette was rewritten once because a colour
+was chosen by eye and measured afterwards; the chrome ramp does not repeat that.
+`frontend/src/lib/tokens.ts` mirrors every value JS needs and moves with the CSS.
 
 ### Surface elevation ramp
 
-Built from the existing ink family stepped by opacity/lightness, the same way
-`on-dark-*` tokens step off `paper`:
+An app has to show what is stacked above what, so it earns a third *register* —
+still not a third brand *colour*. White floats on bone; frosted white floats on
+the map.
 
 | Token | Value | Use |
 |---|---|---|
-| `surface-0` | `--sky-1` `#dfeaf3` | The map's page-level backdrop when no basemap tile has painted yet |
-| `surface-1` | `--paper` `#e7f0f7` at 96% | Bottom sheet, layer panel — the first thing that floats over the map |
-| `surface-2` | `--paper` `#e7f0f7` at 100%, 1px `on-light-line` border | Cards *inside* a sheet — route cards, POI popups — one step up from the sheet they sit in |
-| `surface-dark-1` | `--ink-soft` `#17293a` at 96% | Dark-mode sheet equivalent |
-| `surface-dark-2` | `--ink` `#101e2a`, 1px `on-dark-line` border | Dark-mode card equivalent |
+| `--color-ground` | `#f3f1ee` | Warm bone page ground; 1.13 under `surface` |
+| `--color-surface` | `#ffffff` | Cards, sheets, nav, fields |
+| `--color-surface-2` | `#faf8f6` | Inset rows and quiet fields inside a white surface |
+| `--color-surface-3` | `#efece8` | Pressed and hovered rows, icon wells, avatar fallback |
+| `surface-float` | `#ffffff` at 86% + `blur(20px)` | Chrome directly over the map, so the basemap still reads as the layer underneath |
 
-This is the direct app-shaped answer to the landing page's Two-Background
-Rule not applying here (`PLAN.md` §8.3, `ARCHITECTURE.md` §10.4): a dashboard
-needs to show what's stacked above what, so it earns a third *register*, not a
-third brand *color* — every step above is still ink or sky, just lifted.
+`surface-float` carries a solid fallback under `prefers-reduced-transparency`.
+It is for chrome over the *map* only: the bottom tab bar is solid white, because
+at 86% a scrolling list reads straight through it and looks like an overflow bug.
+
+**Why warm rather than the landing page's `paper`.** The use scene decides it:
+someone standing on Malioboro at midday, screen at full brightness, phone at
+arm's length. Blue-grey chrome over a blue-grey basemap gives the cartography
+nothing to win against. Bone does.
+
+### Ink, and why ink is also the action colour
+
+| Token | Value | On white | On ground | Use |
+|---|---|---|---|---|
+| `--color-ink` | `#17171a` | 17.89 | 15.87 | Primary text **and every filled control** |
+| `--color-ink-2` | ink @ 74% | 7.67 | 7.14 | Secondary body |
+| `--color-ink-3` | ink @ 64% | 5.32 | 5.15 | Metadata and labels; smallest step still AA for text |
+| `--color-ink-4` | ink @ 56% | 4.11 | 3.96 | **Non-text only** — icon strokes and rules, WCAG 1.4.11 |
+
+Anything lighter than `ink-4` fails even the 3:1 graphics threshold on the
+ground, which is why the ramp stops there.
+
+**Every filled button in this app is black.** A saturated primary competes with
+the route lines for the same attention, on the one screen where the route lines
+are the product. Ink wins the contrast argument outright and settles the colour
+argument by not having one. Hover lifts to `ink/90`; press is a `.985` scale.
+
+### The one accent
+
+| Token | Value | Contrast | Use |
+|---|---|---|---|
+| `--color-gold` | `#c08a2e` | 3.04 on white | **Fill only** — a star, a marker, an icon |
+| `--color-gold-text` | `#7c5e13` | 6.06 on white, 5.26 on the tint | Anything that has to be read |
+| `--color-gold-tint` | `#f7eedd` | — | The wash behind a gold figure |
+
+This is the landing page's `tugu-gold` / `tugu-gold-deep` pair in its documented
+roles, and it is the same split the place reference uses: an amber star as a
+graphic, never as a word. The accent gets one job per screen. On Home it is the
+carbon chip; on a place sheet it is the survey badge; on the map it is
+andong/becak. It is never a second button colour.
 
 ### Map category palette (cartographic, not brand) — verified against real basemap tiles
+
+> **Untouched by the warm-neutral repaint.** These hexes were measured against
+> MAPID's real `street-v2.0` / `dark-v2.0` paint. Recolouring the app's chrome
+> did not change what sits under a route line, so nothing below moved. This is
+> also the only place `instrument-blue` still appears in the product.
 
 **This section was rewritten after checking the first draft against MAPID's
 actual `style.json` paint colors (background, landuse, water, road, building
@@ -168,40 +247,60 @@ the direct light/dark-pair pattern that role establishes.
 
 ## Typography
 
-Same two families as the landing page, different job. There is no display-face
-use in the app — Quarkiz was the wordmark's cinematic scale, and nothing in a
-dashboard is a wordmark. Archivo carries every UI text role; IBM Plex Mono
-stays exactly what the landing page decided: metadata only, never a sentence.
+Both families carry over. Archivo does every text role; IBM Plex Mono is reduced
+to one job.
 
 ### Hierarchy
-- **Headline** (600, `clamp(20px, 2.4vw, 28px)`): screen titles — "Rute", "Sustainability Tracker". Far below the landing page's headline scale on purpose; a dashboard headline is a label for what's on screen, not a persuasive statement.
-- **Title** (600, 16px): route card titles, sheet section headers, POI names in a popup.
-- **Body** (400, 15px, line-height 1.5): agent chat text, form fields, descriptive copy. Tighter line-height than the landing page's 1.6 — chat bubbles are read in short bursts, not as flowing prose.
-- **Body, small** (400, 13px): secondary chat/card text — timestamps, distance/fare sub-lines under a route step.
-- **Label** (500, 11px, 0.16em tracking, mono, uppercase): same role the landing page gives it — index numbers, field labels, layer-toggle names, mode tags (`TRANSJOGJA`, `ANDONG`).
+- **Greeting** (400, `clamp(28px, 7vw, 36px)`): the one welcome line on Home. Set light and large, the way the reference does; weight carries the hierarchy, not scale alone.
+- **Headline** (600, `clamp(22px, 2.4vw, 28px)`): screen and sheet titles.
+- **Title row** (600, 16px): card titles, place names, section heads.
+- **Body** (400, 15px / 1.5): agent prose, descriptive copy.
+- **Body, small** (400, 13px / 1.45): secondary card and row text.
+- **Label** (600, 12px, `-0.005em`, sentence case): field labels, kind tags, group headings. **Never uppercase, never tracked out.**
+- **Figure** (mono, tabular): fares, durations, distances, coordinates, counts, badges. Loaded at 400/500 only, so a figure is never set above `font-medium`.
 
-### Named rule carried over
-**The Mono-Is-Metadata Rule still holds, and matters more here than on the
-landing page.** A chat-and-forms UI is exactly where it's tempting to reach for
-mono as a "technical" voice for body text — resist it. Mono stays reserved for
-labels and tags; agent responses and user messages are always Archivo body
-text, full stop.
+### Named rules
+**The Figures-Only Rule** (replaces Mono-Is-Metadata). Mono is for numerals and
+the units bound to them. Not labels, not tags, not status lines, not prose. The
+previous build put mono on every label and the product read as an instrument
+panel; the same restraint applied only to figures reads as precision.
+
+**No eyebrows.** A small tracked-out label above a heading is banned outright.
+The heading carries itself, and its position on the screen already says what
+section it is. This is the single change that did most to move the app out of
+the templated register.
 
 ## Layout
 
-No fixed shell width — the app is full-viewport, map-first, not a centered
-content column. `gutter` (16px) replaces the landing page's fluid `clamp()`
-gutter; a dashboard's chrome doesn't need to breathe at poster scale.
+No fixed shell width. The app is full-viewport and map-first, never a centred
+content column. A 16px gutter replaces the landing page's fluid one; app chrome
+does not need to breathe at poster scale.
 
-**The map is always the base layer.** Every other surface — agent sheet, layer
-sheet, route detail — is a sheet or overlay stacked above it, never a
-full-screen replacement of it. Navigating to "route detail" pushes a sheet
-higher, it doesn't navigate away from the map.
+**The map is the base layer.** Every other surface is stacked above it and never
+replaces it. Opening route detail raises a sheet; it does not navigate away.
 
-**Breakpoint: 900px**, matching the landing page's nav breakpoint for
-consistency. Below it, the agent and layer panels are bottom sheets (§Bottom
-Sheet below); at or above it, both promote to a left rail — same component
-tree, per `ARCHITECTURE.md` §10.3, just repositioned, not rebuilt.
+**Breakpoint: 900px.** Below it, the five destinations sit in a floating tab bar
+and screens stack over the map. At or above it, the nav promotes to a 248px
+sidebar (collapsible to 76px) and the active screen to a 384px context panel
+beside a map that stays in frame. Same component tree, repositioned
+(`ARCHITECTURE.md` §10.3). Desktop is the mobile design promoted, not a second
+product; the desktop reference contributed its sidebar structure and nothing
+else.
+
+### Shape
+
+One documented scale, applied everywhere:
+
+| Radius | Value | Applies to |
+|---|---|---|
+| `control` | `999px` | Every interactive control: buttons, chips, fields, toggles |
+| `field` | `16px` | Chat bubbles |
+| `card` | `20px` | Cards and photographs inside a surface |
+| `tile` | `24px` | Home action tiles, settings groups |
+| `sheet` | `28px` | Sheets, the place card, the tab bar |
+
+A mixed radius system is only legible when the rule is written down. This is the
+rule; anything that breaks it is a bug, not a variation.
 
 ## Elevation & Depth
 
@@ -212,25 +311,24 @@ diorama; here, **the map is the diorama**, and everything stacked above it
 earns the same right.
 
 ### Shadow vocabulary
-- **Sheet lift** (`box-shadow: 0 -8px 24px -8px rgba(16, 30, 42, 0.28)`): the bottom sheet and left rail, floating over the map. The app's equivalent of the hero CTA's earned shadow — same justification, same restraint (one shadow value, not a ramp of them).
-- **Card lift** (`box-shadow: 0 4px 12px -4px rgba(16, 30, 42, 0.18)`): route cards and POI popups floating over a sheet — one step lighter than the sheet's own shadow, so stacking order stays visually legible.
+
+Four values, all tinted warm to the ground rather than the old blue-grey, all
+carrying a real offset and a soft blur (a zero-offset halo is decoration, not
+depth):
+
+| Token | Floats over |
+|---|---|
+| `--shadow-card` | A card or tile resting on the ground |
+| `--shadow-float` | Chrome over the map: tab bar, FABs, chips, the place card |
+| `--shadow-sheet` | A bottom sheet over the map |
+| `--shadow-rail` | The desktop context panel against the map |
 
 ### Named rule
 **The Earns-Its-Float Rule** (this document's restatement of Flat-Unless-Floating
-for a UI that has to stack surfaces): a shadow is permitted only on something
-genuinely floating over the map or over another surface — never applied to a
-flat row inside a list, a button, or a static panel just for visual weight.
-Two shadow values exist in the whole app (above); introducing a third needs the
-same "what is this floating over" justification the landing page already
-requires.
-
-## Shapes
-
-Unchanged from the landing page: pill radius (999px) for every interactive
-control — buttons, layer toggles, mode filter chips. Sheets use a top-only
-rounded corner (`20px 20px 0 0`) since they rise from the screen edge, not a
-uniform panel radius. Cards inside a sheet use the landing page's softer
-`16px` panel radius. Corners elsewhere square, same as the landing page.
+for a UI that stacks surfaces): a shadow is permitted only on something genuinely
+floating over the map or over another surface. Never on a flat row inside a list,
+never on a static panel for visual weight. A fifth value needs the same "what is
+this floating over" answer.
 
 ## Components
 
@@ -241,7 +339,11 @@ Three snap points per `ARCHITECTURE.md` §10.3 / `PLAN.md` §8.1:
 - **Half** — input + recent conversation, enough to read the last exchange.
 - **Full** — full conversation history, scrollable.
 
-`surface-1` background, sheet-lift shadow, top-rounded. A drag handle
+`--color-surface` at 94% with a blur (`surface-float`), sheet-lift shadow,
+24px rounded corners, inset 8px from the screen edges so it reads as floating
+rather than welded to the frame. **Peek is sized to fit the composer**, not set
+to a round number — a peek that clips the input hides the one control that must
+always be reachable. A drag handle
 (a short `on-light-line`/`on-dark-line` bar, not an icon) signals draggability
 without adding an icon system the rest of the design deliberately avoids. The
 layer panel is a second, independent sheet — the two never occupy the same
@@ -249,11 +351,10 @@ snap-point space; opening one at "full" should collapse the other to "peek."
 
 ### Agent Chat Bubble (new)
 No bubble-with-tail cartoon chat aesthetic — stays instrument-flat. User
-messages: right-aligned, `instrument-blue` background, `paper` text, pill-ish
-corners (12px, not full pill — pill radius is reserved for controls, and a
-chat bubble is content, not a control). Agent messages: left-aligned, no fill,
-`ink-soft`/`on-light-body` text directly on the sheet's `surface-1` — the agent
-"speaks as the instrument," not as a separate colored party. This is a direct
+messages: right-aligned, `ink` background, white text, `field` radius (16px, not
+a full pill: pill radius is reserved for controls, and a chat bubble is content).
+Agent messages: left-aligned, no fill, `ink` text directly on the sheet, because
+the agent speaks as the instrument rather than as a separate coloured party. This is a direct
 descendant of the landing page's "no bordered-card" instinct: only the user's
 own input gets a filled background, because it's the one thing that needs to
 visually separate from the instrument's own voice.
@@ -265,7 +366,7 @@ loading animation that implies a promise about timing.
 
 ### Route Card / Itinerary Timeline (new)
 A staged vertical timeline: walk → halte → transit → andong/becak → destination
-(`PLAN.md` §8.2). Each stage is a hairline-separated row (`surface-2`, no
+(`PLAN.md` §8.2). Each stage is a hairline-separated row (white, no
 individual card shadow — only the timeline as a whole, if presented inside a
 sheet, inherits that sheet's lift). Mode icons are not icons but colored 4px
 verticals in the map category palette above, keeping the "no icon system"
@@ -277,18 +378,24 @@ discipline the landing page already holds. Distance/time/fare per leg in
 A hairline list, not a settings-app switch grid — continues the landing
 page's "Hairline Grid, not cards" instinct directly. Each row: layer name
 (`title`), a small color swatch matching the map category palette, and a pill
-toggle (`999px` radius, `instrument-blue` when active, `on-light-line` fill
-when off). No nested/collapsible categories in v1 — six thematic layers
-(`PRD` §4.2) fit one flat list.
+toggle (`999px` radius, `ink` when active, `line-strong` when off; a
+`line`-weight track disappears on white). Built on Radix's Switch for the
+keyboard behaviour a hand-rolled div does not get for free. No nested
+categories: six thematic layers (`PRD` §4.2) fit one flat list.
+
+The same layer set is also reachable as a **filter chip row** over the map.
+Chips are single-select, ink when chosen, and write to the same active set the
+list toggles: one source of truth at two densities. Multi-select stays in the
+list, one tap away at the end of the row.
 
 ### Sustainability Stat (new)
 The One Warm Rule's clearest expression in the app, mirroring the landing
 page's Index Marker component: the carbon-saved figure is set in
-`tugu-gold-deep` (light surfaces) / `tugu-gold-lit` (dark surfaces) on
-`surface-1`/`surface-2` — the same verified light/dark gold pair the map uses
+`tugu-gold-deep`, in mono, on white or on `tugu-gold-tint` — the same verified light/dark gold pair the map uses
 for andong/becak (§Map category palette above), reused here for the same
 reason: it's gold appearing as text/foreground, which is exactly what
-`tugu-gold-deep`/`tugu-gold-lit` are for. Bare `tugu-gold` never appears here —
+`tugu-gold-deep`/`tugu-gold-lit` are for. `--color-gold-tint` `#f7eedd` is the
+matching wash for the figure's chip on Beranda. Bare `tugu-gold` never appears here —
 consistent with it being fill-only everywhere in this system, chrome and map
 alike. Source citation
 (`ARCHITECTURE.md` §5.1's `emission_factors.source_citation`) renders directly
@@ -296,17 +403,67 @@ beneath it in `label` scale — never omitted, per the same non-negotiable the
 landing page and PRD both hold on invented numbers.
 
 ### Buttons
-Unchanged from the landing page: pill shape, `instrument-blue` primary fill /
-`paper` text, hover swaps to `ink-soft`. The app adds one variant the landing
+Pill shape. **Primary is `ink` with white text (17.89:1)**, hover `ink/90`, press
+a `.985` scale for a physical push. Secondary is white with a `line-strong`
+border and `ink-2` text. There is no coloured button in this system; §Ink says
+why. A screen gets one primary, and the place sheet's footer is the pattern:
+one quiet icon action beside one filled one. The app adds one variant the landing
 page didn't need — a **map floating action button** (locate-me, recenter):
 circular (not pill-elongated, since it has no label, just centers a symbol),
-`surface-1` fill, card-lift shadow, since it floats directly over the map like
+`surface-float` fill, card-lift shadow, since it floats directly over the map like
 every other elevated surface here.
+
+### Navigation (new)
+Five destinations, one definition list, two renderings. **Mobile:** a floating
+**solid** white bar inset from the screen edges, five icon-plus-label items. The
+active one is marked by ink and weight alone: no rule, no filled pill, because a
+coloured indicator would compete with the primary action present on nearly every
+screen. Solid rather than frosted, because a scrolling list read straight through
+it at 86%.
+**Desktop:** the same five in a 248px sidebar (collapsible to 76px), grouped
+"Navigasi" / "Milik Anda", with the local profile pinned at the bottom. This
+structure is the one thing taken from the desktop reference; its palette is not. Docked to
+the screen edge, because a sidebar that floats over nothing has not earned it.
+
+Iconography is `lucide-react` at 1.7 stroke (2.1 when active). Where the library
+has no glyph — the andong and becak — the icon is **drawn in lucide's own
+grammar** (24px box, currentColor, round caps) in `components/icons.tsx`, never
+substituted with an emoji.
+
+### Place Sheet (new)
+The detail surface for a tapped marker or a chosen search result. Mobile: rises
+from the bottom over the map. Desktop: a 364px card beside the nav, anchored to
+the pin the map just flew to. Same content, same order, same actions — only the
+anchor moves.
+
+Header is a circular back button, a screen title, and the heart. Then the hero
+photograph, a kind pill (plus a gold survey badge where a surveyor actually
+stood), name, subtitle, outlined fact chips, and a detail list: coordinate,
+source, and the photo credit when one is owed. Footer is share beside a filled
+`Rute ke sini`.
+
+**Photographs are real or absent.** `lib/photos.ts` resolves named landmarks
+against Wikipedia and credits them; anything it cannot honestly identify gets
+the drawn placeholder, which says why. Stock imagery under the name of a real
+halte is the one thing this system will not do.
+
+Selecting a place also drops a pin on the map. A card that names a coordinate
+the map never marks is a card about nothing.
+
+### Search (new)
+One surface for the whole app, opened from Beranda's field or the map's pill.
+`cmdk` supplies listbox semantics and arrow-key movement; filtering is
+server-side (`GET /api/geocode`). Results sit on one white card with hairline
+separators, each row marking the matched substring in `ink` weight so a hit
+explains itself, and the list closes with an honest count and provenance
+line (`3 HASIL · DATA PATHRIX & ALAMAT`). Empty and failed states are distinct
+and both offer the agent as the next move.
 
 ### Basemap Switcher (new)
 A small pill-radius segmented control (`street` / `dark`) in a map corner,
-`surface-1` background, sheet-lift shadow (it floats over the map like
-everything else). Not satellite/light in v1 UI — those two styles remain
+`surface-float` background, card-lift shadow, icon-only (sun / moon) with the
+active half filled `ink` like every other active control — it sits in a corner beside two other round controls and a
+text pill breaks that rhythm. Not satellite/light in v1 UI — those two styles remain
 available at the data layer (`ARCHITECTURE.md` §6.1) but the switcher only
 exposes the two this document has verified contrast for (§Colors above);
 add the rest once their contrast is checked the same way.
@@ -330,20 +487,28 @@ add the rest once their contrast is checked the same way.
   never navigate away from it to a different full-screen view.
 
 ### Don't:
-- **Don't** invent a UI hue outside the map category palette's four new
-  values (`#5b3a8e`/`#b399e0` for YIA, `#0f766e`/`#2dd4bf` for KRL) — everything
-  else in this document is an existing brand token, used in its documented
-  role or in the light/dark-pair pattern that role already establishes.
+- **Don't** introduce a UI hue at all. The chrome is ink, the neutral ramp, and
+  one gold accent. New colour belongs to the map category palette or nowhere.
+- **Don't** make a filled button any colour but `ink`, or give a screen two
+  primaries.
 - **Don't** assign a single hex to a map layer across both basemap styles —
   the §Map category palette rewrite exists because that mistake shipped once
   already; verify light and dark separately, every time.
 - **Don't** give agent messages a filled chat-bubble background — only user
   messages get one; the agent speaks as the instrument itself.
-- **Don't** add a spinner, skeleton shimmer, or animated loading icon anywhere
-  — state absence/pending status in mono text, per the Image Slot precedent.
+- **Don't** add a spinner, skeleton shimmer, or animated loading icon. State
+  absence and pending status in words.
+- **Don't** set an uppercase, tracked-out label above a heading. No eyebrows.
+- **Don't** put mono on anything that is not a figure.
+- **Don't** show a photograph the app cannot honestly attribute to the place
+  it is labelled with.
 - **Don't** let a route card, POI popup, or layer row acquire its own
   individual shadow if it's sitting flat inside an already-elevated sheet —
   only the outermost floating surface earns the shadow.
-- **Don't** treat this document as final before it's been through the Claude
-  Design canvas and at least one real screen has been built against it — see
-  the status line at the top.
+- **Don't** add a grey, tint, or accent without measuring it against the
+  surfaces it will sit on and recording the ratio — the Measured-Step Rule.
+- **Don't** use `--color-ink-4` for text. It is 3.96:1 on the ground: icon
+  strokes and rules only.
+- **Don't** put an element reset outside `@layer base`. An unlayered
+  `button { background: none }` outranks every layered utility and silently
+  turns each button-shaped floating control transparent over the map.
