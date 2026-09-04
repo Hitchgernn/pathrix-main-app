@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
-/* PATHRIX app tokens — warm neutral, black actions, one gold accent.
+/* PATHRIX app tokens — white ground, black actions, one gold accent.
  *
- * The chrome register is derived from inspirations/: a bone ground, white and
- * frosted surfaces, near-black as the action colour, and a single amber accent
- * in the role the place reference gives its rating star. That accent is the
- * tugu gold docs/DESIGN.md already reserves under the One Warm Rule, so the two
- * systems converge rather than compete.
+ * The chrome register is derived from inspirations/: a white page, frosted
+ * chrome over the map, near-black as the action colour, and a single amber
+ * accent in the role the place reference gives its rating star. That accent is
+ * the tugu gold docs/DESIGN.md already reserves under the One Warm Rule, so the
+ * two systems converge rather than compete.
+ *
+ * The ground was bone through round 2 and is now white. With no fill contrast
+ * left between page and card, the hairline carries the edge — which is why
+ * --color-line is heavier here than a hairline normally needs to be.
  *
  * Blue is gone from the chrome entirely. It survives only in lib/tokens.ts's
  * map category palette, whose hexes were measured against MAPID's real
@@ -18,23 +22,29 @@
  * to re-derive them.
  */
 @theme {
-  /* --- surface ramp ------------------------------------------------------ */
-  --color-ground: #f3f1ee; /* warm bone page ground */
-  --color-surface: #ffffff; /* cards, sheets, nav — 1.13 against ground */
-  --color-surface-2: #faf8f6; /* inset rows, quiet fields */
-  --color-surface-3: #efece8; /* pressed / hovered */
+  /* --- surface ramp ------------------------------------------------------
+   * The ground is white, so a card no longer separates from the page by fill.
+   * It separates by hairline, and by shadow once it genuinely floats. The two
+   * inset steps are neutral rather than warm: against pure white a warm tint
+   * reads as a stain, not as a plane. */
+  --color-ground: #ffffff; /* page ground */
+  --color-surface: #ffffff; /* cards, sheets, nav */
+  --color-surface-2: #f7f7f8; /* inset rows, quiet fields — 1.07 under white */
+  --color-surface-3: #eeeef0; /* pressed / hovered, icon wells — 1.16 */
 
   /* --- ink ---------------------------------------------------------------
    * Warm near-black. Also the primary fill: white on --color-ink is 17.89:1,
    * which is why every filled button in this system is black rather than
    * coloured. */
-  --color-ink: #17171a; /* 17.89 on white · 15.87 on ground */
-  --color-ink-2: rgba(23, 23, 26, 0.74); /* secondary body — 7.67 · 7.14 */
-  --color-ink-3: rgba(23, 23, 26, 0.64); /* metadata — 5.32 · 5.15 */
-  --color-ink-4: rgba(23, 23, 26, 0.56); /* NON-TEXT ONLY — 4.11 · 3.96 */
+  --color-ink: #17171a; /* 17.89 on white · 15.44 on surface-3 */
+  --color-ink-2: rgba(23, 23, 26, 0.74); /* secondary body — 7.67 · 6.62 */
+  --color-ink-3: rgba(23, 23, 26, 0.64); /* metadata — 5.32 · 4.59, AA everywhere */
+  --color-ink-4: rgba(23, 23, 26, 0.56); /* NON-TEXT ONLY — 4.11 · 3.55 */
 
-  --color-line: rgba(23, 23, 26, 0.08); /* hairline between rows */
-  --color-line-strong: rgba(23, 23, 26, 0.14); /* field and chip borders */
+  /* Carrying more weight now that fill no longer separates a card from the
+   * page: the hairline *is* the edge. */
+  --color-line: rgba(23, 23, 26, 0.1); /* hairline between rows, card edges */
+  --color-line-strong: rgba(23, 23, 26, 0.16); /* field and chip borders */
 
   /* --- the one accent ----------------------------------------------------
    * Two values, one colour, exactly as the landing page's DESIGN.md documents:
@@ -48,8 +58,7 @@
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   /* --- elevation ---------------------------------------------------------
-   * The Earns-Its-Float Rule holds: a shadow needs something to float over.
-   * Tinted warm to match the ground rather than the old blue-grey. */
+   * The Earns-Its-Float Rule holds: a shadow needs something to float over. */
   --shadow-card: 0 1px 2px rgba(23, 23, 26, 0.04), 0 8px 20px -8px rgba(23, 23, 26, 0.1);
   --shadow-float: 0 2px 6px rgba(23, 23, 26, 0.05), 0 16px 40px -12px rgba(23, 23, 26, 0.16);
   --shadow-sheet: 0 -1px 3px rgba(23, 23, 26, 0.03), 0 -20px 48px -16px rgba(23, 23, 26, 0.14);

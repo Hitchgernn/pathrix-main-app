@@ -101,7 +101,7 @@ export function PlaceSheet() {
             {meta.label}
           </span>
           {place.kind === "pangkalan" && (
-            <span className="label-sm flex items-center gap-[5px] rounded-control bg-gold-tint px-[11px] py-[6px] text-gold-text">
+            <span className="label-sm flex items-center gap-[5px] rounded-control bg-surface px-[11px] py-[6px] text-gold-text ring-1 ring-line">
               <Star size={13} strokeWidth={0} fill="var(--color-gold)" aria-hidden />
               Survei lapangan
             </span>
