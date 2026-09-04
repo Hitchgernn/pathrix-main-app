@@ -145,7 +145,7 @@ export function ProfileScreen() {
         <Row
           icon={<Database size={18} strokeWidth={1.8} />}
           title="Sumber data"
-          sub="MAPID Apps · OSM · survei lapangan"
+          sub="MAPID Apps, OpenStreetMap, survei lapangan"
         />
         <Row
           icon={<Trash2 size={18} strokeWidth={1.8} />}
