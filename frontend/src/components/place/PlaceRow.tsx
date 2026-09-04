@@ -17,16 +17,45 @@ interface PlaceRowProps {
   highlight?: string;
   onClick?: () => void;
   showFavourite?: boolean;
+  /** `compact` is the search result row: name and secondary text on one line,
+   *  the way the reference sets it. `full` keeps two lines for saved lists. */
+  variant?: "full" | "compact";
 }
 
 /** One result row, shared by search, saved, and the nearby strips. A hairline
  *  list, not a stack of cards — cards here would put a border around every
  *  single answer and make the list read as six competing objects. */
-export function PlaceRow({ place, highlight, onClick, showFavourite = true }: PlaceRowProps) {
+export function PlaceRow({
+  place,
+  highlight,
+  onClick,
+  showFavourite = true,
+  variant = "full",
+}: PlaceRowProps) {
   const Icon = ICON[place.kind];
   const meta = KIND_META[place.kind];
 
-  const body = (
+  const compact = variant === "compact";
+
+  const body = compact ? (
+    <>
+      <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-surface-3">
+        <Icon size={16} strokeWidth={1.8} className="text-ink-3" />
+      </span>
+      {/* One line, name then address, as the reference sets a result. The name
+          is capped rather than allowed to consume the row, so a long name
+          truncates but the address is still visible beside it. */}
+      <span className="flex min-w-0 flex-1 items-baseline gap-[6px] text-[15px]">
+        <span className="max-w-[62%] flex-none truncate font-semibold tracking-[-.01em]">
+          {highlight ? <Marked text={place.name} term={highlight} /> : place.name}
+        </span>
+        {place.subtitle && (
+          <span className="min-w-0 flex-1 truncate text-[13px] text-ink-3">{place.subtitle}</span>
+        )}
+      </span>
+      {showFavourite && <FavouriteButton place={place} variant="chip" />}
+    </>
+  ) : (
     <>
       <span className="flex h-10 w-10 flex-none items-center justify-center rounded-[12px] bg-surface-2 ring-1 ring-line">
         <Icon size={18} strokeWidth={1.8} className={meta.className} />
@@ -47,7 +76,15 @@ export function PlaceRow({ place, highlight, onClick, showFavourite = true }: Pl
   );
 
   if (!onClick) {
-    return <span className="flex w-full cursor-pointer items-center gap-3 px-3 py-[11px]">{body}</span>;
+    return (
+      <span
+        className={`flex w-full cursor-pointer items-center gap-3 ${
+          compact ? "px-2 py-[11px]" : "px-3 py-[11px]"
+        }`}
+      >
+        {body}
+      </span>
+    );
   }
   return (
     <button
@@ -67,7 +104,7 @@ function Marked({ text, term }: { text: string; term: string }) {
   return (
     <>
       {text.slice(0, index)}
-      <mark className="bg-transparent text-ink">
+      <mark className="bg-transparent font-semibold text-ink">
         {text.slice(index, index + term.length)}
       </mark>
       {text.slice(index + term.length)}

@@ -200,10 +200,17 @@
 }
 
 /* One focus treatment for the whole app, on ink so it belongs to the same
-   system as every filled control. */
-:where(button, a, input, [role="switch"], [role="tab"], [tabindex]):focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
+   system as every filled control.
+
+   Inside @layer base for the same reason the element resets are: an unlayered
+   rule outranks every layered utility, so a component that needs to move focus
+   onto its own container (the search pill, whose input must not draw a second
+   box inside it) could not opt out with focus-visible:outline-none. */
+@layer base {
+  :where(button, a, input, [role="switch"], [role="tab"], [tabindex]):focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

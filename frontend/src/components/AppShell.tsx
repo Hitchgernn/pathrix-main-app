@@ -14,7 +14,6 @@ import { HomeScreen } from "./screens/HomeScreen";
 import { PermissionScreen } from "./screens/PermissionScreen";
 import { ProfileScreen } from "./screens/ProfileScreen";
 import { SavedScreen } from "./screens/SavedScreen";
-import { SearchOverlay } from "./search/SearchOverlay";
 
 /** The one layout switch in the app.
  *
@@ -136,7 +135,6 @@ export function AppShell() {
       )}
 
       {onMap && <PlaceSheet />}
-      <SearchOverlay />
       {!onboarded && onMap && <PermissionScreen />}
     </div>
   );
