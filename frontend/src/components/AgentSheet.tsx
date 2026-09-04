@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUp, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { Check } from "lucide-react";
+import { useT } from "../i18n";
 import { scriptFor, type DemoKind } from "../lib/demoAgent";
 import { QUICK } from "../lib/sample";
 import { useSheetDrag } from "../lib/useSheetDrag";
@@ -32,6 +33,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
   const setInput = useStore((s) => s.setInput);
   const ask = useStore((s) => s.ask);
   const setAgentSnap = useStore((s) => s.setAgentSnap);
+  const t = useT();
 
   const drag = useSheetDrag(vh);
   const scroller = useRef<HTMLDivElement | null>(null);
@@ -99,24 +101,24 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
           <Sparkles size={15} strokeWidth={1.9} className="text-ink" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block text-[15px] font-semibold tracking-[-.01em]">Agen Pathrix</span>
+          <span className="block text-[15px] font-semibold tracking-[-.01em]">{t("agent.name")}</span>
           {/* The simulation banner must not disappear at the one moment the app
               is most convincing. While a script runs, the steps below already
               say what is happening, so the header keeps saying what it is. */}
           {streaming && demoKind ? (
-            <span className="label-sm block text-ink-3">Mode contoh, agen belum terpasang</span>
+            <span className="label-sm block text-ink-3">{t("agent.demoBanner")}</span>
           ) : streaming ? (
-            <span className="label-sm animate-pxdim block text-ink-2">Menyusun rute…</span>
+            <span className="label-sm animate-pxdim block text-ink-2">{t("agent.composing")}</span>
           ) : (
             <span className="label-sm block text-ink-3">
-              {offline ? "Mode contoh, agen belum terpasang" : "Membaca peta yang Anda lihat"}
+              {t(offline ? "agent.demoBanner" : "agent.reading")}
             </span>
           )}
         </span>
         {isSheet && (
           <button
             onClick={() => setAgentSnap(agentSnap === "full" ? "peek" : "full")}
-            aria-label={agentSnap === "full" ? "Kecilkan percakapan" : "Buka percakapan penuh"}
+            aria-label={t(agentSnap === "full" ? "agent.collapse" : "agent.expand")}
             className="-mr-1 flex-none rounded-full p-2 text-ink-4 transition-colors hover:bg-surface-2 hover:text-ink"
           >
             {agentSnap === "full" ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
@@ -132,8 +134,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
           {firstRun && (
             <div className="flex flex-col gap-[14px] pb-[2px] pt-1">
               <p className="body-15 max-w-[46ch] text-ink-2">
-                Saya membaca peta yang sedang Anda lihat: layer aktif, rute terakhir, dan
-                viewport. Sebutkan tujuan, atau minta hal lain.
+                {t("agent.intro")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {QUICK.map((q) => (
@@ -179,7 +180,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
             (demoKind ? (
               <ThinkingSteps kind={demoKind} step={demoStep} />
             ) : (
-              <p className="label-sm animate-pxdim text-ink-3">Sedang menghitung…</p>
+              <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
             ))}
         </div>
       )}
@@ -191,13 +192,13 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
           onKeyDown={(event) => {
             if (event.key === "Enter") submit();
           }}
-          placeholder="Tanya agen…"
-          aria-label="Pesan untuk agen"
+          placeholder={t("agent.placeholder")}
+          aria-label={t("agent.inputLabel")}
           className="min-w-0 flex-1 rounded-control border border-line-strong bg-surface px-[16px] py-[12px] text-[15px] text-ink outline-none placeholder:text-ink-3"
         />
         <button
           onClick={submit}
-          aria-label="Kirim"
+          aria-label={t("agent.send")}
           disabled={streaming}
           className="flex h-[44px] w-[44px] flex-none items-center justify-center rounded-full bg-ink text-surface transition-colors hover:bg-ink/90 disabled:opacity-45"
         >
@@ -221,6 +222,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
  */
 function ThinkingSteps({ kind, step }: { kind: DemoKind; step: number }) {
   const steps = scriptFor(kind);
+  const t = useT();
   return (
     <ol className="flex flex-col gap-[7px] py-1" aria-live="polite">
       {steps.map((entry, index) => {
@@ -231,7 +233,7 @@ function ThinkingSteps({ kind, step }: { kind: DemoKind; step: number }) {
         if (!done && !current) return null;
         return (
           <li
-            key={entry.label}
+            key={entry.key}
             className={`flex items-center gap-[8px] text-[13px] ${
               current ? "animate-pxdim text-ink" : "text-ink-3"
             }`}
@@ -243,7 +245,7 @@ function ThinkingSteps({ kind, step }: { kind: DemoKind; step: number }) {
                 <span className="h-[6px] w-[6px] rounded-full bg-ink" />
               )}
             </span>
-            {entry.label}
+            {t(entry.key)}
           </li>
         );
       })}

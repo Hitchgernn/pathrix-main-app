@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import { useT } from "../i18n";
 import { routeCardMeta } from "../lib/format";
 import type { Route } from "../lib/types";
 import { useStore } from "../store";
@@ -15,6 +16,7 @@ export function RouteCard({ route }: RouteCardProps) {
   const openPanel = useStore((s) => s.openPanel);
   const saved = useStore((s) => s.savedRoutes.some((r) => r.id === SAMPLE_TITLE));
   const toggleSavedRoute = useStore((s) => s.toggleSavedRoute);
+  const t = useT();
 
   const meta = route ? routeCardMeta(route) : "51 MNT · RP63.000 · 5 LEG";
 
@@ -48,7 +50,7 @@ export function RouteCard({ route }: RouteCardProps) {
           saved ? "text-ink" : "text-ink-2 hover:bg-surface-2"
         }`}
       >
-        {saved ? "Tersimpan di perangkat ini" : "Simpan rute ini"}
+        {t(saved ? "route.savedHere" : "route.saveThis")}
       </button>
     </div>
   );

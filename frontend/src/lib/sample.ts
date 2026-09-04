@@ -6,6 +6,7 @@
  *  here is replaced by live data the moment `/ws` answers — see store/index.ts.
  */
 
+import type { MessageKey } from "../i18n";
 import type { RecentEntry } from "./places";
 
 export interface SampleLeg {
@@ -84,8 +85,8 @@ export const LAYER_ROWS: LayerRow[] = [
 export interface QuickAction {
   id: string;
   icon: "route" | "bus" | "carriage" | "layers";
-  title: string;
-  sub: string;
+  titleKey: MessageKey;
+  subKey: MessageKey;
   prompt: string | null;
   /** Layer ids to switch on when the tile is a map action rather than a query. */
   layers?: string[];
@@ -98,24 +99,24 @@ export const QUICK_ACTIONS: QuickAction[] = [
   {
     id: "rute",
     icon: "route",
-    title: "Cari rute",
-    sub: "Lintas moda, pintu ke pintu",
+    titleKey: "action.route.title",
+    subKey: "action.route.sub",
     prompt: "Malioboro → Candi Prambanan",
     photo: "Malioboro",
   },
   {
     id: "halte",
     icon: "bus",
-    title: "Halte terdekat",
-    sub: "TransJogja, KRL, KA Bandara",
+    titleKey: "action.stops.title",
+    subKey: "action.stops.sub",
     prompt: "Halte TransJogja terdekat",
     photo: "TransJogja",
   },
   {
     id: "pangkalan",
     icon: "carriage",
-    title: "Andong & becak",
-    sub: "Pangkalan hasil survei",
+    titleKey: "action.pangkalan.title",
+    subKey: "action.pangkalan.sub",
     prompt: null,
     layers: ["pangkalan"],
     photo: "Andong",
@@ -123,8 +124,8 @@ export const QUICK_ACTIONS: QuickAction[] = [
   {
     id: "layer",
     icon: "layers",
-    title: "Layer peta",
-    sub: "6 layer tematik",
+    titleKey: "action.layers.title",
+    subKey: "action.layers.sub",
     prompt: null,
   },
 ];
@@ -133,18 +134,18 @@ export const QUICK_ACTIONS: QuickAction[] = [
  *  panel exposes in full — chips are the fast path, not a second system. */
 export interface FilterChip {
   id: string;
-  label: string;
+  labelKey: MessageKey;
   /** Layer ids switched on when the chip is picked. Empty means "show all". */
   layers: string[];
 }
 
 export const FILTER_CHIPS: FilterChip[] = [
-  { id: "semua", label: "Semua", layers: [] },
-  { id: "transit", label: "Halte & KRL", layers: ["transit"] },
-  { id: "pangkalan", label: "Andong & becak", layers: ["pangkalan"] },
-  { id: "pariwisata", label: "Wisata", layers: ["pariwisata"] },
-  { id: "properti", label: "Properti", layers: ["properti"] },
-  { id: "jangkauan", label: "Jangkauan", layers: ["jangkauan"] },
+  { id: "semua", labelKey: "filter.all", layers: [] },
+  { id: "transit", labelKey: "filter.transit", layers: ["transit"] },
+  { id: "pangkalan", labelKey: "filter.pangkalan", layers: ["pangkalan"] },
+  { id: "pariwisata", labelKey: "filter.tourism", layers: ["pariwisata"] },
+  { id: "properti", labelKey: "filter.property", layers: ["properti"] },
+  { id: "jangkauan", labelKey: "filter.reach", layers: ["jangkauan"] },
 ];
 
 export interface QuickPrompt {

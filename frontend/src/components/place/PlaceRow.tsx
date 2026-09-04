@@ -1,5 +1,6 @@
 import { Bookmark, Building2, Home, MapPin, TramFront } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useT } from "../../i18n";
 import { KIND_META, type Place, type PlaceKind } from "../../lib/places";
 import { FavouriteButton } from "./FavouriteButton";
 
@@ -34,6 +35,7 @@ export function PlaceRow({
 }: PlaceRowProps) {
   const Icon = ICON[place.kind];
   const meta = KIND_META[place.kind];
+  const t = useT();
 
   const compact = variant === "compact";
 
@@ -65,7 +67,7 @@ export function PlaceRow({
           {highlight ? <Marked text={place.name} term={highlight} /> : place.name}
         </span>
         <span className="mt-[2px] flex items-center gap-[6px]">
-          <span className={`label-sm flex-none ${meta.className}`}>{meta.label}</span>
+          <span className={`label-sm flex-none ${meta.className}`}>{t(meta.labelKey)}</span>
           {place.subtitle && (
             <span className="min-w-0 truncate text-[13px] text-ink-3">{place.subtitle}</span>
           )}

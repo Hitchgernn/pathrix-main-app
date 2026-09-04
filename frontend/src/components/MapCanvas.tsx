@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Map as MapLibreMap } from "maplibre-gl";
+import { translate } from "../i18n";
 import { useStore } from "../store";
 import { getMap as getMapHandle, setMap } from "../lib/mapHandle";
 import { reapplyRoute } from "../lib/bridge";
@@ -188,7 +189,7 @@ export function MapCanvas() {
         style={{ left: inset }}
       >
         <p className="body-13 max-w-[30ch] text-center text-ink-3">
-          Kunci basemap belum diatur. Setel VITE_MAPID_BASEMAP_KEY untuk memuat MAPID Maps.
+          {translate(useStore.getState().locale, "map.noKey")}
         </p>
       </div>
     );
@@ -226,7 +227,7 @@ function UserDot() {
     void import("maplibre-gl").then((maplibre) => {
       if (cancelled) return;
       const element = document.createElement("div");
-      element.setAttribute("aria-label", "Lokasi Anda");
+      element.setAttribute("aria-label", translate(useStore.getState().locale, "map.yourLocation"));
       element.style.cssText =
         "width:18px;height:18px;border-radius:999px;background:#1d76bd;" +
         "box-shadow:0 0 0 4px rgba(29,118,189,.22),0 1px 3px rgba(16,30,42,.4);" +

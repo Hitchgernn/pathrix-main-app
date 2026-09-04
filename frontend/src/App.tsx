@@ -50,6 +50,13 @@ export default function App() {
     [],
   );
 
+  // The persisted locale restores into the store on boot, but <html lang> is
+  // whatever index.html shipped, so a reload in English was announcing itself
+  // as Indonesian to every screen reader. Only setLocale used to touch it.
+  useEffect(() => {
+    document.documentElement.lang = useStore.getState().locale;
+  }, []);
+
   useEffect(() => {
     fetchLayers()
       .then(useStore.getState().setCatalogue)

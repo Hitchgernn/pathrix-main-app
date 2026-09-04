@@ -1,5 +1,6 @@
 import { ArrowRight, ChevronRight, Layers, Leaf, Route, TramFront } from "lucide-react";
 import type { ComponentType } from "react";
+import { currentLocale, useT } from "../../i18n";
 import { askFromAnywhere, goToPlace } from "../../lib/actions";
 import { QUICK_ACTIONS, SAMPLE_CARBON, type QuickAction } from "../../lib/sample";
 import { usePhoto } from "../../lib/usePhoto";
@@ -27,6 +28,7 @@ export function HomeScreen() {
   const setTab = useStore((s) => s.setTab);
   const openPanel = useStore((s) => s.openPanel);
   const toggleLayer = useStore((s) => s.toggleLayer);
+  const t = useT();
 
   const runAction = (action: QuickAction) => {
     if (action.layers) action.layers.forEach((id) => toggleLayer(id, true));
@@ -56,16 +58,16 @@ export function HomeScreen() {
               {SAMPLE_CARBON.month}
             </span>
             <span className="label-sm mt-[4px] block font-normal leading-none text-gold-text">
-              CO₂e bulan ini
+              {t("home.carbonMonth")}
             </span>
           </span>
         </button>
       </header>
 
       <h1 className="title-greeting mt-7">
-        Halo, {profile.name}
+        {t("home.greeting", profile.name)}
         <br />
-        <span className="font-medium">Mau ke mana hari ini?</span>
+        <span className="font-medium">{t("home.question")}</span>
       </h1>
 
       <SearchBar variant="page" className="mt-6" />
@@ -77,11 +79,11 @@ export function HomeScreen() {
         className="group mt-[10px] flex items-center gap-3 rounded-tile bg-surface p-[14px] text-left ring-1 ring-line transition-shadow hover:shadow-card"
       >
         <span className="flex h-[46px] flex-1 items-center justify-center rounded-control bg-ink px-5 text-[15px] font-semibold text-surface transition-transform group-active:scale-[.985]">
-          Buka peta
+          {t("home.openMap")}
         </span>
         <span className="flex flex-none items-center gap-[6px] pr-2 text-ink-2">
           <span className="figure text-[13px]">{savedPlaces.length}</span>
-          <span className="label-sm font-normal text-ink-3">tersimpan</span>
+          <span className="label-sm font-normal text-ink-3">{t("home.savedCount")}</span>
           <ArrowRight size={15} strokeWidth={2} className="text-ink-4" />
         </span>
       </button>
@@ -94,7 +96,7 @@ export function HomeScreen() {
 
       {savedPlaces.length > 0 && (
         <section className="mt-9">
-          <SectionHead label="Tersimpan" onMore={() => setTab("saved")} />
+          <SectionHead label={t("search.saved")} onMore={() => setTab("saved")} />
           <div className="no-scrollbar -mx-4 mt-3 flex gap-[10px] overflow-x-auto px-4 pb-1">
             {savedPlaces.slice(0, 6).map((place) => (
               <button
@@ -106,7 +108,7 @@ export function HomeScreen() {
                   {place.name}
                 </span>
                 <span className="mt-[3px] block truncate text-[12.5px] text-ink-3">
-                  {place.subtitle ?? "Tersimpan di perangkat ini"}
+                  {place.subtitle ?? t("home.savedOnDevice")}
                 </span>
               </button>
             ))}
@@ -115,7 +117,7 @@ export function HomeScreen() {
       )}
 
       <section className="mt-9">
-        <SectionHead label={recents.length > 0 ? "Terakhir" : "Contoh perjalanan"} />
+        <SectionHead label={t(recents.length > 0 ? "home.recent" : "home.sampleTrips")} />
         <div className="mt-2">
           {recentsForDisplay(recents)
             .slice(0, 5)
@@ -129,7 +131,7 @@ export function HomeScreen() {
                   {entry.title}
                 </span>
                 <span className="figure flex-none whitespace-nowrap text-[12px] text-ink-3">
-                  {relativeDay(entry.at)}
+                  {relativeDay(entry.at, t)}
                 </span>
                 <ChevronRight size={16} strokeWidth={2} className="flex-none text-ink-4" />
               </button>
@@ -138,7 +140,7 @@ export function HomeScreen() {
         </div>
         {recents.length === 0 && (
           <p className="body-13 mt-3 text-ink-3">
-            Contoh perjalanan. Riwayat asli Anda muncul di sini setelah pencarian pertama.
+            {t("home.sampleNote")}
           </p>
         )}
       </section>
@@ -152,6 +154,7 @@ export function HomeScreen() {
  *  iconographic rather than borrowing an unrelated image. */
 function ActionTile({ action, onSelect }: { action: QuickAction; onSelect: () => void }) {
   const Icon = TILE_ICON[action.icon];
+  const t = useT();
   const { photo } = usePhoto(action.photo ?? null);
 
   return (
@@ -174,8 +177,12 @@ function ActionTile({ action, onSelect }: { action: QuickAction; onSelect: () =>
         )}
       </span>
       <span className="block flex-1 px-[14px] pb-[14px] pt-[11px]">
-        <span className="block text-[15px] font-semibold tracking-[-.01em]">{action.title}</span>
-        <span className="mt-[2px] block text-[12.5px] leading-[1.35] text-ink-3">{action.sub}</span>
+        <span className="block text-[15px] font-semibold tracking-[-.01em]">
+          {t(action.titleKey)}
+        </span>
+        <span className="mt-[2px] block text-[12.5px] leading-[1.35] text-ink-3">
+          {t(action.subKey)}
+        </span>
       </span>
     </button>
   );
@@ -194,12 +201,15 @@ function SectionHead({ label, onMore }: { label: string; onMore?: () => void }) 
   );
 }
 
-/** Indonesian relative day. Anything past a fortnight becomes a date, because
- *  "37 hari lalu" is not how anyone reads a list. */
-function relativeDay(at: number): string {
+/** Relative day. Anything past a fortnight becomes a date, because "37 days
+ *  ago" is not how anyone reads a list. */
+function relativeDay(at: number, t: ReturnType<typeof useT>): string {
   const days = Math.floor((Date.now() - at) / 864e5);
-  if (days <= 0) return "Hari ini";
-  if (days === 1) return "Kemarin";
-  if (days < 14) return `${days} hari lalu`;
-  return new Date(at).toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+  if (days <= 0) return t("time.today");
+  if (days === 1) return t("time.yesterday");
+  if (days < 14) return t("time.daysAgo", days);
+  return new Date(at).toLocaleDateString(currentLocale() === "en" ? "en-GB" : "id-ID", {
+    day: "numeric",
+    month: "short",
+  });
 }

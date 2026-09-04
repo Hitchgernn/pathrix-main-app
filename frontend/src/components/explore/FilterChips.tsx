@@ -1,4 +1,5 @@
 import { SlidersHorizontal } from "lucide-react";
+import { useT } from "../../i18n";
 import { FILTER_CHIPS, LAYER_ROWS } from "../../lib/sample";
 import { useStore } from "../../store";
 
@@ -15,6 +16,7 @@ export function FilterChips() {
   const setLayers = useStore((s) => s.setLayers);
   const openPanel = useStore((s) => s.openPanel);
   const panel = useStore((s) => s.panel);
+  const t = useT();
 
   // Exactly one chip reads as chosen at a time. Multi-select still exists — it
   // is the full layer list behind the button at the end of the row.
@@ -40,7 +42,7 @@ export function FilterChips() {
                 on ? "bg-ink text-surface" : "surface-float text-ink-2 ring-1 ring-line"
               }`}
             >
-              {chip.label}
+              {t(chip.labelKey)}
             </button>
           );
         })}
@@ -48,7 +50,7 @@ export function FilterChips() {
 
       <button
         onClick={() => openPanel("layers")}
-        aria-label="Semua layer"
+        aria-label={t("map.allLayers")}
         aria-pressed={panel === "layers"}
         className={`flex h-[38px] w-[38px] flex-none items-center justify-center rounded-full shadow-card transition-colors ${
           panel === "layers" ? "bg-ink text-surface" : "surface-float text-ink-2 ring-1 ring-line"

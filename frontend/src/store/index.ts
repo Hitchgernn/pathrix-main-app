@@ -11,6 +11,7 @@ import type { Basemap } from "../lib/tokens";
 import type { Place, RecentEntry, SavedRoute } from "../lib/places";
 import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE, SEED_RECENTS } from "../lib/sample";
 import { demoKindFor, runScript, type DemoKind } from "../lib/demoAgent";
+import { translate } from "../i18n";
 import type { AgentSocket } from "../lib/ws";
 import {
   capRecents,
@@ -18,6 +19,7 @@ import {
   loadPersisted,
   savePersisted,
   type LocationPermission,
+  type PersistedLocale,
   type PersistedState,
   type Profile,
 } from "./persist";
@@ -118,6 +120,7 @@ interface PersistSlice extends PersistedState {
   pushRecent(entry: Omit<RecentEntry, "at">): void;
   setLocationPermission(permission: LocationPermission): void;
   setOnboarded(onboarded: boolean): void;
+  setLocale(locale: PersistedLocale): void;
   resetLocalData(): void;
 }
 
@@ -136,6 +139,7 @@ const persistNow = (state: Store): void =>
     recents: state.recents,
     locationPermission: state.locationPermission,
     onboarded: state.onboarded,
+    locale: state.locale,
   });
 
 export const useStore = create<Store>()((set, get) => ({
@@ -201,7 +205,7 @@ export const useStore = create<Store>()((set, get) => ({
     get().handleServerMessage({
       type: "error",
       code: "llm_unavailable",
-      message: "Chat is unavailable right now.",
+      message: translate(get().locale, "agent.unavailable"),
     });
   },
 
@@ -375,6 +379,12 @@ export const useStore = create<Store>()((set, get) => ({
     set({ onboarded });
     persistNow(get());
   },
+  setLocale: (locale) => {
+    set({ locale });
+    // Assistive tech and the browser both read this; it must follow the switch.
+    if (typeof document !== "undefined") document.documentElement.lang = locale;
+    persistNow(get());
+  },
 
   resetLocalData: () => {
     clearPersisted();
@@ -385,7 +395,9 @@ export const useStore = create<Store>()((set, get) => ({
       recents: [],
       locationPermission: "unknown",
       onboarded: false,
+      locale: "id",
     });
+    if (typeof document !== "undefined") document.documentElement.lang = "id";
   },
 }));
 

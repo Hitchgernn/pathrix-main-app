@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Trash2, Upload } from "lucide-react";
+import { useT } from "../../i18n";
 import { useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
 
@@ -53,6 +54,7 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
   const setProfile = useStore((s) => s.setProfile);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const t = useT();
 
   const upload = async (file: File | undefined) => {
     if (!file) return;
@@ -63,13 +65,13 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
     } catch {
       // The one write in this app that can realistically hit quota, so it says
       // so rather than failing silently the way the rest of persist.ts does.
-      setError("Foto tidak bisa disimpan. Coba gambar yang lebih kecil.");
+      setError(t("avatar.tooBig"));
     }
   };
 
   return (
     <div className="mt-3 rounded-tile bg-surface-2 p-[14px] ring-1 ring-line">
-      <p className="label-sm text-ink-3">Pilih gambar</p>
+      <p className="label-sm text-ink-3">{t("avatar.pick")}</p>
 
       <div className="no-scrollbar -mx-1 mt-2 flex gap-2 overflow-x-auto px-1 pb-1">
         {SEEDS.map((seed) => {
@@ -82,7 +84,7 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
                 setProfile({ avatar: url });
                 onClose();
               }}
-              aria-label={`Gambar profil ${seed}`}
+              aria-label={t("avatar.option", seed)}
               aria-pressed={active}
               className={`flex-none rounded-full transition-transform active:scale-95 ${
                 active ? "ring-2 ring-ink ring-offset-2 ring-offset-surface-2" : ""
@@ -107,7 +109,7 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
           className="flex items-center gap-[7px] rounded-control bg-ink px-[15px] py-[9px] text-[13px] font-semibold text-surface transition-colors hover:bg-ink/90"
         >
           <Upload size={15} strokeWidth={2} />
-          Unggah foto
+          {t("avatar.upload")}
         </button>
         {profile.avatar && (
           <button
@@ -118,20 +120,20 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
             className="flex items-center gap-[7px] rounded-control px-[15px] py-[9px] text-[13px] font-semibold text-ink-2 ring-1 ring-line-strong transition-colors hover:bg-surface"
           >
             <Trash2 size={15} strokeWidth={1.9} />
-            Hapus
+            {t("avatar.remove")}
           </button>
         )}
         <button
           onClick={onClose}
           className="rounded-control px-[15px] py-[9px] text-[13px] font-semibold text-ink-3 transition-colors hover:text-ink"
         >
-          Batal
+          {t("avatar.cancel")}
         </button>
       </div>
 
       {error && <p className="body-13 mt-2 text-ink-2">{error}</p>}
       <p className="body-13 mt-2 text-ink-3">
-        Gambar disimpan di perangkat ini saja.
+        {t("avatar.localOnly")}
       </p>
     </div>
   );

@@ -12,11 +12,13 @@
  *  these become progress the backend reports rather than lines a timer prints.
  */
 
+import type { MessageKey } from "../i18n";
+
 export type DemoKind = "route" | "nearby" | "generic";
 
 export interface DemoStep {
   /** Shown while this step is the current one. */
-  label: string;
+  key: MessageKey;
   /** How long it holds before the next step takes over. */
   ms: number;
 }
@@ -32,18 +34,18 @@ export function demoKindFor(text: string): DemoKind {
 
 const SCRIPTS: Record<DemoKind, DemoStep[]> = {
   route: [
-    { label: "Membaca peta yang Anda lihat", ms: 700 },
-    { label: "Mencari titik awal dan tujuan", ms: 900 },
-    { label: "Menyusun rute lintas moda", ms: 1100 },
-    { label: "Menghitung tarif dan jejak karbon", ms: 800 },
+    { key: "demo.step.readMap", ms: 700 },
+    { key: "demo.step.endpoints", ms: 900 },
+    { key: "demo.step.route", ms: 1100 },
+    { key: "demo.step.carbon", ms: 800 },
   ],
   nearby: [
-    { label: "Membaca peta yang Anda lihat", ms: 700 },
-    { label: "Mencari halte dan pangkalan di sekitar", ms: 1000 },
+    { key: "demo.step.readMap", ms: 700 },
+    { key: "demo.step.nearby", ms: 1000 },
   ],
   generic: [
-    { label: "Membaca peta yang Anda lihat", ms: 700 },
-    { label: "Menyiapkan jawaban", ms: 800 },
+    { key: "demo.step.readMap", ms: 700 },
+    { key: "demo.step.answer", ms: 800 },
   ],
 };
 

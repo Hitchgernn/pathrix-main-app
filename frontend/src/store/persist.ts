@@ -13,6 +13,10 @@ const RECENTS_CAP = 8;
 
 export type LocationPermission = "unknown" | "granted" | "denied";
 
+/** Mirrors i18n/index.ts's Locale. Declared here rather than imported to keep
+ *  persist.ts free of a cycle: i18n imports the store, the store imports this. */
+export type PersistedLocale = "id" | "en";
+
 export interface Profile {
   name: string;
   /** Data URL or remote URL. Null renders initials instead. */
@@ -26,6 +30,7 @@ export interface PersistedState {
   recents: RecentEntry[];
   locationPermission: LocationPermission;
   onboarded: boolean;
+  locale: PersistedLocale;
 }
 
 export const EMPTY_PERSISTED: PersistedState = {
@@ -35,6 +40,10 @@ export const EMPTY_PERSISTED: PersistedState = {
   recents: [],
   locationPermission: "unknown",
   onboarded: false,
+  // Indonesian is the default: this is a Yogyakarta product before it is a
+  // bilingual one. A first-run browser set to English still starts in id, and
+  // switches in one tap.
+  locale: "id",
 };
 
 const isArray = <T,>(value: unknown): T[] => (Array.isArray(value) ? (value as T[]) : []);
@@ -72,6 +81,7 @@ export function loadPersisted(): PersistedState {
         ? raw.locationPermission
         : "unknown",
     onboarded: raw.onboarded === true,
+    locale: raw.locale === "en" ? "en" : "id",
   };
 }
 

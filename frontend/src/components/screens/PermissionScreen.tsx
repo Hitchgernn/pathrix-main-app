@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useT } from "../../i18n";
 import { requestLocation } from "../../lib/geolocation";
 import { useStore } from "../../store";
 
@@ -14,6 +15,7 @@ export function PermissionScreen() {
   const setPermission = useStore((s) => s.setLocationPermission);
   const setUserCoord = useStore((s) => s.setUserCoord);
   const [asking, setAsking] = useState(false);
+  const t = useT();
 
   const allow = async () => {
     setAsking(true);
@@ -28,14 +30,12 @@ export function PermissionScreen() {
       <div className="mx-auto flex w-full max-w-[440px] flex-1 flex-col px-6 pb-8 pt-16">
         <div className="flex flex-1 flex-col items-center justify-center text-center">
           <LocationMark />
-          <h1 className="title-lg mt-8">Izinkan akses lokasi</h1>
+          <h1 className="title-lg mt-8">{t("perm.title")}</h1>
           <p className="body-15 mt-3 max-w-[34ch] text-ink-2">
-            Dipakai untuk menunjukkan halte, pangkalan andong dan becak terdekat, serta menghitung
-            rute dari posisi Anda.
+            {t("perm.body")}
           </p>
           <p className="body-13 mt-4 max-w-[34ch] text-ink-3">
-            Lokasi diproses di perangkat dan dikirim ke server hanya sebagai titik awal rute. Anda
-            bisa mengubahnya kapan saja di Profil.
+            {t("perm.note")}
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export function PermissionScreen() {
           disabled={asking}
           className="w-full rounded-control bg-ink px-[22px] py-[16px] text-[16px] font-semibold tracking-[-.01em] text-surface transition-colors hover:bg-ink/90 disabled:opacity-60"
         >
-          {asking ? "Menunggu izin…" : "Izinkan akses"}
+          {t(asking ? "perm.waiting" : "perm.allow")}
         </button>
         <button
           onClick={() => {
@@ -53,7 +53,7 @@ export function PermissionScreen() {
           }}
           className="mt-2 w-full rounded-control px-[22px] py-[14px] text-[15px] font-semibold text-ink-2 transition-colors hover:bg-surface-2"
         >
-          Nanti saja, buka peta Yogyakarta
+          {t("perm.later")}
         </button>
       </div>
     </div>
