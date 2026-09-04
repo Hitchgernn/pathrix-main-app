@@ -53,7 +53,7 @@ export function PermissionScreen() {
           }}
           className="mt-2 w-full rounded-control px-[22px] py-[14px] text-[15px] font-semibold text-ink-2 transition-colors hover:bg-surface-2"
         >
-          Nanti saja — buka peta Yogyakarta
+          Nanti saja, buka peta Yogyakarta
         </button>
       </div>
     </div>

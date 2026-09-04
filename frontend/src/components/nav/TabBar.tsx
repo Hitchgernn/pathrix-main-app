@@ -13,7 +13,7 @@ export function TabBar() {
   return (
     <nav
       aria-label="Navigasi utama"
-      className="surface-float pointer-events-auto absolute inset-x-3 z-50 flex items-stretch overflow-hidden rounded-[22px] shadow-float ring-1 ring-line"
+      className="pointer-events-auto absolute inset-x-3 z-50 flex items-stretch overflow-hidden rounded-sheet bg-surface shadow-float ring-1 ring-line"
       style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 10px)", height: TABBAR_H }}
     >
       {TABS.map(({ id, label, icon: Icon }) => {

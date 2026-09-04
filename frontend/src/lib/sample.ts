@@ -31,7 +31,7 @@ export const SAMPLE_LEGS: SampleLeg[] = [
     title: "Pangkalan Sosrowijayan → Stasiun Lempuyangan",
     sub: "2,1 km · 14 mnt · Rp25.000",
     detail:
-      "Tarif nego. Survei lapangan MAPID Apps: kisaran Rp20.000–30.000 di pangkalan ini. Pangkalan aktif 06.00–22.00; becak dimodelkan sebagai penghubung titik-ke-titik, bukan rute tetap.",
+      "Tarif nego. Survei lapangan MAPID Apps: kisaran Rp20.000-30.000 di pangkalan ini. Pangkalan aktif 06.00-22.00; becak dimodelkan sebagai penghubung titik-ke-titik, bukan rute tetap.",
   },
   {
     mode: "KRL Yogya-Solo",
@@ -39,7 +39,7 @@ export const SAMPLE_LEGS: SampleLeg[] = [
     title: "Lempuyangan → Stasiun Brambanan",
     sub: "13,4 km · 22 mnt · Rp8.000",
     detail:
-      "Dimodelkan dengan headway ±30 mnt, bukan jadwal per menit — tidak ada feed real-time untuk layanan ini. Waktu tunggu rata-rata sudah termasuk.",
+      "Dimodelkan dengan headway ±30 mnt, bukan jadwal per menit. Tidak ada feed real-time untuk layanan ini. Waktu tunggu rata-rata sudah termasuk.",
   },
   {
     mode: "Jalan kaki",
@@ -54,7 +54,7 @@ export const SAMPLE_LEGS: SampleLeg[] = [
     title: "Pangkalan Brambanan → Candi Prambanan",
     sub: "1,3 km · 11 mnt · Rp30.000",
     detail:
-      "Tarif nego, kisaran survei Rp25.000–35.000. Turun di Gerbang Timur; 6 kusir terdata pada pangkalan ini.",
+      "Tarif nego, kisaran survei Rp25.000-35.000. Turun di Gerbang Timur; 6 kusir terdata pada pangkalan ini.",
   },
 ];
 
@@ -159,10 +159,10 @@ export const QUICK: QuickPrompt[] = [
 ];
 
 export const REPLY_ROUTE =
-  "Rute tercepat: jalan kaki ke pangkalan becak Sosrowijayan, becak ke Stasiun Lempuyangan, KRL Yogya–Solo ke Brambanan, lalu andong ke gerbang candi. Total 51 menit, Rp63.000, 17,1 km. Rutenya sudah saya tandai di peta.";
+  "Rute tercepat: jalan kaki ke pangkalan becak Sosrowijayan, becak ke Stasiun Lempuyangan, KRL Yogya-Solo ke Brambanan, lalu andong ke gerbang candi. Total 51 menit, Rp63.000, 17,1 km. Rutenya sudah saya tandai di peta.";
 
 export const REPLY_GENERIC =
-  "Saya perlu titik awal untuk menghitungnya. Sebutkan lokasi Anda sekarang, atau ketuk ikon lokasi di peta — layer TransJogja sudah aktif jadi haltenya sudah terlihat.";
+  "Saya perlu titik awal untuk menghitungnya. Sebutkan lokasi Anda sekarang, atau ketuk ikon lokasi di peta. Layer TransJogja sudah aktif jadi haltenya sudah terlihat.";
 
 /** Shown on Home only while the real, localStorage-backed recents list is
  *  still empty — see store/index.ts `recentsForDisplay`. */
@@ -178,7 +178,7 @@ export const SEED_RECENTS: RecentEntry[] = [
 export const SAMPLE_POI = {
   kind: "Pangkalan andong",
   name: "Pangkalan Andong Brambanan",
-  meta: "Rp25.000–35.000 · 06.00–21.00 · 6 kusir terdata",
+  meta: "Rp25.000-35.000 · 06.00-21.00 · 6 kusir terdata",
 };
 
 export const SAMPLE_CARBON = {

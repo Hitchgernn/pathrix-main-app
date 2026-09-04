@@ -66,7 +66,7 @@ export function PlaceSheet() {
         >
           <ArrowLeft size={19} strokeWidth={1.9} />
         </button>
-        <h2 className="title-row min-w-0 flex-1 truncate text-center">{meta.label}</h2>
+        <h2 className="title-row min-w-0 flex-1 truncate text-center">Detail tempat</h2>
         <FavouriteButton place={place} />
       </header>
 

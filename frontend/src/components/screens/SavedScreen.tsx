@@ -17,7 +17,7 @@ export function SavedScreen() {
     <div className="mx-auto flex w-full max-w-[600px] flex-col px-4 pb-16 pt-6">
       <h1 className="title-lg">Tersimpan</h1>
       <p className="body-13 mt-[7px] text-ink-3">
-        Disimpan di perangkat ini saja — tidak ada akun dan tidak dikirim ke mana pun.
+        Disimpan di perangkat ini saja. Tidak ada akun, dan tidak dikirim ke mana pun.
       </p>
 
       <Tabs defaultValue="tempat" className="mt-5">

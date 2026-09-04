@@ -36,7 +36,7 @@ const ARTICLES: Record<string, string> = {
   "tugu jogja": "Tugu_Yogyakarta",
   kraton: "Keraton_Ngayogyakarta_Hadiningrat",
   keraton: "Keraton_Ngayogyakarta_Hadiningrat",
-  "taman sari": "Taman_Sari,_Yogyakarta",
+  "taman sari": "Istana_Air_Taman_Sari",
   lempuyangan: "Stasiun_Lempuyangan",
   "stasiun lempuyangan": "Stasiun_Lempuyangan",
   "stasiun tugu": "Stasiun_Yogyakarta",
@@ -47,8 +47,8 @@ const ARTICLES: Record<string, string> = {
   "stasiun brambanan": "Stasiun_Brambanan",
   transjogja: "Trans_Jogja",
   "trans jogja": "Trans_Jogja",
-  krl: "KRL_Commuter_Line_Yogyakarta–Palur",
-  andong: "Andong_(kendaraan)",
+  krl: "Kereta_Rel_Listrik",
+  andong: "Andong",
   becak: "Becak",
   parangtritis: "Pantai_Parangtritis",
   yogyakarta: "Kota_Yogyakarta",
@@ -104,21 +104,32 @@ export function photoFor(name: string): Promise<Photo | null> {
   if (existing) return existing;
 
   const request = fetch(`${ENDPOINT}/${encodeURIComponent(article)}`)
-    .then((response) => (response.ok ? response.json() : null))
-    .then((data: WikiSummary | null): Photo | null => {
-      const url = data?.thumbnail?.source ?? null;
-      if (!url) return null;
+    .then(async (response) => {
+      // Wikipedia rate-limits bursts with a 429. Returning null for that is
+      // right; *caching* it is not, so only a real answer reaches writeCache.
+      if (!response.ok) return { photo: null as Photo | null, cacheable: false };
+      const data = (await response.json()) as WikiSummary;
+      const url = data.thumbnail?.source ?? null;
+      // A 200 with no thumbnail is a genuine "this article has no photograph",
+      // and that is worth remembering.
+      if (!url) return { photo: null as Photo | null, cacheable: true };
       return {
-        // Wikipedia's own thumbnails cap around 320px; ask for a width that
-        // survives a full-bleed hero on a 3x screen.
-        url: url.replace(/\/\d+px-/, "/960px-"),
-        credit: "Wikimedia Commons",
-        href: data?.content_urls?.desktop?.page ?? `https://id.wikipedia.org/wiki/${article}`,
+        photo: {
+          // Wikipedia's own thumbnails cap around 320px; ask for a width that
+          // survives a full-bleed hero on a 3x screen.
+          url: url.replace(/\/\d+px-/, "/960px-"),
+          credit: "Wikimedia Commons",
+          href: data.content_urls?.desktop?.page ?? `https://id.wikipedia.org/wiki/${article}`,
+        } as Photo,
+        cacheable: true,
       };
     })
-    .catch(() => null)
-    .then((photo) => {
-      writeCache(article, { photo, at: Date.now() });
+    .catch(() => ({ photo: null as Photo | null, cacheable: false }))
+    .then(({ photo, cacheable }) => {
+      if (cacheable) writeCache(article, { photo, at: Date.now() });
+      // A failed lookup must not stick in the in-flight map either, or the
+      // whole session keeps replaying one bad moment.
+      else memory.delete(article);
       return photo;
     });
 

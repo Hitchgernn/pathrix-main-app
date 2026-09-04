@@ -123,7 +123,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
           {firstRun && (
             <div className="flex flex-col gap-[14px] pb-[2px] pt-1">
               <p className="body-15 max-w-[46ch] text-ink-2">
-                Saya membaca peta yang sedang Anda lihat — layer aktif, rute terakhir, dan
+                Saya membaca peta yang sedang Anda lihat: layer aktif, rute terakhir, dan
                 viewport. Sebutkan tujuan, atau minta hal lain.
               </p>
               <div className="flex flex-wrap gap-2">

@@ -86,7 +86,7 @@ export function HomeScreen() {
         </span>
       </button>
 
-      <div className="mt-[10px] grid grid-cols-2 gap-[10px]">
+      <div className="mt-[10px] grid auto-rows-fr grid-cols-2 gap-[10px]">
         {QUICK_ACTIONS.map((action) => (
           <ActionTile key={action.id} action={action} onSelect={() => runAction(action)} />
         ))}
@@ -157,7 +157,7 @@ function ActionTile({ action, onSelect }: { action: QuickAction; onSelect: () =>
   return (
     <button
       onClick={onSelect}
-      className="group flex flex-col overflow-hidden rounded-tile bg-surface text-left ring-1 ring-line transition-[box-shadow,transform] hover:shadow-card active:scale-[.985]"
+      className="group flex h-full flex-col overflow-hidden rounded-tile bg-surface text-left ring-1 ring-line transition-[box-shadow,transform] hover:shadow-card active:scale-[.985]"
     >
       <span className="relative block h-[92px] w-full overflow-hidden bg-surface-3">
         {photo ? (
@@ -173,7 +173,7 @@ function ActionTile({ action, onSelect }: { action: QuickAction; onSelect: () =>
           </span>
         )}
       </span>
-      <span className="block px-[14px] pb-[14px] pt-[11px]">
+      <span className="block flex-1 px-[14px] pb-[14px] pt-[11px]">
         <span className="block text-[15px] font-semibold tracking-[-.01em]">{action.title}</span>
         <span className="mt-[2px] block text-[12.5px] leading-[1.35] text-ink-3">{action.sub}</span>
       </span>

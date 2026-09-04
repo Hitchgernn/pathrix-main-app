@@ -92,7 +92,7 @@ export function placeFromFeature(feature: MissionFeature, layerId: string): Plac
   const facts: PlaceFact[] = [];
   const open = pick(raw, "jam_buka");
   const close = pick(raw, "jam_tutup");
-  if (open) facts.push({ label: "Jam buka", value: close ? `${open}–${close}` : open });
+  if (open) facts.push({ label: "Jam buka", value: close ? `${open}-${close}` : open });
   const price = pick(raw, "harga_rata_rata");
   if (price) facts.push({ label: "Harga rata-rata", value: rupiahish(price) });
   const jenis = pick(raw, "jenis_properti", "kategori_properti");

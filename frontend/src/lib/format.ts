@@ -7,9 +7,9 @@ const nf = (fractionDigits: number) =>
     maximumFractionDigits: fractionDigits,
   });
 
-export const minutes = (seconds: number) => `${Math.round(seconds / 60)} MNT`;
-export const rupiah = (idr: number) => `RP${nf(0).format(Math.round(idr))}`;
-export const km = (metres: number) => `${nf(1).format(metres / 1000)} KM`;
+export const minutes = (seconds: number) => `${Math.round(seconds / 60)} mnt`;
+export const rupiah = (idr: number) => `Rp${nf(0).format(Math.round(idr))}`;
+export const km = (metres: number) => `${nf(1).format(metres / 1000)} km`;
 export const kg = (grams: number) => `${nf(2).format(grams / 1000)} kg`;
 
 /** The four-stat summary line above the itinerary timeline. */
@@ -17,9 +17,9 @@ export const routeSummary = (route: Route): string[] => [
   minutes(route.total_time_s),
   rupiah(route.total_fare_idr),
   km(route.total_distance_m),
-  `${route.transfers} TRANSFER`,
+  `${route.transfers} transfer`,
 ];
 
 /** Compact form for the inline card inside an agent reply. */
 export const routeCardMeta = (route: Route): string =>
-  `${minutes(route.total_time_s)} · ${rupiah(route.total_fare_idr)} · ${route.legs.length} LEG`;
+  `${minutes(route.total_time_s)} · ${rupiah(route.total_fare_idr)} · ${route.legs.length} leg`;

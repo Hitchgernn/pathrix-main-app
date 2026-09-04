@@ -157,7 +157,7 @@ export function SearchOverlay() {
           ) : status === "failed" ? (
             <EmptyNote
               title="Pencarian tidak bisa dijangkau"
-              body="Layanan pencarian sedang tidak merespons. Peta dan agen tetap bisa dipakai — coba lagi sebentar lagi."
+              body="Layanan pencarian sedang tidak merespons. Peta dan agen tetap bisa dipakai; coba lagi sebentar lagi."
             />
           ) : results.length === 0 ? (
             <EmptyNote
