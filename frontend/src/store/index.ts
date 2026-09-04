@@ -10,6 +10,7 @@ import type {
 import type { Basemap } from "../lib/tokens";
 import type { Place, RecentEntry, SavedRoute } from "../lib/places";
 import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE, SEED_RECENTS } from "../lib/sample";
+import { demoKindFor, runScript, type DemoKind } from "../lib/demoAgent";
 import type { AgentSocket } from "../lib/ws";
 import {
   capRecents,
@@ -30,7 +31,9 @@ export type PanelSnap = "half" | "full";
 export const YOGYA_CENTER: [number, number] = [110.3695, -7.7956];
 export const YOGYA_ZOOM = 12;
 
-const DEMO_REPLY_MS = 1400;
+/** The scripted agent's current step, or null when it is not running. Module
+ *  state rather than store state only for the canceller, which is not UI. */
+let cancelDemo: (() => void) | null = null;
 
 const initialLayers = new Set(LAYER_ROWS.filter((l) => l.on).map((l) => l.id));
 
@@ -63,6 +66,11 @@ interface AgentSlice {
   /** Set when the backend has no LLM provider wired — the UI then runs on the
    *  design's sample replies rather than showing a dead input. */
   offline: boolean;
+  /** While the scripted agent is running: which script, and how far in. Null
+   *  once a real provider is answering, since progress will come from the
+   *  backend rather than from a timer. */
+  demoKind: DemoKind | null;
+  demoStep: number;
   socket: AgentSocket | null;
   attachSocket(socket: AgentSocket | null): void;
   ask(text: string): void;
@@ -115,9 +123,6 @@ interface PersistSlice extends PersistedState {
 
 export type Store = MapSlice & LayerSlice & AgentSlice & UiSlice & PersistSlice;
 
-/** Demo timer, module-scoped so a second ask cancels the first. */
-let demoTimer: number | null = null;
-
 const looksLikeRoute = (text: string) => /prambanan|malioboro|→|ke\s/i.test(text);
 
 const persisted = loadPersisted();
@@ -164,6 +169,8 @@ export const useStore = create<Store>()((set, get) => ({
   lastRoute: null,
   lastCarbon: null,
   offline: false,
+  demoKind: null,
+  demoStep: 0,
   socket: null,
   attachSocket: (socket) => set({ socket }),
 
@@ -182,6 +189,10 @@ export const useStore = create<Store>()((set, get) => ({
     }));
     get().pushRecent({ title: trimmed, prompt: trimmed });
 
+    cancelDemo?.();
+    cancelDemo = null;
+    set({ demoKind: null, demoStep: 0 });
+
     const sent = socket !== null && bbox !== null && socket.ask(trimmed, { bbox, zoom });
     if (sent) return;
 
@@ -197,8 +208,12 @@ export const useStore = create<Store>()((set, get) => ({
   handleServerMessage: (message) => {
     switch (message.type) {
       case "token":
+        cancelDemo?.();
+        cancelDemo = null;
         set((s) => ({
           streaming: false,
+          demoKind: null,
+          demoStep: 0,
           messages: s.messages.concat([{ who: "agent", text: message.delta }]),
         }));
         break;
@@ -238,18 +253,28 @@ export const useStore = create<Store>()((set, get) => ({
           break;
         }
         set({ offline: true });
-        if (demoTimer !== null) window.clearTimeout(demoTimer);
+        cancelDemo?.();
         const asked = get().messages[get().messages.length - 1];
-        const route = asked ? looksLikeRoute(asked.text) : false;
-        demoTimer = window.setTimeout(() => {
-          demoTimer = null;
-          set((s) => ({
-            streaming: false,
-            messages: s.messages.concat([
-              { who: "agent", text: route ? REPLY_ROUTE : REPLY_GENERIC, route: null },
-            ]),
-          }));
-        }, DEMO_REPLY_MS);
+        const question = asked ? asked.text : "";
+        const kind = demoKindFor(question);
+        const route = looksLikeRoute(question);
+
+        set({ demoKind: kind, demoStep: 0 });
+        cancelDemo = runScript(
+          kind,
+          (step) => set({ demoStep: step }),
+          () => {
+            cancelDemo = null;
+            set((s) => ({
+              streaming: false,
+              demoKind: null,
+              demoStep: 0,
+              messages: s.messages.concat([
+                { who: "agent", text: route ? REPLY_ROUTE : REPLY_GENERIC, route: null },
+              ]),
+            }));
+          },
+        );
         break;
       }
     }
