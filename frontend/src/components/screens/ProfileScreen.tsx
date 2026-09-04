@@ -4,6 +4,7 @@ import { requestLocation } from "../../lib/geolocation";
 import { SAMPLE_CARBON } from "../../lib/sample";
 import { useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
+import { AvatarPicker } from "../profile/AvatarPicker";
 
 const PERMISSION_LABEL = {
   granted: "Diizinkan",
@@ -28,6 +29,7 @@ export function ProfileScreen() {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(profile.name);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [pickingAvatar, setPickingAvatar] = useState(false);
 
   const commit = () => {
     const name = draft.trim();
@@ -40,8 +42,16 @@ export function ProfileScreen() {
     <div className="mx-auto flex w-full max-w-[600px] flex-col px-4 pb-16 pt-6">
       <h1 className="title-lg">Profil</h1>
 
-      <div className="mt-5 flex items-center gap-[14px] rounded-tile bg-surface p-[15px] ring-1 ring-line">
-        <Avatar src={profile.avatar} name={profile.name} className="h-14 w-14" />
+      <div className="mt-5 rounded-tile bg-surface p-[15px] ring-1 ring-line">
+        <div className="flex items-center gap-[14px]">
+        <button
+          onClick={() => setPickingAvatar((open) => !open)}
+          aria-label="Ubah gambar profil"
+          aria-expanded={pickingAvatar}
+          className="flex-none rounded-full transition-transform active:scale-95"
+        >
+          <Avatar src={profile.avatar} name={profile.name} className="h-14 w-14" />
+        </button>
         <div className="min-w-0 flex-1">
           {editing ? (
             <div className="flex items-center gap-2">
@@ -88,6 +98,8 @@ export function ProfileScreen() {
           )}
           <p className="body-13 mt-[5px] text-ink-3">Tersimpan di perangkat ini</p>
         </div>
+        </div>
+        {pickingAvatar && <AvatarPicker onClose={() => setPickingAvatar(false)} />}
       </div>
 
       <div className="mt-3 grid grid-cols-3 gap-[10px]">
