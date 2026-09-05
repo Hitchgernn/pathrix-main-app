@@ -139,11 +139,11 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
               <div className="flex flex-wrap gap-2">
                 {QUICK.map((q) => (
                   <button
-                    key={q.text}
-                    onClick={() => ask(q.text)}
+                    key={q.key}
+                    onClick={() => ask(t(q.key))}
                     className="body-13 flex-none whitespace-nowrap rounded-control border border-line-strong px-[14px] py-2 text-ink-2 transition-colors hover:border-transparent hover:bg-ink/90 hover:text-surface"
                   >
-                    {q.text}
+                    {t(q.key)}
                   </button>
                 ))}
               </div>

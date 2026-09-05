@@ -119,7 +119,7 @@ export function HomeScreen() {
       <section className="mt-9">
         <SectionHead label={t(recents.length > 0 ? "home.recent" : "home.sampleTrips")} />
         <div className="mt-2">
-          {recentsForDisplay(recents)
+          {recentsForDisplay(recents, t)
             .slice(0, 5)
             .map((entry) => (
               <button

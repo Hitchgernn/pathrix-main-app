@@ -106,7 +106,7 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
 
   const onMap = variant === "map";
   const typing = query.trim().length >= MIN_CHARS;
-  const shortlist = recentsForDisplay(recents).slice(0, 4);
+  const shortlist = recentsForDisplay(recents, t).slice(0, 4);
 
   return (
     <div ref={rootRef} className={`relative ${onMap ? "pointer-events-auto" : ""} ${className}`}>

@@ -9,9 +9,9 @@ import type {
 } from "../lib/types";
 import type { Basemap } from "../lib/tokens";
 import type { Place, RecentEntry, SavedRoute } from "../lib/places";
-import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE, SEED_RECENTS } from "../lib/sample";
+import { LAYER_ROWS, QUICK, SEED_RECENTS } from "../lib/sample";
 import { demoKindFor, runScript, type DemoKind } from "../lib/demoAgent";
-import { translate } from "../i18n";
+import { translate, type MessageKey } from "../i18n";
 import type { AgentSocket } from "../lib/ws";
 import {
   capRecents,
@@ -274,7 +274,11 @@ export const useStore = create<Store>()((set, get) => ({
               demoKind: null,
               demoStep: 0,
               messages: s.messages.concat([
-                { who: "agent", text: route ? REPLY_ROUTE : REPLY_GENERIC, route: null },
+                {
+                  who: "agent",
+                  text: translate(s.locale, route ? "demo.reply.route" : "demo.reply.generic"),
+                  route: null,
+                },
               ]),
             }));
           },
@@ -402,8 +406,20 @@ export const useStore = create<Store>()((set, get) => ({
 }));
 
 /** Recents fall back to the labelled sample entries only while the real list is
- *  empty, so a first-run Home screen is not a blank rectangle. */
-export const recentsForDisplay = (recents: RecentEntry[]): RecentEntry[] =>
-  recents.length > 0 ? recents : SEED_RECENTS;
+ *  empty, so a first-run Home screen is not a blank rectangle. The seeds carry
+ *  message keys rather than text, so they follow the locale like everything
+ *  else; a real recent is whatever the user actually typed and is never
+ *  translated. */
+export const recentsForDisplay = (
+  recents: RecentEntry[],
+  t: (key: MessageKey) => string,
+): RecentEntry[] =>
+  recents.length > 0
+    ? recents
+    : SEED_RECENTS.map((seed) => ({
+        title: t(seed.titleKey),
+        prompt: t(seed.promptKey),
+        at: seed.at,
+      }));
 
 export const QUICK_PROMPTS = QUICK;

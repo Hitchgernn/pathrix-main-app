@@ -13,6 +13,69 @@
  *  still being held to the same keys and call signatures.
  */
 export const id = {
+  // --- demo content (sample data; every value here is labelled as such in UI) --
+  "agent.ask": "Tanya agen",
+
+  "quick.route": "Malioboro → Candi Prambanan",
+  "quick.cheapest": "Rute termurah ke YIA",
+  "quick.nearest": "Halte TransJogja terdekat",
+
+  "demo.reply.route":
+    "Rute tercepat: jalan kaki ke pangkalan becak Sosrowijayan, becak ke Stasiun Lempuyangan, KRL Yogya-Solo ke Brambanan, lalu andong ke gerbang candi. Total 51 menit, Rp63.000, 17,1 km. Rutenya sudah saya tandai di peta.",
+  "demo.reply.generic":
+    "Saya perlu titik awal untuk menghitungnya. Sebutkan lokasi Anda sekarang, atau ketuk ikon lokasi di peta. Layer TransJogja sudah aktif jadi haltenya sudah terlihat.",
+
+  "demo.recent1.title": "Candi Prambanan",
+  "demo.recent1.prompt": "Malioboro → Candi Prambanan",
+  "demo.recent2.title": "Stasiun YIA",
+  "demo.recent2.prompt": "Rute termurah ke YIA",
+
+  "demo.summary.time": "51 mnt",
+  "demo.summary.fare": "Rp63.000",
+  "demo.summary.distance": "17,1 km",
+  "demo.summary.transfers": "2 transfer",
+
+  "demo.leg1.mode": "Jalan kaki",
+  "demo.leg1.sub": "120 m · 2 mnt · Rp0",
+  "demo.leg1.detail":
+    "Jalur pedestrian Malioboro, sisi timur. Jaringan jalan kaki dari OSMnx; kecepatan asumsi 4,5 km/jam.",
+  "demo.leg2.mode": "Becak",
+  "demo.leg2.sub": "2,1 km · 14 mnt · Rp25.000",
+  "demo.leg2.detail":
+    "Tarif nego. Survei lapangan MAPID Apps: kisaran Rp20.000-30.000 di pangkalan ini. Pangkalan aktif 06.00-22.00; becak dimodelkan sebagai penghubung titik-ke-titik, bukan rute tetap.",
+  "demo.leg3.mode": "KRL Yogya-Solo",
+  "demo.leg3.sub": "13,4 km · 22 mnt · Rp8.000",
+  "demo.leg3.detail":
+    "Dimodelkan dengan headway ±30 mnt, bukan jadwal per menit. Tidak ada feed real-time untuk layanan ini. Waktu tunggu rata-rata sudah termasuk.",
+  "demo.leg4.mode": "Jalan kaki",
+  "demo.leg4.sub": "180 m · 2 mnt · Rp0",
+  "demo.leg4.detail": "Keluar pintu barat stasiun, pangkalan andong ada di seberang jalan.",
+  "demo.leg5.mode": "Andong",
+  "demo.leg5.sub": "1,3 km · 11 mnt · Rp30.000",
+  "demo.leg5.detail":
+    "Tarif nego, kisaran survei Rp25.000-35.000. Turun di Gerbang Timur; 6 kusir terdata pada pangkalan ini.",
+
+  "demo.alt.label": "Alternatif lebih murah",
+  "demo.alt.title": "TransJogja 1A → KRL, tanpa becak",
+  "demo.alt.sub": "63 mnt · Rp45.000 · jalan kaki 640 m lebih jauh",
+
+  "demo.carbon.basis":
+    "Dasar perhitungan: 17,1 km dengan KRL, becak dan andong, dibandingkan mobil pribadi berisi satu penumpang untuk jarak yang sama.",
+  "demo.carbon.caveat": "Data contoh. Faktor emisi belum dimuat dari basis data.",
+
+  "layer.transit.name": "Transportasi Publik",
+  "layer.transit.meta": "3 operator, 214 halte",
+  "layer.pangkalan.name": "Pangkalan Andong & Becak",
+  "layer.pangkalan.meta": "42 titik dari survei lapangan",
+  "layer.pariwisata.name": "Pariwisata & Sosial Budaya",
+  "layer.pariwisata.meta": "96 titik",
+  "layer.properti.name": "Properti",
+  "layer.properti.meta": "310 titik dari Properti Go",
+  "layer.jangkauan.name": "Jangkauan Jalan Kaki",
+  "layer.jangkauan.meta": "Isokron 5, 10, 15 menit",
+  "layer.bangunan.name": "Bangunan",
+  "layer.bangunan.meta": "Urban planning, isian 12%",
+
   // --- navigation ---------------------------------------------------------
   "nav.home": "Beranda",
   "nav.explore": "Peta",

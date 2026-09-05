@@ -23,13 +23,13 @@ export function SustainabilityStat() {
             {carbon ? kg(carbon.saved_g_co2) : SAMPLE_CARBON.trip}
           </div>
           <div className="label-sm mt-[10px] text-ink-3">{t("sustain.avoidedThisTrip")}</div>
-          <div className="body-13 mt-3 max-w-[52ch] text-ink-2">{SAMPLE_CARBON.basis}</div>
+          <div className="body-13 mt-3 max-w-[52ch] text-ink-2">{t(SAMPLE_CARBON.basisKey)}</div>
           <div className="body-13 mt-[10px] text-ink-3">
             {t("sustain.sourcePrefix", carbon ? carbon.source_citation : SAMPLE_CARBON.source)}
             {!carbon && (
               <>
                 <br />
-                {SAMPLE_CARBON.caveat}
+                {t(SAMPLE_CARBON.caveatKey)}
               </>
             )}
           </div>

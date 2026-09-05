@@ -34,15 +34,15 @@ export function LayerToggleList() {
               }}
             />
             <div className="min-w-0 flex-1">
-              <div className="title-row">{row.name}</div>
+              <div className="title-row">{t(row.nameKey)}</div>
               <div className="body-13 mt-[3px] text-ink-3">
-                {live || catalogue.length === 0 ? row.meta : t("layers.notConnected", row.meta)}
+                {live || catalogue.length === 0 ? t(row.metaKey) : t("layers.notConnected", t(row.metaKey))}
               </div>
             </div>
             <Switch
               checked={on}
               onCheckedChange={() => toggleLayer(row.id)}
-              aria-label={row.name}
+              aria-label={t(row.nameKey)}
             />
           </div>
         );

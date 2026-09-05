@@ -11,6 +11,69 @@ import type { Messages } from "./index";
  *  signage.
  */
 export const en: Messages = {
+  // --- demo content ---------------------------------------------------------
+  "agent.ask": "Ask the agent",
+
+  "quick.route": "Malioboro → Candi Prambanan",
+  "quick.cheapest": "Cheapest route to YIA",
+  "quick.nearest": "Nearest TransJogja halte",
+
+  "demo.reply.route":
+    "Fastest route: walk to the Sosrowijayan becak pangkalan, becak to Stasiun Lempuyangan, KRL Yogya-Solo to Brambanan, then andong to the temple gate. 51 minutes, Rp63,000, 17.1 km in total. I have marked the route on the map.",
+  "demo.reply.generic":
+    "I need a starting point to work that out. Name where you are now, or tap the location icon on the map. The TransJogja layer is already on, so the halte are visible.",
+
+  "demo.recent1.title": "Candi Prambanan",
+  "demo.recent1.prompt": "Malioboro → Candi Prambanan",
+  "demo.recent2.title": "Stasiun YIA",
+  "demo.recent2.prompt": "Cheapest route to YIA",
+
+  "demo.summary.time": "51 min",
+  "demo.summary.fare": "Rp63,000",
+  "demo.summary.distance": "17.1 km",
+  "demo.summary.transfers": "2 transfers",
+
+  "demo.leg1.mode": "Walk",
+  "demo.leg1.sub": "120 m · 2 min · Rp0",
+  "demo.leg1.detail":
+    "The Malioboro pedestrian way, east side. Walking network from OSMnx; assumed speed 4.5 km/h.",
+  "demo.leg2.mode": "Becak",
+  "demo.leg2.sub": "2.1 km · 14 min · Rp25,000",
+  "demo.leg2.detail":
+    "Fare is negotiated. MAPID Apps field survey puts this pangkalan in the Rp20,000-30,000 range. Active 06.00-22.00; becak are modelled as point-to-point links, not fixed routes.",
+  "demo.leg3.mode": "KRL Yogya-Solo",
+  "demo.leg3.sub": "13.4 km · 22 min · Rp8,000",
+  "demo.leg3.detail":
+    "Modelled on a ±30 min headway rather than a per-minute timetable. There is no real-time feed for this service. Average waiting time is included.",
+  "demo.leg4.mode": "Walk",
+  "demo.leg4.sub": "180 m · 2 min · Rp0",
+  "demo.leg4.detail": "Leave by the station's west door; the andong pangkalan is across the road.",
+  "demo.leg5.mode": "Andong",
+  "demo.leg5.sub": "1.3 km · 11 min · Rp30,000",
+  "demo.leg5.detail":
+    "Fare is negotiated, survey range Rp25,000-35,000. Drops at the East Gate; 6 drivers recorded at this pangkalan.",
+
+  "demo.alt.label": "Cheaper alternative",
+  "demo.alt.title": "TransJogja 1A → KRL, no becak",
+  "demo.alt.sub": "63 min · Rp45,000 · 640 m more walking",
+
+  "demo.carbon.basis":
+    "Basis: 17.1 km by KRL, becak and andong, compared with a private car carrying one passenger over the same distance.",
+  "demo.carbon.caveat": "Sample data. Emission factors are not loaded from the database yet.",
+
+  "layer.transit.name": "Public transport",
+  "layer.transit.meta": "3 operators, 214 halte",
+  "layer.pangkalan.name": "Andong & becak pangkalan",
+  "layer.pangkalan.meta": "42 points from field survey",
+  "layer.pariwisata.name": "Tourism & culture",
+  "layer.pariwisata.meta": "96 points",
+  "layer.properti.name": "Property",
+  "layer.properti.meta": "310 points from Properti Go",
+  "layer.jangkauan.name": "Walking reach",
+  "layer.jangkauan.meta": "Isochrones at 5, 10, 15 minutes",
+  "layer.bangunan.name": "Buildings",
+  "layer.bangunan.meta": "Urban planning, 12% fill",
+
   // --- navigation ---------------------------------------------------------
   "nav.home": "Home",
   "nav.explore": "Map",
