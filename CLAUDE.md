@@ -135,6 +135,17 @@ hairline is the edge, which is why `--color-line` is heavier than a hairline
 normally needs to be. The two inset steps are neutral rather than warm; against
 pure white a warm tint reads as a stain rather than as a plane.
 
+**Dark is a token swap and nothing more.** `--color-ink` is both the text colour
+and the primary fill, so flipping ink light and surface dark turns every
+`bg-ink text-surface` button into a light button with dark text; no component
+knows a theme exists, and none should learn. `--color-ink-4` is held at the same
+non-text contract in both themes even though dark has room to spare, so a
+component legal in one is legal in the other. **Appearance also drives the
+basemap** — light chrome over a dark map is a bug, not a preference — and
+`data-theme` is stamped pre-paint by a script in `index.html` reading the same
+`pathrix.v1` key, so there is no flash and no media query competing with the
+store.
+
 Every ink step is a measured composite, recorded with its ratio in
 `styles/index.css` — `--color-ink-3` is the smallest step still AA for text and
 `--color-ink-4` is non-text only. `lib/tokens.ts` mirrors what JS needs and must

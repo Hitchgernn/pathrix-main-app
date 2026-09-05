@@ -82,6 +82,50 @@
   --animate-pxdim: pxdim 1.4s ease-in-out infinite;
 }
 
+/* --- dark ---------------------------------------------------------------
+ * The whole theme is a token swap, and it works because `--color-ink` is both
+ * the text colour and the primary fill. Flip ink light and surface dark, and
+ * every `bg-ink text-surface` button in the app becomes a light button with
+ * dark text without a single component knowing a theme exists.
+ *
+ * Measured the same way light was. The dark ramp is roomier — .52 would still
+ * be AA here — but `--color-ink-4` is held at the same non-text contract in
+ * both themes on purpose: a component that is legal in dark must not be
+ * illegal in light.
+ *
+ * `data-theme` is stamped by a pre-paint script in index.html, so there is no
+ * flash of the wrong theme and no second source of truth in a media query.
+ */
+:root[data-theme="dark"] {
+  --color-ground: #0d0d0f;
+  --color-surface: #17171a; /* 1.09 over ground */
+  --color-surface-2: #1f1f23; /* 1.18 */
+  --color-surface-3: #2a2a30; /* 1.36 */
+
+  --color-ink: #f2f2f3; /* 15.99 on surface · 12.75 on surface-3 */
+  --color-ink-2: rgba(242, 242, 243, 0.72); /* 7.36 worst case */
+  --color-ink-3: rgba(242, 242, 243, 0.6); /* 5.60 worst case */
+  --color-ink-4: rgba(242, 242, 243, 0.46); /* 3.93 — NON-TEXT ONLY, as in light */
+
+  /* A hairline has to work harder against a dark surface to read at all. */
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.2);
+
+  /* docs/DESIGN.md's tugu-gold-lit, which is the documented dark-mode value.
+   * At 11.27 on surface it is readable as well as visible, so the fill and the
+   * read value converge here rather than splitting as they do on white. */
+  --color-gold: #f2c94c;
+  --color-gold-text: #f2c94c;
+  --color-gold-tint: #312c20;
+
+  /* Shadow does almost no work on a dark ground; the hairline above carries
+   * the edge instead, and these only deepen the sense of stacking. */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+  --shadow-float: 0 2px 6px rgba(0, 0, 0, 0.45), 0 16px 40px -12px rgba(0, 0, 0, 0.6);
+  --shadow-sheet: 0 -1px 3px rgba(0, 0, 0, 0.4), 0 -20px 48px -16px rgba(0, 0, 0, 0.55);
+  --shadow-rail: 1px 0 3px rgba(0, 0, 0, 0.4), 20px 0 48px -16px rgba(0, 0, 0, 0.5);
+}
+
 @keyframes pxfade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -103,9 +147,12 @@
   backdrop-filter: blur(20px) saturate(1.6);
   -webkit-backdrop-filter: blur(20px) saturate(1.6);
 }
+:root[data-theme="dark"] .surface-float {
+  background: rgba(23, 23, 26, 0.86);
+}
 @media (prefers-reduced-transparency: reduce) {
   .surface-float {
-    background: #ffffff;
+    background: var(--color-surface);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -176,6 +223,16 @@
 @layer base {
   * {
     box-sizing: border-box;
+  }
+
+  html {
+    /* Tells the browser to theme its own furniture: scrollbars, form controls,
+       the canvas behind an overscroll. */
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
   }
 
   body {

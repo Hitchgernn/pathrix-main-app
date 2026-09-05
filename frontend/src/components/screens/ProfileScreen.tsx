@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Database, Languages, MapPinned, Moon, Pencil, Sun, Trash2 } from "lucide-react";
 import { useT, type Locale } from "../../i18n";
+import type { ThemePref } from "../../store/persist";
 import { requestLocation } from "../../lib/geolocation";
 import { SAMPLE_CARBON } from "../../lib/sample";
 import { useStore } from "../../store";
@@ -19,7 +20,8 @@ export function ProfileScreen() {
   const profile = useStore((s) => s.profile);
   const setProfile = useStore((s) => s.setProfile);
   const basemap = useStore((s) => s.basemap);
-  const setBasemap = useStore((s) => s.setBasemap);
+  const theme = useStore((s) => s.theme);
+  const setTheme = useStore((s) => s.setTheme);
   const permission = useStore((s) => s.locationPermission);
   const setPermission = useStore((s) => s.setLocationPermission);
   const setUserCoord = useStore((s) => s.setUserCoord);
@@ -116,26 +118,54 @@ export function ProfileScreen() {
       </p>
       <p className="body-13 mt-[6px] text-ink-3">{t("profile.sourcePrefix", SAMPLE_CARBON.source)}</p>
 
-      <Group label={t("profile.groupMap")}>
+      <Group label={t("profile.groupAppearance")}>
         <Row
           icon={basemap === "dark" ? <Moon size={18} strokeWidth={1.8} /> : <Sun size={18} strokeWidth={1.8} />}
-          title={t("profile.mapStyle")}
-          sub={t("profile.mapStyleSub")}
+          title={t("profile.appearance")}
         >
           <div className="flex flex-none gap-[2px] rounded-control bg-surface-2 p-[3px] ring-1 ring-line">
-            {(["street", "dark"] as const).map((option) => (
+            {(["light", "dark", "system"] as ThemePref[]).map((option) => (
               <button
                 key={option}
-                onClick={() => setBasemap(option)}
-                className={`label-sm rounded-control px-[14px] py-[7px] transition-colors ${
-                  basemap === option ? "bg-ink text-surface" : "text-ink-3"
+                onClick={() => setTheme(option)}
+                aria-pressed={theme === option}
+                className={`label-sm rounded-control px-[12px] py-[7px] transition-colors ${
+                  theme === option ? "bg-ink text-surface" : "text-ink-3"
                 }`}
               >
-                {t(option === "street" ? "profile.light" : "profile.dark")}
+                {t(
+                  option === "light"
+                    ? "profile.light"
+                    : option === "dark"
+                      ? "profile.dark"
+                      : "profile.system",
+                )}
               </button>
             ))}
           </div>
         </Row>
+        <Row
+          icon={<Languages size={18} strokeWidth={1.8} />}
+          title={t("profile.language")}
+        >
+          <div className="flex flex-none gap-[2px] rounded-control bg-surface-2 p-[3px] ring-1 ring-line">
+            {(["id", "en"] as Locale[]).map((option) => (
+              <button
+                key={option}
+                onClick={() => setLocale(option)}
+                aria-pressed={locale === option}
+                className={`label-sm rounded-control px-[14px] py-[7px] transition-colors ${
+                  locale === option ? "bg-ink text-surface" : "text-ink-3"
+                }`}
+              >
+                {option === "id" ? "ID" : "EN"}
+              </button>
+            ))}
+          </div>
+        </Row>
+      </Group>
+
+      <Group label={t("profile.groupMap")}>
 
         <Row
           icon={<MapPinned size={18} strokeWidth={1.8} />}
@@ -153,29 +183,6 @@ export function ProfileScreen() {
           >
             {t(permission === "granted" ? "profile.permRefresh" : "profile.permAsk")}
           </button>
-        </Row>
-      </Group>
-
-      <Group label={t("profile.groupLanguage")}>
-        <Row
-          icon={<Languages size={18} strokeWidth={1.8} />}
-          title={t("profile.language")}
-          sub={t("profile.languageSub")}
-        >
-          <div className="flex flex-none gap-[2px] rounded-control bg-surface-2 p-[3px] ring-1 ring-line">
-            {(["id", "en"] as Locale[]).map((option) => (
-              <button
-                key={option}
-                onClick={() => setLocale(option)}
-                aria-pressed={locale === option}
-                className={`label-sm rounded-control px-[14px] py-[7px] transition-colors ${
-                  locale === option ? "bg-ink text-surface" : "text-ink-3"
-                }`}
-              >
-                {option === "id" ? "ID" : "EN"}
-              </button>
-            ))}
-          </div>
         </Row>
       </Group>
 
@@ -249,7 +256,9 @@ function Row({
 }: {
   icon: React.ReactNode;
   title: string;
-  sub: string;
+  /** Omitted where the control beside it already explains the row; a subtitle
+   *  squeezed against a three-way segmented control just truncates. */
+  sub?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -259,7 +268,7 @@ function Row({
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[15px] font-medium tracking-[-.01em]">{title}</span>
-        <span className="mt-[2px] block truncate text-[12.5px] text-ink-3">{sub}</span>
+        {sub && <span className="mt-[2px] block truncate text-[12.5px] text-ink-3">{sub}</span>}
       </span>
       {children}
     </div>

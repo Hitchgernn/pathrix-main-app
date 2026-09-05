@@ -227,9 +227,13 @@ export const en: Messages = {
   "profile.carbonNote":
     "The CO₂e figure still uses sample emission factors. Real values appear once the factors are loaded from the database.",
   "profile.sourcePrefix": (source: string) => `Source: ${source}`,
+  "profile.groupAppearance": "Appearance",
   "profile.groupMap": "Map",
   "profile.groupData": "Data",
   "profile.groupLanguage": "Language",
+  "profile.appearance": "Appearance",
+  "profile.appearanceSub": "Light, dark, or follow the system",
+  "profile.system": "System",
   "profile.mapStyle": "Map style",
   "profile.mapStyleSub": "Light or dark",
   "profile.light": "Light",

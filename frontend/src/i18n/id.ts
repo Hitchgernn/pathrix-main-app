@@ -230,9 +230,13 @@ export const id = {
   "profile.carbonNote":
     "Angka CO₂e masih memakai faktor emisi contoh. Nilai asli muncul setelah faktor emisi dimuat dari basis data.",
   "profile.sourcePrefix": (source: string) => `Sumber: ${source}`,
+  "profile.groupAppearance": "Tampilan",
   "profile.groupMap": "Peta",
   "profile.groupData": "Data",
   "profile.groupLanguage": "Bahasa",
+  "profile.appearance": "Tampilan",
+  "profile.appearanceSub": "Terang, gelap, atau ikut sistem",
+  "profile.system": "Sistem",
   "profile.mapStyle": "Tampilan peta",
   "profile.mapStyleSub": "Terang atau gelap",
   "profile.light": "Terang",

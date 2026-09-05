@@ -20,6 +20,7 @@ import {
   savePersisted,
   type LocationPermission,
   type PersistedLocale,
+  type ThemePref,
   type PersistedState,
   type Profile,
 } from "./persist";
@@ -121,6 +122,7 @@ interface PersistSlice extends PersistedState {
   setLocationPermission(permission: LocationPermission): void;
   setOnboarded(onboarded: boolean): void;
   setLocale(locale: PersistedLocale): void;
+  setTheme(theme: ThemePref): void;
   resetLocalData(): void;
 }
 
@@ -129,6 +131,30 @@ export type Store = MapSlice & LayerSlice & AgentSlice & UiSlice & PersistSlice;
 const looksLikeRoute = (text: string) => /prambanan|malioboro|→|ke\s/i.test(text);
 
 const persisted = loadPersisted();
+
+const prefersDark = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+export const resolveTheme = (pref: ThemePref): "light" | "dark" =>
+  pref === "system" ? (prefersDark() ? "dark" : "light") : pref;
+
+/** Stamps `data-theme` and keeps the basemap in step.
+ *
+ *  The chrome and the cartography are one decision, not two: a light app over a
+ *  dark map is a bug, not a preference. `basemap` stays in the store because
+ *  `bridge.ts` and `MapCanvas` read it for paint values, but nothing sets it
+ *  independently any more.
+ */
+export function applyTheme(
+  pref: ThemePref,
+  set: (partial: Partial<Store>) => void,
+): "light" | "dark" {
+  const resolved = resolveTheme(pref);
+  if (typeof document !== "undefined") document.documentElement.dataset.theme = resolved;
+  set({ basemap: resolved === "dark" ? "dark" : "street" });
+  return resolved;
+}
 
 /** Snapshot only the persisted keys, so a camera move never writes to disk. */
 const persistNow = (state: Store): void =>
@@ -140,6 +166,7 @@ const persistNow = (state: Store): void =>
     locationPermission: state.locationPermission,
     onboarded: state.onboarded,
     locale: state.locale,
+    theme: state.theme,
   });
 
 export const useStore = create<Store>()((set, get) => ({
@@ -383,6 +410,11 @@ export const useStore = create<Store>()((set, get) => ({
     set({ onboarded });
     persistNow(get());
   },
+  setTheme: (theme) => {
+    set({ theme });
+    persistNow(get());
+    applyTheme(theme, set);
+  },
   setLocale: (locale) => {
     set({ locale });
     // Assistive tech and the browser both read this; it must follow the switch.
@@ -400,7 +432,9 @@ export const useStore = create<Store>()((set, get) => ({
       locationPermission: "unknown",
       onboarded: false,
       locale: "id",
+      theme: "system",
     });
+    applyTheme("system", set);
     if (typeof document !== "undefined") document.documentElement.lang = "id";
   },
 }));

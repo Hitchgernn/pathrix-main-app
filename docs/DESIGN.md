@@ -62,7 +62,7 @@ spacing:
 
 # Design System: Pathrix App
 
-**Status:** ✅ implemented. This document is the app's visual source of truth
+**Status:** ✅ implemented, light and dark. This document is the app's visual source of truth
 and `frontend/src/styles/index.css` is its implementation. The Claude Design
 canvas that seeded the first build is not authoritative and has not been since
 the warm-neutral repaint.
@@ -165,6 +165,42 @@ at 86% a scrolling list reads straight through it and looks like an overflow bug
 someone standing on Malioboro at midday, screen at full brightness, phone at
 arm's length. Blue-grey chrome over a blue-grey basemap gives the cartography
 nothing to win against. Bone does.
+
+### Dark
+
+**The dark theme is a token swap, and that is the whole design.** Because
+`--color-ink` is both the text colour and the primary fill, flipping ink light
+and surface dark turns every `bg-ink text-surface` button in the app into a
+light button with dark text. No component knows a theme exists.
+
+| Token | Light | Dark |
+|---|---|---|
+| `--color-ground` | `#ffffff` | `#0d0d0f` |
+| `--color-surface` | `#ffffff` | `#17171a` |
+| `--color-surface-2` | `#f7f7f8` | `#1f1f23` |
+| `--color-surface-3` | `#eeeef0` | `#2a2a30` |
+| `--color-ink` | `#17171a` | `#f2f2f3` |
+| `--color-line` | ink @ 10% | white @ 12% |
+| `--color-gold` / `-text` | `#c08a2e` / `#7c5e13` | `#f2c94c` for both |
+
+Two rules hold across the swap:
+
+- **`--color-ink-4` stays non-text in both themes.** Dark has more headroom —
+  its `.52` step would still be AA — but the step is held at the same contract
+  so a component that is legal in dark cannot be illegal in light.
+- **Gold's fill/read split collapses in dark and that is correct.** On white the
+  saturated value is 3.04:1 and can only be a graphic; on dark, `tugu-gold-lit`
+  is 11.27:1 and reads as text as happily as it marks a star. This is the
+  light/dark pair the landing page's system already documents.
+
+**Appearance is one decision, not two.** Picking dark switches the chrome *and*
+the basemap; a light app floating over a dark map is a bug, not a preference.
+The map-corner control sets it, and Profil adds "system" for following the OS.
+
+`data-theme` is stamped by a pre-paint script in `index.html` reading the same
+`pathrix.v1` key the store persists to, so there is no flash of the wrong theme
+and no second source of truth in a media query. `color-scheme` follows it, so
+scrollbars and form furniture theme themselves.
 
 ### Ink, and why ink is also the action colour
 
