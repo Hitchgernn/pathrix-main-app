@@ -1,5 +1,6 @@
 import { LocateFixed, Locate } from "lucide-react";
 import { recenterOnUser } from "../lib/actions";
+import { useT } from "../i18n";
 import { getMap } from "../lib/mapHandle";
 import { useStore, YOGYA_CENTER, YOGYA_ZOOM } from "../store";
 
@@ -14,6 +15,7 @@ interface RecenterFabProps {
 export function RecenterFab({ bottom }: RecenterFabProps) {
   const userCoord = useStore((s) => s.userCoord);
   const hasFix = userCoord !== null;
+  const t = useT();
 
   return (
     <button
@@ -21,7 +23,7 @@ export function RecenterFab({ bottom }: RecenterFabProps) {
         if (recenterOnUser()) return;
         getMap()?.flyTo({ center: YOGYA_CENTER, zoom: YOGYA_ZOOM, duration: 900 });
       }}
-      aria-label={hasFix ? "Pusatkan ke lokasi Anda" : "Pusatkan ke Yogyakarta"}
+      aria-label={t(hasFix ? "map.recenterUser" : "map.recenterCity")}
       className="surface-float absolute right-3 z-40 flex h-12 w-12 items-center justify-center rounded-full shadow-float ring-1 ring-line transition-[bottom] duration-300 ease-[var(--ease-out-expo)]"
       style={{ bottom }}
     >

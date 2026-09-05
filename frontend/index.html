@@ -3,7 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)" />
+    <script>
+      // Stamps the theme before first paint. Without this the app renders light
+      // for a frame and then flips, which is worse than no dark mode at all.
+      // Reads the same pathrix.v1 key the store persists to; any failure falls
+      // through to the system preference.
+      (function () {
+        try {
+          var saved = JSON.parse(localStorage.getItem("pathrix.v1") || "{}").theme;
+          var dark =
+            saved === "dark" ||
+            ((saved === "system" || !saved) &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+        } catch (e) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <title>PATHRIX — Navigasi Multimoda Yogyakarta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

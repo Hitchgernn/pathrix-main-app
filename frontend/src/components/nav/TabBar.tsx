@@ -1,3 +1,4 @@
+import { useT } from "../../i18n";
 import { TABBAR_H } from "../../lib/tokens";
 import { useStore } from "../../store";
 import { TABS } from "./tabs";
@@ -9,14 +10,15 @@ import { TABS } from "./tabs";
 export function TabBar() {
   const tab = useStore((s) => s.tab);
   const setTab = useStore((s) => s.setTab);
+  const t = useT();
 
   return (
     <nav
-      aria-label="Navigasi utama"
+      aria-label={t("nav.aria")}
       className="pointer-events-auto absolute inset-x-3 z-50 flex items-stretch overflow-hidden rounded-sheet bg-surface shadow-float ring-1 ring-line"
       style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 10px)", height: TABBAR_H }}
     >
-      {TABS.map(({ id, label, icon: Icon }) => {
+      {TABS.map(({ id, labelKey, icon: Icon }) => {
         const active = tab === id;
         return (
           <button
@@ -35,7 +37,7 @@ export function TabBar() {
                 active ? "font-semibold text-ink" : "font-normal text-ink-3"
               }`}
             >
-              {label}
+              {t(labelKey)}
             </span>
           </button>
         );

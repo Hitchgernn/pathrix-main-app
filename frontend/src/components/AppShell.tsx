@@ -1,6 +1,7 @@
 import { Sparkles } from "lucide-react";
 import { NAV_W, NAV_W_COLLAPSED, PANEL_W, TABBAR_GAP, TABBAR_H } from "../lib/tokens";
 import { snapPoints, useWindowSize } from "../lib/useWindowSize";
+import { useT } from "../i18n";
 import { useStore } from "../store";
 import { AgentSheet } from "./AgentSheet";
 import { MapCanvas } from "./MapCanvas";
@@ -37,6 +38,7 @@ export function AppShell() {
   const dragH = useStore((s) => s.dragH);
   const setTab = useStore((s) => s.setTab);
   const { vh } = useWindowSize();
+  const t = useT();
 
   const onMap = tab === "explore";
   const navW = navCollapsed ? NAV_W_COLLAPSED : NAV_W;
@@ -94,7 +96,7 @@ export function AppShell() {
                 style={{ left: navW + 20 }}
               >
                 <Sparkles size={17} strokeWidth={1.9} className="text-ink" />
-                Tanya agen
+                {t("agent.ask")}
               </button>
             </>
           )}

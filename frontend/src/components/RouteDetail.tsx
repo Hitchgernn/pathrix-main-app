@@ -1,5 +1,6 @@
 import { minutes, routeSummary, rupiah } from "../lib/format";
-import { SAMPLE_ALTERNATIVE, SAMPLE_LEGS, SAMPLE_ROUTE_SUMMARY } from "../lib/sample";
+import { useT } from "../i18n";
+import { SAMPLE_ALTERNATIVE, SAMPLE_LEGS, SAMPLE_SUMMARY_KEYS } from "../lib/sample";
 import { MODE_KEY, paletteFor } from "../lib/tokens";
 import { useStore } from "../store";
 
@@ -26,8 +27,9 @@ export function RouteDetail() {
   const setLegOpen = useStore((s) => s.setLegOpen);
   const route = useStore((s) => s.lastRoute);
   const palette = paletteFor(basemap);
+  const t = useT();
 
-  const summary = route ? routeSummary(route) : SAMPLE_ROUTE_SUMMARY;
+  const summary = route ? routeSummary(route) : SAMPLE_SUMMARY_KEYS.map((key) => t(key));
   const rows: LegRow[] = route
     ? route.legs.map((leg) => ({
         mode: leg.mode.toUpperCase(),
@@ -37,17 +39,17 @@ export function RouteDetail() {
         detail: null,
       }))
     : SAMPLE_LEGS.map((leg) => ({
-        mode: leg.mode,
+        mode: t(leg.modeKey),
         colorKey: leg.key,
         title: leg.title,
-        sub: leg.sub,
-        detail: leg.detail,
+        sub: t(leg.subKey),
+        detail: t(leg.detailKey),
       }));
 
   return (
     <div>
       <div className="flex flex-wrap gap-x-5 gap-y-[6px] pb-4">
-        {summary.map((stat) => (
+        {summary.map((stat: string) => (
           <span key={stat} className="figure text-[12px] text-ink-3">
             {stat}
           </span>
@@ -95,9 +97,9 @@ export function RouteDetail() {
       <div className="hairline flex gap-[13px] pt-4">
         <span className="w-1 flex-none self-stretch rounded-[1px] bg-ink" />
         <div>
-          <div className="label-sm text-ink-2">{SAMPLE_ALTERNATIVE.label}</div>
-          <div className="title-row mt-[6px]">{SAMPLE_ALTERNATIVE.title}</div>
-          <div className="body-13 mt-[3px] text-ink-2">{SAMPLE_ALTERNATIVE.sub}</div>
+          <div className="label-sm text-ink-2">{t(SAMPLE_ALTERNATIVE.labelKey)}</div>
+          <div className="title-row mt-[6px]">{t(SAMPLE_ALTERNATIVE.titleKey)}</div>
+          <div className="body-13 mt-[3px] text-ink-2">{t(SAMPLE_ALTERNATIVE.subKey)}</div>
         </div>
       </div>
     </div>

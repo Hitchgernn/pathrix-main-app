@@ -1,3 +1,4 @@
+import type { MessageKey } from "../i18n";
 import type { MissionFeature } from "./types";
 
 /** One place shape the whole app speaks.
@@ -23,7 +24,7 @@ export interface Place {
 export type PlaceKind = "poi" | "properti" | "transit" | "pangkalan" | "address";
 
 export interface PlaceFact {
-  label: string;
+  labelKey: MessageKey;
   value: string;
 }
 
@@ -44,12 +45,12 @@ export interface RecentEntry {
 /** Display name and accent for each kind. Only pangkalan carries the gold: it
  *  is the one category the field survey owns, and the One Warm Rule allows the
  *  accent exactly one job per screen. */
-export const KIND_META: Record<PlaceKind, { label: string; className: string }> = {
-  poi: { label: "Tempat", className: "text-ink-2" },
-  properti: { label: "Properti", className: "text-ink-2" },
-  transit: { label: "Halte", className: "text-ink-2" },
-  pangkalan: { label: "Pangkalan", className: "text-gold-text" },
-  address: { label: "Alamat", className: "text-ink-2" },
+export const KIND_META: Record<PlaceKind, { labelKey: MessageKey; className: string }> = {
+  poi: { labelKey: "kind.poi", className: "text-ink-2" },
+  properti: { labelKey: "kind.properti", className: "text-ink-2" },
+  transit: { labelKey: "kind.transit", className: "text-ink-2" },
+  pangkalan: { labelKey: "kind.pangkalan", className: "text-gold-text" },
+  address: { labelKey: "kind.address", className: "text-ink-2" },
 };
 
 const str = (value: unknown): string | null => {
@@ -92,11 +93,11 @@ export function placeFromFeature(feature: MissionFeature, layerId: string): Plac
   const facts: PlaceFact[] = [];
   const open = pick(raw, "jam_buka");
   const close = pick(raw, "jam_tutup");
-  if (open) facts.push({ label: "Jam buka", value: close ? `${open}-${close}` : open });
+  if (open) facts.push({ labelKey: "fact.hours", value: close ? `${open}-${close}` : open });
   const price = pick(raw, "harga_rata_rata");
-  if (price) facts.push({ label: "Harga rata-rata", value: rupiahish(price) });
+  if (price) facts.push({ labelKey: "fact.avgPrice", value: rupiahish(price) });
   const jenis = pick(raw, "jenis_properti", "kategori_properti");
-  if (jenis) facts.push({ label: "Jenis", value: jenis });
+  if (jenis) facts.push({ labelKey: "fact.type", value: jenis });
 
   return {
     id: `${layerId}:${feature.external_id}`,

@@ -45,9 +45,10 @@ npm install
 npm run dev      # :5173, proxies /api and /ws to :8000
 npm run lint     # tsc --noEmit
 npm run build    # typecheck + production build
+npm run preview  # the only way to exercise the service worker; it is off in dev
 ```
 
-`npm run build` **fails without `VITE_MAPID_BASEMAP_KEY`** and that guard is deliberate: Vite inlines `import.meta.env` at build time, so a keyless build folds away the guard in `MapCanvas` and Rollup drops the whole MapLibre chunk — you'd ship a working-looking app with no map in it. There is no test suite here yet; `tsc` is the gate.
+`npm run build` **fails without `VITE_MAPID_BASEMAP_KEY`** and that guard is deliberate: Vite inlines `import.meta.env` at build time, so a keyless build folds away the guard in `MapCanvas` and Rollup drops the whole MapLibre chunk — you'd ship a working-looking app with no map in it. There is no test suite here yet; `tsc` is the gate, and it covers more than types: `src/i18n/en.ts` is typed against `id.ts`, so a missing or misnamed translation key is a compile error rather than a string that renders as its own name.
 
 ## Architecture
 
@@ -122,12 +123,28 @@ then only hidden, never unmounted: MapLibre stays out of the first paint per
 more than keeping it.
 
 **Colour:** `docs/DESIGN.md` is the visual source of truth and
-`src/styles/index.css` is its implementation. Warm bone ground (`#f3f1ee`),
-white and frosted surfaces, **near-black as the action colour** so every filled
-control is the same ink the body text is set in, and one gold accent doing
-exactly one job per screen. There is no blue in the chrome and no coloured
-button anywhere: a saturated primary competes with route lines on the one
-screen where route lines are the product.
+`src/styles/index.css` is its implementation. White ground, frosted chrome over
+the map, **near-black as the action colour** so every filled control is the same
+ink the body text is set in, and one gold accent doing exactly one job per
+screen. There is no blue in the chrome and no coloured button anywhere: a
+saturated primary competes with route lines on the one screen where route lines
+are the product.
+
+The ground is white, so a card does not separate from the page by fill — the
+hairline is the edge, which is why `--color-line` is heavier than a hairline
+normally needs to be. The two inset steps are neutral rather than warm; against
+pure white a warm tint reads as a stain rather than as a plane.
+
+**Dark is a token swap and nothing more.** `--color-ink` is both the text colour
+and the primary fill, so flipping ink light and surface dark turns every
+`bg-ink text-surface` button into a light button with dark text; no component
+knows a theme exists, and none should learn. `--color-ink-4` is held at the same
+non-text contract in both themes even though dark has room to spare, so a
+component legal in one is legal in the other. **Appearance also drives the
+basemap** — light chrome over a dark map is a bug, not a preference — and
+`data-theme` is stamped pre-paint by a script in `index.html` reading the same
+`pathrix.v1` key, so there is no flash and no media query competing with the
+store.
 
 Every ink step is a measured composite, recorded with its ratio in
 `styles/index.css` — `--color-ink-3` is the smallest step still AA for text and
@@ -143,9 +160,12 @@ figures** (fares, durations, distances, coordinates, counts) and is loaded at
 tracked-out eyebrows above headings — that was most of what made the earlier
 build read as an instrument panel rather than an app.
 
-Base resets live inside `@layer base` — an unlayered `button { background: none }`
-outranks every layered utility and silently turns each button-shaped floating
-control transparent over the map.
+**Anything global belongs inside `@layer base`.** An unlayered rule outranks
+every layered Tailwind utility, and this has now caused two separate bugs: an
+unlayered `button { background: none }` silently turned each button-shaped
+floating control transparent over the map, and an unlayered `:focus-visible`
+rule stopped the search pill suppressing the second focus box its inner input
+was drawing. Both live in `@layer base` now; put the next one there too.
 
 **Photographs are real or absent.** `lib/photos.ts` resolves named Yogyakarta
 landmarks against Wikipedia's REST summary endpoint (keyless, cached a week,
@@ -184,11 +204,41 @@ Search is real: `GET /api/geocode` (`backend/app/api/search.py`) returns mirrore
 halte/pangkalan/mission rows first, then Nominatim addresses biased to the
 Yogyakarta viewbox, and a Nominatim failure degrades to DB-only results.
 
-One contract gap remains, visible in the UI rather than papered over: with no LLM
-provider wired, `/ws` replies `llm_unavailable`, the agent header reads "MODE
-CONTOH · LLM BELUM TERPASANG", and the store falls back to the canvas's scripted
-replies so every screen stays inspectable. All sample content lives in
-`src/lib/sample.ts`, in one place, labelled.
+`components/search/SearchPanel.tsx` is the **only** search implementation, and it
+is anchored rather than modal: the bar stays put, results drop beneath it, the
+map never leaves, and nothing navigates until a result is chosen. Both Beranda
+and the map chrome mount it, and only one is ever mounted at a time, so the
+query is component-local; `searchOpen` is in the store because the filter chips
+step aside for the panel. cmdk supplies the listbox behaviour — note that its
+`label` prop drives the input's accessible name and overrides any `aria-label`
+you add.
+
+**Two device-local systems and one simulation** round out the frontend:
+
+- `src/i18n/` is a typed catalogue with no dependency. `id.ts` defines the key
+  set and `en.ts` is typed against it. Place names, `TransJogja`, `KRL`,
+  `andong`, `becak`, `halte` and `pangkalan` are never translated in either
+  catalogue; both files say so. `format.ts` and `lib/actions.ts` read the locale
+  straight off the store, which is the pattern for module-level code.
+- `src/lib/cache.ts` memoises API responses in memory with in-flight dedupe.
+  Mission-feature keys snap the viewport outward and the request is issued at
+  the snapped extent — key on a box you did not fetch and a later view will read
+  data that does not reach its edges. A service worker (`vite-plugin-pwa`)
+  precaches the shell and runtime-caches the basemap, fonts, photographs and
+  avatars; `/api` is deliberately absent from it.
+- `store/persist.ts` also holds `locale` and the profile picture. Avatars are a
+  DiceBear URL or an uploaded photo downscaled to a 256px JPEG — the one write
+  in the app that can realistically hit quota, so it reports failure instead of
+  swallowing it.
+
+One contract gap remains, visible in the UI rather than papered over: with no
+LLM provider wired, `/ws` replies `llm_unavailable` and `lib/demoAgent.ts` walks
+a script whose steps name what the real agent will actually do, so a provider
+turns them into reported progress rather than lines a timer prints. The agent
+header says "Mode contoh, agen belum terpasang" the entire time, **including
+while the script runs** — do not let that banner disappear during streaming; it
+is the whole reason the simulation is honest. All sample content lives in
+`src/lib/sample.ts` and the `demo.*` catalogue keys, labelled.
 
 ## Team workflow
 

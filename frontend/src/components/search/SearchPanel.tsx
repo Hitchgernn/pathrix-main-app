@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Command } from "cmdk";
 import { Bookmark, Clock, Search, X } from "lucide-react";
+import { useT } from "../../i18n";
 import { searchPlaces } from "../../lib/api";
 import { askFromAnywhere, goToPlace } from "../../lib/actions";
 import type { Place } from "../../lib/places";
@@ -35,6 +36,7 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
   const setSearchOpen = useStore((s) => s.setSearchOpen);
   const savedPlaces = useStore((s) => s.savedPlaces);
   const recents = useStore((s) => s.recents);
+  const t = useT();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Place[]>([]);
@@ -104,14 +106,14 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
 
   const onMap = variant === "map";
   const typing = query.trim().length >= MIN_CHARS;
-  const shortlist = recentsForDisplay(recents).slice(0, 4);
+  const shortlist = recentsForDisplay(recents, t).slice(0, 4);
 
   return (
     <div ref={rootRef} className={`relative ${onMap ? "pointer-events-auto" : ""} ${className}`}>
       <Command
         // cmdk wires the input's aria-labelledby to this label, which wins over
         // a plain aria-label; without it the field has no accessible name.
-        label="Cari tempat"
+        label={t("search.label")}
         shouldFilter={false}
         loop
         // Enter on the input with nothing highlighted should still do something
@@ -138,13 +140,13 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
             value={query}
             onValueChange={setQuery}
             onFocus={() => setSearchOpen(true)}
-            placeholder="Cari halte, tempat, atau alamat"
+            placeholder={t("search.placeholder")}
             className="min-w-0 flex-1 border-0 bg-transparent text-[15px] text-ink outline-none focus-visible:outline-none placeholder:text-ink-3"
           />
           {(query || open) && (
             <button
               onClick={close}
-              aria-label="Tutup pencarian"
+              aria-label={t("search.close")}
               className="flex-none text-ink-4 transition-colors hover:text-ink"
             >
               <X size={17} strokeWidth={2} />
@@ -159,7 +161,7 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
             {!typing ? (
               <>
                 {savedPlaces.length > 0 && (
-                  <Section icon={<Bookmark size={13} strokeWidth={2} />} label="Tersimpan">
+                  <Section icon={<Bookmark size={13} strokeWidth={2} />} label={t("search.saved")}>
                     {savedPlaces.slice(0, 3).map((place) => (
                       <Command.Item
                         key={place.id}
@@ -173,7 +175,7 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
                   </Section>
                 )}
 
-                <Section icon={<Clock size={13} strokeWidth={2} />} label="Terakhir dicari">
+                <Section icon={<Clock size={13} strokeWidth={2} />} label={t("search.recent")}>
                   {shortlist.map((entry) => (
                     <Command.Item
                       key={entry.prompt}
@@ -193,16 +195,16 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
                 </Section>
               </>
             ) : status === "loading" ? (
-              <p className="label-sm px-2 py-5 font-normal text-ink-3">Mencari…</p>
+              <p className="label-sm px-2 py-5 font-normal text-ink-3">{t("search.searching")}</p>
             ) : status === "failed" ? (
               <Note
-                title="Pencarian tidak bisa dijangkau"
-                body="Layanan pencarian sedang tidak merespons. Peta dan agen tetap bisa dipakai."
+                title={t("search.failedTitle")}
+                body={t("search.failedBody")}
               />
             ) : results.length === 0 ? (
               <Note
-                title={`Tidak ada hasil untuk “${query.trim()}”`}
-                body="Coba nama halte, stasiun, atau kawasan."
+                title={t("search.emptyTitle", query.trim())}
+                body={t("search.emptyBody")}
                 action={
                   <button
                     onClick={() => {
@@ -212,7 +214,7 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
                     }}
                     className="mt-3 rounded-control bg-ink px-[16px] py-[10px] text-[14px] font-semibold text-surface transition-colors hover:bg-ink/90"
                   >
-                    Tanyakan ke agen
+                    {t("search.askAgent")}
                   </button>
                 }
               />
@@ -234,10 +236,11 @@ export function SearchBar({ variant, className = "" }: SearchBarProps) {
                   </Command.Item>
                 ))}
                 <p className="label-sm px-2 pb-1 pt-2 font-normal text-ink-3">
-                  {results.length} hasil dari{" "}
-                  {results.some((r) => r.kind !== "address")
-                    ? "data Pathrix dan alamat"
-                    : "pencarian alamat"}
+                  {t(
+                    "search.results",
+                    results.length,
+                    results.some((r) => r.kind !== "address"),
+                  )}
                 </p>
               </>
             )}

@@ -1,3 +1,4 @@
+import { useT } from "../i18n";
 import { LAYER_ROWS } from "../lib/sample";
 import { useStore } from "../store";
 import { Switch } from "./ui/switch";
@@ -8,13 +9,14 @@ export function LayerToggleList() {
   const active = useStore((s) => s.active);
   const catalogue = useStore((s) => s.catalogue);
   const toggleLayer = useStore((s) => s.toggleLayer);
+  const t = useT();
 
   const servedBy = new Set(catalogue.map((entry) => entry.id));
 
   return (
     <div>
       <div className="body-13 mb-[14px] max-w-[48ch] text-ink-2">
-        Data dimuat saat layer diaktifkan, bukan sekaligus di awal.
+        {t("layers.note")}
       </div>
 
       {LAYER_ROWS.map((row) => {
@@ -32,15 +34,15 @@ export function LayerToggleList() {
               }}
             />
             <div className="min-w-0 flex-1">
-              <div className="title-row">{row.name}</div>
+              <div className="title-row">{t(row.nameKey)}</div>
               <div className="body-13 mt-[3px] text-ink-3">
-                {live || catalogue.length === 0 ? row.meta : `${row.meta}, belum tersambung`}
+                {live || catalogue.length === 0 ? t(row.metaKey) : t("layers.notConnected", t(row.metaKey))}
               </div>
             </div>
             <Switch
               checked={on}
               onCheckedChange={() => toggleLayer(row.id)}
-              aria-label={row.name}
+              aria-label={t(row.nameKey)}
             />
           </div>
         );

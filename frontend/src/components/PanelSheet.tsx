@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useT, type MessageKey } from "../i18n";
 import { NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
 import { useWindowSize } from "../lib/useWindowSize";
 import { useStore } from "../store";
@@ -6,11 +7,11 @@ import { LayerToggleList } from "./LayerToggleList";
 import { RouteDetail } from "./RouteDetail";
 import { SustainabilityStat } from "./SustainabilityStat";
 
-const TITLE = {
-  layers: "Layer tematik",
-  route: "Malioboro → Prambanan",
-  sustain: "Jejak karbon",
-} as const;
+const TITLE: Record<"layers" | "route" | "sustain", MessageKey> = {
+  layers: "panel.layers",
+  route: "panel.route",
+  sustain: "panel.sustain",
+};
 
 interface PanelSheetProps {
   /** Room to leave for the floating tab bar on narrow viewports. */
@@ -31,6 +32,7 @@ export function PanelSheet({ bottomInset = 0 }: PanelSheetProps) {
   const wide = useStore((s) => s.wide);
   const navCollapsed = useStore((s) => s.navCollapsed);
   const { vh } = useWindowSize();
+  const t = useT();
 
   if (!panel) return null;
 
@@ -61,14 +63,14 @@ export function PanelSheet({ bottomInset = 0 }: PanelSheetProps) {
 
   return (
     <section
-      aria-label={TITLE[panel]}
+      aria-label={t(TITLE[panel])}
       className="absolute z-[45] flex animate-pxrise flex-col overflow-hidden bg-surface ring-1 ring-line"
       style={shellStyle}
     >
       {!wide && (
         <button
           onClick={cyclePanelSnap}
-          aria-label={panelSnap === "full" ? "Perkecil panel" : "Perbesar panel"}
+          aria-label={t(panelSnap === "full" ? "panel.shrink" : "panel.expand")}
           className="flex flex-none justify-center pb-1 pt-[10px]"
         >
           <span className="h-1 w-[38px] rounded-[2px] bg-line-strong" />
@@ -76,10 +78,10 @@ export function PanelSheet({ bottomInset = 0 }: PanelSheetProps) {
       )}
 
       <div className="flex flex-none items-start justify-between gap-3 px-5 pb-3 pt-4">
-        <h2 className="title-lg min-w-0 flex-1">{TITLE[panel]}</h2>
+        <h2 className="title-lg min-w-0 flex-1">{t(TITLE[panel])}</h2>
         <button
           onClick={closePanel}
-          aria-label="Tutup panel"
+          aria-label={t("panel.close")}
           className="-mr-2 flex-none rounded-full p-2 text-ink-4 transition-colors hover:bg-surface-2 hover:text-ink"
         >
           <X size={18} strokeWidth={2} />

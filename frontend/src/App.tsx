@@ -6,7 +6,7 @@ import { getMap } from "./lib/mapHandle";
 import { paletteFor } from "./lib/tokens";
 import { useWindowSize } from "./lib/useWindowSize";
 import { AgentSocket } from "./lib/ws";
-import { useStore } from "./store";
+import { applyTheme, useStore } from "./store";
 
 export default function App() {
   useWindowSize(); // also keeps the wide/narrow breakpoint in the store
@@ -49,6 +49,30 @@ export default function App() {
       }),
     [],
   );
+
+  // The persisted locale restores into the store on boot, but <html lang> is
+  // whatever index.html shipped, so a reload in English was announcing itself
+  // as Indonesian to every screen reader. Only setLocale used to touch it.
+  useEffect(() => {
+    document.documentElement.lang = useStore.getState().locale;
+  }, []);
+
+  // The pre-paint script in index.html has already stamped data-theme; this
+  // syncs the basemap to it and keeps both following the OS while the pref is
+  // "system", so changing appearance in system settings updates a tab that is
+  // already open.
+  useEffect(() => {
+    const { theme } = useStore.getState();
+    applyTheme(theme, useStore.setState);
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => {
+      if (useStore.getState().theme === "system") {
+        applyTheme("system", useStore.setState);
+      }
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     fetchLayers()

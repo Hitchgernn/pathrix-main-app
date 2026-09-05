@@ -1,4 +1,5 @@
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { useT } from "../../i18n";
 import { NAV_W, NAV_W_COLLAPSED } from "../../lib/tokens";
 import { useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
@@ -14,12 +15,13 @@ export function NavSidebar() {
   const setCollapsed = useStore((s) => s.setNavCollapsed);
   const profile = useStore((s) => s.profile);
   const savedCount = useStore((s) => s.savedPlaces.length + s.savedRoutes.length);
+  const t = useT();
 
   const groups: TabDef["group"][] = ["utama", "anda"];
 
   return (
     <nav
-      aria-label="Navigasi utama"
+      aria-label={t("nav.aria")}
       className="absolute inset-y-0 left-0 z-50 flex flex-col border-r border-line bg-surface transition-[width] duration-300 ease-[var(--ease-out-expo)]"
       style={{ width: collapsed ? NAV_W_COLLAPSED : NAV_W }}
     >
@@ -35,7 +37,7 @@ export function NavSidebar() {
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          aria-label={collapsed ? "Lebarkan navigasi" : "Ciutkan navigasi"}
+          aria-label={t(collapsed ? "nav.expand" : "nav.collapse")}
           className="flex-none rounded-[9px] p-[6px] text-ink-4 transition-colors hover:bg-surface-2 hover:text-ink"
           style={collapsed ? { position: "absolute", right: -14, top: 26, background: "#fff" } : undefined}
         >
@@ -47,17 +49,17 @@ export function NavSidebar() {
         {groups.map((group) => (
           <div key={group}>
             {!collapsed && (
-              <div className="label-sm px-3 pb-2 text-ink-3">{GROUP_LABEL[group]}</div>
+              <div className="label-sm px-3 pb-2 text-ink-3">{t(GROUP_LABEL[group])}</div>
             )}
             <div className="flex flex-col gap-[2px]">
-              {TABS.filter((entry) => entry.group === group).map(({ id, label, icon: Icon }) => {
+              {TABS.filter((entry) => entry.group === group).map(({ id, labelKey, icon: Icon }) => {
                 const active = tab === id;
                 return (
                   <button
                     key={id}
                     onClick={() => setTab(id)}
                     aria-current={active ? "page" : undefined}
-                    title={collapsed ? label : undefined}
+                    title={collapsed ? t(labelKey) : undefined}
                     className={`flex items-center gap-[11px] rounded-[11px] px-3 py-[10px] text-left text-[14px] font-medium transition-colors ${
                       active
                         ? "bg-surface-3 text-ink"
@@ -65,7 +67,7 @@ export function NavSidebar() {
                     } ${collapsed ? "justify-center" : ""}`}
                   >
                     <Icon size={19} strokeWidth={active ? 2.1 : 1.7} className="flex-none" />
-                    {!collapsed && <span className="min-w-0 flex-1 truncate">{label}</span>}
+                    {!collapsed && <span className="min-w-0 flex-1 truncate">{t(labelKey)}</span>}
                     {!collapsed && id === "saved" && savedCount > 0 && (
                       <span className="figure flex-none rounded-full bg-surface-3 px-2 py-[3px] text-[11px] text-ink-2">
                         {savedCount}
@@ -91,7 +93,7 @@ export function NavSidebar() {
             <span className="block truncate text-[14px] font-semibold tracking-[-.01em]">
               {profile.name}
             </span>
-            <span className="label-sm block truncate font-normal text-ink-3">Perangkat ini</span>
+            <span className="label-sm block truncate font-normal text-ink-3">{t("nav.thisDevice")}</span>
           </span>
         )}
       </button>

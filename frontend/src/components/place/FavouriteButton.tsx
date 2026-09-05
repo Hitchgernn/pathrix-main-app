@@ -1,4 +1,5 @@
 import { Heart } from "lucide-react";
+import { useT } from "../../i18n";
 import type { Place } from "../../lib/places";
 import { useStore } from "../../store";
 
@@ -13,6 +14,7 @@ interface FavouriteButtonProps {
 export function FavouriteButton({ place, variant = "bare" }: FavouriteButtonProps) {
   const saved = useStore((s) => s.savedPlaces.some((p) => p.id === place.id));
   const toggle = useStore((s) => s.toggleSavedPlace);
+  const t = useT();
 
   return (
     <button
@@ -21,7 +23,7 @@ export function FavouriteButton({ place, variant = "bare" }: FavouriteButtonProp
         toggle(place);
       }}
       aria-pressed={saved}
-      aria-label={saved ? `Hapus ${place.name} dari tersimpan` : `Simpan ${place.name}`}
+      aria-label={t(saved ? "place.unsave" : "place.save", place.name)}
       className={
         variant === "chip"
           ? "flex-none rounded-full p-2 transition-colors hover:bg-surface-3"

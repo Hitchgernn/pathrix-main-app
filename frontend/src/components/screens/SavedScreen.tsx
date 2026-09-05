@@ -1,4 +1,5 @@
 import { Bookmark, Map, Trash2 } from "lucide-react";
+import { useT } from "../../i18n";
 import { askFromAnywhere, goToPlace } from "../../lib/actions";
 import { useStore } from "../../store";
 import { PlaceRow } from "../place/PlaceRow";
@@ -12,27 +13,28 @@ export function SavedScreen() {
   const savedRoutes = useStore((s) => s.savedRoutes);
   const toggleSavedRoute = useStore((s) => s.toggleSavedRoute);
   const setTab = useStore((s) => s.setTab);
+  const t = useT();
 
   return (
     <div className="mx-auto flex w-full max-w-[600px] flex-col px-4 pb-16 pt-6">
-      <h1 className="title-lg">Tersimpan</h1>
+      <h1 className="title-lg">{t("saved.title")}</h1>
       <p className="body-13 mt-[7px] text-ink-3">
-        Disimpan di perangkat ini saja. Tidak ada akun, dan tidak dikirim ke mana pun.
+        {t("saved.note")}
       </p>
 
       <Tabs defaultValue="tempat" className="mt-5">
         <TabsList>
-          <TabsTrigger value="tempat">Tempat ({savedPlaces.length})</TabsTrigger>
-          <TabsTrigger value="rute">Rute ({savedRoutes.length})</TabsTrigger>
+          <TabsTrigger value="tempat">{t("saved.tabPlaces", savedPlaces.length)}</TabsTrigger>
+          <TabsTrigger value="rute">{t("saved.tabRoutes", savedRoutes.length)}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="tempat">
           {savedPlaces.length === 0 ? (
             <EmptyState
               icon={<Bookmark size={22} strokeWidth={1.7} />}
-              title="Belum ada tempat tersimpan"
-              body="Ketuk ikon hati pada halte, pangkalan, atau tempat mana pun di peta untuk menyimpannya di sini."
-              cta="Buka peta"
+              title={t("saved.emptyPlacesTitle")}
+              body={t("saved.emptyPlacesBody")}
+              cta={t("saved.openMap")}
               onCta={() => setTab("explore")}
             />
           ) : (
@@ -48,9 +50,9 @@ export function SavedScreen() {
           {savedRoutes.length === 0 ? (
             <EmptyState
               icon={<Map size={22} strokeWidth={1.7} />}
-              title="Belum ada rute tersimpan"
-              body="Setelah agen menyusun perjalanan, simpan rutenya dari kartu rute agar bisa dibuka lagi tanpa bertanya ulang."
-              cta="Tanya agen"
+              title={t("saved.emptyRoutesTitle")}
+              body={t("saved.emptyRoutesBody")}
+              cta={t("saved.askAgent")}
               onCta={() => setTab("agent")}
             />
           ) : (
@@ -71,7 +73,7 @@ export function SavedScreen() {
                   </button>
                   <button
                     onClick={() => toggleSavedRoute(route)}
-                    aria-label={`Hapus ${route.title}`}
+                    aria-label={t("saved.remove", route.title)}
                     className="flex-none rounded-full p-2 text-ink-4 transition-colors hover:bg-surface-3 hover:text-ink"
                   >
                     <Trash2 size={17} strokeWidth={1.8} />

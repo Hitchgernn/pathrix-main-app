@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Check, Database, MapPinned, Moon, Pencil, Sun, Trash2 } from "lucide-react";
+import { Check, Database, Languages, MapPinned, Moon, Pencil, Sun, Trash2 } from "lucide-react";
+import { useT, type Locale } from "../../i18n";
+import type { ThemePref } from "../../store/persist";
 import { requestLocation } from "../../lib/geolocation";
 import { SAMPLE_CARBON } from "../../lib/sample";
 import { useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
+import { AvatarPicker } from "../profile/AvatarPicker";
 
-const PERMISSION_LABEL = {
-  granted: "Diizinkan",
-  denied: "Ditolak",
-  unknown: "Belum diminta",
+const PERMISSION_KEY = {
+  granted: "profile.permGranted",
+  denied: "profile.permDenied",
+  unknown: "profile.permUnknown",
 } as const;
 
 /** Who you are on this device, what you have travelled, and the switches that
@@ -17,17 +20,22 @@ export function ProfileScreen() {
   const profile = useStore((s) => s.profile);
   const setProfile = useStore((s) => s.setProfile);
   const basemap = useStore((s) => s.basemap);
-  const setBasemap = useStore((s) => s.setBasemap);
+  const theme = useStore((s) => s.theme);
+  const setTheme = useStore((s) => s.setTheme);
   const permission = useStore((s) => s.locationPermission);
   const setPermission = useStore((s) => s.setLocationPermission);
   const setUserCoord = useStore((s) => s.setUserCoord);
   const savedPlaces = useStore((s) => s.savedPlaces);
   const recents = useStore((s) => s.recents);
   const resetLocalData = useStore((s) => s.resetLocalData);
+  const locale = useStore((s) => s.locale);
+  const setLocale = useStore((s) => s.setLocale);
+  const t = useT();
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(profile.name);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [pickingAvatar, setPickingAvatar] = useState(false);
 
   const commit = () => {
     const name = draft.trim();
@@ -38,10 +46,18 @@ export function ProfileScreen() {
 
   return (
     <div className="mx-auto flex w-full max-w-[600px] flex-col px-4 pb-16 pt-6">
-      <h1 className="title-lg">Profil</h1>
+      <h1 className="title-lg">{t("profile.title")}</h1>
 
-      <div className="mt-5 flex items-center gap-[14px] rounded-tile bg-surface p-[15px] ring-1 ring-line">
-        <Avatar src={profile.avatar} name={profile.name} className="h-14 w-14" />
+      <div className="mt-5 rounded-tile bg-surface p-[15px] ring-1 ring-line">
+        <div className="flex items-center gap-[14px]">
+        <button
+          onClick={() => setPickingAvatar((open) => !open)}
+          aria-label={t("profile.changeAvatar")}
+          aria-expanded={pickingAvatar}
+          className="flex-none rounded-full transition-transform active:scale-95"
+        >
+          <Avatar src={profile.avatar} name={profile.name} className="h-14 w-14" />
+        </button>
         <div className="min-w-0 flex-1">
           {editing ? (
             <div className="flex items-center gap-2">
@@ -57,12 +73,12 @@ export function ProfileScreen() {
                   }
                 }}
                 maxLength={32}
-                aria-label="Nama Anda"
+                aria-label={t("profile.nameLabel")}
                 className="min-w-0 flex-1 rounded-[10px] border border-line-strong bg-surface-2 px-3 py-2 text-[15px] outline-none"
               />
               <button
                 onClick={commit}
-                aria-label="Simpan nama"
+                aria-label={t("profile.saveName")}
                 className="flex-none rounded-full bg-ink p-2 text-surface"
               >
                 <Check size={16} strokeWidth={2.2} />
@@ -86,46 +102,75 @@ export function ProfileScreen() {
               />
             </button>
           )}
-          <p className="body-13 mt-[5px] text-ink-3">Tersimpan di perangkat ini</p>
+          <p className="body-13 mt-[5px] text-ink-3">{t("profile.storedHere")}</p>
         </div>
+        </div>
+        {pickingAvatar && <AvatarPicker onClose={() => setPickingAvatar(false)} />}
       </div>
 
       <div className="mt-3 grid grid-cols-3 gap-[10px]">
-        <Stat value={String(recents.length)} label="Perjalanan" />
-        <Stat value={SAMPLE_CARBON.month} label="CO₂e contoh" accent />
-        <Stat value={String(savedPlaces.length)} label="Tersimpan" />
+        <Stat value={String(recents.length)} label={t("profile.trips")} />
+        <Stat value={SAMPLE_CARBON.month} label={t("profile.carbonSample")} accent />
+        <Stat value={String(savedPlaces.length)} label={t("profile.saved")} />
       </div>
       <p className="body-13 mt-[10px] text-ink-3">
-        Angka CO₂e masih memakai faktor emisi contoh. Nilai asli muncul setelah faktor emisi
-        dimuat dari basis data.
+        {t("profile.carbonNote")}
       </p>
-      <p className="body-13 mt-[6px] text-ink-3">Sumber: {SAMPLE_CARBON.source}</p>
+      <p className="body-13 mt-[6px] text-ink-3">{t("profile.sourcePrefix", SAMPLE_CARBON.source)}</p>
 
-      <Group label="Peta">
+      <Group label={t("profile.groupAppearance")}>
         <Row
           icon={basemap === "dark" ? <Moon size={18} strokeWidth={1.8} /> : <Sun size={18} strokeWidth={1.8} />}
-          title="Tampilan peta"
-          sub="Terang atau gelap"
+          title={t("profile.appearance")}
         >
           <div className="flex flex-none gap-[2px] rounded-control bg-surface-2 p-[3px] ring-1 ring-line">
-            {(["street", "dark"] as const).map((option) => (
+            {(["light", "dark", "system"] as ThemePref[]).map((option) => (
               <button
                 key={option}
-                onClick={() => setBasemap(option)}
-                className={`label-sm rounded-control px-[14px] py-[7px] transition-colors ${
-                  basemap === option ? "bg-ink text-surface" : "text-ink-3"
+                onClick={() => setTheme(option)}
+                aria-pressed={theme === option}
+                className={`label-sm rounded-control px-[12px] py-[7px] transition-colors ${
+                  theme === option ? "bg-ink text-surface" : "text-ink-3"
                 }`}
               >
-                {option === "street" ? "Terang" : "Gelap"}
+                {t(
+                  option === "light"
+                    ? "profile.light"
+                    : option === "dark"
+                      ? "profile.dark"
+                      : "profile.system",
+                )}
               </button>
             ))}
           </div>
         </Row>
+        <Row
+          icon={<Languages size={18} strokeWidth={1.8} />}
+          title={t("profile.language")}
+        >
+          <div className="flex flex-none gap-[2px] rounded-control bg-surface-2 p-[3px] ring-1 ring-line">
+            {(["id", "en"] as Locale[]).map((option) => (
+              <button
+                key={option}
+                onClick={() => setLocale(option)}
+                aria-pressed={locale === option}
+                className={`label-sm rounded-control px-[14px] py-[7px] transition-colors ${
+                  locale === option ? "bg-ink text-surface" : "text-ink-3"
+                }`}
+              >
+                {option === "id" ? "ID" : "EN"}
+              </button>
+            ))}
+          </div>
+        </Row>
+      </Group>
+
+      <Group label={t("profile.groupMap")}>
 
         <Row
           icon={<MapPinned size={18} strokeWidth={1.8} />}
-          title="Akses lokasi"
-          sub={PERMISSION_LABEL[permission]}
+          title={t("profile.location")}
+          sub={t(PERMISSION_KEY[permission])}
         >
           <button
             onClick={() =>
@@ -136,21 +181,21 @@ export function ProfileScreen() {
             }
             className="label-sm flex-none rounded-control px-[14px] py-[8px] text-ink ring-1 ring-line-strong transition-colors hover:bg-surface-2"
           >
-            {permission === "granted" ? "Perbarui" : "Minta izin"}
+            {t(permission === "granted" ? "profile.permRefresh" : "profile.permAsk")}
           </button>
         </Row>
       </Group>
 
-      <Group label="Data">
+      <Group label={t("profile.groupData")}>
         <Row
           icon={<Database size={18} strokeWidth={1.8} />}
-          title="Sumber data"
-          sub="MAPID Apps, OpenStreetMap, survei lapangan"
+          title={t("profile.dataSources")}
+          sub={t("profile.dataSourcesSub")}
         />
         <Row
           icon={<Trash2 size={18} strokeWidth={1.8} />}
-          title="Hapus data lokal"
-          sub="Profil, tersimpan, dan riwayat"
+          title={t("profile.clear")}
+          sub={t("profile.clearSub")}
         >
           <button
             onClick={() => {
@@ -169,12 +214,12 @@ export function ProfileScreen() {
                 : "text-ink-2 ring-line-strong hover:bg-surface-2"
             }`}
           >
-            {confirmReset ? "Yakin, hapus" : "Hapus"}
+            {t(confirmReset ? "profile.clearConfirm" : "profile.clearAction")}
           </button>
         </Row>
       </Group>
 
-      <p className="body-13 mt-10 text-center text-ink-3">Pathrix, Yogyakarta</p>
+      <p className="body-13 mt-10 text-center text-ink-3">{t("profile.footer")}</p>
     </div>
   );
 }
@@ -211,7 +256,9 @@ function Row({
 }: {
   icon: React.ReactNode;
   title: string;
-  sub: string;
+  /** Omitted where the control beside it already explains the row; a subtitle
+   *  squeezed against a three-way segmented control just truncates. */
+  sub?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -221,7 +268,7 @@ function Row({
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[15px] font-medium tracking-[-.01em]">{title}</span>
-        <span className="mt-[2px] block truncate text-[12.5px] text-ink-3">{sub}</span>
+        {sub && <span className="mt-[2px] block truncate text-[12.5px] text-ink-3">{sub}</span>}
       </span>
       {children}
     </div>

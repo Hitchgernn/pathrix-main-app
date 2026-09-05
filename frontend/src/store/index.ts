@@ -9,7 +9,9 @@ import type {
 } from "../lib/types";
 import type { Basemap } from "../lib/tokens";
 import type { Place, RecentEntry, SavedRoute } from "../lib/places";
-import { LAYER_ROWS, QUICK, REPLY_GENERIC, REPLY_ROUTE, SEED_RECENTS } from "../lib/sample";
+import { LAYER_ROWS, QUICK, SEED_RECENTS } from "../lib/sample";
+import { demoKindFor, runScript, type DemoKind } from "../lib/demoAgent";
+import { translate, type MessageKey } from "../i18n";
 import type { AgentSocket } from "../lib/ws";
 import {
   capRecents,
@@ -17,6 +19,8 @@ import {
   loadPersisted,
   savePersisted,
   type LocationPermission,
+  type PersistedLocale,
+  type ThemePref,
   type PersistedState,
   type Profile,
 } from "./persist";
@@ -30,7 +34,9 @@ export type PanelSnap = "half" | "full";
 export const YOGYA_CENTER: [number, number] = [110.3695, -7.7956];
 export const YOGYA_ZOOM = 12;
 
-const DEMO_REPLY_MS = 1400;
+/** The scripted agent's current step, or null when it is not running. Module
+ *  state rather than store state only for the canceller, which is not UI. */
+let cancelDemo: (() => void) | null = null;
 
 const initialLayers = new Set(LAYER_ROWS.filter((l) => l.on).map((l) => l.id));
 
@@ -63,6 +69,11 @@ interface AgentSlice {
   /** Set when the backend has no LLM provider wired — the UI then runs on the
    *  design's sample replies rather than showing a dead input. */
   offline: boolean;
+  /** While the scripted agent is running: which script, and how far in. Null
+   *  once a real provider is answering, since progress will come from the
+   *  backend rather than from a timer. */
+  demoKind: DemoKind | null;
+  demoStep: number;
   socket: AgentSocket | null;
   attachSocket(socket: AgentSocket | null): void;
   ask(text: string): void;
@@ -110,17 +121,40 @@ interface PersistSlice extends PersistedState {
   pushRecent(entry: Omit<RecentEntry, "at">): void;
   setLocationPermission(permission: LocationPermission): void;
   setOnboarded(onboarded: boolean): void;
+  setLocale(locale: PersistedLocale): void;
+  setTheme(theme: ThemePref): void;
   resetLocalData(): void;
 }
 
 export type Store = MapSlice & LayerSlice & AgentSlice & UiSlice & PersistSlice;
 
-/** Demo timer, module-scoped so a second ask cancels the first. */
-let demoTimer: number | null = null;
-
 const looksLikeRoute = (text: string) => /prambanan|malioboro|→|ke\s/i.test(text);
 
 const persisted = loadPersisted();
+
+const prefersDark = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+export const resolveTheme = (pref: ThemePref): "light" | "dark" =>
+  pref === "system" ? (prefersDark() ? "dark" : "light") : pref;
+
+/** Stamps `data-theme` and keeps the basemap in step.
+ *
+ *  The chrome and the cartography are one decision, not two: a light app over a
+ *  dark map is a bug, not a preference. `basemap` stays in the store because
+ *  `bridge.ts` and `MapCanvas` read it for paint values, but nothing sets it
+ *  independently any more.
+ */
+export function applyTheme(
+  pref: ThemePref,
+  set: (partial: Partial<Store>) => void,
+): "light" | "dark" {
+  const resolved = resolveTheme(pref);
+  if (typeof document !== "undefined") document.documentElement.dataset.theme = resolved;
+  set({ basemap: resolved === "dark" ? "dark" : "street" });
+  return resolved;
+}
 
 /** Snapshot only the persisted keys, so a camera move never writes to disk. */
 const persistNow = (state: Store): void =>
@@ -131,6 +165,8 @@ const persistNow = (state: Store): void =>
     recents: state.recents,
     locationPermission: state.locationPermission,
     onboarded: state.onboarded,
+    locale: state.locale,
+    theme: state.theme,
   });
 
 export const useStore = create<Store>()((set, get) => ({
@@ -164,6 +200,8 @@ export const useStore = create<Store>()((set, get) => ({
   lastRoute: null,
   lastCarbon: null,
   offline: false,
+  demoKind: null,
+  demoStep: 0,
   socket: null,
   attachSocket: (socket) => set({ socket }),
 
@@ -182,6 +220,10 @@ export const useStore = create<Store>()((set, get) => ({
     }));
     get().pushRecent({ title: trimmed, prompt: trimmed });
 
+    cancelDemo?.();
+    cancelDemo = null;
+    set({ demoKind: null, demoStep: 0 });
+
     const sent = socket !== null && bbox !== null && socket.ask(trimmed, { bbox, zoom });
     if (sent) return;
 
@@ -190,15 +232,19 @@ export const useStore = create<Store>()((set, get) => ({
     get().handleServerMessage({
       type: "error",
       code: "llm_unavailable",
-      message: "Chat is unavailable right now.",
+      message: translate(get().locale, "agent.unavailable"),
     });
   },
 
   handleServerMessage: (message) => {
     switch (message.type) {
       case "token":
+        cancelDemo?.();
+        cancelDemo = null;
         set((s) => ({
           streaming: false,
+          demoKind: null,
+          demoStep: 0,
           messages: s.messages.concat([{ who: "agent", text: message.delta }]),
         }));
         break;
@@ -238,18 +284,32 @@ export const useStore = create<Store>()((set, get) => ({
           break;
         }
         set({ offline: true });
-        if (demoTimer !== null) window.clearTimeout(demoTimer);
+        cancelDemo?.();
         const asked = get().messages[get().messages.length - 1];
-        const route = asked ? looksLikeRoute(asked.text) : false;
-        demoTimer = window.setTimeout(() => {
-          demoTimer = null;
-          set((s) => ({
-            streaming: false,
-            messages: s.messages.concat([
-              { who: "agent", text: route ? REPLY_ROUTE : REPLY_GENERIC, route: null },
-            ]),
-          }));
-        }, DEMO_REPLY_MS);
+        const question = asked ? asked.text : "";
+        const kind = demoKindFor(question);
+        const route = looksLikeRoute(question);
+
+        set({ demoKind: kind, demoStep: 0 });
+        cancelDemo = runScript(
+          kind,
+          (step) => set({ demoStep: step }),
+          () => {
+            cancelDemo = null;
+            set((s) => ({
+              streaming: false,
+              demoKind: null,
+              demoStep: 0,
+              messages: s.messages.concat([
+                {
+                  who: "agent",
+                  text: translate(s.locale, route ? "demo.reply.route" : "demo.reply.generic"),
+                  route: null,
+                },
+              ]),
+            }));
+          },
+        );
         break;
       }
     }
@@ -350,6 +410,17 @@ export const useStore = create<Store>()((set, get) => ({
     set({ onboarded });
     persistNow(get());
   },
+  setTheme: (theme) => {
+    set({ theme });
+    persistNow(get());
+    applyTheme(theme, set);
+  },
+  setLocale: (locale) => {
+    set({ locale });
+    // Assistive tech and the browser both read this; it must follow the switch.
+    if (typeof document !== "undefined") document.documentElement.lang = locale;
+    persistNow(get());
+  },
 
   resetLocalData: () => {
     clearPersisted();
@@ -360,13 +431,29 @@ export const useStore = create<Store>()((set, get) => ({
       recents: [],
       locationPermission: "unknown",
       onboarded: false,
+      locale: "id",
+      theme: "system",
     });
+    applyTheme("system", set);
+    if (typeof document !== "undefined") document.documentElement.lang = "id";
   },
 }));
 
 /** Recents fall back to the labelled sample entries only while the real list is
- *  empty, so a first-run Home screen is not a blank rectangle. */
-export const recentsForDisplay = (recents: RecentEntry[]): RecentEntry[] =>
-  recents.length > 0 ? recents : SEED_RECENTS;
+ *  empty, so a first-run Home screen is not a blank rectangle. The seeds carry
+ *  message keys rather than text, so they follow the locale like everything
+ *  else; a real recent is whatever the user actually typed and is never
+ *  translated. */
+export const recentsForDisplay = (
+  recents: RecentEntry[],
+  t: (key: MessageKey) => string,
+): RecentEntry[] =>
+  recents.length > 0
+    ? recents
+    : SEED_RECENTS.map((seed) => ({
+        title: t(seed.titleKey),
+        prompt: t(seed.promptKey),
+        at: seed.at,
+      }));
 
 export const QUICK_PROMPTS = QUICK;

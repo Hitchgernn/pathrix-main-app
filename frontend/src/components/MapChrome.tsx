@@ -1,4 +1,5 @@
 import { Leaf } from "lucide-react";
+import { useT } from "../i18n";
 import { NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
 import { useStore } from "../store";
 import { BasemapSwitcher } from "./BasemapSwitcher";
@@ -18,6 +19,7 @@ export function MapChrome() {
   const panel = useStore((s) => s.panel);
   const togglePanel = useStore((s) => s.togglePanel);
   const searchOpen = useStore((s) => s.searchOpen);
+  const t = useT();
 
   return (
     <div
@@ -41,7 +43,7 @@ export function MapChrome() {
           <button
             onClick={() => togglePanel("sustain")}
             aria-pressed={panel === "sustain"}
-            aria-label="Jejak karbon"
+            aria-label={t("map.carbon")}
             className={`pointer-events-auto flex h-[38px] w-[38px] items-center justify-center rounded-full shadow-card transition-colors ${
               panel === "sustain" ? "bg-ink text-surface" : "surface-float text-gold-text ring-1 ring-line"
             }`}

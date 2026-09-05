@@ -1,5 +1,6 @@
 import { ArrowLeft, MessageCircle, Navigation, Share2, Star } from "lucide-react";
 import { askFromAnywhere } from "../../lib/actions";
+import { useT } from "../../i18n";
 import { KIND_META } from "../../lib/places";
 import { NAV_W, NAV_W_COLLAPSED, TABBAR_H } from "../../lib/tokens";
 import { usePhoto } from "../../lib/usePhoto";
@@ -22,6 +23,7 @@ export function PlaceSheet() {
   const wide = useStore((s) => s.wide);
   const navCollapsed = useStore((s) => s.navCollapsed);
   const { photo, resolved } = usePhoto(place?.name);
+  const t = useT();
 
   if (!place) return null;
 
@@ -29,14 +31,15 @@ export function PlaceSheet() {
   const coords = `${place.coord[1].toFixed(5)}, ${place.coord[0].toFixed(5)}`;
   const hero = place.photoUrl ?? photo?.url ?? null;
 
-  const source =
+  const source = t(
     place.kind === "address"
-      ? "Nominatim MAPID"
+      ? "source.address"
       : place.kind === "pangkalan"
-        ? "Survei lapangan"
+        ? "source.pangkalan"
         : place.kind === "transit"
-          ? "Data transit Pathrix"
-          : "Misi MAPID Apps";
+          ? "source.transit"
+          : "source.mission",
+  );
 
   const position = wide
     ? {
@@ -61,12 +64,12 @@ export function PlaceSheet() {
       <header className="flex flex-none items-center gap-2 px-3 pb-2 pt-3">
         <button
           onClick={() => selectPlace(null)}
-          aria-label="Tutup"
+          aria-label={t("place.close")}
           className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-surface-3 transition-colors hover:bg-line-strong"
         >
           <ArrowLeft size={19} strokeWidth={1.9} />
         </button>
-        <h2 className="title-row min-w-0 flex-1 truncate text-center">Detail tempat</h2>
+        <h2 className="title-row min-w-0 flex-1 truncate text-center">{t("place.detail")}</h2>
         <FavouriteButton place={place} />
       </header>
 
@@ -76,7 +79,7 @@ export function PlaceSheet() {
             <PhotoSlot
               src={hero}
               alt={place.name}
-              placeholder="Foto survei belum tersedia untuk titik ini"
+              placeholder={t("place.noPhoto")}
               radius={20}
               pending={!resolved}
             />
@@ -84,8 +87,8 @@ export function PlaceSheet() {
 
           {hero && (
             <button
-              onClick={() => askFromAnywhere(`Ceritakan tentang ${place.name}`)}
-              aria-label="Tanya agen tentang tempat ini"
+              onClick={() => askFromAnywhere(t("place.askAbout", place.name))}
+              aria-label={t("place.askAbout", place.name)}
               className="surface-float absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full shadow-card"
             >
               <MessageCircle size={16} strokeWidth={1.9} />
@@ -98,12 +101,12 @@ export function PlaceSheet() {
             this is, and whether a surveyor actually stood there. */}
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="label-sm rounded-control bg-surface-3 px-[11px] py-[6px] text-ink-2">
-            {meta.label}
+            {t(meta.labelKey)}
           </span>
           {place.kind === "pangkalan" && (
             <span className="label-sm flex items-center gap-[5px] rounded-control bg-surface px-[11px] py-[6px] text-gold-text ring-1 ring-line">
               <Star size={13} strokeWidth={0} fill="var(--color-gold)" aria-hidden />
-              Survei lapangan
+              {t("place.fieldSurvey")}
             </span>
           )}
         </div>
@@ -115,26 +118,25 @@ export function PlaceSheet() {
           <div className="mt-[14px] flex flex-wrap gap-[6px]">
             {place.facts.map((fact) => (
               <span
-                key={fact.label}
+                key={fact.labelKey}
                 className="rounded-control border border-line-strong px-[12px] py-[7px] text-[13px] text-ink-2"
               >
-                {fact.label}: <span className="figure text-ink">{fact.value}</span>
+                {t(fact.labelKey)}: <span className="figure text-ink">{fact.value}</span>
               </span>
             ))}
           </div>
         )}
 
-        <h4 className="label-sm mt-[22px]">Detail</h4>
+        <h4 className="label-sm mt-[22px]">{t("place.details")}</h4>
         <dl className="mt-1">
-          <Row label="Koordinat" value={coords} mono />
-          <Row label="Sumber" value={source} />
-          {photo && !place.photoUrl && <Row label="Foto" value={photo.credit} href={photo.href} />}
+          <Row label={t("place.coordinate")} value={coords} mono />
+          <Row label={t("place.source")} value={source} />
+          {photo && !place.photoUrl && <Row label={t("place.photo")} value={photo.credit} href={photo.href} />}
         </dl>
 
         {place.facts.length === 0 && place.kind !== "address" && (
           <p className="body-13 mt-[14px] text-ink-3">
-            Jam operasional dan tarif akan muncul di sini setelah digitalisasi survei lapangan
-            selesai.
+            {t("place.pendingDetails")}
           </p>
         )}
       </div>
@@ -146,17 +148,17 @@ export function PlaceSheet() {
             if (navigator.share) void navigator.share({ title: place.name, text }).catch(() => {});
             else void navigator.clipboard?.writeText(text).catch(() => {});
           }}
-          aria-label="Bagikan lokasi"
+          aria-label={t("place.share")}
           className="flex h-[50px] w-[50px] flex-none items-center justify-center rounded-control border border-line-strong text-ink-2 transition-colors hover:bg-surface-2"
         >
           <Share2 size={17} strokeWidth={1.9} />
         </button>
         <button
-          onClick={() => askFromAnywhere(`Rute ke ${place.name}`)}
+          onClick={() => askFromAnywhere(t("place.routeTo", place.name))}
           className="flex h-[50px] flex-1 items-center justify-center gap-[9px] rounded-control bg-ink text-[15px] font-semibold tracking-[-.01em] text-surface transition-[background-color,transform] hover:bg-ink/90 active:scale-[.985]"
         >
           <Navigation size={17} strokeWidth={2} />
-          Rute ke sini
+          {t("place.routeHere")}
         </button>
       </div>
     </section>
