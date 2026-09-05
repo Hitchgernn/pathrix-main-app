@@ -91,8 +91,6 @@ export const en: Messages = {
   "home.greeting": (name: string) => `Hello, ${name}`,
   "home.question": "Where are you going today?",
   "home.carbonMonth": "CO₂e this month",
-  "home.openMap": "Open map",
-  "home.savedCount": "saved",
   "home.seeAll": "See all",
   "home.recent": "Recent",
   "home.sampleTrips": "Sample trips",

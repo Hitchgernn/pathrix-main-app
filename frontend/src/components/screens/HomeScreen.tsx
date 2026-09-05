@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronRight, Layers, Leaf, Route, TramFront } from "lucide-react";
+import { ChevronRight, Layers, Leaf, Route, TramFront } from "lucide-react";
 import type { ComponentType } from "react";
 import { currentLocale, useT } from "../../i18n";
 import { askFromAnywhere, goToPlace } from "../../lib/actions";
@@ -72,23 +72,7 @@ export function HomeScreen() {
 
       <SearchBar variant="page" className="mt-6" />
 
-      {/* The reference's wide "Book a ride" card: one filled action against a
-          quiet surface, with the useful figure sitting beside it. */}
-      <button
-        onClick={() => setTab("explore")}
-        className="group mt-[10px] flex items-center gap-3 rounded-tile bg-surface p-[14px] text-left ring-1 ring-line transition-shadow hover:shadow-card"
-      >
-        <span className="flex h-[46px] flex-1 items-center justify-center rounded-control bg-ink px-5 text-[15px] font-semibold text-surface transition-transform group-active:scale-[.985]">
-          {t("home.openMap")}
-        </span>
-        <span className="flex flex-none items-center gap-[6px] pr-2 text-ink-2">
-          <span className="figure text-[13px]">{savedPlaces.length}</span>
-          <span className="label-sm font-normal text-ink-3">{t("home.savedCount")}</span>
-          <ArrowRight size={15} strokeWidth={2} className="text-ink-4" />
-        </span>
-      </button>
-
-      <div className="mt-[10px] grid auto-rows-fr grid-cols-2 gap-[10px]">
+      <div className="mt-3 grid auto-rows-fr grid-cols-2 gap-[10px]">
         {QUICK_ACTIONS.map((action) => (
           <ActionTile key={action.id} action={action} onSelect={() => runAction(action)} />
         ))}

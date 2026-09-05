@@ -93,8 +93,6 @@ export const id = {
   "home.greeting": (name: string) => `Halo, ${name}`,
   "home.question": "Mau ke mana hari ini?",
   "home.carbonMonth": "CO₂e bulan ini",
-  "home.openMap": "Buka peta",
-  "home.savedCount": "tersimpan",
   "home.seeAll": "Lihat semua",
   "home.recent": "Terakhir",
   "home.sampleTrips": "Contoh perjalanan",
