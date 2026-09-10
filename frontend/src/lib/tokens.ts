@@ -10,6 +10,11 @@ export interface MapPalette {
   walk: string;
   halo: string;
   stopFill: string;
+  /** Extruded buildings in 3D view. Neutral in both treatments on purpose: a
+   *  saturated building competes with the route line on the one screen where
+   *  the route line is the product. MAPID's own extrusions ramp to royalblue,
+   *  which is why lib/buildings3d.ts hides them. */
+  building3d: string;
 }
 
 /** Inherited unchanged from docs/DESIGN.md §Map category palette. These are
@@ -25,6 +30,8 @@ const PALETTE: Record<Basemap, MapPalette> = {
     walk: "#17293a",
     halo: "#17293a",
     stopFill: "#ffffff",
+    // Against street-v2.0's own rgb(239,239,239) background.
+    building3d: "#dcdad6",
   },
   dark: {
     krl: "#2dd4bf",
@@ -33,6 +40,9 @@ const PALETTE: Record<Basemap, MapPalette> = {
     walk: "#e7f0f7",
     halo: "#e7f0f7",
     stopFill: "#0c1822",
+    // dark-v2.0 fills its flat buildings rgb(32,32,32), which vanishes into the
+    // ground once extruded; this lifts off it without becoming a light plane.
+    building3d: "#33333a",
   },
 };
 
