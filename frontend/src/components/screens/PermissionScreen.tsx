@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useT } from "../../i18n";
 import { requestLocation } from "../../lib/geolocation";
 import { useStore } from "../../store";
+import earth from "../../assets/bakpia-earth.png";
+import { Sprite } from "../Sprite";
 
 /** Shown once, the first time someone opens the map.
  *
@@ -29,7 +31,7 @@ export function PermissionScreen() {
     <div className="absolute inset-0 z-[80] flex animate-pxfade flex-col bg-surface">
       <div className="mx-auto flex w-full max-w-[440px] flex-1 flex-col px-6 pb-8 pt-16">
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          <LocationMark />
+          <EarthMark />
           <h1 className="title-lg mt-8">{t("perm.title")}</h1>
           <p className="body-15 mt-3 max-w-[34ch] text-ink-2">
             {t("perm.body")}
@@ -60,23 +62,18 @@ export function PermissionScreen() {
   );
 }
 
-/** A pin dropped on a coordinate grid, in the app's own line language: the
- *  graticule is the instrument, the pin is you on it. */
-function LocationMark() {
-  return (
-    <svg viewBox="0 0 132 132" width="132" height="132" fill="none" aria-hidden>
-      <circle cx="66" cy="66" r="55" fill="var(--color-surface-3)" />
-      <g stroke="var(--color-ink)" strokeWidth="1" opacity=".18">
-        <path d="M11 66h110M66 11v110" />
-        <circle cx="66" cy="66" r="34" />
-        <circle cx="66" cy="66" r="18" />
-      </g>
-      <path
-        d="M66 40c-8.8 0-16 7.1-16 15.9 0 11.2 14.3 24.9 15 25.5.6.5 1.5.5 2.1 0 .7-.6 15-14.3 15-25.5C82 47.1 74.8 40 66 40Z"
-        fill="var(--color-ink)"
-      />
-      <circle cx="66" cy="56" r="5.6" fill="var(--color-gold)" />
-      <ellipse cx="66" cy="90" rx="13" ry="3.4" fill="var(--color-ink)" opacity=".14" />
-    </svg>
-  );
+/** The mascot waving from the top of the Earth.
+ *
+ *  This replaces a drawn pin-on-a-graticule. The pin said "we will put a marker
+ *  where you are", which is not what the screen is asking for — it is asking
+ *  permission, and a greeting is the honest illustration of that. It is also
+ *  the one screen in the app with room for a mascot at full size.
+ *
+ *  `wave` rather than a random clip: this screen is shown once, so there is
+ *  nothing for variety to relieve, and it is the only clip whose every frame
+ *  reads on its own — `walk` runs off the edge of the frame and `jump` leaves
+ *  the mascot mid-air and cropped.
+ */
+function EarthMark() {
+  return <Sprite sheet={earth} frame={[34, 46]} frames={4} clips={4} clip={3} scale={4} ms={760} />;
 }
