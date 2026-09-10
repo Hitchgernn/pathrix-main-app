@@ -263,10 +263,6 @@ export const en: Messages = {
 
   // --- permission ---------------------------------------------------------
   "perm.title": "Allow location access",
-  "perm.body":
-    "Used to show the nearest halte and andong or becak pangkalan, and to plan a route from where you are.",
-  "perm.note":
-    "Your location is handled on the device and sent to the server only as a route's starting point. You can change this any time in Profile.",
   "perm.allow": "Allow access",
   "perm.waiting": "Waiting for permission…",
   "perm.later": "Not now, open the Yogyakarta map",

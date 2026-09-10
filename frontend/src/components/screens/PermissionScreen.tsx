@@ -7,10 +7,15 @@ import { Sprite } from "../Sprite";
 
 /** Shown once, the first time someone opens the map.
  *
- *  Asking before the browser's own prompt fires is the point: a cold permission
- *  dialog with no context is the one most people dismiss, and a dismissal is
- *  hard to undo. Declining here is a real, complete path — the app opens on the
- *  Kraton and everything except "near me" works exactly the same.
+ *  Standing in front of the browser's own prompt is the point: that dialog is
+ *  the one most people dismiss, and a dismissal is hard to undo, so the choice
+ *  is offered here first where declining is a real, complete path — the app
+ *  opens on the Kraton and everything except "near me" works exactly the same.
+ *
+ *  The screen deliberately does not explain itself beyond the question — the
+ *  mascot and the title are the whole of it. The answer is not final either
+ *  way: Profil carries a location row showing the current state with a control
+ *  to change it.
  */
 export function PermissionScreen() {
   const setOnboarded = useStore((s) => s.setOnboarded);
@@ -33,12 +38,6 @@ export function PermissionScreen() {
         <div className="flex flex-1 flex-col items-center justify-center text-center">
           <EarthMark />
           <h1 className="title-lg mt-8">{t("perm.title")}</h1>
-          <p className="body-15 mt-3 max-w-[34ch] text-ink-2">
-            {t("perm.body")}
-          </p>
-          <p className="body-13 mt-4 max-w-[34ch] text-ink-3">
-            {t("perm.note")}
-          </p>
         </div>
 
         <button
