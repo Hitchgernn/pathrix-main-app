@@ -45,7 +45,10 @@ export default defineConfig(({ command, mode }) => {
         workbox: {
           // MapLibre alone is over the 2MB default.
           maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-          globPatterns: ["**/*.{js,css,html,woff2}"],
+          // `png` is here for the mascot sprite. It is under Vite's 4KB inline
+          // threshold today and so ends up in the bundle, but a redraw that
+          // crosses that line should not silently drop out of the precache.
+          globPatterns: ["**/*.{js,css,html,woff2,png}"],
           navigateFallbackDenylist: [/^\/api/, /^\/ws/],
           runtimeCaching: [
             {
