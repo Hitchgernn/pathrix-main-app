@@ -80,6 +80,10 @@
   --animate-pxrise: pxrise 0.34s var(--ease-out-expo);
   --animate-pxrise-slow: pxrise 0.42s var(--ease-out-expo);
   --animate-pxdim: pxdim 1.4s ease-in-out infinite;
+  /* One thinking step leaving as the next arrives. Out is quicker than in
+     so the line is never empty-looking mid-swap. */
+  --animate-pxstep-in: pxstepIn 0.26s var(--ease-out-expo);
+  --animate-pxstep-out: pxstepOut 0.2s ease-in forwards;
 }
 
 /* --- dark ---------------------------------------------------------------
@@ -142,6 +146,18 @@
    the rendered scale (4 frames x 58px); the row and the duration are set
    inline by MascotThinking, since both vary per clip. Under reduced motion the
    blanket rule below flattens this and the sprite reverts to its first frame. */
+/* The thinking line travels a short way upward: the step that finishes rises
+   out of the way, and the one taking over rises into its place. */
+@keyframes pxstepIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pxstepOut {
+  /* Starts mid-`pxdim` rather than at full opacity: the line it replaces was
+     pulsing, so leaving from 1 would flash brighter on its way out. */
+  from { opacity: 0.6; transform: none; }
+  to { opacity: 0; transform: translateY(-6px); }
+}
 @keyframes mascotStep {
   from { background-position-x: 0; }
   to { background-position-x: -232px; }

@@ -395,11 +395,19 @@ descendant of the landing page's "no bordered-card" instinct: only the user's
 own input gets a filled background, because it's the one thing that needs to
 visually separate from the instrument's own voice.
 
-Streaming state: the words carry the status — a stepped list naming what the
-agent is doing right now, or a low-opacity label — never a spinner icon and
-never animated dots, consistent with the Image Slot component's philosophy on
-the landing page: state your own status in text, don't perform a loading
-animation that implies a promise about timing.
+Streaming state: the words carry the status — one line naming what the agent is
+doing right now, or a low-opacity label — never a spinner icon and never
+animated dots, consistent with the Image Slot component's philosophy on the
+landing page: state your own status in text, don't perform a loading animation
+that implies a promise about timing.
+
+That line is **one step at a time**, not an accumulating list. Each step rises
+out of the way as the next rises into its place (`pxstepOut`/`pxstepIn`, the two
+overlapping so the row never blinks empty). Finished steps are a receipt the
+user did not ask for, and steps not yet started are a progress bar with extra
+words; only the work actually happening is on screen. The swap is the one thing
+in the sheet that changes height predictably, which is why the mascot sits
+centred against it.
 
 The Bakpia mascot animates *beside* that text while the agent works (see
 §Mascot). It is not an exception to the rule above: it reports nothing, claims
