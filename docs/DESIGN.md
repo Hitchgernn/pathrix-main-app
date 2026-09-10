@@ -518,9 +518,17 @@ active half filled `ink` like every other active control — it sits in a corner
 text pill breaks that rhythm. Not satellite/light in v1 UI — those two styles remain
 available at the data layer (`ARCHITECTURE.md` §6.1) but the switcher only
 exposes the two this document has verified contrast for (§Colors above);
-add the rest once their contrast is checked the same way. The corner now holds
-three round controls beside it — the switcher, carbon, and 3D — which is the
-limit before the cluster starts reading as a toolbar.
+add the rest once their contrast is checked the same way.
+
+The switcher travels with the other two map-wide controls — carbon and 3D —
+and the three of them are **always a row, never a column**. Every one is 38px
+tall, the switcher pill included, so across they align and down they rag: three
+different widths stair-stepping the right edge is what a column of them looks
+like. Wide sits that row beside the search field; narrow gives the field its own
+line and drops the row beneath it, right-aligned, because three stacked controls
+squeeze a 390px search pill to about three quarters. The row is also shorter
+than the column, so the narrow layout hands roughly 36px back to the map. Three
+is the limit before the cluster reads as a toolbar.
 
 ### 3D view (new)
 A round `Box` control beside the basemap switcher tilts the camera to 50° and
