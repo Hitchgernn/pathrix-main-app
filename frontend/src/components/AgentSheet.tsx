@@ -1,12 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
-import { Check } from "lucide-react";
 import { useT } from "../i18n";
 import { scriptFor, type DemoKind } from "../lib/demoAgent";
 import { QUICK } from "../lib/sample";
 import { useSheetDrag } from "../lib/useSheetDrag";
 import { useStore } from "../store";
+import { MascotThinking } from "./MascotThinking";
 import { RouteCard } from "./RouteCard";
+
+/** Must match `--animate-pxstep-out` in styles/index.css: the outgoing
+ *  thinking step is unmounted only once it has finished leaving. */
+const STEP_EXIT_MS = 200;
 
 interface AgentSheetProps {
   /** `sheet` floats over the map with three snap points; `panel` fills the tab
@@ -176,12 +180,18 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
             );
           })}
 
-          {streaming &&
-            (demoKind ? (
-              <ThinkingSteps kind={demoKind} step={demoStep} />
-            ) : (
-              <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
-            ))}
+          {streaming && (
+            /* One line of status, so the mascot is centred against it rather
+               than against a block that changes height. */
+            <div className="flex items-center gap-[10px]">
+              <MascotThinking />
+              {demoKind ? (
+                <ThinkingSteps kind={demoKind} step={demoStep} />
+              ) : (
+                <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -209,46 +219,61 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
   );
 }
 
-/** What the agent is doing, in words.
+/** What the agent is doing, in words — one line at a time.
  *
  *  docs/DESIGN.md bans spinners, shimmer and animated loading icons and asks
- *  that pending status be stated in language. A stepped list satisfies that
+ *  that pending status be stated in language. A named activity satisfies that
  *  rule rather than working around it, and it says something a spinner cannot:
  *  which part of the work is happening.
+ *
+ *  Only the running step is shown. The finished ones are not history the user
+ *  needs — keeping them turns the line into a receipt, and keeping the ones
+ *  still to come turns it into a progress bar with extra words. So each step
+ *  rises out as its successor rises in.
  *
  *  Every step names something the real agent will actually do, so when a
  *  provider lands these become progress the backend reports rather than lines a
  *  timer prints.
+ *
+ *  The mascot animating next to this line is decoration beside the words, not a
+ *  replacement for them; that distinction is the whole reason it is allowed.
  */
 function ThinkingSteps({ kind, step }: { kind: DemoKind; step: number }) {
   const steps = scriptFor(kind);
   const t = useT();
+  // The step on its way out. It stays mounted only for the length of the exit
+  // animation, so the two lines overlap for a moment and the row never blinks
+  // empty between them.
+  const [leaving, setLeaving] = useState<number | null>(null);
+  const shown = useRef(step);
+
+  useEffect(() => {
+    if (shown.current === step) return;
+    setLeaving(shown.current);
+    shown.current = step;
+    const timer = window.setTimeout(() => setLeaving(null), STEP_EXIT_MS);
+    return () => window.clearTimeout(timer);
+  }, [step]);
+
+  const current = steps[step];
+  const outgoing = leaving === null ? undefined : steps[leaving];
+
   return (
-    <ol className="flex flex-col gap-[7px] py-1" aria-live="polite">
-      {steps.map((entry, index) => {
-        const done = index < step;
-        const current = index === step;
-        // Steps that have not started yet are not announced at all: a list of
-        // future promises reads as a progress bar with extra words.
-        if (!done && !current) return null;
-        return (
-          <li
-            key={entry.key}
-            className={`flex items-center gap-[8px] text-[13px] ${
-              current ? "animate-pxdim text-ink" : "text-ink-3"
-            }`}
-          >
-            <span className="flex h-4 w-4 flex-none items-center justify-center">
-              {done ? (
-                <Check size={13} strokeWidth={2.4} className="text-ink-4" />
-              ) : (
-                <span className="h-[6px] w-[6px] rounded-full bg-ink" />
-              )}
-            </span>
-            {t(entry.key)}
-          </li>
-        );
-      })}
-    </ol>
+    // Both lines occupy the same grid cell, so the outgoing one animates over
+    // the incoming one instead of shoving it down the sheet.
+    <div className="grid py-1 text-[13px]" aria-live="polite">
+      {outgoing && (
+        <p
+          key={`out-${leaving}`}
+          aria-hidden="true"
+          className="col-start-1 row-start-1 animate-pxstep-out text-ink"
+        >
+          {t(outgoing.key)}
+        </p>
+      )}
+      <p key={step} className="col-start-1 row-start-1 animate-pxstep-in text-ink">
+        <span className="animate-pxdim block">{t(current.key)}</span>
+      </p>
+    </div>
   );
 }

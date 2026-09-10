@@ -266,10 +266,6 @@ export const id = {
 
   // --- permission ---------------------------------------------------------
   "perm.title": "Izinkan akses lokasi",
-  "perm.body":
-    "Dipakai untuk menunjukkan halte, pangkalan andong dan becak terdekat, serta menghitung rute dari posisi Anda.",
-  "perm.note":
-    "Lokasi diproses di perangkat dan dikirim ke server hanya sebagai titik awal rute. Anda bisa mengubahnya kapan saja di Profil.",
   "perm.allow": "Izinkan akses",
   "perm.waiting": "Menunggu izin…",
   "perm.later": "Nanti saja, buka peta Yogyakarta",

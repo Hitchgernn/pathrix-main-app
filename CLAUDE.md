@@ -174,6 +174,28 @@ title search always returns a photograph of *something*. Anything it cannot
 honestly identify renders the drawn placeholder instead. Only a real answer is
 cached: a 200 with no thumbnail counts, a 429 or a network failure does not.
 
+**The Bakpia mascot sprites are the only bundled images.**
+`src/assets/bakpia-mascot.png` (116×160, five clips of a 29×32 sprite) and
+`bakpia-earth.png` (136×184, four clips of a 34×46 mascot-on-a-globe) are the
+only files in `src/assets/` and the only images the app ships rather than
+fetches — everything else is remote (Wikipedia, DiceBear). Both sit under Vite's
+4KB inline threshold, so they land in the JS bundle as data URIs rather than as
+emitted assets; `png` is nonetheless in the VitePWA `globPatterns` so a redraw
+that crosses that line does not silently fall out of the precache.
+`tools/mascot/extract.py` regenerates both from the delivered contact sheets,
+whose cell geometry is not recoverable by eye and is therefore pinned and
+asserted per sheet in that script — including that the downscale is lossless and
+that the white key is found by reach from the frame edge, so the highlights
+*inside* the Earth are not punched out with the background.
+
+`components/Sprite.tsx` plays either sheet as a CSS `steps()` walk over a
+background image — no canvas, no rAF, nothing running per frame — and is the
+only thing that knows the mechanics. `MascotThinking` uses it beside the agent's
+streaming status (beside, never instead of, the words) and `PermissionScreen`'s
+`EarthMark` uses it in place of the drawn pin that screen used to open with.
+`docs/DESIGN.md` §Mascot is the rule; the ban there on animated loading chrome
+still stands for everything else.
+
 **Persistence is localStorage only** (`store/persist.ts`, one `pathrix.v1` key):
 profile, saved places, saved routes, recents, location permission, onboarding.
 There is no auth and no user table, so the UI says "tersimpan di perangkat ini"
