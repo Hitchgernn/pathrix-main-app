@@ -142,10 +142,6 @@
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.75; }
 }
-/* Sprite playback for the Bakpia mascot. The travel is one row of the sheet at
-   the rendered scale (4 frames x 58px); the row and the duration are set
-   inline by MascotThinking, since both vary per clip. Under reduced motion the
-   blanket rule below flattens this and the sprite reverts to its first frame. */
 /* The thinking line travels a short way upward: the step that finishes rises
    out of the way, and the one taking over rises into its place. */
 @keyframes pxstepIn {
@@ -158,9 +154,14 @@
   from { opacity: 0.6; transform: none; }
   to { opacity: 0; transform: translateY(-6px); }
 }
-@keyframes mascotStep {
+/* Sprite playback. The travel is one clip of a sheet at the rendered scale, so
+   it differs per sheet and per scale — Sprite hands it down as
+   `--sprite-travel`, along with the clip row and the duration. Under reduced
+   motion the blanket rule below flattens this and the sprite holds on its
+   first frame. */
+@keyframes spriteStep {
   from { background-position-x: 0; }
-  to { background-position-x: -232px; }
+  to { background-position-x: var(--sprite-travel); }
 }
 
 /* Chrome sitting directly over the map: white, slightly permeable, so the
