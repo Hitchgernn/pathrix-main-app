@@ -138,6 +138,14 @@
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.75; }
 }
+/* Sprite playback for the Bakpia mascot. The travel is one row of the sheet at
+   the rendered scale (4 frames x 58px); the row and the duration are set
+   inline by MascotThinking, since both vary per clip. Under reduced motion the
+   blanket rule below flattens this and the sprite reverts to its first frame. */
+@keyframes mascotStep {
+  from { background-position-x: 0; }
+  to { background-position-x: -232px; }
+}
 
 /* Chrome sitting directly over the map: white, slightly permeable, so the
    basemap still reads as the layer underneath. Solid fallback for anyone who

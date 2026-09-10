@@ -174,6 +174,19 @@ title search always returns a photograph of *something*. Anything it cannot
 honestly identify renders the drawn placeholder instead. Only a real answer is
 cached: a 200 with no thumbnail counts, a 429 or a network failure does not.
 
+**The Bakpia mascot is the one bundled image.** `src/assets/bakpia-mascot.png`
+(116×160, five four-frame clips of a 29×32 sprite) is the only file in
+`src/assets/` and the only image the app ships rather than fetches — everything
+else is remote (Wikipedia, DiceBear). It sits under Vite's 4KB inline threshold,
+so it lands in the JS bundle as a data URI rather than as an emitted asset; `png`
+is nonetheless in the VitePWA `globPatterns` so a redraw that crosses that line
+does not silently fall out of the precache. `tools/mascot/extract.py`
+regenerates it from the delivered contact sheet, whose cell geometry is not
+recoverable by eye and is therefore pinned and asserted in that script.
+`components/MascotThinking.tsx` animates it beside the agent's streaming status
+— beside, never instead of, the words: `docs/DESIGN.md` §Mascot is the rule, and
+the ban there on animated loading chrome still stands for everything else.
+
 **Persistence is localStorage only** (`store/persist.ts`, one `pathrix.v1` key):
 profile, saved places, saved routes, recents, location permission, onboarding.
 There is no auth and no user table, so the UI says "tersimpan di perangkat ini"

@@ -6,6 +6,7 @@ import { scriptFor, type DemoKind } from "../lib/demoAgent";
 import { QUICK } from "../lib/sample";
 import { useSheetDrag } from "../lib/useSheetDrag";
 import { useStore } from "../store";
+import { MascotThinking } from "./MascotThinking";
 import { RouteCard } from "./RouteCard";
 
 interface AgentSheetProps {
@@ -176,12 +177,18 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
             );
           })}
 
-          {streaming &&
-            (demoKind ? (
-              <ThinkingSteps kind={demoKind} step={demoStep} />
-            ) : (
-              <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
-            ))}
+          {streaming && (
+            /* Bottom-aligned so the mascot stands beside the *active* step as
+               the list grows downward, rather than drifting up away from it. */
+            <div className="flex items-end gap-[10px]">
+              <MascotThinking />
+              {demoKind ? (
+                <ThinkingSteps kind={demoKind} step={demoStep} />
+              ) : (
+                <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -219,6 +226,9 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
  *  Every step names something the real agent will actually do, so when a
  *  provider lands these become progress the backend reports rather than lines a
  *  timer prints.
+ *
+ *  The mascot animating next to this list is decoration beside the words, not a
+ *  replacement for them; that distinction is the whole reason it is allowed.
  */
 function ThinkingSteps({ kind, step }: { kind: DemoKind; step: number }) {
   const steps = scriptFor(kind);
