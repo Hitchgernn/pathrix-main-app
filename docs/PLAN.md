@@ -489,7 +489,7 @@ One rule does **not** carry over: the landing page's two-background-colour restr
 | Andong / becak pangkalan | Custom icons; popup carries the field survey photo and fare range |
 | Properti Go | **Server-side clustering** — committed in the proposal for mobile performance |
 | Menu Go / Struck Go | Category-coloured markers; popup carries `foto_tempat`, opening hours (`jam_buka`/`jam_tutup`), and `harga_rata_rata` where present |
-| Buildings | Polygon fill with low opacity |
+| Buildings | The basemap's own flat fill in 2D; extruded from `render_height` in 3D view (`ARCHITECTURE.md` §6.1) |
 | Active route | Mode-coloured line with transfer markers at each mode change |
 
 ---

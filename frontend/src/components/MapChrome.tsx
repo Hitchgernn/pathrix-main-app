@@ -3,6 +3,7 @@ import { useT } from "../i18n";
 import { NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
 import { useStore } from "../store";
 import { BasemapSwitcher } from "./BasemapSwitcher";
+import { View3dToggle } from "./View3dToggle";
 import { FilterChips } from "./explore/FilterChips";
 import { SearchBar } from "./search/SearchPanel";
 
@@ -40,6 +41,7 @@ export function MapChrome() {
           }`}
         >
           <BasemapSwitcher />
+          <View3dToggle />
           <button
             onClick={() => togglePanel("sustain")}
             aria-pressed={panel === "sustain"}

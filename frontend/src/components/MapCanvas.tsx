@@ -4,6 +4,7 @@ import { translate } from "../i18n";
 import { useStore } from "../store";
 import { getMap as getMapHandle, setMap } from "../lib/mapHandle";
 import { reapplyRoute } from "../lib/bridge";
+import { applyBuildings3d, reapplyBuildings3d } from "../lib/buildings3d";
 import { fetchLayerFeatures } from "../lib/api";
 import { reapplyMissionLayers, removeMissionLayer, syncMissionLayer } from "../lib/missionLayers";
 import { LAYER_ROWS } from "../lib/sample";
@@ -32,6 +33,15 @@ const styleUrl = (basemap: Basemap) =>
  *  a ground-coloured veil covers the swap while setStyle re-parses. */
 const FADE_MS = 300;
 
+/** Enough tilt to read a skyline, short of MapLibre's default 60 maximum: past
+ *  this the horizon opens up and `getBounds()` — which MapCanvas publishes to
+ *  the store, and the mission layers query against — grows without limit. */
+const PITCH_3D = 50;
+
+/** MAPID ramps building height in between z15 and z16, so there is nothing to
+ *  look at above this. */
+const ZOOM_3D = 15.5;
+
 export function MapCanvas() {
   const container = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapLibreMap | null>(null);
@@ -42,6 +52,7 @@ export function MapCanvas() {
   const active = useStore((s) => s.active);
   const bbox = useStore((s) => s.bbox);
   const catalogue = useStore((s) => s.catalogue);
+  const view3d = useStore((s) => s.view3d);
   const setCamera = useStore((s) => s.setCamera);
   const [veiled, setVeiled] = useState(false);
   const drawnMissionLayers = useRef<Set<string>>(new Set());
@@ -60,6 +71,15 @@ export function MapCanvas() {
         style: styleUrl(useStore.getState().basemap),
         center: useStore.getState().center,
         zoom: useStore.getState().zoom,
+        // Flat and north-up, and stated rather than inherited: MapLibre leaves
+        // dragRotate and touchPitch on by default, which let a two-finger twist
+        // rotate the map with no control to undo it. The 3D toggle is the only
+        // door to a tilted camera, so its state can never disagree with what is
+        // on screen.
+        pitch: 0,
+        bearing: 0,
+        dragRotate: false,
+        touchPitch: false,
         attributionControl: { compact: true },
       });
 
@@ -80,7 +100,11 @@ export function MapCanvas() {
       // route is put back once the incoming style is ready.
       instance.on("styledata", () => {
         if (!instance.isStyleLoaded()) return;
-        reapplyRoute(instance, paletteFor(useStore.getState().basemap));
+        const palette = paletteFor(useStore.getState().basemap);
+        // Buildings first: the route and the mission markers are added after,
+        // so they draw above the rooftops instead of being swallowed by them.
+        reapplyBuildings3d(instance, palette.building3d, useStore.getState().view3d);
+        reapplyRoute(instance, palette);
         reapplyMissionLayers(instance);
       });
 
@@ -131,6 +155,27 @@ export function MapCanvas() {
     const timer = window.setTimeout(() => setVeiled(false), FADE_MS);
     return () => window.clearTimeout(timer);
   }, [basemap]);
+
+  // 3D is a tilted camera and extruded buildings together — tilting over a flat
+  // basemap is not a view, it is a skewed map. Turning it on also zooms in when
+  // the view is wider than z15, because MAPID carries no building heights below
+  // that and the control would otherwise appear to do nothing from the default
+  // city view. Turning it off restores north-up, not just flat.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    if (instance.isStyleLoaded()) {
+      const palette = paletteFor(useStore.getState().basemap);
+      applyBuildings3d(instance, palette.building3d, view3d);
+    }
+    instance.dragRotate[view3d ? "enable" : "disable"]();
+    instance.touchZoomRotate[view3d ? "enableRotation" : "disableRotation"]();
+    instance.easeTo(
+      view3d
+        ? { pitch: PITCH_3D, zoom: Math.max(instance.getZoom(), ZOOM_3D), duration: 600 }
+        : { pitch: 0, bearing: 0, duration: 600 },
+    );
+  }, [view3d]);
 
   // The nav sidebar occupies the left edge on wide viewports, and can collapse;
   // the canvas is inset to match so the map's own centre is not hidden behind

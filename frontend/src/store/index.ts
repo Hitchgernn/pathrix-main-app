@@ -45,11 +45,17 @@ interface MapSlice {
   zoom: number;
   center: [number, number];
   basemap: Basemap;
+  /** Tilted camera plus extruded buildings. An axis of its own, not a third
+   *  basemap: `basemap` is derived from the theme and has no writer but
+   *  applyTheme. Session-only — deliberately absent from store/persist.ts, so a
+   *  cold start is always flat and north-up. */
+  view3d: boolean;
   /** Where the browser says the user is, once they allow it. */
   userCoord: [number, number] | null;
   /** MapLibre owns camera state; the store mirrors it. Never bind back. */
   setCamera(center: [number, number], zoom: number, bbox: BBox): void;
   setBasemap(basemap: Basemap): void;
+  setView3d(on: boolean): void;
   setUserCoord(coord: [number, number] | null): void;
 }
 
@@ -175,9 +181,11 @@ export const useStore = create<Store>()((set, get) => ({
   zoom: YOGYA_ZOOM,
   center: YOGYA_CENTER,
   basemap: "street",
+  view3d: false,
   userCoord: null,
   setCamera: (center, zoom, bbox) => set({ center, zoom, bbox }),
   setBasemap: (basemap) => set({ basemap }),
+  setView3d: (view3d) => set({ view3d }),
   setUserCoord: (userCoord) => set({ userCoord }),
 
   // ---- layers -------------------------------------------------------------

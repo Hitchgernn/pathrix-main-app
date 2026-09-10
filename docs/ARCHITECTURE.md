@@ -311,7 +311,13 @@ Promote a field when the agent needs to *filter or sort* by it. Leave it in `raw
 https://v2.basemap.mapid.io/styles/{style}/style.json?key={MAPID_BASEMAP_KEY}
 ```
 
-Styles: `street-v2.0`, `satellite-v2.0`, `dark-v2.0`, `light-v2.0`. Verified: **200 with key, 401 without.** MapLibre style spec **version 8**, 253 layers; vector sources `mapidtiles`, `indonesiatiles`, `ocean`, plus Natural Earth raster relief. `glyphs` and `sprite` are keyed endpoints on the same host.
+Styles: `street-v2.0`, `satellite-v2.0`, `dark-v2.0`, `light-v2.0`. Verified: **200 with key, 401 without.** MapLibre style spec **version 8**. `glyphs` and `sprite` are keyed endpoints on the same host.
+
+The four styles are **not** the same document with different paint. Layer counts: street 253, light 107, dark 101, satellite 17. Street, light and dark share the vector sources `mapidtiles` (world minus Indonesia) and `indonesiatiles`; street adds `ocean` and a Natural Earth raster; satellite has neither vector source, only raster imagery plus `maptiler_planet`.
+
+**3D `[VERIFIED]`.** The `building` source-layer carries `render_height` / `render_min_height` / `hide_3d`. Decoding one z14 tile over central Yogyakarta: 24,011 buildings, all with `render_height` — 21,501 at OSM's 5 m default and 1,770 taller. **Only `street-v2.0` ships `fill-extrusion` layers** (`building-3d`, `building-3d_indonesia`, minzoom 14); dark draws flat building fills and light and satellite draw none, so an app that wants consistent 3D must add its own layer (`frontend/src/lib/buildings3d.ts` does, and hides MAPID's).
+
+**There is no terrain.** No style exposes a `raster-dem` source; the "Natural Earth shaded relief" above is a flat raster image capped at zoom 6. `map.setTerrain` has nothing to point at, so 3D here is a tilted camera and extruded buildings, and nothing else.
 
 There is **no MAPID SDK**. Integration is a style URL passed to MapLibre.
 

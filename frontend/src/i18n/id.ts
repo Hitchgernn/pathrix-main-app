@@ -133,6 +133,8 @@ export const id = {
   "map.styleGroup": "Gaya peta",
   "map.styleLight": "Peta terang",
   "map.styleDark": "Peta gelap",
+  "map.view3d": "Tampilan 3D",
+  "map.view2d": "Tampilan 2D",
   "map.carbon": "Jejak karbon",
   "map.allLayers": "Semua layer",
   "map.recenterUser": "Pusatkan ke lokasi Anda",
