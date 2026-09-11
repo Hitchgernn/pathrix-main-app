@@ -745,7 +745,7 @@ Tracked, not resolved. Each will change part of this document.
 
 | # | Question | Blocks | Status |
 |---|---|---|---|
-| 1 | **LLM model** | §8.5, §12 | Deferred by decision. Adapter first; choose on measured latency + precision |
+| 1 | **LLM model** | §8.5, §12 | Deferred by decision. `deepseek` wired as an `llm.py` branch (`ChatDeepSeek`, OpenAI-compatible tool calling); `LLM_PROVIDER` still unset by default pending measured latency + precision against the 5-tool loop |
 | 2 | **Hosting** | §4.1 | Deferred pending MAPID finalist-subdomain requirements |
 | 3 | **Sosial Budaya layer** | §5.1 | Undecided (PRD §4.4). Recommend folding into Pariwisata rather than a sixth layer |
 | 4 | Graph memory footprint | §4.2 | Unmeasured — estimate only |
