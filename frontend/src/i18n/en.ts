@@ -130,6 +130,8 @@ export const en: Messages = {
   "map.styleGroup": "Map style",
   "map.styleLight": "Light map",
   "map.styleDark": "Dark map",
+  "map.view3d": "3D view",
+  "map.view2d": "2D view",
   "map.carbon": "Carbon footprint",
   "map.allLayers": "All layers",
   "map.recenterUser": "Centre on your location",

@@ -213,6 +213,21 @@ anywhere, recentre) so no component reaches for a GL context itself.
 back in `shortest_path.calculate_route`. A leg with an unpinned endpoint yields
 an empty list rather than half a line.
 
+**3D view is a tilted camera plus extruded buildings, and nothing more.**
+`lib/buildings3d.ts` adds one `fill-extrusion` layer per vector source off the
+basemap's `building` source-layer and its real `render_height`, anchored above
+the last road layer so rooftops sit under the type. It hides MAPID's own
+`building-3d` layers, which live in `street-v2.0` only and ramp to royalblue —
+one layer in both themes, neutral, so 3D is not a different feature per
+appearance. There is **no terrain**: no MAPID style ships a `raster-dem`
+(`ARCHITECTURE.md` §6.1), so `setTerrain` and a sky layer are both off the
+table. `store.view3d` is the switch, deliberately session-only and separate from
+`basemap` (which `applyTheme` derives from the theme); the `styledata` handler in
+`MapCanvas` is what keeps the buildings alive across a `setStyle`, and it runs
+before the route and mission layers so those draw above them. Rotate and pitch
+gestures are disabled in 2D and enabled in 3D, so the toggle is the only door to
+a tilted camera.
+
 Mission-derived layers (`poi`, `properti` — the two `/api/layers` ids the backend
 actually serves; `transit`/`pangkalan` still 501) render as real map markers:
 `MapCanvas` watches the Zustand `active` set, the viewport, and the catalogue's
