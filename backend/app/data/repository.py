@@ -127,6 +127,7 @@ async def search_places(session: AsyncSession, query: str, limit: int = 8) -> li
     stops = await session.execute(
         select(
             TransitStop.id,
+            TransitStop.external_id,
             TransitStop.name,
             TransitStop.operator,
             func.ST_X(TransitStop.geom),
@@ -136,10 +137,13 @@ async def search_places(session: AsyncSession, query: str, limit: int = 8) -> li
         .where(TransitStop.name.ilike(term))
         .limit(limit)
     )
-    for stop_id, name, operator, lon, lat, raw in stops:
+    for stop_id, external_id, name, operator, lon, lat, raw in stops:
         hits.append(
             PlaceHit(
-                id=f"transit:{stop_id}",
+                # The stop-departures lookup keys on the MAPID Activity id, not
+                # our internal row id — fall back only for a stop ingested
+                # without one (the geoserver halte layer predates external_id).
+                id=f"transit:{external_id or stop_id}",
                 name=name,
                 kind="transit",
                 subtitle=operator,
