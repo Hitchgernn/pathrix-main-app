@@ -23,6 +23,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+data = [
+    "pdfplumber>=0.11,<0.12",
+]
 dev = [
     "ruff>=0.7",
     "pytest>=8.3",
