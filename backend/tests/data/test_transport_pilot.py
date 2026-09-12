@@ -325,7 +325,12 @@ async def test_import_pilot_route_never_creates_missing_activity_stops(db_sessio
     assert await db_session.scalar(select(func.count()).select_from(TransitRoute)) == 0
 
 
-def _schedule_plan(route: PilotRoute, *, routable: bool = False) -> NormalizedSchedulePlan:
+def _schedule_plan(
+    route: PilotRoute,
+    *,
+    routable: bool = False,
+    extra_stop_times: tuple[ScheduleTripStop, ...] = (),
+) -> NormalizedSchedulePlan:
     provenance = {
         "source_file": "map.pdf",
         "source_page": "7",
@@ -367,15 +372,18 @@ def _schedule_plan(route: PilotRoute, *, routable: bool = False) -> NormalizedSc
                         service_days=None,
                         is_estimated=True,
                         provenance=provenance,
-                        stop_times=tuple(
-                            ScheduleTripStop(
-                                sequence=stop.sequence,
-                                activity_id=stop.activity_id,
-                                scheduled_time_local=f"05:0{stop.sequence - 1}",
-                                day_offset=0,
-                                is_estimated=True,
-                            )
-                            for stop in route.stops
+                        stop_times=(
+                            *(
+                                ScheduleTripStop(
+                                    sequence=stop.sequence,
+                                    activity_id=stop.activity_id,
+                                    scheduled_time_local=f"05:0{stop.sequence - 1}",
+                                    day_offset=0,
+                                    is_estimated=True,
+                                )
+                                for stop in route.stops
+                            ),
+                            *extra_stop_times,
                         ),
                     ),
                 ),
@@ -395,6 +403,7 @@ async def test_schedule_batch_is_idempotent_reversible_and_preserves_stop_raw(
     raw_rows = {
         "pilot-activity-a": {"description": "A", "medias": ["a.jpg"]},
         "pilot-activity-b": {"description": "B", "medias": ["b.jpg"]},
+        "pilot-activity-schedule-only": {"description": "C", "medias": ["c.jpg"]},
     }
     for values in (
         {
@@ -432,10 +441,21 @@ async def test_schedule_batch_is_idempotent_reversible_and_preserves_stop_raw(
                 match_status="matched_exact",
                 review=None,
             )
-            for index, external_id in enumerate(raw_rows, 1)
+            for index, external_id in enumerate(tuple(raw_rows)[:2], 1)
         ),
     )
-    plan = _schedule_plan(route)
+    plan = _schedule_plan(
+        route,
+        extra_stop_times=(
+            ScheduleTripStop(
+                sequence=3,
+                activity_id="pilot-activity-schedule-only",
+                scheduled_time_local="05:02",
+                day_offset=0,
+                is_estimated=True,
+            ),
+        ),
+    )
     import_key = f"test:{uuid4()}"
 
     first = await import_normalized_schedule(db_session, plan, import_key=import_key)
@@ -444,7 +464,7 @@ async def test_schedule_batch_is_idempotent_reversible_and_preserves_stop_raw(
     assert first["idempotent"] is False
     assert second["idempotent"] is True
     assert first["transit_stops_raw_unchanged"] is True
-    assert await db_session.scalar(select(func.count()).select_from(TransitStop)) == 2
+    assert await db_session.scalar(select(func.count()).select_from(TransitStop)) == 3
     assert (
         await db_session.scalar(
             select(func.count())
@@ -455,10 +475,10 @@ async def test_schedule_batch_is_idempotent_reversible_and_preserves_stop_raw(
     )
     assert await db_session.scalar(select(func.count()).select_from(TransitServiceProfile)) == 1
     assert await db_session.scalar(select(func.count()).select_from(TransitTrip)) == 1
-    assert await db_session.scalar(select(func.count()).select_from(TransitStopTime)) == 2
+    assert await db_session.scalar(select(func.count()).select_from(TransitStopTime)) == 3
     assert await db_session.scalar(select(func.count()).select_from(RouteStop)) == 0
     assert first["routable_routes_imported"] == 0
-    assert first["attached_stop_times"] == 2
+    assert first["attached_stop_times"] == 3
     assert (
         dict((await db_session.execute(select(TransitStop.external_id, TransitStop.raw))).all())
         == raw_rows
@@ -468,7 +488,7 @@ async def test_schedule_batch_is_idempotent_reversible_and_preserves_stop_raw(
 
     assert rolled_back["routes_removed"] == 1
     assert await db_session.scalar(select(func.count()).select_from(TransitRoute)) == 0
-    assert await db_session.scalar(select(func.count()).select_from(TransitStop)) == 2
+    assert await db_session.scalar(select(func.count()).select_from(TransitStop)) == 3
     assert (
         dict((await db_session.execute(select(TransitStop.external_id, TransitStop.raw))).all())
         == raw_rows
@@ -493,3 +513,17 @@ def test_real_snapshot_reports_all_services_without_bridging_unresolved_stops() 
     assert plan.report["attached_stop_times"] > 0
     ev3 = next(row for row in plan.report["blocked_routes"] if row["route_id"] == "EV3")
     assert any("unmatched" in reason for reason in ev3["reasons"])
+    assert "non_fixed_fare" not in ev3["reasons"]
+    assert not any(
+        "non_fixed_fare" in row["reasons"]
+        for row in plan.report["blocked_routes"]
+        if row["mode"] == "bus"
+    )
+
+    ev3_route = next(item for item in plan.routes if item.route.route_id == "EV3")
+    assert ev3_route.route.fare_idr == 3500
+    attached_activity_ids = {
+        stop.activity_id for trip in ev3_route.trips for stop in trip.stop_times
+    }
+    assert "6a86caf989acf23707a36360" in attached_activity_ids
+    assert "6a88263dd57440d48a1f481b" in attached_activity_ids

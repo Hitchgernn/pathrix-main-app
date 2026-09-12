@@ -199,6 +199,7 @@ export const id = {
   "transit.routes": "Rute & jadwal",
   "transit.openStop": (name: string) => `Buka detail ${name}`,
   "transit.nextDepartures": (times: string) => `Berikutnya ${times}`,
+  "transit.todayDepartures": (times: string) => `Jadwal hari ini ${times}`,
   "transit.headway": (minutes: number) => `Setiap ±${minutes} mnt`,
   "transit.fare": (fare: string) => `Tarif ${fare}`,
   "transit.effectiveFrom": (date: string) => `Berlaku mulai ${date}`,

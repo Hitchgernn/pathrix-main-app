@@ -1,0 +1,74 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+14,1,bus-bandara-adisutjipto-236fa189,Bandara Adisutjipto,review_fuzzy,6a8961f652d86e03b5187355,Halte Trans Jogja - Bandara Adi Sucipto,0.636842,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: single candidate, clear name match (airport), not deeply verified"
+14,2,bus-kkp-yogyakarta-w-5da3477b,KKP Yogyakarta (B),review_fuzzy,6a8a8dda52d86e03b519227c,TPB Trans Jogja - Stasiun Yogyakarta,0.700000,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: rank-1 candidate, not deeply verified - flagged for future accuracy cleanup"
+14,2,bus-kkp-yogyakarta-w-5da3477b,KKP Yogyakarta (B),review_fuzzy,6a8929d6478dc3b356b72ecf,Halte UNU Yogyakarta,0.604762,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling under quantity-priority pass"
+14,3,bus-disnakertrans-w-93db3168,Disnakertrans (B),unmatched,,,,,,,no candidate generated
+14,4,bus-smkn-1-depok-w-346d033d,SMKN 1 Depok (B),unmatched,,,,,,,no candidate generated
+14,5,bus-sdn-1-depok-w-0e6bec37,SDN 1 Depok (B),unmatched,,,,,,,no candidate generated
+14,6,bus-kua-depok-w-f1a5344e,KUA Depok (B),unmatched,,,,,,,no candidate generated
+14,7,bus-man-2-sleman-w-1f50db53,MAN 2 Sleman (B),unmatched,,,,,,,no candidate generated
+14,8,bus-unriyo-w-b750694f,UNRIYO (B),unmatched,,,,,,,no candidate generated
+14,9,bus-budi-mulia-dua-w-ab139615,Budi Mulia Dua (B),unmatched,,,,,,,no candidate generated
+14,10,bus-indomaret-pokoh-w-2b09e1e7,Indomaret Pokoh (B),unmatched,,,,,,,no candidate generated
+14,11,bus-kantor-kal-wedomartani-w-b2444079,Kantor Kal. Wedomartani (B),unmatched,,,,,,,no candidate generated
+14,12,bus-simpang-babadan-w-27e9420a,Simpang Babadan (B),unmatched,,,,,,,no candidate generated
+14,13,bus-simpang-selomartani-n-8a80108b,Simpang Selomartani (U),unmatched,,,,,,,no candidate generated
+14,14,bus-simpang-kabunan-n-7a88e0fe,Simpang Kabunan (U),unmatched,,,,,,,no candidate generated
+14,15,bus-jalan-raya-kabunan-n-69a2aa61,Jl. Raya Kabunan (U),unmatched,,,,,,,no candidate generated
+14,16,bus-rs-kemasan-w-62b71712,RS Kemasan (B),unmatched,,,,,,,no candidate generated
+14,17,bus-simpang-kenti-w-9f31bb58,Simpang Kenti (B),unmatched,,,,,,,no candidate generated
+14,18,bus-pasar-jangkang-s-1332b898,Pasar Jangkang (S),review_fuzzy,6a8e9c3b52d86e03b51b5e70,Halte Pasar Demangan,0.604762,rejected,claude-sonnet-5,2026-09-12,"Already established as a wrong-place false positive on route 13 (Pasar Demangan is a different, distant market - central Yogyakarta near Sudirman, not this rural Ngemplak-area village stop). Not re-approving a known-wrong match even under quantity-priority."
+14,19,bus-puskesmas-ngemplak-s-a008b614,Puskesmas Ngemplak (S),unmatched,,,,,,,no candidate generated
+14,20,bus-tugu-batas-desa-yapah-s-833f3792,Tugu Batas Desa Yapah (S),unmatched,,,,,,,no candidate generated
+14,21,bus-timur-jembatan-yapah-s-bc77fe61,Timur Jembatan Yapah (S),unmatched,,,,,,,no candidate generated
+14,22,bus-sman-2-ngaglik-s-a47bf6f9,SMAN 2 Ngaglik (S),unmatched,,,,,,,no candidate generated
+14,23,bus-simpang-losari-s-6d79dc16,Simpang Losari (S),unmatched,,,,,,,no candidate generated
+14,24,bus-spbu-mindi-s-47802fe3,SPBU Mindi (S),unmatched,,,,,,,no candidate generated
+14,25,bus-lap-klidon-s-f6751617,Lap. Klidon (S),unmatched,,,,,,,no candidate generated
+14,26,bus-kantor-kal-sukoharjo-s-ae499464,Kantor Kal. Sukoharjo (S),review_fuzzy,6a82abfd38bb192425f4bef7,Halte Kantor Kal. Pendowoharjo A,0.613333,rejected,claude-sonnet-5,2026-09-12,"Sukoharjo and Pendowoharjo are different village (desa/kelurahan) names, not a spelling/direction variant of the same place - low score (0.61) reflects a coincidental '-harjo' suffix match, not a real candidate. Same class of false positive as Bantul/Godean and Nugroho/Rapih seen on other routes."
+14,26,bus-kantor-kal-sukoharjo-s-ae499464,Kantor Kal. Sukoharjo (S),review_fuzzy,6a82ab0d38bb192425f4bd80,Halte Kantor Kal. Pendowoharjo B,0.613333,rejected,claude-sonnet-5,2026-09-12,"Same reasoning as sibling row - different village name entirely"
+14,27,bus-sdn-selomulyo-s-70488509,SDN Selomulyo (S),unmatched,,,,,,,no candidate generated
+14,28,bus-rsu-gramedika-s-d662374f,RSU Gramedika (S),unmatched,,,,,,,no candidate generated
+14,29,bus-simpang-besi-jakal-w-586c481c,Simpang Besi Jakal (B),unmatched,,,,,,,no candidate generated
+14,30,bus-yakkum-w-f4278b8b,YAKKUM (B),unmatched,,,,,,,no candidate generated
+14,31,bus-boulevard-uii-1c76a601,Boulevard UII,unmatched,,,,,,,no candidate generated
+14,32,bus-uii-e-1d36c15a,UII (T),unmatched,,,,,,,no candidate generated
+14,33,bus-simpang-degolan-w-7a0abd76,Simpang Degolan (B),unmatched,,,,,,,no candidate generated
+14,34,bus-raminten-w-04c634dd,Raminten (B),unmatched,,,,,,,no candidate generated
+14,35,bus-dusun-kledokan-w-a0cbb57b,Dusun Kledokan (B),unmatched,,,,,,,no candidate generated
+14,36,bus-rs-panti-nugroho-w-d4c819de,RS Panti Nugroho (B),review_fuzzy,6a8d0a83eca288692ef377ee,Halte RS Panti Rapih,0.640000,rejected,claude-sonnet-5,2026-09-12,"Already established as a wrong-hospital false positive on route 12 (RS Panti Nugroho is in Pakem, RS Panti Rapih is in the city center/UGM area - different hospitals). Not re-approving a known-wrong match even under quantity-priority."
+14,37,bus-terminal-pakem-ee26af28,Terminal Pakem,unmatched,,,,,,,no candidate generated
+14,38,bus-sdn-percobaan-3-pakem-e-591b75a7,SDN Percobaan 3 Pakem (T),unmatched,,,,,,,no candidate generated
+14,39,bus-smpn-4-pakem-e-ca3b6e77,SMPN 4 Pakem (T),unmatched,,,,,,,no candidate generated
+14,40,bus-dusun-kledokan-e-4b0dcd88,Dusun Kledokan (T),unmatched,,,,,,,no candidate generated
+14,41,bus-raminten-e-eb1b3bbb,Raminten (T),unmatched,,,,,,,no candidate generated
+14,42,bus-simpang-degolan-e-2f99e19e,Simpang Degolan (T),unmatched,,,,,,,no candidate generated
+14,45,bus-yakkum-e-64febcd3,YAKKUM (T),unmatched,,,,,,,no candidate generated
+14,46,bus-simpang-besi-jakal-e-f8dc4eec,Simpang Besi Jakal (T),unmatched,,,,,,,no candidate generated
+14,47,bus-rsu-gramedika-n-bf416e83,RSU Gramedika (U),unmatched,,,,,,,no candidate generated
+14,48,bus-sdn-selomulyo-n-4159e337,SDN Selomulyo (U),unmatched,,,,,,,no candidate generated
+14,49,bus-kantor-kal-sukoharjo-n-6df8a6f4,Kantor Kal. Sukoharjo (U),review_fuzzy,6a82abfd38bb192425f4bef7,Halte Kantor Kal. Pendowoharjo A,0.613333,rejected,claude-sonnet-5,2026-09-12,"Same wrong-village-name reasoning as seq 26 (Kantor Kal. Sukoharjo S)"
+14,49,bus-kantor-kal-sukoharjo-n-6df8a6f4,Kantor Kal. Sukoharjo (U),review_fuzzy,6a82ab0d38bb192425f4bd80,Halte Kantor Kal. Pendowoharjo B,0.613333,rejected,claude-sonnet-5,2026-09-12,"Same wrong-village-name reasoning as seq 26 (Kantor Kal. Sukoharjo S)"
+14,50,bus-lap-klidon-n-1a4bde03,Lap. Klidon (U),unmatched,,,,,,,no candidate generated
+14,51,bus-spbu-mindi-n-d1ad7bf8,SPBU Mindi (U),unmatched,,,,,,,no candidate generated
+14,52,bus-simpang-losari-n-66931fad,Simpang Losari (U),unmatched,,,,,,,no candidate generated
+14,53,bus-sman-2-ngaglik-n-2e4cef65,SMAN 2 Ngaglik (U),unmatched,,,,,,,no candidate generated
+14,54,bus-timur-jembatan-yapah-n-99a51436,Timur Jembatan Yapah (U),unmatched,,,,,,,no candidate generated
+14,55,bus-tugu-batas-desa-yapah-n-c5ad09e1,Tugu Batas Desa Yapah (U),unmatched,,,,,,,no candidate generated
+14,56,bus-puskesmas-ngemplak-n-e2f0f0c6,Puskesmas Ngemplak (U),unmatched,,,,,,,no candidate generated
+14,57,bus-pasar-jangkang-n-01dfbd0c,Pasar Jangkang (U),review_fuzzy,6a8e9c3b52d86e03b51b5e70,Halte Pasar Demangan,0.604762,rejected,claude-sonnet-5,2026-09-12,"Same wrong-place reasoning as seq 18 (Pasar Jangkang S)"
+14,58,bus-simpang-kenti-e-7adc0592,Simpang Kenti (T),unmatched,,,,,,,no candidate generated
+14,59,bus-rs-kemasan-e-e928a0fb,RS Kemasan (T),unmatched,,,,,,,no candidate generated
+14,63,bus-simpang-babadan-e-3395a15a,Simpang Babadan (T),unmatched,,,,,,,no candidate generated
+14,64,bus-kantor-kal-wedomartani-e-69397429,Kantor Kal. Wedomartani (T),unmatched,,,,,,,no candidate generated
+14,65,bus-alfamart-pokoh-e-c8fc8eb4,Alfamart Pokoh (T),unmatched,,,,,,,no candidate generated
+14,66,bus-budi-mulia-dua-e-a55ed31d,Budi Mulia Dua (T),unmatched,,,,,,,no candidate generated
+14,67,bus-unriyo-e-2a33f7d2,UNRIYO (T),unmatched,,,,,,,no candidate generated
+14,68,bus-man-2-sleman-e-5a810501,MAN 2 Sleman (T),unmatched,,,,,,,no candidate generated
+14,69,bus-kua-depok-e-f2c00954,KUA Depok (T),unmatched,,,,,,,no candidate generated
+14,70,bus-sdn-1-depok-e-a96ed8de,SDN 1 Depok (T),unmatched,,,,,,,no candidate generated
+14,71,bus-smkn-1-depok-e-34fb5c69,SMKN 1 Depok (T),unmatched,,,,,,,no candidate generated
+14,72,bus-disnakertrans-e-6b55bbd8,Disnakertrans (T),unmatched,,,,,,,no candidate generated
+14,73,bus-selokan-mataram-maguwo-6164f755,Selokan Mataram Maguwo,unmatched,,,,,,,no candidate generated
+14,74,bus-binamarga-e-ab7d8067,Binamarga (T),unmatched,,,,,,,no candidate generated
+14,75,bus-maguwo-sambilegi-n-96f67e3b,Maguwo Sambilegi (U),review_fuzzy,6a89603752d86e03b5187006,Halte Trans Jogja - Maguwo Sambilegi,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"

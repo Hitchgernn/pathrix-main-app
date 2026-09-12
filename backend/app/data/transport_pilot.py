@@ -541,6 +541,14 @@ def build_normalized_schedule_plan(
             and row.get("fare_min")
             and row["fare_min"] == row.get("fare_max")
         ]
+        # Multiple real, equally-fixed fares can coexist by payment method (e.g.
+        # TransJogja's cash vs cashless tiers). Cash is the fare printed on
+        # official signage and needs no card/app, so it is the canonical single
+        # fare whenever it disambiguates an otherwise-tied set of values -
+        # mirrors load_pilot_route's cash_fares convention above.
+        cash_matches = [row for row in matches if row.get("payment_method") == "cash"]
+        if len(cash_matches) == 1:
+            return int(cash_matches[0]["fare_min"])
         values = {int(row["fare_min"]) for row in matches}
         return values.pop() if len(values) == 1 else None
 
@@ -619,6 +627,20 @@ def build_normalized_schedule_plan(
                     review=reviews.get((route_id, row["stop_id"])),
                 )
             )
+
+        # Timetable labels can be more specific than route-list labels. For
+        # example EV3's path says "Hotel Utara", while its timetable splits
+        # that location into directional (T)/(B) platforms. Resolve reviewed
+        # timetable stop IDs independently so their departures can enrich the
+        # canonical Activity stops without making an ambiguous graph edge.
+        schedule_activity_by_source_stop = dict(activity_by_source_stop)
+        for source_stop_id in {row["stop_id"] for row in bus_times if row["route_id"] == route_id}:
+            if source_stop_id in schedule_activity_by_source_stop:
+                continue
+            activity_id, _ = resolve(route_id, source_stop_id)
+            if activity_id:
+                schedule_activity_by_source_stop[source_stop_id] = activity_id
+
         trip_inputs: list[ScheduleTripInput] = []
         for trip in (row for row in bus_trips if row["route_id"] == route_id):
             rows = sorted(
@@ -628,13 +650,13 @@ def build_normalized_schedule_plan(
             stop_times = tuple(
                 ScheduleTripStop(
                     sequence=int(row["stop_sequence"]),
-                    activity_id=activity_by_source_stop[row["stop_id"]],
+                    activity_id=schedule_activity_by_source_stop[row["stop_id"]],
                     scheduled_time_local=row["scheduled_time_local"],
                     day_offset=int(row["day_offset"] or 0),
                     is_estimated=_as_bool(row.get("is_estimated", "")),
                 )
                 for row in rows
-                if row["stop_id"] in activity_by_source_stop
+                if row["stop_id"] in schedule_activity_by_source_stop
             )
             if not stop_times:
                 continue
@@ -986,7 +1008,14 @@ async def dry_run_normalized_schedule(
 ) -> dict[str, object]:
     """Check canonical Activity coverage without writing database state."""
     report = json.loads(json.dumps(plan.report))
-    external_ids = {stop.activity_id for item in plan.routes for stop in item.route.stops}
+    external_ids = {
+        activity_id
+        for item in plan.routes
+        for activity_id in (
+            *(stop.activity_id for stop in item.route.stops),
+            *(stop.activity_id for trip in item.trips for stop in trip.stop_times),
+        )
+    }
     existing = (
         set(
             await session.scalars(
@@ -1058,7 +1087,14 @@ async def import_normalized_schedule(
     before_count, before_raw_digest = await _stop_fingerprint(session)
     dry_run = await dry_run_normalized_schedule(session, plan)
     route_inputs = list(plan.routes)
-    stop_ids = {stop.activity_id for item in route_inputs for stop in item.route.stops}
+    stop_ids = {
+        activity_id
+        for item in route_inputs
+        for activity_id in (
+            *(stop.activity_id for stop in item.route.stops),
+            *(stop.activity_id for trip in item.trips for stop in trip.stop_times),
+        )
+    }
     stop_database_ids = (
         dict(
             (
