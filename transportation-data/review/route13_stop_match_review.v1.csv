@@ -1,0 +1,55 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+13,1,bus-pusat-kuliner-belut-godean-7bc5eef1,Pusat Kuliner Belut Godean,unmatched,,,,,,,no candidate generated; Godean corridor has no MAPID Activity survey coverage
+13,2,bus-kantor-kap-godean-n-0acc0655,Kantor Kap. Godean (U),review_fuzzy,6a82a4ed4fd70be4125ce721,Halte Kantor Kap. Bantul,0.658824,rejected,claude-sonnet-5,2026-09-12,"Kantor Kap. Bantul is 11km south (-7.8835 vs Godean corridor ~-7.78) - different subdistrict office entirely, fuzzy string match only"
+13,3,bus-simpang-mandungan-n-8202f0dc,Simpang Mandungan (U),unmatched,,,,,,,no candidate generated
+13,4,bus-koramil-godean-n-20a03d03,Koramil Godean (U),unmatched,,,,,,,no candidate generated
+13,5,bus-polsek-godean-n-3c7bcc85,Polsek Godean (U),unmatched,,,,,,,no candidate generated
+13,6,bus-neutron-godean-n-9dbb4be6,Neutron Godean (U),unmatched,,,,,,,no candidate generated
+13,7,bus-indomaret-klajuran-n-05d831ba,Indomaret Klajuran (U),unmatched,,,,,,,no candidate generated
+13,8,bus-simpang-gesikan-n-5f50bca2,Simpang Gesikan (U),unmatched,,,,,,,no candidate generated
+13,9,bus-simpang-munggur-n-d001f974,Simpang Munggur (U),unmatched,,,,,,,no candidate generated
+13,10,bus-simpang-bantulan-n-a468e92b,Simpang Bantulan (U),unmatched,,,,,,,no candidate generated
+13,11,bus-kantor-kal-sidoarum-n-075c84d5,Kantor Kal. Sidoarum (U),unmatched,,,,,,,no candidate generated
+13,12,bus-toko-saerah-n-27c4075a,Toko Saerah (U),unmatched,,,,,,,no candidate generated
+13,13,bus-nogotirto-metro-n-4198d454,Nogotirto Metro (U),unmatched,,,,,,,no candidate generated
+13,14,bus-kantor-pos-demak-ijo-n-94aec63b,Kantor Pos Demak Ijo (U),unmatched,,,,,,,no candidate generated
+13,15,bus-sdn-1-demak-ijo-n-6c5c9e34,SDN 1 Demak Ijo (U),unmatched,,,,,,,no candidate generated
+13,16,bus-pasar-tlogorejo-n-f99b5a4c,Pasar Tlogorejo (U),unmatched,,,,,,,no candidate generated
+13,18,bus-mirota-godean-n-b3b375ef,Mirota Godean (U),review_fuzzy,6a881ff9d57440d48a1f3e49,Halte Mirota Godean A,0.823810,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: tied score with sibling B, no confirmed direction evidence either way (see prior note - B matches 'Halte Portabel Soragan 2', A likely 'Soragan 1'). Picking rank-1 candidate per project direction to prioritize coverage; may be the wrong side of this pair and should be revisited in a future accuracy cleanup pass."
+13,18,bus-mirota-godean-n-b3b375ef,Mirota Godean (U),review_fuzzy,6a882071d57440d48a1f3edc,Halte Mirota Godean B,0.823810,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A) under quantity-priority pass - genuinely could be the correct side instead, flagged for future accuracy cleanup"
+13,19,bus-bkd-c482af74,BKD,review_fuzzy,6a8822233be6880665734fc9,Halte BKD A,0.650000,approved,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: only one named halte icon exists here ('Halte Badan Kepegawaian DI Yogyakarta'); A's pin sits exactly on it, B drifts ~30m into a residential block with no second icon anywhere - B is a noisy duplicate observation of the same shelter, not a second platform. Stop has no direction suffix so a single-shelter match is sufficient."
+13,19,bus-bkd-c482af74,BKD,review_fuzzy,6a8822953be68806657351aa,Halte BKD B,0.650000,rejected,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: pin drifts ~30m off the only confirmed halte icon into a residential block with no landmark - duplicate/noisy observation of the same shelter as BKD A, not a distinct place"
+13,20,bus-pasar-pingit-n-b419e949,Pasar Pingit (U),review_fuzzy,6a8824323be68806657354c9,Halte Pasar Pingit A,0.820513,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: tied score with sibling B, no landmark evidence either way. Picking rank-1 candidate to prioritize coverage; flagged for future accuracy cleanup."
+13,20,bus-pasar-pingit-n-b419e949,Pasar Pingit (U),review_fuzzy,6a8824ca3be6880665735575,Halte Pasar Pingit B,0.820513,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A) under quantity-priority pass - flagged for future accuracy cleanup"
+13,22,bus-jend-sudirman-n-31ca1789,Jend. Sudirman (U),review_fuzzy,6a8ba24b52d86e03b519bec8,Halte Jend. Sudirman (Santika),0.725490,approved,claude-sonnet-5,2026-09-12,"Single unambiguous candidate, no competing sibling; detailed genuine survey of a well-known TransJogja shelter (Jend. Sudirman near Hotel Santika landmark); name match is a clear superset match, not a coincidental token overlap"
+13,23,bus-bulog-970050c0,Bulog,unmatched,,,,,,,no candidate generated
+13,25,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (S),review_fuzzy,6a86be25460277aa8415118b,Halte Eks Menara Kopi A,0.862500,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: tied score with sibling B, no landmark evidence either way. Picking rank-1 candidate to prioritize coverage; flagged for future accuracy cleanup."
+13,25,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (S),review_fuzzy,6a86beab89acf23707a35190,Halte Eks Menara Kopi B,0.862500,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A) under quantity-priority pass - flagged for future accuracy cleanup"
+13,29,bus-kha-dahlan-s-065936ef,KHA Dahlan (S),review_fuzzy,6a855e58bbd0aa678bab72c7,Halte KHA Dahlan A,0.812121,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: confirmed genuine directional pair (named 'Halte KHA Dahlan 1'/'2' on basemap) but which of 1/2 is Selatan not confirmed. Picking rank-1 candidate (=platform 1) to prioritize coverage; flagged for future accuracy cleanup - this one has a real 50/50 chance of being the wrong side."
+13,29,bus-kha-dahlan-s-065936ef,KHA Dahlan (S),review_fuzzy,6a856fcabbd0aa678bab8a39,Halte KHA Dahlan B,0.812121,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A=platform 1) under quantity-priority pass - confirmed real place (platform 2), just not picked; flagged for future accuracy cleanup"
+13,31,bus-pasar-serangan-s-be7dc238,Pasar Serangan (S),review_fuzzy,6a8d470c52d86e03b51aa113,Halte Pasar Serangan A,0.826667,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass: A has a confirmed 'TPB Pasar Serangan' landmark match at least (stronger footing than the tied-score pairs above), rank-1 candidate. B (125m away, different street in its crop) not disproven; flagged for future accuracy cleanup."
+13,31,bus-pasar-serangan-s-be7dc238,Pasar Serangan (S),review_fuzzy,6a8d487eeca288692ef3b4d2,Halte Pasar Serangan B,0.826667,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A, landmark-confirmed) under quantity-priority pass - not disproven, flagged for future accuracy cleanup"
+13,31,bus-pasar-serangan-s-be7dc238,Pasar Serangan (S),review_fuzzy,6a8e9c3b52d86e03b51b5e70,Halte Pasar Demangan,0.647619,rejected,claude-sonnet-5,2026-09-12,"Pasar Demangan is 2.5km east (110.388 vs 110.354) - a different market, fuzzy string match only ('Pasar' token overlap)"
+13,32,bus-sman-1-w-f37b3466,SMAN 1 (B),review_fuzzy,6a8d49f652d86e03b51aa44c,Halte SMAN 1 A,0.780952,approved,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: only one named halte icon exists here ('Halte Cokroaminoto SMA 1'), single narrow one-way street with no room for a second platform visible; A's pin sits exactly on it, B drifts ~46m to an unrelated coffee shop with no second icon anywhere - B is a noisy duplicate observation of the same shelter"
+13,32,bus-sman-1-w-f37b3466,SMAN 1 (B),review_fuzzy,6a8d4afa52d86e03b51aa51f,Halte SMAN 1 B,0.780952,rejected,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: pin drifts ~46m off the only confirmed halte icon onto Yohann Coffee Roastery, no second landmark anywhere - duplicate/noisy observation of SMAN 1 A, not a distinct place"
+13,32,bus-sman-1-w-f37b3466,SMAN 1 (B),review_fuzzy,6a8d43e8eca288692ef3b00c,Halte SMAN 7,0.633333,rejected,claude-sonnet-5,2026-09-12,"Halte SMAN 7 is 1.5km south - a different school (SMAN 1 vs SMAN 7), fuzzy string match only"
+13,33,bus-smpn-11-w-39ca43b3,SMPN 11 (B),review_fuzzy,6a8d4cbc52d86e03b51aa790,Halte SMPN 11,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single best candidate, only alternative (SMPN 1) is a different school 2.3km away - unambiguous"
+13,33,bus-smpn-11-w-39ca43b3,SMPN 11 (B),review_fuzzy,6a8d045352d86e03b51a6286,Halte SMPN 1,0.687179,rejected,claude-sonnet-5,2026-09-12,"Halte SMPN 1 is a different school (SMPN 1 vs SMPN 11), 2.3km away near Jend. Sudirman/Sudirman corridor, not this stop"
+13,34,bus-mirota-godean-s-d95775a6,Mirota Godean (S),review_fuzzy,6a881ff9d57440d48a1f3e49,Halte Mirota Godean A,0.823810,approved,claude-sonnet-5,2026-09-12,"Quantity-priority pass, same pair as seq 18 - rank-1 candidate picked (same caveat: could be the wrong side, flagged for future accuracy cleanup)"
+13,34,bus-mirota-godean-s-d95775a6,Mirota Godean (S),review_fuzzy,6a882071d57440d48a1f3edc,Halte Mirota Godean B,0.823810,rejected,claude-sonnet-5,2026-09-12,"Superseded by rank-1 sibling (A) under quantity-priority pass - flagged for future accuracy cleanup"
+13,35,bus-dentes-godean-s-a68a5086,Dentes Godean (S),unmatched,,,,,,,no candidate generated
+13,36,bus-pasar-tlogorejo-s-60c6acc1,Pasar Tlogorejo (S),unmatched,,,,,,,no candidate generated
+13,37,bus-sdn-1-demak-ijo-s-62cb8e60,SDN 1 Demak Ijo (S),unmatched,,,,,,,no candidate generated
+13,38,bus-kantor-pos-demak-ijo-s-7564089a,Kantor Pos Demak Ijo (S),unmatched,,,,,,,no candidate generated
+13,39,bus-nogotirto-metro-s-e4ea92a9,Nogotirto Metro (S),unmatched,,,,,,,no candidate generated
+13,40,bus-toko-saerah-s-526320bd,Toko Saerah (S),unmatched,,,,,,,no candidate generated
+13,41,bus-kantor-kal-sidoarum-s-5d651e88,Kantor Kal. Sidoarum (S),unmatched,,,,,,,no candidate generated
+13,42,bus-simpang-bantulan-s-6078c446,Simpang Bantulan (S),unmatched,,,,,,,no candidate generated
+13,43,bus-simpang-munggur-s-cd527d2a,Simpang Munggur (S),unmatched,,,,,,,no candidate generated
+13,44,bus-simpang-gesikan-s-97fee7b8,Simpang Gesikan (S),unmatched,,,,,,,no candidate generated
+13,45,bus-indomaret-klajuran-s-7a9d6d5c,Indomaret Klajuran (S),unmatched,,,,,,,no candidate generated
+13,46,bus-neutron-godean-s-9bdb8999,Neutron Godean (S),unmatched,,,,,,,no candidate generated
+13,47,bus-polsek-godean-s-0104f8d4,Polsek Godean (S),unmatched,,,,,,,no candidate generated
+13,48,bus-koramil-godean-s-aac3dfdd,Koramil Godean (S),unmatched,,,,,,,no candidate generated
+13,49,bus-simpang-mandungan-s-47f3abcf,Simpang Mandungan (S),unmatched,,,,,,,no candidate generated
+13,50,bus-kantor-kap-godean-s-c356edd6,Kantor Kap. Godean (S),review_fuzzy,6a82a4ed4fd70be4125ce721,Halte Kantor Kap. Bantul,0.658824,rejected,claude-sonnet-5,2026-09-12,"Same wrong candidate as seq 2 (Kantor Kap. Godean U) - Bantul is 11km south, different subdistrict office"

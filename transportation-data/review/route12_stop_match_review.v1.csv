@@ -1,0 +1,67 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+12,2,bus-spbu-concat-e-e9b46f87,SPBU Concat (T),unmatched,,,,,,,no candidate generated
+12,3,bus-prayan-e-d22ce9c8,Prayan (T),unmatched,,,,,,,no candidate generated
+12,4,bus-susteran-novisiat-e-5af4d58e,Susteran Novisiat (T),unmatched,,,,,,,no candidate generated
+12,5,bus-sanata-dharma-e-fb763e5c,Sanata Dharma (T),review_fuzzy,6a8e970046690fc6c68d9f71,Halte Sanata Dharma,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,6,bus-samirono-s-21198e04,Samirono (S),review_fuzzy,6a92d9d852d86e03b51ddbd2,Halte Samirono,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,7,bus-rs-panti-rapih-s-d7666844,RS Panti Rapih (S),review_fuzzy,6a8d0a83eca288692ef377ee,Halte RS Panti Rapih,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,8,bus-vokasi-ugm-w-08874eb4,Vokasi UGM (B),review_fuzzy,6a8cfb1f52d86e03b51a5dd9,Halte Vokasi UGM,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate. Same activity also matches Vokasi UGM (T) at seq 55 - one surveyed shelter apparently serves both route directions here, not a conflict since they are different stop_ids"
+12,9,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (S),review_fuzzy,6a8cf57152d86e03b51a5a67,Halte FKG UGM A,0.791667,approved,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: only one named icon exists ('TPB Fak. Kedokteran UGM'); A's pin sits exactly on it, B drifts ~18m off-road with no second landmark. A is the accurately-located observation of what appears to be a single shelter serving both route directions here."
+12,9,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (S),review_fuzzy,6a8cf67ceca288692ef36cd9,Halte FKG UGM B,0.791667,rejected,claude-sonnet-5,2026-09-12,"Map screenshot cross-check: pin drifts ~18m off the only confirmed halte icon, no second landmark - duplicate/noisy observation of FKG UGM A, not a distinct place"
+12,10,bus-rs-sardjito-w-0ad8bcca,RS Sardjito (B),review_fuzzy,6a8441d73dbe4dacc783f9f2,Halte Trans Jogja - RS Sardjito A,0.816667,rejected,claude-sonnet-5,2026-09-12,"All three RS Sardjito candidates cluster within ~4m of each other (same physical shelter, multiple survey posts). Superseded by 'Halte RS Sardjito Barat' which explicitly names the side (Barat=West matches this stop's (B) suffix) rather than a generic A/B label."
+12,10,bus-rs-sardjito-w-0ad8bcca,RS Sardjito (B),review_fuzzy,6a8440b23dbe4dacc783f743,Halte Trans Jogja - RS Sardjito B,0.816667,rejected,claude-sonnet-5,2026-09-12,"See sibling row - same cluster, superseded by the explicitly-named 'Barat' candidate"
+12,10,bus-rs-sardjito-w-0ad8bcca,RS Sardjito (B),review_fuzzy,6a8ceff1eca288692ef36913,Halte RS Sardjito Barat,0.738095,approved,claude-sonnet-5,2026-09-12,"Name explicitly confirms this is the Barat (West) side platform, matching this stop's (B)=Barat suffix directly - stronger evidence than the generic A/B labels despite the lower fuzzy score. Coordinates match the same ~4m cluster as A/B (same physical shelter)."
+12,11,bus-mm-ugm-n-b464f66e,MM UGM (U),unmatched,,,,,,,no candidate generated
+12,12,bus-hotel-vidi-w-54b7fd5e,Hotel Vidi (B),unmatched,,,,,,,no candidate generated
+12,13,bus-hokben-jakal-w-08061330,Hokben Jakal (B),unmatched,,,,,,,no candidate generated
+12,14,bus-superindo-jakal-w-7c86126c,Superindo Jakal (B),unmatched,,,,,,,no candidate generated
+12,15,bus-pasar-kolombo-w-8477d636,Pasar Kolombo (B),unmatched,,,,,,,no candidate generated
+12,16,bus-gardu-pln-w-546add69,Gardu PLN (B),unmatched,,,,,,,no candidate generated
+12,17,bus-simpang-palem-raya-w-c647ecce,Simpang Palem Raya (B),unmatched,,,,,,,no candidate generated
+12,18,bus-kantor-kap-ngaglik-w-0025595c,Kantor Kap. Ngaglik (B),review_fuzzy,6a82a4ed4fd70be4125ce721,Halte Kantor Kap. Bantul,0.645714,rejected,claude-sonnet-5,2026-09-12,"Same wrong-place pattern seen on route 13: Kantor Kap. Bantul is a different subdistrict office ~11km away (Bantul regency, far south of Ngaglik/Pakem corridor). Fuzzy string match only ('Kantor Kap.' token overlap)."
+12,19,bus-puskesmas-ngaglik-w-6d1129d1,Puskesmas Ngaglik (B),unmatched,,,,,,,no candidate generated
+12,20,bus-smpn-2-ngaglik-w-aa32d431,SMPN 2 Ngaglik (B),unmatched,,,,,,,no candidate generated
+12,21,bus-spbu-jakal-w-5de81e09,SPBU Jakal (B),unmatched,,,,,,,no candidate generated
+12,22,bus-wedangan-kampoeng-w-12246027,Wedangan Kampoeng (B),unmatched,,,,,,,no candidate generated
+12,23,bus-simpang-besi-jakal-w-586c481c,Simpang Besi Jakal (B),unmatched,,,,,,,no candidate generated
+12,24,bus-yakkum-w-f4278b8b,YAKKUM (B),unmatched,,,,,,,no candidate generated
+12,25,bus-boulevard-uii-1c76a601,Boulevard UII,unmatched,,,,,,,no candidate generated
+12,26,bus-uii-w-d1ee7fb5,UII (B),unmatched,,,,,,,no candidate generated
+12,27,bus-simpang-degolan-w-7a0abd76,Simpang Degolan (B),unmatched,,,,,,,no candidate generated
+12,28,bus-raminten-w-04c634dd,Raminten (B),unmatched,,,,,,,no candidate generated
+12,29,bus-dusun-kledokan-w-a0cbb57b,Dusun Kledokan (B),unmatched,,,,,,,no candidate generated
+12,30,bus-rs-panti-nugroho-w-d4c819de,RS Panti Nugroho (B),review_fuzzy,6a8d0a83eca288692ef377ee,Halte RS Panti Rapih,0.640000,rejected,claude-sonnet-5,2026-09-12,"RS Panti Nugroho is a real, different hospital in Pakem (Sleman), far north of RS Panti Rapih which is in the UGM/Colombo area (same coordinates already correctly matched to RS Panti Rapih (S) at seq 7). Fuzzy string match on 'Panti' token only - wrong hospital."
+12,31,bus-terminal-pakem-ee26af28,Terminal Pakem,unmatched,,,,,,,no candidate generated
+12,32,bus-sdn-percobaan-3-pakem-cdf97104,SDN Percobaan 3 Pakem,unmatched,,,,,,,no candidate generated
+12,33,bus-smpn-4-pakem-e-ca3b6e77,SMPN 4 Pakem (T),unmatched,,,,,,,no candidate generated
+12,34,bus-dusun-kledokan-e-4b0dcd88,Dusun Kledokan (T),unmatched,,,,,,,no candidate generated
+12,35,bus-raminten-e-eb1b3bbb,Raminten (T),unmatched,,,,,,,no candidate generated
+12,36,bus-simpang-degolan-e-2f99e19e,Simpang Degolan (T),unmatched,,,,,,,no candidate generated
+12,38,bus-uii-e-1d36c15a,UII (T),unmatched,,,,,,,no candidate generated
+12,39,bus-yakkum-e-64febcd3,YAKKUM (T),unmatched,,,,,,,no candidate generated
+12,40,bus-simpang-besi-jakal-e-f8dc4eec,Simpang Besi Jakal (T),unmatched,,,,,,,no candidate generated
+12,41,bus-wedangan-kampoeng-e-ceacc5d5,Wedangan Kampoeng (T),unmatched,,,,,,,no candidate generated
+12,42,bus-spbu-jakal-e-21fa9d89,SPBU Jakal (T),unmatched,,,,,,,no candidate generated
+12,43,bus-smpn-2-ngaglik-e-896a85b0,SMPN 2 Ngaglik (T),unmatched,,,,,,,no candidate generated
+12,44,bus-puskesmas-ngaglik-e-30242ad9,Puskesmas Ngaglik (T),unmatched,,,,,,,no candidate generated
+12,45,bus-tk-bias-e-49f1378f,TK BIAS (T),unmatched,,,,,,,no candidate generated
+12,46,bus-simpang-palem-raya-e-c72c93bc,Simpang Palem Raya (T),unmatched,,,,,,,no candidate generated
+12,47,bus-gardu-pln-e-2cf004b2,Gardu PLN (T),unmatched,,,,,,,no candidate generated
+12,48,bus-pasar-kolombo-e-853be528,Pasar Kolombo (T),unmatched,,,,,,,no candidate generated
+12,49,bus-superindo-jakal-e-c89a3713,Superindo Jakal (T),unmatched,,,,,,,no candidate generated
+12,50,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (T),unmatched,,,,,,,no candidate generated
+12,51,bus-mcd-jakal-e-a028dcde,McD Jakal (T),review_fuzzy,6a89118b52d86e03b5181907,Halte McD Jakal,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,52,bus-biologi-ugm-s-9cd9d036,Biologi UGM (S),review_fuzzy,6a8cf35c52d86e03b51a595f,Halte Biologi UGM,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,53,bus-rs-sardjito-e-a2691dbb,RS Sardjito (T),review_fuzzy,6a8441d73dbe4dacc783f9f2,Halte Trans Jogja - RS Sardjito A,0.816667,rejected,claude-sonnet-5,2026-09-12,"This stop is (T)=Timur (East), but all three RS Sardjito candidates cluster at the same point and one is explicitly named 'Barat' (West) - there is no surveyed East-side RS Sardjito shelter in this candidate set. Attaching a West-side observation to an East-side stop would be wrong. Needs an actual Timur-side survey to resolve."
+12,53,bus-rs-sardjito-e-a2691dbb,RS Sardjito (T),review_fuzzy,6a8440b23dbe4dacc783f743,Halte Trans Jogja - RS Sardjito B,0.816667,rejected,claude-sonnet-5,2026-09-12,"See sibling row - same West-side cluster, wrong side for this Timur stop"
+12,53,bus-rs-sardjito-e-a2691dbb,RS Sardjito (T),review_fuzzy,6a8ceff1eca288692ef36913,Halte RS Sardjito Barat,0.738095,rejected,claude-sonnet-5,2026-09-12,"Explicitly named Barat (West) - directly contradicts this stop's Timur (East) suffix, clearly the wrong side"
+12,54,bus-fkg-ugm-n-14f6b4a2,FKG UGM (U),review_fuzzy,6a8cf57152d86e03b51a5a67,Halte FKG UGM A,0.791667,approved,claude-sonnet-5,2026-09-12,"Same single shelter as FKG UGM (S) at seq 9 - only one landmark exists ('TPB Fak. Kedokteran UGM'), serving both route directions here. See seq 9 for the map evidence."
+12,54,bus-fkg-ugm-n-14f6b4a2,FKG UGM (U),review_fuzzy,6a8cf67ceca288692ef36cd9,Halte FKG UGM B,0.791667,rejected,claude-sonnet-5,2026-09-12,"See seq 9 - duplicate/noisy observation of the same shelter as FKG UGM A"
+12,55,bus-vokasi-ugm-e-2e702393,Vokasi UGM (T),review_fuzzy,6a8cfb1f52d86e03b51a5dd9,Halte Vokasi UGM,1.000000,approved,claude-sonnet-5,2026-09-12,"Same single shelter as Vokasi UGM (B) at seq 8, exact name match, serving both route directions here"
+12,56,bus-kosudgama-n-88e06d80,Kosudgama (U),review_fuzzy,6a8d081852d86e03b51a643e,Halte Kosudgama,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,57,bus-uny-colombo-n-97a5170f,UNY Colombo (U),review_fuzzy,6a92db7152d86e03b51ddde5,Halte UNY Colombo,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match. The alternative candidate (Jl. Colombo UNY) sits under 1m away - clearly the same physical shelter posted twice; this is the better-matched of the two posts."
+12,57,bus-uny-colombo-n-97a5170f,UNY Colombo (U),review_fuzzy,6a8d39db52d86e03b51a8ece,Halte Jl. Colombo UNY,0.652381,rejected,claude-sonnet-5,2026-09-12,"Same physical shelter as Halte UNY Colombo (<1m apart) - a duplicate survey post with a worse name match, superseded by the sibling row"
+12,58,bus-plaza-uny-w-812d2136,Plaza UNY (B),review_fuzzy,6a8e9ac146690fc6c68da2e3,Halte Plaza UNY,1.000000,approved,claude-sonnet-5,2026-09-12,"Exact name match, single candidate, no sibling ambiguity"
+12,59,bus-santren-w-d0361cb1,Santren (B),review_fuzzy,6a8e78f452d86e03b51b44d5,Halte Santren B,0.725000,approved,claude-sonnet-5,2026-09-12,"Single candidate, no competing sibling despite the imperfect score - name match is a clear superset ('Santren' + a platform letter), no alternative exists to prefer instead"
+12,60,bus-prayan-w-756ecdc4,Prayan (B),unmatched,,,,,,,no candidate generated
+12,61,bus-spbu-concat-w-5ef7d708,SPBU Concat (B),unmatched,,,,,,,no candidate generated
