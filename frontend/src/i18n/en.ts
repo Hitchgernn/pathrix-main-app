@@ -196,6 +196,7 @@ export const en: Messages = {
   "transit.routes": "Routes & schedule",
   "transit.openStop": (name: string) => `Open details for ${name}`,
   "transit.nextDepartures": (times: string) => `Next ${times}`,
+  "transit.todayDepartures": (times: string) => `Today's schedule ${times}`,
   "transit.headway": (minutes: number) => `Every ±${minutes} min`,
   "transit.fare": (fare: string) => `Fare ${fare}`,
   "transit.effectiveFrom": (date: string) => `Effective from ${date}`,

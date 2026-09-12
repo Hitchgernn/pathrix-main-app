@@ -28,6 +28,11 @@ export function PlaceSheet() {
   const { photo, resolved } = usePhoto(place?.name);
   const t = useT();
   const [scheduleState, setScheduleState] = useState<"idle" | "loading" | "error">("idle");
+  const [scheduleWindow, setScheduleWindow] = useState<"upcoming" | "today">("upcoming");
+
+  useEffect(() => {
+    setScheduleWindow("upcoming");
+  }, [place?.id]);
 
   useEffect(() => {
     setScheduleState("idle");
@@ -44,6 +49,12 @@ export function PlaceSheet() {
       timeZone: "Asia/Jakarta",
     });
     void fetchStopDepartures(externalId, afterLocal)
+      .then(async (departures) => {
+        if (departures.length > 0 || cancelled) return departures;
+        const today = await fetchStopDepartures(externalId);
+        if (today.length > 0) setScheduleWindow("today");
+        return today;
+      })
       .then((departures) => {
         if (cancelled) return;
         const current = useStore.getState().selectedPlace;
@@ -159,16 +170,6 @@ export function PlaceSheet() {
         <h3 className="title-lg mt-3">{place.name}</h3>
         {place.subtitle && <p className="body-13 mt-[6px] text-ink-2">{place.subtitle}</p>}
 
-        {/* A halte condition survey is prose, not fields: shelter type, roof,
-            ramp, guiding block, pavement. Rendered whole and as written —
-            summarising someone's survey would be us inventing the summary. */}
-        {place.description && (
-          <>
-            <h4 className="label-sm mt-[20px]">{t("place.surveyNote")}</h4>
-            <p className="body-13 mt-[6px] whitespace-pre-line text-ink-2">{place.description}</p>
-          </>
-        )}
-
         {strip.length > 0 && (
           <div
             aria-label={t("place.photos", strip.length + 1)}
@@ -255,7 +256,12 @@ export function PlaceSheet() {
                       )}
                       {departures.length > 0 && (
                         <p className="figure mt-[6px] break-words text-[12px] text-ink">
-                          {t("transit.nextDepartures", departures.slice(0, 5).join(" · "))}
+                          {t(
+                            scheduleWindow === "today"
+                              ? "transit.todayDepartures"
+                              : "transit.nextDepartures",
+                            departures.slice(0, 5).join(" · "),
+                          )}
                         </p>
                       )}
                       {service.service_basis && (
@@ -331,6 +337,16 @@ export function PlaceSheet() {
               <p className="body-13 mt-[6px] text-ink-3">{t("transit.noSchedule")}</p>
             )}
           </section>
+        )}
+
+        {/* A halte condition survey is prose, not fields: shelter type, roof,
+            ramp, guiding block, pavement. Rendered whole and as written —
+            summarising someone's survey would be us inventing the summary. */}
+        {place.description && (
+          <>
+            <h4 className="label-sm mt-[20px]">{t("place.surveyNote")}</h4>
+            <p className="body-13 mt-[6px] whitespace-pre-line text-ink-2">{place.description}</p>
+          </>
         )}
 
         <h4 className="label-sm mt-[22px]">{t("place.details")}</h4>
