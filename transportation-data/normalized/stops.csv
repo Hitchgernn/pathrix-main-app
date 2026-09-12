@@ -1,0 +1,669 @@
+stop_id,mode,stop_name,canonical_name,direction_code,aliases,match_status,matched_activity_id,longitude,latitude,activity_observed_at,evidence_count,match_as_of
+airport_rail-wates-2540640a,airport_rail,Wates,wates,,Wates,unmatched,,,,,0,2026-09-12
+airport_rail-yia-7b5a2304,airport_rail,YIA,yia,,YIA,unmatched,,,,,0,2026-09-12
+airport_rail-yogyakarta-c31b2603,airport_rail,Yogyakarta,yogyakarta,,Yogyakarta,matched_exact,6a8a8dda52d86e03b519227c,110.36179815416784,-7.789620476123076,2026-08-23T06:06:18.544Z,1,2026-09-12
+bus-a-m-sangaji-e-43a1c92b,bus,Halte A.M. Sangaji (Timur),a m sangaji,E,Halte A.M. Sangaji (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-abadi-hotel-jogja-ae73687b,bus,Abadi Hotel Jogja,abadi hotel jogja,,Abadi Hotel Jogja,unmatched,,,,,0,2026-09-12
+bus-abu-bakar-ali-953e3c6d,bus,Halte Abu Bakar Ali,abu bakar ali,,Halte Abu Bakar Ali,unmatched,,,,,0,2026-09-12
+bus-alfamart-pokoh-e-c8fc8eb4,bus,Alfamart Pokoh (T),alfamart pokoh,E,Alfamart Pokoh (T),unmatched,,,,,0,2026-09-12
+bus-am-sangaji-w-aa483780,bus,AM Sangaji (Barat),am sangaji,W,AM Sangaji (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-ambarukmo-ca38052e,bus,Halte Ambarukmo,ambarukmo,,Halte Ambarukmo,review_fuzzy,,,,,0,2026-09-12
+bus-ambarukmo-plaza-2-565c1eec,bus,Ambarukmo Plaza 2,ambarukmo plaza 2,,Ambarukmo Plaza 2,unmatched,,,,,0,2026-09-12
+bus-amik-bsi-60e8ad5a,bus,TPB AMIK BSI,amik bsi,,TPB AMIK BSI,unmatched,,,,,0,2026-09-12
+bus-among-rogo-kota-4654767a,bus,TPB Among Rogo Kota,among rogo kota,,TPB Among Rogo Kota,review_fuzzy,,,,,0,2026-09-12
+bus-apmd-e-d0d231a5,bus,APMD (Timur),apmd,E,APMD (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-apmd-w-2b5c8bb1,bus,APMD (Barat),apmd,W,APMD (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-apotek-muji-sehat-948061e4,bus,TPB Apotek Muji Sehat,apotek muji sehat,,TPB Apotek Muji Sehat,unmatched,,,,,0,2026-09-12
+bus-atakrib-jalan-magelang-830dd5b2,bus,Atakrib Jl. Magelang,atakrib jalan magelang,,Atakrib Jl. Magelang,matched_exact,6a8279ea70c999b67933d38e,110.36207623374708,-7.7561639477196245,2026-08-17T03:03:06.596Z,1,2026-09-12
+bus-badan-kepegawaian-di-yogyakarta-9ccbb65f,bus,Badan Kepegawaian DI Yogyakarta,badan kepegawaian di yogyakarta,,Badan Kepegawaian DI Yogyakarta,unmatched,,,,,0,2026-09-12
+bus-badran-5dad26c1,bus,Badran,badran,,Badran,matched_exact,6a8a80d052d86e03b51910ff,110.35791779774598,-7.788030277687739,2026-08-23T05:10:40.172Z,2,2026-09-12
+bus-bandara-adisucipto-545ec9b5,bus,Halte TJ Bandara Adisucipto,bandara adisucipto,,Halte TJ Bandara Adisucipto,review_fuzzy,,,,,0,2026-09-12
+bus-bandara-adisutjipto-236fa189,bus,Bandara Adisutjipto,bandara adisutjipto,,Bandara Adisutjipto,review_fuzzy,,,,,0,2026-09-12
+bus-banguntapan-1-gedong-kuning-50b8a187,bus,TPB Banguntapan 1 Gedong Kuning,banguntapan 1 gedong kuning,,TPB Banguntapan 1 Gedong Kuning,unmatched,,,,,0,2026-09-12
+bus-barat-jembatan-moyudan-toko-saerah-2-4abe8813,bus,Barat Jembatan Moyudan (Toko Saerah) 2,barat jembatan moyudan toko saerah 2,,Barat Jembatan Moyudan (Toko Saerah) 2,unmatched,,,,,0,2026-09-12
+bus-barat-jembatan-moyudan-toko-saerah-c31b10c2,bus,Barat Jembatan Moyudan (Toko Saerah),barat jembatan moyudan toko saerah,,Barat Jembatan Moyudan (Toko Saerah),unmatched,,,,,0,2026-09-12
+bus-barat-simpang-bantulan-2-00b7c5ce,bus,Barat Simpang Bantulan 2,barat simpang bantulan 2,,Barat Simpang Bantulan 2,unmatched,,,,,0,2026-09-12
+bus-batas-kota-jalan-monjali-timur-b05b374d,bus,Batas Kota Jl. Monjali Timur,batas kota jalan monjali timur,,Batas Kota Jl. Monjali Timur,unmatched,,,,,0,2026-09-12
+bus-batas-kota-jalan-monjali-w-68b41405,bus,Batas Kota Jl. Monjali (Barat),batas kota jalan monjali,W,Batas Kota Jl. Monjali (Barat),unmatched,,,,,0,2026-09-12
+bus-bhayangkara-3972633d,bus,Bhayangkara,bhayangkara,,Bhayangkara | Portabel Bhayangkara,matched_exact,6a8a88b40d6732db988bfbb8,110.36208001256682,-7.799398820735533,2026-08-23T05:44:20.681Z,1,2026-09-12
+bus-binamarga-e-ab7d8067,bus,Binamarga (T),binamarga,E,Binamarga (T),unmatched,,,,,0,2026-09-12
+bus-biologi-ugm-b03972b2,bus,Biologi UGM,biologi ugm,,Biologi UGM,matched_exact,6a8cf35c52d86e03b51a595f,110.3767941399006,-7.765264836068539,2026-08-25T01:43:56.563Z,2,2026-09-12
+bus-biologi-ugm-s-9cd9d036,bus,Biologi UGM (S),biologi ugm,S,Biologi UGM (S),review_fuzzy,,,,,0,2026-09-12
+bus-bkd-c482af74,bus,BKD,bkd,,BKD,review_fuzzy,,,,,0,2026-09-12
+bus-bkd-s-fe8220fe,bus,BKD (Selatan),bkd,S,BKD (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-bkpm-b11114ea,bus,BKPM,bkpm,,BKPM,unmatched,,,,,0,2026-09-12
+bus-bkpm-diy-c690757d,bus,TPB BKPM DIY,bkpm diy,,TPB BKPM DIY,unmatched,,,,,0,2026-09-12
+bus-blok-o-b354f518,bus,Blok O,blok o,,Blok O,unmatched,,,,,0,2026-09-12
+bus-blok-o-rs-hardjolukito-882b9a9c,bus,Halte Blok O (RS Hardjolukito),blok o rs hardjolukito,,Halte Blok O (RS Hardjolukito),unmatched,,,,,0,2026-09-12
+bus-boulevard-uii-1c76a601,bus,Boulevard UII,boulevard uii,,Boulevard UII,unmatched,,,,,0,2026-09-12
+bus-bpd-gamping-s-4c58803f,bus,BPD Gamping (Selatan),bpd gamping,S,BPD Gamping (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-bpd-kalasan-c034d3b7,bus,BPD Kalasan,bpd kalasan,,BPD Kalasan,unmatched,,,,,0,2026-09-12
+bus-bri-cabang-bantul-ca5f6e41,bus,Halte BRI Cabang Bantul,bri cabang bantul,,Halte BRI Cabang Bantul,review_fuzzy,,,,,0,2026-09-12
+bus-bri-umy-8fdcca3e,bus,TPB BRI UMY,bri umy,,TPB BRI UMY,unmatched,,,,,0,2026-09-12
+bus-bsi-98bb411e,bus,Portabel BSI,bsi,,Portabel BSI,unmatched,,,,,0,2026-09-12
+bus-budi-mulia-dua-e-a55ed31d,bus,Budi Mulia Dua (T),budi mulia dua,E,Budi Mulia Dua (T),unmatched,,,,,0,2026-09-12
+bus-budi-mulia-dua-w-ab139615,bus,Budi Mulia Dua (B),budi mulia dua,W,Budi Mulia Dua (B),unmatched,,,,,0,2026-09-12
+bus-bulog-970050c0,bus,Bulog,bulog,,Bulog | Halte Bulog,unmatched,,,,,0,2026-09-12
+bus-cik-di-tiro-1-c10dd170,bus,Halte Cik Di Tiro 1,cik di tiro 1,,Halte Cik Di Tiro 1,review_fuzzy,,,,,0,2026-09-12
+bus-cik-di-tiro-2-c9609bbb,bus,Halte TJ Cik Di Tiro 2,cik di tiro 2,,Halte TJ Cik Di Tiro 2,matched_exact,6a8d77b552d86e03b51acbf3,110.37518200888871,-7.78119792960976,2026-08-25T11:08:37.384Z,1,2026-09-12
+bus-cokroaminoto-sma-1-63bf5f7a,bus,Halte Cokroaminoto SMA 1,cokroaminoto sma 1,,Halte Cokroaminoto SMA 1,unmatched,,,,,0,2026-09-12
+bus-colombo-kosudgama-d0852f9e,bus,Halte TJ Colombo (Kosudgama),colombo kosudgama,,Halte TJ Colombo (Kosudgama),review_fuzzy,,,,,0,2026-09-12
+bus-cupuwatu-ac95b213,bus,Cupuwatu,cupuwatu,,Cupuwatu,unmatched,,,,,0,2026-09-12
+bus-daytrans-jalan-magelang-d2cbfb7a,bus,Daytrans Jl. Magelang,daytrans jalan magelang,,Daytrans Jl. Magelang,matched_exact,6a827b319870dcf66e45516e,110.36206630764042,-7.756402966070512,2026-08-17T03:08:33.104Z,1,2026-09-12
+bus-demangan-d2a020bd,bus,TPB Demangan,demangan,,TPB Demangan,review_fuzzy,,,,,0,2026-09-12
+bus-dentes-godean-s-a68a5086,bus,Dentes Godean (S),dentes godean,S,Dentes Godean (S),unmatched,,,,,0,2026-09-12
+bus-dentes-ruko-godean-2ce70ad6,bus,Portabel Dentes (Ruko Godean),dentes ruko godean,,Portabel Dentes (Ruko Godean),unmatched,,,,,0,2026-09-12
+bus-diponegoro-4e843c81,bus,Halte TJ Diponegoro,diponegoro,,Halte TJ Diponegoro,matched_exact,6a8ba64f52d86e03b519bfcf,110.36255287491576,-7.782872521318353,2026-08-24T02:02:55.347Z,2,2026-09-12
+bus-dishub-diy-f1346f4c,bus,Dishub DIY,dishub diy,,Dishub DIY,review_fuzzy,,,,,0,2026-09-12
+bus-disnakertrans-di-yogyakarta-2f728f54,bus,Disnakertrans DI Yogyakarta,disnakertrans di yogyakarta,,Disnakertrans DI Yogyakarta,unmatched,,,,,0,2026-09-12
+bus-disnakertrans-e-6b55bbd8,bus,Disnakertrans (T),disnakertrans,E,Disnakertrans (T),unmatched,,,,,0,2026-09-12
+bus-disnakertrans-w-93db3168,bus,Disnakertrans (B),disnakertrans,W,Disnakertrans (B),unmatched,,,,,0,2026-09-12
+bus-druwo-12f06437,bus,Portabel Druwo,druwo,,Portabel Druwo,review_fuzzy,,,,,0,2026-09-12
+bus-dukuh-e-9d567c71,bus,Dukuh (Timur),dukuh,E,Dukuh (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-dukuh-w-69bdab86,bus,Dukuh (Barat),dukuh,W,Dukuh (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-dusun-kenthi-0ba5bcc5,bus,Dusun Kenthi,dusun kenthi,,Dusun Kenthi,unmatched,,,,,0,2026-09-12
+bus-dusun-kenthi-2-e0d38c86,bus,Dusun Kenthi 2,dusun kenthi 2,,Dusun Kenthi 2,unmatched,,,,,0,2026-09-12
+bus-dusun-kledokan-e-4b0dcd88,bus,Dusun Kledokan (T),dusun kledokan,E,Dusun Kledokan (T),unmatched,,,,,0,2026-09-12
+bus-dusun-kledokan-soto-brakot-2-0ae3a409,bus,Dusun Kledokan (Soto Brakot) 2,dusun kledokan soto brakot 2,,Dusun Kledokan (Soto Brakot) 2,unmatched,,,,,0,2026-09-12
+bus-dusun-kledokan-soto-brakot-fc4d12ed,bus,Dusun Kledokan (Soto Brakot),dusun kledokan soto brakot,,Dusun Kledokan (Soto Brakot),unmatched,,,,,0,2026-09-12
+bus-dusun-kledokan-w-a0cbb57b,bus,Dusun Kledokan (B),dusun kledokan,W,Dusun Kledokan (B),unmatched,,,,,0,2026-09-12
+bus-dusun-ngawen-d785cc2b,bus,Portable Dusun Ngawen,dusun ngawen,,Portable Dusun Ngawen,matched_exact,6a881492d57440d48a1f2ec3,110.34386479306067,-7.744987662888826,2026-08-21T09:04:18.698Z,1,2026-09-12
+bus-edotel-kalasan-1-a343eedf,bus,TPB Edotel Kalasan 1,edotel kalasan 1,,TPB Edotel Kalasan 1,review_fuzzy,,,,,0,2026-09-12
+bus-edotel-kalasan-2-9b48bce6,bus,TPB Edotel Kalasan 2,edotel kalasan 2,,TPB Edotel Kalasan 2,review_fuzzy,,,,,0,2026-09-12
+bus-eks-bioskop-mataram-fcd6b8b6,bus,TPB Eks Bioskop Mataram,eks bioskop mataram,,TPB Eks Bioskop Mataram,unmatched,,,,,0,2026-09-12
+bus-eks-borobudur-plaza-9ab82812,bus,Eks Borobudur Plaza,eks borobudur plaza,,Eks Borobudur Plaza,review_fuzzy,,,,,0,2026-09-12
+bus-eks-menara-kopi-n-a0aeefe1,bus,Eks Menara Kopi (Utara),eks menara kopi,N,Eks Menara Kopi (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-eks-menara-kopi-s-dd0efb75,bus,Eks Menara Kopi (S),eks menara kopi,S,Eks Menara Kopi (S) | Eks Menara Kopi (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-eks-menara-kopi-selatan-a7802379,bus,Eks Menara Kopi Selatan,eks menara kopi selatan,,Eks Menara Kopi Selatan,review_fuzzy,,,,,0,2026-09-12
+bus-eks-perpusda-80a03598,bus,Eks Perpusda,eks perpusda,,Eks Perpusda,unmatched,,,,,0,2026-09-12
+bus-eks-stasiun-ka-bantul-aaacaef2,bus,Eks. Stasiun KA Bantul,eks stasiun ka bantul,,Eks. Stasiun KA Bantul,review_fuzzy,,,,,0,2026-09-12
+bus-eks-stie-kerjasama-57790499,bus,Eks STIE Kerjasama,eks stie kerjasama,,Eks STIE Kerjasama,unmatched,,,,,0,2026-09-12
+bus-fip-uny-ffd961ca,bus,FIP UNY,fip uny,,FIP UNY,unmatched,,,,,0,2026-09-12
+bus-fisipol-ugm-e-1c7537a9,bus,Fisipol UGM (Timur),fisipol ugm,E,Fisipol UGM (Timur),unmatched,,,,,0,2026-09-12
+bus-fisipol-ugm-w-97df7db9,bus,Fisipol UGM (Barat),fisipol ugm,W,Fisipol UGM (Barat),unmatched,,,,,0,2026-09-12
+bus-fkg-ugm-n-14f6b4a2,bus,FKG UGM (U),fkg ugm,N,FKG UGM (U) | FKG UGM (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-fkg-ugm-s-1cd7bfe3,bus,FKG UGM (S),fkg ugm,S,FKG UGM (S) | FKG UGM (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-gambiran-1-b1d95bb9,bus,TPB Gambiran 1,gambiran 1,,TPB Gambiran 1,review_fuzzy,,,,,0,2026-09-12
+bus-gambiran-2-jalan-veteran-kota-1d0703dd,bus,TPB Gambiran 2 Jl. Veteran Kota,gambiran 2 jalan veteran kota,,TPB Gambiran 2 Jl. Veteran Kota,unmatched,,,,,0,2026-09-12
+bus-gardu-pln-e-2cf004b2,bus,Gardu PLN (T),gardu pln,E,Gardu PLN (T),unmatched,,,,,0,2026-09-12
+bus-gardu-pln-w-546add69,bus,Gardu PLN (B),gardu pln,W,Gardu PLN (B),unmatched,,,,,0,2026-09-12
+bus-gedong-kuning-657f51a3,bus,Halte Gedong Kuning,gedong kuning,,Halte Gedong Kuning,unmatched,,,,,0,2026-09-12
+bus-gedong-kuning-banguntapan-ccef67ea,bus,Gedong Kuning Banguntapan,gedong kuning banguntapan,,Gedong Kuning Banguntapan,unmatched,,,,,0,2026-09-12
+bus-gedung-juang-45-3299e2b0,bus,Gedung Juang 45,gedung juang 45,,Gedung Juang 45,unmatched,,,,,0,2026-09-12
+bus-gedung-madu-candhya-1-7aa1ea1b,bus,TPB Gedung Madu Candhya 1,gedung madu candhya 1,,TPB Gedung Madu Candhya 1,unmatched,,,,,0,2026-09-12
+bus-gedung-madu-candhya-2-3a76d53b,bus,TPB Gedung Madu Candhya 2,gedung madu candhya 2,,TPB Gedung Madu Candhya 2,unmatched,,,,,0,2026-09-12
+bus-gedung-wanita-763bc43c,bus,Halte Gedung Wanita,gedung wanita,,Halte Gedung Wanita,unmatched,,,,,0,2026-09-12
+bus-gembira-loka-746e2bf0,bus,Gembira Loka,gembira loka,,Gembira Loka,review_fuzzy,,,,,0,2026-09-12
+bus-gereja-pugeran-ab090bbd,bus,Halte Gereja Pugeran,gereja pugeran,,Halte Gereja Pugeran,review_fuzzy,,,,,0,2026-09-12
+bus-gik-ugm-5b041db4,bus,Halte GIK UGM,gik ugm,,Halte GIK UGM,unmatched,,,,,0,2026-09-12
+bus-gkj-wirobrajan-e-23f9db6e,bus,GKJ Wirobrajan (Timur),gkj wirobrajan,E,GKJ Wirobrajan (Timur),unmatched,,,,,0,2026-09-12
+bus-gor-among-rogo-e2afbc5d,bus,TPB GOR Among Rogo,gor among rogo,,TPB GOR Among Rogo,review_fuzzy,,,,,0,2026-09-12
+bus-gudang-sgm-2-39feb111,bus,TPB Gudang SGM 2,gudang sgm 2,,TPB Gudang SGM 2,review_fuzzy,,,,,0,2026-09-12
+bus-gudang-sgm-c4a1d188,bus,TPB Gudang SGM,gudang sgm,,TPB Gudang SGM,review_fuzzy,,,,,0,2026-09-12
+bus-hayam-wuruk-e-c4b95c88,bus,Hayam Wuruk (Timur),hayam wuruk,E,Hayam Wuruk (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-hayam-wuruk-w-b2b765b2,bus,Hayam Wuruk (Barat),hayam wuruk,W,Hayam Wuruk (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-hokben-jakal-barat-ea5e4cb6,bus,Hokben Jakal Barat,hokben jakal barat,,Hokben Jakal Barat,unmatched,,,,,0,2026-09-12
+bus-hokben-jakal-e-d425d6fc,bus,Hokben Jakal (T),hokben jakal,E,Hokben Jakal (T) | Hokben Jakal (Timur),unmatched,,,,,0,2026-09-12
+bus-hokben-jakal-w-08061330,bus,Hokben Jakal (B),hokben jakal,W,Hokben Jakal (B) | Hokben Jakal (Barat),unmatched,,,,,0,2026-09-12
+bus-hotel-noola-1d14dbb7,bus,Halte Hotel Noola,hotel noola,,Halte Hotel Noola,unmatched,,,,,0,2026-09-12
+bus-hotel-pramesthi-063819fe,bus,TPB Hotel Pramesthi,hotel pramesthi,,TPB Hotel Pramesthi,unmatched,,,,,0,2026-09-12
+bus-hotel-utara-e-a8afeab1,bus,Hotel Utara (T),hotel utara,E,Hotel Utara (T) | Hotel Utara (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-hotel-utara-ea824463,bus,Hotel Utara,hotel utara,,Hotel Utara,review_fuzzy,,,,,0,2026-09-12
+bus-hotel-utara-w-13ce416a,bus,Hotel Utara (B),hotel utara,W,Hotel Utara (B),review_fuzzy,,,,,0,2026-09-12
+bus-hotel-vidi-jakal-f9ee9a87,bus,TPB Hotel Vidi Jakal,hotel vidi jakal,,TPB Hotel Vidi Jakal,unmatched,,,,,0,2026-09-12
+bus-hotel-vidi-w-54b7fd5e,bus,Hotel Vidi (B),hotel vidi,W,Hotel Vidi (B),unmatched,,,,,0,2026-09-12
+bus-hyundai-9b4bda77,bus,Halte Hyundai,hyundai,,Halte Hyundai,unmatched,,,,,0,2026-09-12
+bus-indogrosir-a30b9f32,bus,Indogrosir,indogrosir,,Indogrosir,matched_exact,6a8abfd40d6732db988c587d,110.36238089063244,-7.750937298556053,2026-08-23T09:39:32.287Z,1,2026-09-12
+bus-indomaret-klajuran-d5ed150c,bus,Indomaret Klajuran,indomaret klajuran,,Indomaret Klajuran,unmatched,,,,,0,2026-09-12
+bus-indomaret-klajuran-n-05d831ba,bus,Indomaret Klajuran (U),indomaret klajuran,N,Indomaret Klajuran (U),unmatched,,,,,0,2026-09-12
+bus-indomaret-klajuran-s-7a9d6d5c,bus,Indomaret Klajuran (S),indomaret klajuran,S,Indomaret Klajuran (S),unmatched,,,,,0,2026-09-12
+bus-indomaret-pokoh-sambiroto-2-8c35c082,bus,Indomaret Pokoh Sambiroto 2,indomaret pokoh sambiroto 2,,Indomaret Pokoh Sambiroto 2,unmatched,,,,,0,2026-09-12
+bus-indomaret-pokoh-sambiroto-825fb845,bus,Indomaret Pokoh Sambiroto,indomaret pokoh sambiroto,,Indomaret Pokoh Sambiroto,unmatched,,,,,0,2026-09-12
+bus-indomaret-pokoh-w-2b09e1e7,bus,Indomaret Pokoh (B),indomaret pokoh,W,Indomaret Pokoh (B),unmatched,,,,,0,2026-09-12
+bus-jadan-1-942625db,bus,Jadan 1,jadan 1,,Jadan 1,unmatched,,,,,0,2026-09-12
+bus-jadan-2-a581f4d4,bus,Jadan 2,jadan 2,,Jadan 2,unmatched,,,,,0,2026-09-12
+bus-jalan-colombo-panti-raph-97207924,bus,JL Colombo (Panti Raph),jalan colombo panti raph,,JL Colombo (Panti Raph),unmatched,,,,,0,2026-09-12
+bus-jalan-colombo-panti-rapih-bfea009f,bus,JL Colombo (Panti Rapih),jalan colombo panti rapih,,JL Colombo (Panti Rapih),unmatched,,,,,0,2026-09-12
+bus-jalan-colombo-samirono-0f6c71b2,bus,JL Colombo (Samirono),jalan colombo samirono,,JL Colombo (Samirono),review_fuzzy,,,,,0,2026-09-12
+bus-jalan-colombo-uny-29a043e3,bus,TPB Jl. Colombo (UNY),jalan colombo uny,,TPB Jl. Colombo (UNY),matched_exact,6a8d39db52d86e03b51a8ece,110.38656902084153,-7.777819224696188,2026-08-25T06:44:43.633Z,1,2026-09-12
+bus-jalan-mataram-hotel-akur-bfbbe7b3,bus,Jl. Mataram Hotel Akur,jalan mataram hotel akur,,Jl. Mataram Hotel Akur | Halte Jl. Mataram Hotel Akur,review_fuzzy,,,,,0,2026-09-12
+bus-jalan-mayjen-sutoyo-jokteng-wetan-fb44ee8b,bus,Portabel Jl. Mayjen Sutoyo (Jokteng Wetan),jalan mayjen sutoyo jokteng wetan,,Portabel Jl. Mayjen Sutoyo (Jokteng Wetan),unmatched,,,,,0,2026-09-12
+bus-jalan-mayjen-sutoyo-pasar-gading-4125f520,bus,Portabel Jl. Mayjen Sutoyo (Pasar Gading),jalan mayjen sutoyo pasar gading,,Portabel Jl. Mayjen Sutoyo (Pasar Gading),unmatched,,,,,0,2026-09-12
+bus-jalan-mayjen-sutoyo-plengkung-gading-e73901f8,bus,TPB Jl. Mayjen Sutoyo (Plengkung Gading),jalan mayjen sutoyo plengkung gading,,TPB Jl. Mayjen Sutoyo (Plengkung Gading),unmatched,,,,,0,2026-09-12
+bus-jalan-mayor-suryotomo-1-c556f1ef,bus,TPB Jl. Mayor Suryotomo 1,jalan mayor suryotomo 1,,TPB Jl. Mayor Suryotomo 1,unmatched,,,,,0,2026-09-12
+bus-jalan-mayor-suryotomo-78bd4048,bus,TPB Jl. Mayor Suryotomo,jalan mayor suryotomo,,TPB Jl. Mayor Suryotomo,unmatched,,,,,0,2026-09-12
+bus-jalan-perintis-kemerdekaan-08047d39,bus,Jl. Perintis Kemerdekaan,jalan perintis kemerdekaan,,Jl. Perintis Kemerdekaan,unmatched,,,,,0,2026-09-12
+bus-jalan-perintis-kemerdekaan-s-0ce14968,bus,Jl. Perintis Kemerdekaan (Selatan),jalan perintis kemerdekaan,S,Jl. Perintis Kemerdekaan (Selatan),unmatched,,,,,0,2026-09-12
+bus-jalan-pramuka-f6939358,bus,TPB Jl. Pramuka,jalan pramuka,,TPB Jl. Pramuka,unmatched,,,,,0,2026-09-12
+bus-jalan-raya-kabunan-n-69a2aa61,bus,Jl. Raya Kabunan (U),jalan raya kabunan,N,Jl. Raya Kabunan (U),unmatched,,,,,0,2026-09-12
+bus-jalan-solo-jayakarta-1c449de7,bus,Halte Jl. Solo (Jayakarta),jalan solo jayakarta,,Halte Jl. Solo (Jayakarta),review_fuzzy,,,,,0,2026-09-12
+bus-jalan-solo-kalasan-9e89bd29,bus,TPB Jl. Solo Kalasan,jalan solo kalasan,,TPB Jl. Solo Kalasan,review_fuzzy,,,,,0,2026-09-12
+bus-jalan-solo-kr-1-9ae31760,bus,TPB Jl. Solo KR 1,jalan solo kr 1,,TPB Jl. Solo KR 1,matched_exact,6a82e6214fd70be4125d2fb9,110.4505629589354,-7.781743084004972,2026-08-17T10:44:49.057Z,1,2026-09-12
+bus-jalan-solo-kr-2-9c904b99,bus,Halte Jl. Solo KR 2,jalan solo kr 2,,Halte Jl. Solo KR 2,matched_exact,6a82e3344fd70be4125d2da1,110.44874006597814,-7.782562289437621,2026-08-17T10:32:20.176Z,1,2026-09-12
+bus-jalan-solo-maguwo-1f37f812,bus,Halte Jl. Solo Maguwo,jalan solo maguwo,,Halte Jl. Solo Maguwo,matched_exact,6a82dd1338bb192425f4f6cf,110.43091366895266,-7.783398800192629,2026-08-17T10:06:11.975Z,1,2026-09-12
+bus-jalan-veteran-d6be785d,bus,TPB Jl. Veteran,jalan veteran,,TPB Jl. Veteran,unmatched,,,,,0,2026-09-12
+bus-janti-selatan-bawah-jembatan-04f06a52,bus,Halte Janti Selatan (Bawah Jembatan),janti selatan bawah jembatan,,Halte Janti Selatan (Bawah Jembatan),unmatched,,,,,0,2026-09-12
+bus-janti-utara-95bc8d19,bus,Halte Janti Utara,janti utara,,Halte Janti Utara,matched_exact,6a82cb4138bb192425f4e370,110.41161075628742,-7.783226023666944,2026-08-17T08:50:09.468Z,1,2026-09-12
+bus-jec-5c342f7d,bus,JEC,jec,,JEC | Halte JEC,unmatched,,,,,0,2026-09-12
+bus-jend-sudirman-n-31ca1789,bus,Jend. Sudirman (U),jend sudirman,N,Jend. Sudirman (U),review_fuzzy,,,,,0,2026-09-12
+bus-jih-b7958843,bus,JIH,jih,,JIH,unmatched,,,,,0,2026-09-12
+bus-jlagran-402c26ac,bus,Jlagran,jlagran,,Jlagran,unmatched,,,,,0,2026-09-12
+bus-jogja-city-mall-e-58185771,bus,Jogja City Mall (T),jogja city mall,E,Jogja City Mall (T) | Jogja City Mall (Timur),unmatched,,,,,0,2026-09-12
+bus-jogja-city-mall-w-5608534c,bus,Jogja City Mall (B),jogja city mall,W,Jogja City Mall (B) | Jogja City Mall (Barat),unmatched,,,,,0,2026-09-12
+bus-jogjatronik-061d67dd,bus,Jogjatronik,jogjatronik,,Jogjatronik,unmatched,,,,,0,2026-09-12
+bus-jogokariyan-72238fe9,bus,Jogokariyan,jogokariyan,,Jogokariyan,review_fuzzy,,,,,0,2026-09-12
+bus-jogokaryan-kimia-farma-1-89e48fc3,bus,Portabel Jogokaryan Kimia Farma 1,jogokaryan kimia farma 1,,Portabel Jogokaryan Kimia Farma 1,unmatched,,,,,0,2026-09-12
+bus-kampus-unriyo-2-3037d304,bus,Kampus Unriyo 2,kampus unriyo 2,,Kampus Unriyo 2,unmatched,,,,,0,2026-09-12
+bus-kampus-unriyo-445e1f15,bus,Kampus Unriyo,kampus unriyo,,Kampus Unriyo,unmatched,,,,,0,2026-09-12
+bus-kantor-badan-kesatuan-bangsa-politik-c2b0ae66,bus,Kantor Badan Kesatuan Bangsa & Politik,kantor badan kesatuan bangsa politik,,Kantor Badan Kesatuan Bangsa & Politik,unmatched,,,,,0,2026-09-12
+bus-kantor-badan-kesatuan-bangsa-politik-hal-a008e6f1,bus,Kantor Badan Kesatuan Bangsa & Politik (Halte 2),kantor badan kesatuan bangsa politik halte 2,,Kantor Badan Kesatuan Bangsa & Politik (Halte 2),unmatched,,,,,0,2026-09-12
+bus-kantor-camat-ngaglik-91c4f095,bus,Kantor Camat Ngaglik,kantor camat ngaglik,,Kantor Camat Ngaglik,unmatched,,,,,0,2026-09-12
+bus-kantor-desa-sidoarum-bf0f3167,bus,Kantor Desa Sidoarum,kantor desa sidoarum,,Kantor Desa Sidoarum,unmatched,,,,,0,2026-09-12
+bus-kantor-desa-wedomartani-ca280dac,bus,Kantor Desa Wedomartani,kantor desa wedomartani,,Kantor Desa Wedomartani,unmatched,,,,,0,2026-09-12
+bus-kantor-desa-wedomartani-halte-2-8ca3a4ae,bus,Kantor Desa Wedomartani (Halte 2),kantor desa wedomartani halte 2,,Kantor Desa Wedomartani (Halte 2),unmatched,,,,,0,2026-09-12
+bus-kantor-kal-sidoarum-n-075c84d5,bus,Kantor Kal. Sidoarum (U),kantor kal sidoarum,N,Kantor Kal. Sidoarum (U),unmatched,,,,,0,2026-09-12
+bus-kantor-kal-sidoarum-s-5d651e88,bus,Kantor Kal. Sidoarum (S),kantor kal sidoarum,S,Kantor Kal. Sidoarum (S),unmatched,,,,,0,2026-09-12
+bus-kantor-kal-sukoharjo-d97d4a8e,bus,Kantor Kal. Sukoharjo,kantor kal sukoharjo,,Kantor Kal. Sukoharjo,review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kal-sukoharjo-n-6df8a6f4,bus,Kantor Kal. Sukoharjo (U),kantor kal sukoharjo,N,Kantor Kal. Sukoharjo (U),review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kal-sukoharjo-s-ae499464,bus,Kantor Kal. Sukoharjo (S),kantor kal sukoharjo,S,Kantor Kal. Sukoharjo (S),review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kal-wedomartani-e-69397429,bus,Kantor Kal. Wedomartani (T),kantor kal wedomartani,E,Kantor Kal. Wedomartani (T),unmatched,,,,,0,2026-09-12
+bus-kantor-kal-wedomartani-w-b2444079,bus,Kantor Kal. Wedomartani (B),kantor kal wedomartani,W,Kantor Kal. Wedomartani (B),unmatched,,,,,0,2026-09-12
+bus-kantor-kap-godean-n-0acc0655,bus,Kantor Kap. Godean (U),kantor kap godean,N,Kantor Kap. Godean (U),review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kap-godean-s-c356edd6,bus,Kantor Kap. Godean (S),kantor kap godean,S,Kantor Kap. Godean (S),review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kap-ngaglik-w-0025595c,bus,Kantor Kap. Ngaglik (B),kantor kap ngaglik,W,Kantor Kap. Ngaglik (B),review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kapanewon-bantul-cdd6be86,bus,Kantor Kapanewon Bantul,kantor kapanewon bantul,,Kantor Kapanewon Bantul,review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kecamatan-godean-c51005b9,bus,Kantor Kecamatan Godean,kantor kecamatan godean,,Kantor Kecamatan Godean,unmatched,,,,,0,2026-09-12
+bus-kantor-kecamatan-godean-halte-2-b731f16c,bus,Kantor Kecamatan Godean (Halte 2),kantor kecamatan godean halte 2,,Kantor Kecamatan Godean (Halte 2),unmatched,,,,,0,2026-09-12
+bus-kantor-kelurahan-pendowoharjo-0862e377,bus,Kantor Kelurahan Pendowoharjo,kantor kelurahan pendowoharjo,,Kantor Kelurahan Pendowoharjo,review_fuzzy,,,,,0,2026-09-12
+bus-kantor-kesehatan-pelabuhan-yogya-46efdf82,bus,Kantor Kesehatan Pelabuhan Yogya,kantor kesehatan pelabuhan yogya,,Kantor Kesehatan Pelabuhan Yogya,unmatched,,,,,0,2026-09-12
+bus-kantor-pos-demak-ijo-2-8eeba9b2,bus,Kantor Pos Demak Ijo 2,kantor pos demak ijo 2,,Kantor Pos Demak Ijo 2,unmatched,,,,,0,2026-09-12
+bus-kantor-pos-demak-ijo-9a532390,bus,Kantor Pos Demak Ijo,kantor pos demak ijo,,Kantor Pos Demak Ijo,unmatched,,,,,0,2026-09-12
+bus-kantor-pos-demak-ijo-n-94aec63b,bus,Kantor Pos Demak Ijo (U),kantor pos demak ijo,N,Kantor Pos Demak Ijo (U),unmatched,,,,,0,2026-09-12
+bus-kantor-pos-demak-ijo-s-7564089a,bus,Kantor Pos Demak Ijo (S),kantor pos demak ijo,S,Kantor Pos Demak Ijo (S),unmatched,,,,,0,2026-09-12
+bus-kantor-urusan-agama-depok-6e09f175,bus,Kantor Urusan Agama Depok,kantor urusan agama depok,,Kantor Urusan Agama Depok,unmatched,,,,,0,2026-09-12
+bus-kantor-urusan-agama-depok-halte-2-d63f74be,bus,Kantor Urusan Agama Depok (Halte 2),kantor urusan agama depok halte 2,,Kantor Urusan Agama Depok (Halte 2),unmatched,,,,,0,2026-09-12
+bus-kantor-wilayah-djpb-f617b1d2,bus,Kantor Wilayah DJPb,kantor wilayah djpb,,Kantor Wilayah DJPb,unmatched,,,,,0,2026-09-12
+bus-karanggede-044ebf69,bus,Halte Karanggede,karanggede,,Halte Karanggede,unmatched,,,,,0,2026-09-12
+bus-karangjati-e-18a90a3c,bus,Karangjati (Timur),karangjati,E,Karangjati (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-karangjati-w-693f50d8,bus,Karangjati (Barat),karangjati,W,Karangjati (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-karangwaru-e-d57a2b75,bus,Karangwaru (T),karangwaru,E,Karangwaru (T) | Karangwaru (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-karangwaru-w-2eff8d12,bus,Karangwaru (B),karangwaru,W,Karangwaru (B) | Karangwaru (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-kasihan-d9bd2111,bus,TPB Kasihan,kasihan,,TPB Kasihan,unmatched,,,,,0,2026-09-12
+bus-katamso-1-purawisata-5990e6fb,bus,TPB Katamso 1 (Purawisata),katamso 1 purawisata,,TPB Katamso 1 (Purawisata),unmatched,,,,,0,2026-09-12
+bus-katamso-2-41ce8750,bus,Halte Katamso 2,katamso 2,,Halte Katamso 2,matched_exact,6a90f1c652d86e03b51c7896,110.36915890069764,-7.802704031328503,2026-08-28T02:26:14.006Z,1,2026-09-12
+bus-kehutanan-gedongkuning-d6464bd8,bus,TPB Kehutanan Gedongkuning,kehutanan gedongkuning,,TPB Kehutanan Gedongkuning,unmatched,,,,,0,2026-09-12
+bus-kenari-1-4439a100,bus,Halte Kenari 1,kenari 1,,Halte Kenari 1,unmatched,,,,,0,2026-09-12
+bus-kenari-2-e7e409cf,bus,Halte TJ Kenari 2,kenari 2,,Halte TJ Kenari 2,unmatched,,,,,0,2026-09-12
+bus-kha-dahlan-n-3fb74d20,bus,KHA Dahlan (Utara),kha dahlan,N,KHA Dahlan (Utara) | Halte KHA Dahlan (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-kha-dahlan-s-065936ef,bus,KHA Dahlan (S),kha dahlan,S,KHA Dahlan (S) | KHA Dahlan (Selatan) | Halte KHA Dahlan (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-kkp-yogyakarta-w-5da3477b,bus,KKP Yogyakarta (B),kkp yogyakarta,W,KKP Yogyakarta (B),review_fuzzy,,,,,0,2026-09-12
+bus-kledokan-6604b0d7,bus,Kledokan,kledokan,,Kledokan,unmatched,,,,,0,2026-09-12
+bus-kol-sugiono-1-pujokusuman-ba46a3cf,bus,Halte Kol.Sugiono 1 (Pujokusuman),kol sugiono 1 pujokusuman,,Halte Kol.Sugiono 1 (Pujokusuman) | Halte Kol. Sugiono 1 (Pujokusuman),unmatched,,,,,0,2026-09-12
+bus-kompi-senapan-c-s-e0038af6,bus,Kompi Senapan-C (Selatan),kompi senapan c,S,Kompi Senapan-C (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-koramil-godean-2-02c30cae,bus,Koramil Godean 2,koramil godean 2,,Koramil Godean 2,unmatched,,,,,0,2026-09-12
+bus-koramil-godean-ddb7c21d,bus,Koramil Godean,koramil godean,,Koramil Godean,unmatched,,,,,0,2026-09-12
+bus-koramil-godean-n-20a03d03,bus,Koramil Godean (U),koramil godean,N,Koramil Godean (U),unmatched,,,,,0,2026-09-12
+bus-koramil-godean-s-aac3dfdd,bus,Koramil Godean (S),koramil godean,S,Koramil Godean (S),unmatched,,,,,0,2026-09-12
+bus-kosudgama-n-88e06d80,bus,Kosudgama (U),kosudgama,N,Kosudgama (U),review_fuzzy,,,,,0,2026-09-12
+bus-kotabaru-98a0964c,bus,Halte TJ Kotabaru,kotabaru,,Halte TJ Kotabaru,unmatched,,,,,0,2026-09-12
+bus-kppn-jalan-cendana-52add500,bus,KPPN (Jl. Cendana),kppn jalan cendana,,KPPN (Jl. Cendana),unmatched,,,,,0,2026-09-12
+bus-kricak-7a2314de,bus,Kricak,kricak,,Kricak,matched_exact,6a828a6a9870dcf66e4567b3,110.36125270180361,-7.774394363918574,2026-08-17T04:13:30.754Z,1,2026-09-12
+bus-kridosono-2bc75039,bus,Kridosono,kridosono,,Kridosono | Halte Kridosono,matched_exact,6a86c045460277aa84151af0,110.37537075941361,-7.787363850950726,2026-08-20T08:52:21.482Z,2,2026-09-12
+bus-krisdosono-9dea3135,bus,Halte Krisdosono,krisdosono,,Halte Krisdosono,unmatched,,,,,0,2026-09-12
+bus-ks-tubun-aa0fe678,bus,KS Tubun,ks tubun,,KS Tubun,unmatched,,,,,0,2026-09-12
+bus-kua-depok-e-f2c00954,bus,KUA Depok (T),kua depok,E,KUA Depok (T),unmatched,,,,,0,2026-09-12
+bus-kua-depok-w-f1a5344e,bus,KUA Depok (B),kua depok,W,KUA Depok (B),unmatched,,,,,0,2026-09-12
+bus-kusumanegara-gembira-loka-d17c1b91,bus,Halte Kusumanegara (Gembira Loka),kusumanegara gembira loka,,Halte Kusumanegara (Gembira Loka),unmatched,,,,,0,2026-09-12
+bus-lap-karang-kotagede-85bec77d,bus,TPB Lap. Karang Kotagede,lap karang kotagede,,TPB Lap. Karang Kotagede,unmatched,,,,,0,2026-09-12
+bus-lap-kasihan-b684de58,bus,TPB Lap. Kasihan,lap kasihan,,TPB Lap. Kasihan,unmatched,,,,,0,2026-09-12
+bus-lap-klidon-n-1a4bde03,bus,Lap. Klidon (U),lap klidon,N,Lap. Klidon (U),unmatched,,,,,0,2026-09-12
+bus-lap-klidon-s-f6751617,bus,Lap. Klidon (S),lap klidon,S,Lap. Klidon (S),unmatched,,,,,0,2026-09-12
+bus-lapangan-karang-5bfabf8e,bus,TPB Lapangan Karang,lapangan karang,,TPB Lapangan Karang,unmatched,,,,,0,2026-09-12
+bus-lapangan-klidon-2-f0819a6d,bus,Lapangan Klidon 2,lapangan klidon 2,,Lapangan Klidon 2,unmatched,,,,,0,2026-09-12
+bus-lapangan-klidon-8f908bd2,bus,Lapangan Klidon,lapangan klidon,,Lapangan Klidon,unmatched,,,,,0,2026-09-12
+bus-lempuyangan-1f307a91,bus,Stasiun Lempuyangan,lempuyangan,,Stasiun Lempuyangan,matched_exact,6a82aa139870dcf66e458f1f,110.37746284627354,-7.790234774910843,2026-08-17T06:28:35.004Z,1,2026-09-12
+bus-lempuyangan-gudang-n-dc79fb4e,bus,Lempuyangan Gudang (Utara),lempuyangan gudang,N,Lempuyangan Gudang (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-letjen-suprapto-73f7595c,bus,Letjen Suprapto,letjen suprapto,,Letjen Suprapto,unmatched,,,,,0,2026-09-12
+bus-lowanu-792a5ebc,bus,TPB Lowanu,lowanu,,TPB Lowanu,review_fuzzy,,,,,0,2026-09-12
+bus-lpp-80c48bc4,bus,Halte LPP,lpp,,Halte LPP,unmatched,,,,,0,2026-09-12
+bus-maguwo-sambilegi-n-96f67e3b,bus,Maguwo Sambilegi (U),maguwo sambilegi,N,Maguwo Sambilegi (U),review_fuzzy,,,,,0,2026-09-12
+bus-makam-gajah-n-5baf9986,bus,Makam Gajah (Utara),makam gajah,N,Makam Gajah (Utara),unmatched,,,,,0,2026-09-12
+bus-makam-gajah-s-7e2af406,bus,Makam Gajah (Selatan),makam gajah,S,Makam Gajah (Selatan) | TPB Makam Gajah (Selatan),unmatched,,,,,0,2026-09-12
+bus-makam-prajurit-e-331fb8be,bus,Makam Prajurit (Timur),makam prajurit,E,Makam Prajurit (Timur),unmatched,,,,,0,2026-09-12
+bus-makam-sorogenen-1814bab5,bus,TPB Makam Sorogenen,makam sorogenen,,TPB Makam Sorogenen,unmatched,,,,,0,2026-09-12
+bus-mako-lanal-yogyakarta-8cfe6215,bus,Mako Lanal Yogyakarta,mako lanal yogyakarta,,Mako Lanal Yogyakarta,unmatched,,,,,0,2026-09-12
+bus-malioboro-1-b886c248,bus,Malioboro 1,malioboro 1,,Malioboro 1 | Halte Malioboro 1,matched_exact,6a854da0bbd0aa678bab5d44,110.36611832728073,-7.790937054153417,2026-08-19T06:30:56.531Z,1,2026-09-12
+bus-malioboro-2-d94095d5,bus,Malioboro 2,malioboro 2,,Malioboro 2,matched_exact,6a85506ebbd0aa678bab6390,110.36559857460782,-7.795185718747462,2026-08-19T06:42:54.514Z,1,2026-09-12
+bus-malioboro-2-kepatihan-edeea5b5,bus,Halte Malioboro 2 (Kepatihan),malioboro 2 kepatihan,,Halte Malioboro 2 (Kepatihan),review_fuzzy,,,,,0,2026-09-12
+bus-malioboro-3-d1dc4d12,bus,Malioboro 3,malioboro 3,,Malioboro 3 | Halte Malioboro 3,matched_exact,6a8555e83dbe4dacc7849c7a,110.36499709175035,-7.79990342392729,2026-08-19T07:06:16.811Z,1,2026-09-12
+bus-mall-sahid-j-walk-9eace41d,bus,Halte Mall Sahid J-Walk,mall sahid j walk,,Halte Mall Sahid J-Walk,unmatched,,,,,0,2026-09-12
+bus-man-1-yogyakarta-f2a678cf,bus,MAN 1 Yogyakarta,man 1 yogyakarta,,MAN 1 Yogyakarta,review_fuzzy,,,,,0,2026-09-12
+bus-man-2-sleman-190352c8,bus,MAN 2 Sleman,man 2 sleman,,MAN 2 Sleman,unmatched,,,,,0,2026-09-12
+bus-man-2-sleman-e-5a810501,bus,MAN 2 Sleman (T),man 2 sleman,E,MAN 2 Sleman (T),unmatched,,,,,0,2026-09-12
+bus-man-2-sleman-halte-2-16734ec3,bus,MAN 2 Sleman (Halte 2),man 2 sleman halte 2,,MAN 2 Sleman (Halte 2),unmatched,,,,,0,2026-09-12
+bus-man-2-sleman-w-1f50db53,bus,MAN 2 Sleman (B),man 2 sleman,W,MAN 2 Sleman (B),unmatched,,,,,0,2026-09-12
+bus-mangkubumi-1-c45ff36a,bus,Mangkubumi 1,mangkubumi 1,,Mangkubumi 1 | Halte Mangkubumi 1,matched_exact,6a8c457252d86e03b51a39d3,110.36683935985099,-7.784749271429504,2026-08-24T13:21:54.789Z,3,2026-09-12
+bus-mangkubumi-2-f24a8c2b,bus,Mangkubumi 2,mangkubumi 2,,Mangkubumi 2 | Halte Mangkubumi 2,matched_exact,6a8bac5fa4262ae1033d0d42,110.3665164836438,-7.787650230803976,2026-08-24T02:28:47.532Z,2,2026-09-12
+bus-manna-kampus-d2f38df1,bus,TPB Manna Kampus,manna kampus,,TPB Manna Kampus,unmatched,,,,,0,2026-09-12
+bus-manna-kampus-transmart-maguwo-85fe6e11,bus,TPB Manna Kampus- Transmart Maguwo,manna kampus transmart maguwo,,TPB Manna Kampus- Transmart Maguwo,unmatched,,,,,0,2026-09-12
+bus-mcd-godean-f30996f8,bus,McD Godean,mcd godean,,McD Godean | Portabel McD Godean,matched_exact,6a881ded3be6880665734c85,110.34220829773773,-7.779408674911246,2026-08-21T09:44:13.873Z,1,2026-09-12
+bus-mcd-jakal-e-a028dcde,bus,McD Jakal (T),mcd jakal,E,McD Jakal (T),review_fuzzy,,,,,0,2026-09-12
+bus-mcd-jakal-f29584d4,bus,TPB Mcd Jakal,mcd jakal,,TPB Mcd Jakal | TPB McD Jakal,matched_exact,6a89118b52d86e03b5181907,110.37992598967958,-7.762818007809386,2026-08-22T03:03:39.098Z,1,2026-09-12
+bus-mirota-godean-n-b3b375ef,bus,Mirota Godean (U),mirota godean,N,Mirota Godean (U),review_fuzzy,,,,,0,2026-09-12
+bus-mirota-godean-s-d95775a6,bus,Mirota Godean (S),mirota godean,S,Mirota Godean (S),review_fuzzy,,,,,0,2026-09-12
+bus-mm-ugm-6d86cbe8,bus,MM UGM,mm ugm,,MM UGM,unmatched,,,,,0,2026-09-12
+bus-mm-ugm-n-b464f66e,bus,MM UGM (U),mm ugm,N,MM UGM (U),unmatched,,,,,0,2026-09-12
+bus-mmtc-yogya-27d0c99b,bus,MMTC Yogya,mmtc yogya,,MMTC Yogya,review_fuzzy,,,,,0,2026-09-12
+bus-mmtc-yogyakarta-c259b05f,bus,MMTC Yogyakarta,mmtc yogyakarta,,MMTC Yogyakarta,matched_exact,6a8276c070c999b67933d100,110.36207457674249,-7.753191901082519,2026-08-17T02:49:36.022Z,1,2026-09-12
+bus-monjali-n-7719f0b6,bus,Monjali (Utara),monjali,N,Monjali (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-monjali-s-cbddf0a1,bus,Monjali (Selatan),monjali,S,Monjali (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-mt-haryono-1-jokteng-kulon-be1d0306,bus,TPB MT Haryono 1 (Jokteng Kulon),mt haryono 1 jokteng kulon,,TPB MT Haryono 1 (Jokteng Kulon),unmatched,,,,,0,2026-09-12
+bus-mt-haryono-2-sma-n-7-f2748d4c,bus,Halte MT Haryono 2 (SMA N 7),mt haryono 2 sma n 7,,Halte MT Haryono 2 (SMA N 7),unmatched,,,,,0,2026-09-12
+bus-mt-haryono-2-sman-7-3e1dac42,bus,Halte MT Haryono 2 (SMAN 7),mt haryono 2 sman 7,,Halte MT Haryono 2 (SMAN 7),unmatched,,,,,0,2026-09-12
+bus-muallimin-n-49002d1a,bus,Muallimin (Utara),muallimin,N,Muallimin (Utara),unmatched,,,,,0,2026-09-12
+bus-muallimin-s-2f1d1246,bus,Muallimin (Selatan),muallimin,S,Muallimin (Selatan),unmatched,,,,,0,2026-09-12
+bus-muhammadiyah-3-cb194b98,bus,Halte Muhammadiyah 3,muhammadiyah 3,,Halte Muhammadiyah 3,unmatched,,,,,0,2026-09-12
+bus-museum-bahari-1-6c9571e7,bus,TPB Museum Bahari 1,museum bahari 1,,TPB Museum Bahari 1,unmatched,,,,,0,2026-09-12
+bus-museum-bahari-2-26c36bd9,bus,TPB Museum Bahari 2,museum bahari 2,,TPB Museum Bahari 2,unmatched,,,,,0,2026-09-12
+bus-museum-biologi-1a19a994,bus,Museum Biologi,museum biologi,,Museum Biologi,unmatched,,,,,0,2026-09-12
+bus-neutron-godean-n-9dbb4be6,bus,Neutron Godean (U),neutron godean,N,Neutron Godean (U),unmatched,,,,,0,2026-09-12
+bus-neutron-godean-s-9bdb8999,bus,Neutron Godean (S),neutron godean,S,Neutron Godean (S),unmatched,,,,,0,2026-09-12
+bus-neutron-yogyakarta-godean-845b1965,bus,Neutron Yogyakarta Godean,neutron yogyakarta godean,,Neutron Yogyakarta Godean,unmatched,,,,,0,2026-09-12
+bus-neutron-yogyakarta-godean-halte-2-b83475d4,bus,Neutron Yogyakarta Godean (Halte 2),neutron yogyakarta godean halte 2,,Neutron Yogyakarta Godean (Halte 2),unmatched,,,,,0,2026-09-12
+bus-ngabean-4b97c318,bus,Ngabean,ngabean,,Ngabean | Halte Ngabean,matched_exact,6a856e91bbd0aa678bab879c,110.35626401421268,-7.803758428469791,2026-08-19T08:51:29.784Z,1,2026-09-12
+bus-ngeksigondo-basen-66d681be,bus,Halte Ngeksigondo Basen,ngeksigondo basen,,Halte Ngeksigondo Basen,unmatched,,,,,0,2026-09-12
+bus-ngeksigondo-diklat-pu-ba0f9bc7,bus,Halte Ngeksigondo Diklat Pu,ngeksigondo diklat pu,,Halte Ngeksigondo Diklat Pu,unmatched,,,,,0,2026-09-12
+bus-nitikan-3cd761a8,bus,Halte Nitikan,nitikan,,Halte Nitikan,unmatched,,,,,0,2026-09-12
+bus-nogotirto-metro-n-4198d454,bus,Nogotirto Metro (U),nogotirto metro,N,Nogotirto Metro (U),unmatched,,,,,0,2026-09-12
+bus-nogotirto-metro-s-e4ea92a9,bus,Nogotirto Metro (S),nogotirto metro,S,Nogotirto Metro (S),unmatched,,,,,0,2026-09-12
+bus-nyutran-tamansiswa-080d9b74,bus,Nyutran Tamansiswa,nyutran tamansiswa,,Nyutran Tamansiswa,unmatched,,,,,0,2026-09-12
+bus-olive-glagahsari-w-48c71355,bus,Olive Glagahsari (Barat),olive glagahsari,W,Olive Glagahsari (Barat),unmatched,,,,,0,2026-09-12
+bus-pa-muhammadiyah-a2f5c15d,bus,TPB PA Muhammadiyah,pa muhammadiyah,,TPB PA Muhammadiyah,unmatched,,,,,0,2026-09-12
+bus-pakualaman-afc81afa,bus,Pakualaman,pakualaman,,Pakualaman,unmatched,,,,,0,2026-09-12
+bus-pakuwon-mall-n-50267f5f,bus,Pakuwon Mall (Utara),pakuwon mall,N,Pakuwon Mall (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-pakuwon-mall-s-2202544e,bus,Pakuwon Mall (Selatan),pakuwon mall,S,Pakuwon Mall (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-palem-gurih-2929ac62,bus,Palem Gurih,palem gurih,,Palem Gurih,unmatched,,,,,0,2026-09-12
+bus-pandeyan-w-cd4dd021,bus,Pandeyan (Barat),pandeyan,W,Pandeyan (Barat),unmatched,,,,,0,2026-09-12
+bus-panti-rapih-9daeebbb,bus,TPB Panti Rapih,panti rapih,,TPB Panti Rapih,review_fuzzy,,,,,0,2026-09-12
+bus-park-and-ride-dongkelan-pasty-7561163e,bus,Park and Ride Dongkelan (Pasty),park and ride dongkelan pasty,,Park and Ride Dongkelan (Pasty),unmatched,,,,,0,2026-09-12
+bus-park-and-ride-gamping-2562ef81,bus,Park and Ride Gamping,park and ride gamping,,Park and Ride Gamping,matched_exact,6a8aaaab0d6732db988c32ce,110.31510380107005,-7.802371471196194,2026-08-23T08:09:15.593Z,1,2026-09-12
+bus-pasar-angkasa-e-020347ed,bus,Pasar Angkasa (Timur),pasar angkasa,E,Pasar Angkasa (Timur),unmatched,,,,,0,2026-09-12
+bus-pasar-bantul-de60e961,bus,Pasar Bantul,pasar bantul,,Pasar Bantul,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-bantul-halte-2-a4a1fd5f,bus,Pasar Bantul (Halte 2),pasar bantul halte 2,,Pasar Bantul (Halte 2),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-demangan-3cd97b08,bus,Pasar Demangan,pasar demangan,,Pasar Demangan,matched_exact,6a8e9c3b52d86e03b51b5e70,110.38846776345031,-7.779400709828366,2026-08-26T07:56:43.934Z,1,2026-09-12
+bus-pasar-gamping-n-afa34dac,bus,Pasar Gamping (Utara),pasar gamping,N,Pasar Gamping (Utara),unmatched,,,,,0,2026-09-12
+bus-pasar-gamping-s-09bd18f9,bus,Pasar Gamping (Selatan),pasar gamping,S,Pasar Gamping (Selatan),unmatched,,,,,0,2026-09-12
+bus-pasar-giwangan-1-20ae3e33,bus,TPB Pasar Giwangan 1,pasar giwangan 1,,TPB Pasar Giwangan 1,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-giwangan-2-f0dc3c5b,bus,TPB Pasar Giwangan 2,pasar giwangan 2,,TPB Pasar Giwangan 2,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-jangkang-n-01dfbd0c,bus,Pasar Jangkang (U),pasar jangkang,N,Pasar Jangkang (U),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-jangkang-s-1332b898,bus,Pasar Jangkang (S),pasar jangkang,S,Pasar Jangkang (S),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-kalasan-a79eab4a,bus,Portable Pasar Kalasan,pasar kalasan,,Portable Pasar Kalasan,unmatched,,,,,0,2026-09-12
+bus-pasar-kolombo-69cbcaf2,bus,Pasar Kolombo,pasar kolombo,,Pasar Kolombo,unmatched,,,,,0,2026-09-12
+bus-pasar-kolombo-e-853be528,bus,Pasar Kolombo (T),pasar kolombo,E,Pasar Kolombo (T) | Pasar Kolombo (Timur),unmatched,,,,,0,2026-09-12
+bus-pasar-kolombo-w-8477d636,bus,Pasar Kolombo (B),pasar kolombo,W,Pasar Kolombo (B),unmatched,,,,,0,2026-09-12
+bus-pasar-krangan-8db5e3eb,bus,Halte Pasar Krangan,pasar krangan,,Halte Pasar Krangan,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-kranggan-b6b88028,bus,Halte Pasar Kranggan,pasar kranggan,,Halte Pasar Kranggan,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-kranggan-e-a032bc95,bus,Pasar Kranggan (Timur),pasar kranggan,E,Pasar Kranggan (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-kranggan-selatan-bb2be0b9,bus,Pasar Kranggan Selatan,pasar kranggan selatan,,Pasar Kranggan Selatan,matched_exact,6a882a323be6880665735cad,110.36565971152436,-7.7829259605858025,2026-08-21T10:36:34.830Z,1,2026-09-12
+bus-pasar-legi-352c9c2c,bus,TPB Pasar Legi,pasar legi,,TPB Pasar Legi,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-legi-yogyakarta-9455c379,bus,Pasar Legi Yogyakarta,pasar legi yogyakarta,,Pasar Legi Yogyakarta,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-lempuyangan-a52fea47,bus,TPB Pasar Lempuyangan,pasar lempuyangan,,TPB Pasar Lempuyangan,matched_exact,6a82ace038bb192425f4c051,110.37347150000141,-7.79239319998895,2026-08-17T06:40:32.816Z,1,2026-09-12
+bus-pasar-niten-b37a4715,bus,Pasar Niten,pasar niten,,Pasar Niten,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-niten-halte-2-cc89169e,bus,Pasar Niten (Halte 2),pasar niten halte 2,,Pasar Niten (Halte 2),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-pathuk-2eb8737e,bus,Pasar Pathuk,pasar pathuk,,Pasar Pathuk | Portabel Pasar Pathuk,matched_exact,6a8a8a110d6732db988bfe24,110.36181950219066,-7.7960169118630205,2026-08-23T05:50:09.201Z,2,2026-09-12
+bus-pasar-pathuk-yogyakarta-92bcefb1,bus,Portabel Pasar Pathuk Yogyakarta,pasar pathuk yogyakarta,,Portabel Pasar Pathuk Yogyakarta,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-pingit-n-b419e949,bus,Pasar Pingit (U),pasar pingit,N,Pasar Pingit (U) | Pasar Pingit (Utara),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-pingit-s-ef51f110,bus,Pasar Pingit (Selatan),pasar pingit,S,Pasar Pingit (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-sentul-s-84478365,bus,Pasar Sentul (Selatan),pasar sentul,S,Pasar Sentul (Selatan),unmatched,,,,,0,2026-09-12
+bus-pasar-sepeda-tunjungsari-c4695341,bus,TPB Pasar Sepeda Tunjungsari,pasar sepeda tunjungsari,,TPB Pasar Sepeda Tunjungsari,unmatched,,,,,0,2026-09-12
+bus-pasar-serangan-0fab18f3,bus,TPB Pasar Serangan,pasar serangan,,TPB Pasar Serangan,review_fuzzy,,,,,0,2026-09-12
+bus-pasar-serangan-s-be7dc238,bus,Pasar Serangan (S),pasar serangan,S,Pasar Serangan (S),review_fuzzy,,,,,0,2026-09-12
+bus-pasar-stan-3701dec0,bus,Pasar Stan,pasar stan,,Pasar Stan,unmatched,,,,,0,2026-09-12
+bus-pasar-telo-1-a1824672,bus,TPB Pasar Telo 1,pasar telo 1,,TPB Pasar Telo 1,unmatched,,,,,0,2026-09-12
+bus-pasar-telo-2-124ef082,bus,TPB Pasar Telo 2,pasar telo 2,,TPB Pasar Telo 2,unmatched,,,,,0,2026-09-12
+bus-pasar-tlogorejo-2-43254f03,bus,Pasar Tlogorejo 2,pasar tlogorejo 2,,Pasar Tlogorejo 2,unmatched,,,,,0,2026-09-12
+bus-pasar-tlogorejo-a9a5b6ae,bus,Pasar Tlogorejo,pasar tlogorejo,,Pasar Tlogorejo,unmatched,,,,,0,2026-09-12
+bus-pasar-tlogorejo-n-f99b5a4c,bus,Pasar Tlogorejo (U),pasar tlogorejo,N,Pasar Tlogorejo (U),unmatched,,,,,0,2026-09-12
+bus-pasar-tlogorejo-s-60c6acc1,bus,Pasar Tlogorejo (S),pasar tlogorejo,S,Pasar Tlogorejo (S),unmatched,,,,,0,2026-09-12
+bus-pasty-a2ad35ef,bus,TPB Pasty,pasty,,TPB Pasty,review_fuzzy,,,,,0,2026-09-12
+bus-pdam-monjali-d9f381ae,bus,PDAM Monjali,pdam monjali,,PDAM Monjali,review_fuzzy,,,,,0,2026-09-12
+bus-pdam-monjali-w-de8c4f3e,bus,PDAM Monjali (Barat),pdam monjali,W,PDAM Monjali (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-pdin-c-simanjuntak-ab3e4ee7,bus,Halte PDIN C Simanjuntak,pdin c simanjuntak,,Halte PDIN C Simanjuntak,unmatched,,,,,0,2026-09-12
+bus-pegadaian-edf98ce4,bus,TPB Pegadaian,pegadaian,,TPB Pegadaian,unmatched,,,,,0,2026-09-12
+bus-pelem-gurih-b79f91fc,bus,TPB Pelem Gurih,pelem gurih,,TPB Pelem Gurih,unmatched,,,,,0,2026-09-12
+bus-perumahan-nogotirto-01efa425,bus,Perumahan Nogotirto,perumahan nogotirto,,Perumahan Nogotirto,matched_exact,6a8d2d6deca288692ef38ec7,110.33618856231715,-7.763668578125316,2026-08-25T05:51:41.604Z,1,2026-09-12
+bus-pilar-1-gedong-kuning-kota-31b75629,bus,TPB Pilar 1 Gedong Kuning Kota,pilar 1 gedong kuning kota,,TPB Pilar 1 Gedong Kuning Kota,unmatched,,,,,0,2026-09-12
+bus-pku-gamping-0fdc4be0,bus,PKU Gamping,pku gamping,,PKU Gamping,matched_exact,6a8aa9d50d6732db988c3145,110.31675772304908,-7.8019053630189745,2026-08-23T08:05:41.379Z,1,2026-09-12
+bus-plaza-uny-9f5e7dd7,bus,Plaza UNY,plaza uny,,Plaza UNY,matched_exact,6a8e9ac146690fc6c68da2e3,110.38906775739389,-7.775019362075398,2026-08-26T07:50:25.686Z,1,2026-09-12
+bus-plaza-uny-w-812d2136,bus,Plaza UNY (B),plaza uny,W,Plaza UNY (B),review_fuzzy,,,,,0,2026-09-12
+bus-pln-gardu-induk-kentungan-ccdb7caf,bus,PLN Gardu Induk Kentungan,pln gardu induk kentungan,,PLN Gardu Induk Kentungan,unmatched,,,,,0,2026-09-12
+bus-polsek-depok-timur-74b977a6,bus,TPB Polsek Depok Timur,polsek depok timur,,TPB Polsek Depok Timur,unmatched,,,,,0,2026-09-12
+bus-polsek-godean-n-3c7bcc85,bus,Polsek Godean (U),polsek godean,N,Polsek Godean (U),unmatched,,,,,0,2026-09-12
+bus-polsek-godean-s-0104f8d4,bus,Polsek Godean (S),polsek godean,S,Polsek Godean (S),unmatched,,,,,0,2026-09-12
+bus-poltekkes-bsi-a1e35c13,bus,TPB Poltekkes BSI,poltekkes bsi,,TPB Poltekkes BSI,unmatched,,,,,0,2026-09-12
+bus-ponpes-hamatul-quran-0542f85d,bus,TPB Ponpes Hamatul Quran,ponpes hamatul quran,,TPB Ponpes Hamatul Quran,unmatched,,,,,0,2026-09-12
+bus-prayan-e-d22ce9c8,bus,Prayan (T),prayan,E,Prayan (T) | Prayan (Timur) | Halte Prayan (Timur),unmatched,,,,,0,2026-09-12
+bus-prayan-w-756ecdc4,bus,Prayan (B),prayan,W,Prayan (B) | Prayan (Barat) | Halte Prayan (Barat),unmatched,,,,,0,2026-09-12
+bus-progo-e27cb7fc,bus,Progo,progo,,Progo | Halte Progo,unmatched,,,,,0,2026-09-12
+bus-psky-255eae47,bus,Halte PSKY,psky,,Halte PSKY,unmatched,,,,,0,2026-09-12
+bus-purawisata-39337894,bus,TPB Purawisata,purawisata,,TPB Purawisata,unmatched,,,,,0,2026-09-12
+bus-pusat-kuliner-belut-godean-7bc5eef1,bus,Pusat Kuliner Belut Godean,pusat kuliner belut godean,,Pusat Kuliner Belut Godean,unmatched,,,,,0,2026-09-12
+bus-pusat-rehabilitasi-yakkum-c69b76c2,bus,Pusat Rehabilitasi YAKKUM,pusat rehabilitasi yakkum,,Pusat Rehabilitasi YAKKUM,unmatched,,,,,0,2026-09-12
+bus-pusat-rehabilitasi-yakkum-halte-2-8dc4e258,bus,Pusat Rehabilitasi YAKKUM (Halte 2),pusat rehabilitasi yakkum halte 2,,Pusat Rehabilitasi YAKKUM (Halte 2),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngaglik-1-halte-2-356048c0,bus,Puskesmas Ngaglik 1 (Halte 2),puskesmas ngaglik 1 halte 2,,Puskesmas Ngaglik 1 (Halte 2),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngaglik-e-30242ad9,bus,Puskesmas Ngaglik (T),puskesmas ngaglik,E,Puskesmas Ngaglik (T),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngaglik-i-ac4d2b11,bus,Puskesmas Ngaglik I,puskesmas ngaglik i,,Puskesmas Ngaglik I,unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngaglik-w-6d1129d1,bus,Puskesmas Ngaglik (B),puskesmas ngaglik,W,Puskesmas Ngaglik (B),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngemplak-2-145b1653,bus,Puskesmas Ngemplak 2,puskesmas ngemplak 2,,Puskesmas Ngemplak 2,unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngemplak-2-halte-2-baf9532f,bus,Puskesmas Ngemplak 2 (Halte 2),puskesmas ngemplak 2 halte 2,,Puskesmas Ngemplak 2 (Halte 2),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngemplak-n-e2f0f0c6,bus,Puskesmas Ngemplak (U),puskesmas ngemplak,N,Puskesmas Ngemplak (U),unmatched,,,,,0,2026-09-12
+bus-puskesmas-ngemplak-s-a008b614,bus,Puskesmas Ngemplak (S),puskesmas ngemplak,S,Puskesmas Ngemplak (S),unmatched,,,,,0,2026-09-12
+bus-raminten-boutique-cafe-ea7b41ba,bus,Raminten Boutique & Cafe,raminten boutique cafe,,Raminten Boutique & Cafe,unmatched,,,,,0,2026-09-12
+bus-raminten-boutique-cafe-halte-2-0e5ed010,bus,Raminten Boutique & Cafe (Halte 2),raminten boutique cafe halte 2,,Raminten Boutique & Cafe (Halte 2),unmatched,,,,,0,2026-09-12
+bus-raminten-e-eb1b3bbb,bus,Raminten (T),raminten,E,Raminten (T),unmatched,,,,,0,2026-09-12
+bus-raminten-w-04c634dd,bus,Raminten (B),raminten,W,Raminten (B),unmatched,,,,,0,2026-09-12
+bus-randubelang-e-f45783e6,bus,Randubelang (Timur),randubelang,E,Randubelang (Timur),unmatched,,,,,0,2026-09-12
+bus-randubelang-w-52dbb8d9,bus,Randubelang (Barat),randubelang,W,Randubelang (Barat),unmatched,,,,,0,2026-09-12
+bus-raya-kabunan-3b027ee4,bus,Halte Raya Kabunan,raya kabunan,,Halte Raya Kabunan,unmatched,,,,,0,2026-09-12
+bus-re-martadinata-51558c5d,bus,TPB RE Martadinata,re martadinata,,TPB RE Martadinata,unmatched,,,,,0,2026-09-12
+bus-rri-gejayan-5325a510,bus,RRI Gejayan,rri gejayan,,RRI Gejayan,matched_exact,6a8e9da652d86e03b51b5faa,110.38832712418196,-7.779318853852615,2026-08-26T08:02:46.495Z,1,2026-09-12
+bus-rru-binamarga-74dcd5b9,bus,Halte TJ RRU (Binamarga),rru binamarga,,Halte TJ RRU (Binamarga),unmatched,,,,,0,2026-09-12
+bus-rru-disnaker-eeaaa2dd,bus,TJ RRU Disnaker,rru disnaker,,TJ RRU Disnaker,unmatched,,,,,0,2026-09-12
+bus-rru-instiper-1-baca4daa,bus,TPB RRU Instiper 1,rru instiper 1,,TPB RRU Instiper 1,unmatched,,,,,0,2026-09-12
+bus-rru-instiper-2-ea07186b,bus,Halte RRU Instiper 2,rru instiper 2,,Halte RRU Instiper 2,unmatched,,,,,0,2026-09-12
+bus-rru-kentungan-132fb3e0,bus,Halte TJ RRU Kentungan,rru kentungan,,Halte TJ RRU Kentungan,matched_exact,6a8edc3b52d86e03b51b9e7e,110.38472856675907,-7.756059639836536,2026-08-26T12:29:47.965Z,1,2026-09-12
+bus-rru-manggung-53668e66,bus,TPB RRU Manggung,rru manggung,,TPB RRU Manggung,review_fuzzy,,,,,0,2026-09-12
+bus-rs-bethesda-634b544c,bus,Halte RS Bethesda,rs bethesda,,Halte RS Bethesda,matched_exact,6a82a6e438bb192425f4b896,110.37788045948008,-7.783092673752378,2026-08-17T06:15:00.246Z,1,2026-09-12
+bus-rs-bhayangkara-c2217522,bus,RS Bhayangkara,rs bhayangkara,,RS Bhayangkara | TPB Rs. Bhayangkara,review_fuzzy,,,,,0,2026-09-12
+bus-rs-dr-s-hardjolukito-f33f9e2c,bus,Halte RS dr.S.HARDJOLUKITO,rs dr s hardjolukito,,Halte RS dr.S.HARDJOLUKITO,unmatched,,,,,0,2026-09-12
+bus-rs-hardjolukito-9e48d6f4,bus,RS Hardjolukito,rs hardjolukito,,RS Hardjolukito,unmatched,,,,,0,2026-09-12
+bus-rs-kemasan-b3d3f265,bus,RS Kemasan,rs kemasan,,RS Kemasan,unmatched,,,,,0,2026-09-12
+bus-rs-kemasan-e-e928a0fb,bus,RS Kemasan (T),rs kemasan,E,RS Kemasan (T),unmatched,,,,,0,2026-09-12
+bus-rs-kemasan-halte-2-d40e54c3,bus,RS Kemasan (Halte 2),rs kemasan halte 2,,RS Kemasan (Halte 2),unmatched,,,,,0,2026-09-12
+bus-rs-kemasan-w-62b71712,bus,RS Kemasan (B),rs kemasan,W,RS Kemasan (B),unmatched,,,,,0,2026-09-12
+bus-rs-panti-nugroho-5e1208a0,bus,RS Panti Nugroho,rs panti nugroho,,RS Panti Nugroho,review_fuzzy,,,,,0,2026-09-12
+bus-rs-panti-nugroho-w-d4c819de,bus,RS Panti Nugroho (B),rs panti nugroho,W,RS Panti Nugroho (B),review_fuzzy,,,,,0,2026-09-12
+bus-rs-panti-rapih-s-d7666844,bus,RS Panti Rapih (S),rs panti rapih,S,RS Panti Rapih (S),review_fuzzy,,,,,0,2026-09-12
+bus-rs-queen-latifa-f8657100,bus,RS Queen Latifa,rs queen latifa,,RS Queen Latifa,unmatched,,,,,0,2026-09-12
+bus-rs-sardjito-e-a2691dbb,bus,RS Sardjito (T),rs sardjito,E,RS Sardjito (T) | Halte RS Sardjito (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-rs-sardjito-w-0ad8bcca,bus,RS Sardjito (B),rs sardjito,W,RS Sardjito (B) | Halte RS Sardjito (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-rsi-hidayatullah-f2e5ddcc,bus,Halte Rsi Hidayatullah,rsi hidayatullah,,Halte Rsi Hidayatullah,unmatched,,,,,0,2026-09-12
+bus-rsu-gramedika-2-cb945382,bus,RSU Gramedika 2,rsu gramedika 2,,RSU Gramedika 2,unmatched,,,,,0,2026-09-12
+bus-rsu-gramedika-268ded80,bus,RSU Gramedika,rsu gramedika,,RSU Gramedika,unmatched,,,,,0,2026-09-12
+bus-rsu-gramedika-n-bf416e83,bus,RSU Gramedika (U),rsu gramedika,N,RSU Gramedika (U),unmatched,,,,,0,2026-09-12
+bus-rsu-gramedika-s-d662374f,bus,RSU Gramedika (S),rsu gramedika,S,RSU Gramedika (S),unmatched,,,,,0,2026-09-12
+bus-ruba-graha-1-1f748207,bus,TPB Ruba Graha 1,ruba graha 1,,TPB Ruba Graha 1,unmatched,,,,,0,2026-09-12
+bus-ruba-graha-2-31bc4852,bus,TPB Ruba Graha 2,ruba graha 2,,TPB Ruba Graha 2,unmatched,,,,,0,2026-09-12
+bus-ruko-babarsari-3ba71551,bus,TPB Ruko Babarsari,ruko babarsari,,TPB Ruko Babarsari,unmatched,,,,,0,2026-09-12
+bus-ruko-bayeman-1-0f4e80e5,bus,TPB Ruko Bayeman 1,ruko bayeman 1,,TPB Ruko Bayeman 1,unmatched,,,,,0,2026-09-12
+bus-ruko-bayeman-2-23c4a9d2,bus,TPB Ruko Bayeman 2,ruko bayeman 2,,TPB Ruko Bayeman 2,unmatched,,,,,0,2026-09-12
+bus-salakan-druwo-4c17bc86,bus,Salakan Druwo,salakan druwo,,Salakan Druwo,unmatched,,,,,0,2026-09-12
+bus-samirono-s-21198e04,bus,Samirono (S),samirono,S,Samirono (S),review_fuzzy,,,,,0,2026-09-12
+bus-samsat-4b659405,bus,Halte Samsat,samsat,,Halte Samsat,matched_exact,6a8a7c760d6732db988bef49,110.3598252281177,-7.787233112145842,2026-08-23T04:52:06.633Z,1,2026-09-12
+bus-sanata-dharma-25692b3b,bus,Halte Sanata Dharma,sanata dharma,,Halte Sanata Dharma,matched_exact,6a8e970046690fc6c68d9f71,110.38929278399246,-7.775092965334977,2026-08-26T07:34:24.519Z,1,2026-09-12
+bus-sanata-dharma-e-fb763e5c,bus,Sanata Dharma (T),sanata dharma,E,Sanata Dharma (T),review_fuzzy,,,,,0,2026-09-12
+bus-santren-1292f082,bus,Santren,santren,,Santren | Halte Santren,review_fuzzy,,,,,0,2026-09-12
+bus-santren-w-d0361cb1,bus,Santren (B),santren,W,Santren (B),review_fuzzy,,,,,0,2026-09-12
+bus-saudagaran-cf7f3da6,bus,Halte Saudagaran,saudagaran,,Halte Saudagaran,matched_exact,6a8d4dbb52d86e03b51aa8ae,110.35353826170126,-7.792417567752096,2026-08-25T08:09:31.004Z,1,2026-09-12
+bus-sd-n-1-depok-4283089a,bus,SD N 1 Depok,sd n 1 depok,,SD N 1 Depok,unmatched,,,,,0,2026-09-12
+bus-sd-n-percobaan-3-pakem-6d3873f6,bus,SD N Percobaan 3 Pakem,sd n percobaan 3 pakem,,SD N Percobaan 3 Pakem,unmatched,,,,,0,2026-09-12
+bus-sd-negeri-selomulyo-halte-2-e4b1ce33,bus,SD Negeri Selomulyo (Halte 2),sd negeri selomulyo halte 2,,SD Negeri Selomulyo (Halte 2),unmatched,,,,,0,2026-09-12
+bus-sd-unggulan-aisyiyah-1-66442619,bus,SD Unggulan Aisyiyah 1,sd unggulan aisyiyah 1,,SD Unggulan Aisyiyah 1,review_fuzzy,,,,,0,2026-09-12
+bus-sd-unggulan-aisyiyah-2-873ecdff,bus,SD Unggulan Aisyiyah 2,sd unggulan aisyiyah 2,,SD Unggulan Aisyiyah 2,review_fuzzy,,,,,0,2026-09-12
+bus-sdn-1-demak-ijo-2-4199d9d2,bus,SDN 1 Demak Ijo 2,sdn 1 demak ijo 2,,SDN 1 Demak Ijo 2,unmatched,,,,,0,2026-09-12
+bus-sdn-1-demak-ijo-c2c3b953,bus,SDN 1 Demak Ijo,sdn 1 demak ijo,,SDN 1 Demak Ijo,unmatched,,,,,0,2026-09-12
+bus-sdn-1-demak-ijo-n-6c5c9e34,bus,SDN 1 Demak Ijo (U),sdn 1 demak ijo,N,SDN 1 Demak Ijo (U),unmatched,,,,,0,2026-09-12
+bus-sdn-1-demak-ijo-s-62cb8e60,bus,SDN 1 Demak Ijo (S),sdn 1 demak ijo,S,SDN 1 Demak Ijo (S),unmatched,,,,,0,2026-09-12
+bus-sdn-1-depok-e-a96ed8de,bus,SDN 1 Depok (T),sdn 1 depok,E,SDN 1 Depok (T),unmatched,,,,,0,2026-09-12
+bus-sdn-1-depok-w-0e6bec37,bus,SDN 1 Depok (B),sdn 1 depok,W,SDN 1 Depok (B),unmatched,,,,,0,2026-09-12
+bus-sdn-gedong-tengen-fb792715,bus,SDN Gedong Tengen,sdn gedong tengen,,SDN Gedong Tengen,unmatched,,,,,0,2026-09-12
+bus-sdn-kintelan-e54b7bb2,bus,SDN Kintelan,sdn kintelan,,SDN Kintelan,unmatched,,,,,0,2026-09-12
+bus-sdn-percobaan-3-pakem-cdf97104,bus,SDN Percobaan 3 Pakem,sdn percobaan 3 pakem,,SDN Percobaan 3 Pakem,unmatched,,,,,0,2026-09-12
+bus-sdn-percobaan-3-pakem-e-591b75a7,bus,SDN Percobaan 3 Pakem (T),sdn percobaan 3 pakem,E,SDN Percobaan 3 Pakem (T),unmatched,,,,,0,2026-09-12
+bus-sdn-selomulyo-b39b4b23,bus,SDN Selomulyo,sdn selomulyo,,SDN Selomulyo,unmatched,,,,,0,2026-09-12
+bus-sdn-selomulyo-n-4159e337,bus,SDN Selomulyo (U),sdn selomulyo,N,SDN Selomulyo (U),unmatched,,,,,0,2026-09-12
+bus-sdn-selomulyo-s-70488509,bus,SDN Selomulyo (S),sdn selomulyo,S,SDN Selomulyo (S),unmatched,,,,,0,2026-09-12
+bus-selokan-mataram-maguwo-6164f755,bus,Selokan Mataram Maguwo,selokan mataram maguwo,,Selokan Mataram Maguwo,unmatched,,,,,0,2026-09-12
+bus-senopati-6e9010fe,bus,Senopati,senopati,,Senopati,matched_exact,6a86b6920235f477d358d80f,110.36696624452418,-7.801559756808792,2026-08-20T08:10:58.582Z,1,2026-09-12
+bus-sgm-kusumanegara-n-ff7fc910,bus,SGM Kusumanegara (Utara),sgm kusumanegara,N,SGM Kusumanegara (Utara),unmatched,,,,,0,2026-09-12
+bus-sgm-kusumanegara-s-c3683ba7,bus,SGM Kusumanegara (Selatan),sgm kusumanegara,S,SGM Kusumanegara (Selatan) | Halte SGM Kusumanegara (Selatan),unmatched,,,,,0,2026-09-12
+bus-simpang-babadan-2-e5b06fc4,bus,Simpang Babadan 2,simpang babadan 2,,Simpang Babadan 2,unmatched,,,,,0,2026-09-12
+bus-simpang-babadan-c39aa2ae,bus,Simpang Babadan,simpang babadan,,Simpang Babadan,unmatched,,,,,0,2026-09-12
+bus-simpang-babadan-e-3395a15a,bus,Simpang Babadan (T),simpang babadan,E,Simpang Babadan (T),unmatched,,,,,0,2026-09-12
+bus-simpang-babadan-w-27e9420a,bus,Simpang Babadan (B),simpang babadan,W,Simpang Babadan (B),unmatched,,,,,0,2026-09-12
+bus-simpang-bantulan-n-a468e92b,bus,Simpang Bantulan (U),simpang bantulan,N,Simpang Bantulan (U),unmatched,,,,,0,2026-09-12
+bus-simpang-bantulan-s-6078c446,bus,Simpang Bantulan (S),simpang bantulan,S,Simpang Bantulan (S),unmatched,,,,,0,2026-09-12
+bus-simpang-besi-jakal-e-f8dc4eec,bus,Simpang Besi Jakal (T),simpang besi jakal,E,Simpang Besi Jakal (T),unmatched,,,,,0,2026-09-12
+bus-simpang-besi-jakal-w-586c481c,bus,Simpang Besi Jakal (B),simpang besi jakal,W,Simpang Besi Jakal (B),unmatched,,,,,0,2026-09-12
+bus-simpang-besi-jangkang-2-3ce47645,bus,Simpang Besi Jangkang 2,simpang besi jangkang 2,,Simpang Besi Jangkang 2,unmatched,,,,,0,2026-09-12
+bus-simpang-besi-jangkang-4d0a717a,bus,Simpang Besi Jangkang,simpang besi jangkang,,Simpang Besi Jangkang,unmatched,,,,,0,2026-09-12
+bus-simpang-degolan-e-2f99e19e,bus,Simpang Degolan (T),simpang degolan,E,Simpang Degolan (T),unmatched,,,,,0,2026-09-12
+bus-simpang-degolan-w-7a0abd76,bus,Simpang Degolan (B),simpang degolan,W,Simpang Degolan (B),unmatched,,,,,0,2026-09-12
+bus-simpang-demak-ijo-d6a576b5,bus,Portabel Simpang Demak Ijo,simpang demak ijo,,Portabel Simpang Demak Ijo,unmatched,,,,,0,2026-09-12
+bus-simpang-diklat-diy-4f84a321,bus,TPB Simpang Diklat DIY,simpang diklat diy,,TPB Simpang Diklat DIY,review_fuzzy,,,,,0,2026-09-12
+bus-simpang-dogolan-2-b22541ba,bus,Simpang Dogolan 2,simpang dogolan 2,,Simpang Dogolan 2,unmatched,,,,,0,2026-09-12
+bus-simpang-dogolan-dab8862a,bus,Simpang Dogolan,simpang dogolan,,Simpang Dogolan,unmatched,,,,,0,2026-09-12
+bus-simpang-dongkelan-d0234b3a,bus,Simpang Dongkelan,simpang dongkelan,,Simpang Dongkelan,unmatched,,,,,0,2026-09-12
+bus-simpang-dongkelan-halte-2-40d99d82,bus,Simpang Dongkelan (Halte 2),simpang dongkelan halte 2,,Simpang Dongkelan (Halte 2),unmatched,,,,,0,2026-09-12
+bus-simpang-gesikan-2-fc161a14,bus,Simpang Gesikan 2,simpang gesikan 2,,Simpang Gesikan 2,unmatched,,,,,0,2026-09-12
+bus-simpang-gesikan-3cb84e29,bus,Simpang Gesikan,simpang gesikan,,Simpang Gesikan,unmatched,,,,,0,2026-09-12
+bus-simpang-gesikan-n-5f50bca2,bus,Simpang Gesikan (U),simpang gesikan,N,Simpang Gesikan (U),unmatched,,,,,0,2026-09-12
+bus-simpang-gesikan-s-97fee7b8,bus,Simpang Gesikan (S),simpang gesikan,S,Simpang Gesikan (S),unmatched,,,,,0,2026-09-12
+bus-simpang-godean-nogotirto-1b7226f0,bus,Simpang Godean Nogotirto,simpang godean nogotirto,,Simpang Godean Nogotirto,unmatched,,,,,0,2026-09-12
+bus-simpang-gose-halte-1-986d3737,bus,Simpang Gose (Halte 1),simpang gose halte 1,,Simpang Gose (Halte 1),review_fuzzy,,,,,0,2026-09-12
+bus-simpang-gose-halte-2-9d1af7ff,bus,Simpang Gose (Halte 2),simpang gose halte 2,,Simpang Gose (Halte 2),review_fuzzy,,,,,0,2026-09-12
+bus-simpang-kabunan-9d1322f0,bus,Simpang Kabunan,simpang kabunan,,Simpang Kabunan,unmatched,,,,,0,2026-09-12
+bus-simpang-kabunan-halte-2-36d11693,bus,Simpang Kabunan (Halte 2),simpang kabunan halte 2,,Simpang Kabunan (Halte 2),unmatched,,,,,0,2026-09-12
+bus-simpang-kabunan-n-7a88e0fe,bus,Simpang Kabunan (U),simpang kabunan,N,Simpang Kabunan (U),unmatched,,,,,0,2026-09-12
+bus-simpang-kasongan-e0220233,bus,Simpang Kasongan,simpang kasongan,,Simpang Kasongan,review_fuzzy,,,,,0,2026-09-12
+bus-simpang-kasongan-halte-2-57f682a0,bus,Simpang Kasongan (Halte 2),simpang kasongan halte 2,,Simpang Kasongan (Halte 2),review_fuzzy,,,,,0,2026-09-12
+bus-simpang-kenti-e-7adc0592,bus,Simpang Kenti (T),simpang kenti,E,Simpang Kenti (T),unmatched,,,,,0,2026-09-12
+bus-simpang-kenti-w-9f31bb58,bus,Simpang Kenti (B),simpang kenti,W,Simpang Kenti (B),unmatched,,,,,0,2026-09-12
+bus-simpang-losari-cozy-51845a25,bus,Simpang Losari (Cozy),simpang losari cozy,,Simpang Losari (Cozy),unmatched,,,,,0,2026-09-12
+bus-simpang-losari-n-66931fad,bus,Simpang Losari (U),simpang losari,N,Simpang Losari (U),unmatched,,,,,0,2026-09-12
+bus-simpang-losari-s-6d79dc16,bus,Simpang Losari (S),simpang losari,S,Simpang Losari (S),unmatched,,,,,0,2026-09-12
+bus-simpang-mandungan-iwak-kalen-2-e86f2aa4,bus,Simpang Mandungan (Iwak Kalen) 2,simpang mandungan iwak kalen 2,,Simpang Mandungan (Iwak Kalen) 2,unmatched,,,,,0,2026-09-12
+bus-simpang-mandungan-iwak-kalen-9f9a83fc,bus,Simpang Mandungan (Iwak Kalen),simpang mandungan iwak kalen,,Simpang Mandungan (Iwak Kalen),unmatched,,,,,0,2026-09-12
+bus-simpang-mandungan-n-8202f0dc,bus,Simpang Mandungan (U),simpang mandungan,N,Simpang Mandungan (U),unmatched,,,,,0,2026-09-12
+bus-simpang-mandungan-s-47f3abcf,bus,Simpang Mandungan (S),simpang mandungan,S,Simpang Mandungan (S),unmatched,,,,,0,2026-09-12
+bus-simpang-munggur-94a899fe,bus,Simpang Munggur,simpang munggur,,Simpang Munggur,unmatched,,,,,0,2026-09-12
+bus-simpang-munggur-n-d001f974,bus,Simpang Munggur (U),simpang munggur,N,Simpang Munggur (U),unmatched,,,,,0,2026-09-12
+bus-simpang-munggur-s-cd527d2a,bus,Simpang Munggur (S),simpang munggur,S,Simpang Munggur (S),unmatched,,,,,0,2026-09-12
+bus-simpang-munggur-sidomoyo-153bef9c,bus,Simpang Munggur Sidomoyo,simpang munggur sidomoyo,,Simpang Munggur Sidomoyo,unmatched,,,,,0,2026-09-12
+bus-simpang-nogotirto-a8516abc,bus,Halte Simpang Nogotirto,simpang nogotirto,,Halte Simpang Nogotirto,unmatched,,,,,0,2026-09-12
+bus-simpang-palem-raya-e-c72c93bc,bus,Simpang Palem Raya (T),simpang palem raya,E,Simpang Palem Raya (T) | Simpang Palem Raya (Timur),unmatched,,,,,0,2026-09-12
+bus-simpang-palem-raya-w-c647ecce,bus,Simpang Palem Raya (B),simpang palem raya,W,Simpang Palem Raya (B),unmatched,,,,,0,2026-09-12
+bus-simpang-pasar-jangkang-6b931381,bus,Simpang Pasar Jangkang,simpang pasar jangkang,,Simpang Pasar Jangkang,unmatched,,,,,0,2026-09-12
+bus-simpang-pasar-jangkang-halte-2-b656e0eb,bus,Simpang Pasar Jangkang (Halte 2),simpang pasar jangkang halte 2,,Simpang Pasar Jangkang (Halte 2),unmatched,,,,,0,2026-09-12
+bus-simpang-polsek-godean-2-a9bcfcc0,bus,Simpang Polsek Godean 2,simpang polsek godean 2,,Simpang Polsek Godean 2,unmatched,,,,,0,2026-09-12
+bus-simpang-polsek-godean-e69bfb23,bus,Simpang Polsek Godean,simpang polsek godean,,Simpang Polsek Godean,unmatched,,,,,0,2026-09-12
+bus-simpang-selomartani-2-71176374,bus,Simpang Selomartani 2,simpang selomartani 2,,Simpang Selomartani 2,unmatched,,,,,0,2026-09-12
+bus-simpang-selomartani-884b05f3,bus,Simpang Selomartani,simpang selomartani,,Simpang Selomartani,unmatched,,,,,0,2026-09-12
+bus-simpang-selomartani-n-8a80108b,bus,Simpang Selomartani (U),simpang selomartani,N,Simpang Selomartani (U),unmatched,,,,,0,2026-09-12
+bus-simpang-wojo-1-45f7fc67,bus,TPB Simpang Wojo 1,simpang wojo 1,,TPB Simpang Wojo 1,review_fuzzy,,,,,0,2026-09-12
+bus-sma-1-yogyakarta-a1494736,bus,Halte SMA 1 Yogyakarta,sma 1 yogyakarta,,Halte SMA 1 Yogyakarta,review_fuzzy,,,,,0,2026-09-12
+bus-sma-5-7ee38138,bus,TPB SMA 5,sma 5,,TPB SMA 5,unmatched,,,,,0,2026-09-12
+bus-sma-budi-mulia-dua-4466124f,bus,SMA Budi Mulia Dua,sma budi mulia dua,,SMA Budi Mulia Dua,unmatched,,,,,0,2026-09-12
+bus-sma-budi-mulia-dua-halte-2-a875f96a,bus,SMA Budi Mulia Dua (Halte 2),sma budi mulia dua halte 2,,SMA Budi Mulia Dua (Halte 2),unmatched,,,,,0,2026-09-12
+bus-sma-muhammadiyah-3-6d7172c5,bus,SMA Muhammadiyah 3,sma muhammadiyah 3,,SMA Muhammadiyah 3,unmatched,,,,,0,2026-09-12
+bus-sma-n-1-bantul-2-5de4317a,bus,Halte SMA N 1 Bantul 2,sma n 1 bantul 2,,Halte SMA N 1 Bantul 2,review_fuzzy,,,,,0,2026-09-12
+bus-sma-n-1-bantul-i-bd617eae,bus,SMA N 1 Bantul I,sma n 1 bantul i,,SMA N 1 Bantul I,review_fuzzy,,,,,0,2026-09-12
+bus-sma-negeri-2-ngaglik-9e9eeab5,bus,SMA Negeri 2 Ngaglik,sma negeri 2 ngaglik,,SMA Negeri 2 Ngaglik,unmatched,,,,,0,2026-09-12
+bus-sma-negeri-2-ngaglik-halte-2-da0e0964,bus,SMA Negeri 2 Ngaglik (Halte 2),sma negeri 2 ngaglik halte 2,,SMA Negeri 2 Ngaglik (Halte 2),unmatched,,,,,0,2026-09-12
+bus-sman-1-kasihan-e-713cf506,bus,SMAN 1 Kasihan (Timur),sman 1 kasihan,E,SMAN 1 Kasihan (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-sman-1-kasihan-w-23845f53,bus,SMAN 1 Kasihan (Barat),sman 1 kasihan,W,SMAN 1 Kasihan (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-sman-1-w-f37b3466,bus,SMAN 1 (B),sman 1,W,SMAN 1 (B),review_fuzzy,,,,,0,2026-09-12
+bus-sman-2-ngaglik-n-2e4cef65,bus,SMAN 2 Ngaglik (U),sman 2 ngaglik,N,SMAN 2 Ngaglik (U),unmatched,,,,,0,2026-09-12
+bus-sman-2-ngaglik-s-a47bf6f9,bus,SMAN 2 Ngaglik (S),sman 2 ngaglik,S,SMAN 2 Ngaglik (S),unmatched,,,,,0,2026-09-12
+bus-smk-n-3-b9368922,bus,SMK N 3,smk n 3,,SMK N 3,review_fuzzy,,,,,0,2026-09-12
+bus-smk-n-5-n-5d2e3d5f,bus,SMK N 5 (Utara),smk n 5,N,SMK N 5 (Utara),unmatched,,,,,0,2026-09-12
+bus-smk-n-5-s-0d099053,bus,SMK N 5 (Selatan),smk n 5,S,SMK N 5 (Selatan),unmatched,,,,,0,2026-09-12
+bus-smk-seni-1-4ee60558,bus,TPB SMK Seni 1,smk seni 1,,TPB SMK Seni 1,review_fuzzy,,,,,0,2026-09-12
+bus-smk-seni-2-88816be2,bus,TPB SMK Seni 2,smk seni 2,,TPB SMK Seni 2,review_fuzzy,,,,,0,2026-09-12
+bus-smk-tajem-ringroad-utara-5c71b7ff,bus,TPB SMK Tajem Ringroad Utara,smk tajem ringroad utara,,TPB SMK Tajem Ringroad Utara,unmatched,,,,,0,2026-09-12
+bus-smkn-1-depok-16f4e579,bus,SMKN 1 Depok,smkn 1 depok,,SMKN 1 Depok,unmatched,,,,,0,2026-09-12
+bus-smkn-1-depok-e-34fb5c69,bus,SMKN 1 Depok (T),smkn 1 depok,E,SMKN 1 Depok (T),unmatched,,,,,0,2026-09-12
+bus-smkn-1-depok-halte-2-25f1181b,bus,SMKN 1 Depok (Halte 2),smkn 1 depok halte 2,,SMKN 1 Depok (Halte 2),unmatched,,,,,0,2026-09-12
+bus-smkn-1-depok-w-346d033d,bus,SMKN 1 Depok (B),smkn 1 depok,W,SMKN 1 Depok (B),unmatched,,,,,0,2026-09-12
+bus-smp-3-gamping-6fb14f1c,bus,SMP 3 Gamping,smp 3 gamping,,SMP 3 Gamping,unmatched,,,,,0,2026-09-12
+bus-smp-9-basen-5068183c,bus,TPB SMP 9 Basen,smp 9 basen,,TPB SMP 9 Basen,unmatched,,,,,0,2026-09-12
+bus-smp-9-kota-a0cfd8bc,bus,TPB SMP 9 Kota,smp 9 kota,,TPB SMP 9 Kota,unmatched,,,,,0,2026-09-12
+bus-smp-kanisius-gayam-e-3c37e1d9,bus,SMP Kanisius Gayam (Timur),smp kanisius gayam,E,SMP Kanisius Gayam (Timur) | TPB SMP Kanisius Gayam (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-smp-kanisius-gayam-w-ae552fef,bus,SMP Kanisius Gayam (Barat),smp kanisius gayam,W,SMP Kanisius Gayam (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-smp-muhammadiyah-3-8d306de7,bus,SMP Muhammadiyah 3,smp muhammadiyah 3,,SMP Muhammadiyah 3,unmatched,,,,,0,2026-09-12
+bus-smp-n-14-86dc3cfa,bus,Halte SMP N 14,smp n 14,,Halte SMP N 14,matched_exact,6a8ba82fa4262ae1033d0be2,110.3598915994072,-7.786639735892905,2026-08-24T02:10:55.552Z,1,2026-09-12
+bus-smp-n-2-bantul-5cb13e64,bus,Halte SMP N 2 Bantul,smp n 2 bantul,,Halte SMP N 2 Bantul,review_fuzzy,,,,,0,2026-09-12
+bus-smp-n-4-depok-ced1844f,bus,SMP N 4 Depok,smp n 4 depok,,SMP N 4 Depok,unmatched,,,,,0,2026-09-12
+bus-smp-n-6-3c66eb40,bus,SMP N 6,smp n 6,,SMP N 6,review_fuzzy,,,,,0,2026-09-12
+bus-smp-negeri-2-ngaglik-15131f5b,bus,SMP Negeri 2 Ngaglik,smp negeri 2 ngaglik,,SMP Negeri 2 Ngaglik,unmatched,,,,,0,2026-09-12
+bus-smp-negeri-2-ngaglik-e-849e20e5,bus,SMP Negeri 2 Ngaglik (Timur),smp negeri 2 ngaglik,E,SMP Negeri 2 Ngaglik (Timur),unmatched,,,,,0,2026-09-12
+bus-smpn-1-yogyakarta-f7500491,bus,TPB SMPN 1 Yogyakarta,smpn 1 yogyakarta,,TPB SMPN 1 Yogyakarta,matched_exact,6a8d799852d86e03b51acfac,110.37573404625363,-7.777552952341509,2026-08-25T11:16:40.317Z,1,2026-09-12
+bus-smpn-11-aa0a8dda,bus,Halte SMPN 11,smpn 11,,Halte SMPN 11,matched_exact,6a8d4cbc52d86e03b51aa790,110.35336727286722,-7.793053560897515,2026-08-25T08:05:16.163Z,1,2026-09-12
+bus-smpn-11-eks-perpusda-7eb02814,bus,Halte SMPN 11- Eks Perpusda,smpn 11 eks perpusda,,Halte SMPN 11- Eks Perpusda,unmatched,,,,,0,2026-09-12
+bus-smpn-11-w-39ca43b3,bus,SMPN 11 (B),smpn 11,W,SMPN 11 (B),review_fuzzy,,,,,0,2026-09-12
+bus-smpn-14-c41a3ead,bus,SMPN 14,smpn 14,,SMPN 14,review_fuzzy,,,,,0,2026-09-12
+bus-smpn-2-ngaglik-e-896a85b0,bus,SMPN 2 Ngaglik (T),smpn 2 ngaglik,E,SMPN 2 Ngaglik (T),unmatched,,,,,0,2026-09-12
+bus-smpn-2-ngaglik-w-aa32d431,bus,SMPN 2 Ngaglik (B),smpn 2 ngaglik,W,SMPN 2 Ngaglik (B),unmatched,,,,,0,2026-09-12
+bus-smpn-4-pakem-c5d3922a,bus,SMPN 4 Pakem,smpn 4 pakem,,SMPN 4 Pakem,unmatched,,,,,0,2026-09-12
+bus-smpn-4-pakem-e-ca3b6e77,bus,SMPN 4 Pakem (T),smpn 4 pakem,E,SMPN 4 Pakem (T),unmatched,,,,,0,2026-09-12
+bus-solo-sma-de-britto-38b4feb0,bus,Halte TJ Solo (SMA De Britto),solo sma de britto,,Halte TJ Solo (SMA De Britto),unmatched,,,,,0,2026-09-12
+bus-solo-sma-debrito-1edde087,bus,Halte TJ Solo (SMA Debrito),solo sma debrito,,Halte TJ Solo (SMA Debrito),unmatched,,,,,0,2026-09-12
+bus-soragan-1-0aad9df9,bus,Portabel Soragan 1,soragan 1,,Portabel Soragan 1,unmatched,,,,,0,2026-09-12
+bus-soragan-2-49e0e9cb,bus,Portabel Soragan 2,soragan 2,,Portabel Soragan 2,unmatched,,,,,0,2026-09-12
+bus-sorogenen-wirosaban-a0db3a0a,bus,TPB Sorogenen (Wirosaban),sorogenen wirosaban,,TPB Sorogenen (Wirosaban),unmatched,,,,,0,2026-09-12
+bus-sosrowijayan-dcdae1fc,bus,Sosrowijayan,sosrowijayan,,Sosrowijayan,unmatched,,,,,0,2026-09-12
+bus-spbu-concat-e-e9b46f87,bus,SPBU Concat (T),spbu concat,E,SPBU Concat (T),unmatched,,,,,0,2026-09-12
+bus-spbu-concat-w-5ef7d708,bus,SPBU Concat (B),spbu concat,W,SPBU Concat (B),unmatched,,,,,0,2026-09-12
+bus-spbu-condongcatur-e-794333df,bus,SPBU Condongcatur (Timur),spbu condongcatur,E,SPBU Condongcatur (Timur),unmatched,,,,,0,2026-09-12
+bus-spbu-condongcatur-w-a4e66ecc,bus,SPBU Condongcatur (Barat),spbu condongcatur,W,SPBU Condongcatur (Barat),unmatched,,,,,0,2026-09-12
+bus-spbu-jakal-e-21fa9d89,bus,SPBU Jakal (T),spbu jakal,E,SPBU Jakal (T),unmatched,,,,,0,2026-09-12
+bus-spbu-jakal-w-5de81e09,bus,SPBU Jakal (B),spbu jakal,W,SPBU Jakal (B),unmatched,,,,,0,2026-09-12
+bus-spbu-kaliurang-5896c57f,bus,SPBU Kaliurang,spbu kaliurang,,SPBU Kaliurang,unmatched,,,,,0,2026-09-12
+bus-spbu-mindi-2-ce3fb31c,bus,SPBU Mindi 2,spbu mindi 2,,SPBU Mindi 2,unmatched,,,,,0,2026-09-12
+bus-spbu-mindi-6c8960fa,bus,SPBU Mindi,spbu mindi,,SPBU Mindi,unmatched,,,,,0,2026-09-12
+bus-spbu-mindi-n-d1ad7bf8,bus,SPBU Mindi (U),spbu mindi,N,SPBU Mindi (U),unmatched,,,,,0,2026-09-12
+bus-spbu-mindi-s-47802fe3,bus,SPBU Mindi (S),spbu mindi,S,SPBU Mindi (S),unmatched,,,,,0,2026-09-12
+bus-spbu-monjali-e-8ca8e172,bus,SPBU Monjali (Timur),spbu monjali,E,SPBU Monjali (Timur),unmatched,,,,,0,2026-09-12
+bus-spbu-monjali-w-7e90b609,bus,SPBU Monjali (Barat),spbu monjali,W,SPBU Monjali (Barat),unmatched,,,,,0,2026-09-12
+bus-stie-ykpn-e-34a03129,bus,STIE YKPN (Timur),stie ykpn,E,STIE YKPN (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-stie-ykpn-w-baea62ce,bus,STIE YKPN (Barat),stie ykpn,W,STIE YKPN (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-stikes-guna-bangsa-aed05817,bus,Halte Stikes Guna Bangsa,stikes guna bangsa,,Halte Stikes Guna Bangsa,review_fuzzy,,,,,0,2026-09-12
+bus-stsrd-visi-tamansiswa-77a7a21f,bus,STSRD Visi Tamansiswa,stsrd visi tamansiswa,,STSRD Visi Tamansiswa,unmatched,,,,,0,2026-09-12
+bus-sudirman-bumiputera-453f2846,bus,Halte Sudirman Bumiputera,sudirman bumiputera,,Halte Sudirman Bumiputera,matched_exact,6a8ba3eca4262ae1033d0aed,110.36955864583643,-7.782965837983895,2026-08-24T01:52:44.082Z,1,2026-09-12
+bus-sudirman-santika-3b336a7b,bus,Halte Sudirman (Santika),sudirman santika,,Halte Sudirman (Santika),review_fuzzy,,,,,0,2026-09-12
+bus-sugiono-2-940b3592,bus,Halte Sugiono 2,sugiono 2,,Halte Sugiono 2,unmatched,,,,,0,2026-09-12
+bus-superindo-jakal-e-c89a3713,bus,Superindo Jakal (T),superindo jakal,E,Superindo Jakal (T),unmatched,,,,,0,2026-09-12
+bus-superindo-jakal-w-7c86126c,bus,Superindo Jakal (B),superindo jakal,W,Superindo Jakal (B),unmatched,,,,,0,2026-09-12
+bus-superindo-kaliurang-55a294ae,bus,Superindo Kaliurang,superindo kaliurang,,Superindo Kaliurang,unmatched,,,,,0,2026-09-12
+bus-superindo-kaliurang-halte-2-ac22e6e8,bus,Superindo Kaliurang (Halte 2),superindo kaliurang halte 2,,Superindo Kaliurang (Halte 2),unmatched,,,,,0,2026-09-12
+bus-superindo-urip-sumoharjo-9f223797,bus,Halte Superindo Urip Sumoharjo,superindo urip sumoharjo,,Halte Superindo Urip Sumoharjo,review_fuzzy,,,,,0,2026-09-12
+bus-suroto-1-321a9677,bus,TPB Suroto 1,suroto 1,,TPB Suroto 1,unmatched,,,,,0,2026-09-12
+bus-suryodiningratan-e-0ee7519f,bus,Suryodiningratan (Timur),suryodiningratan,E,Suryodiningratan (Timur),unmatched,,,,,0,2026-09-12
+bus-suryodiningratan-w-774bda0f,bus,Suryodiningratan (Barat),suryodiningratan,W,Suryodiningratan (Barat),unmatched,,,,,0,2026-09-12
+bus-suryotomo-9ab084b2,bus,Suryotomo,suryotomo,,Suryotomo,matched_exact,6a86b9d289acf23707a33b42,110.36930165994437,-7.799249914845774,2026-08-20T08:24:50.685Z,1,2026-09-12
+bus-susteran-novisiat-33aaae59,bus,Susteran Novisiat,susteran novisiat,,Susteran Novisiat | TPB Susteran Novisiat,unmatched,,,,,0,2026-09-12
+bus-susteran-novisiat-e-5af4d58e,bus,Susteran Novisiat (T),susteran novisiat,E,Susteran Novisiat (T),unmatched,,,,,0,2026-09-12
+bus-taman-makam-pahlawan-n-ca938221,bus,Taman Makam Pahlawan (Utara),taman makam pahlawan,N,Taman Makam Pahlawan (Utara),unmatched,,,,,0,2026-09-12
+bus-taman-makam-pahlawan-s-b570770d,bus,Taman Makam Pahlawan (Selatan),taman makam pahlawan,S,Taman Makam Pahlawan (Selatan),unmatched,,,,,0,2026-09-12
+bus-taman-pintar-1b9e094b,bus,Taman Pintar,taman pintar,,Taman Pintar,matched_exact,6a86b6ff89acf23707a33178,110.36717622423924,-7.801414970393125,2026-08-20T08:12:47.612Z,1,2026-09-12
+bus-tamansari-7a17b638,bus,Portable Tamansari,tamansari,,Portable Tamansari,matched_exact,6a8560833dbe4dacc784a905,110.35602512687007,-7.809813718604147,2026-08-19T07:51:31.316Z,1,2026-09-12
+bus-tambak-bayan-1-6c8972ca,bus,TPB Tambak Bayan 1,tambak bayan 1,,TPB Tambak Bayan 1,unmatched,,,,,0,2026-09-12
+bus-tarumartani-e70598d0,bus,TPB Tarumartani,tarumartani,,TPB Tarumartani,unmatched,,,,,0,2026-09-12
+bus-tarumartani-n-f5b09b35,bus,Tarumartani (Utara),tarumartani,N,Tarumartani (Utara),unmatched,,,,,0,2026-09-12
+bus-tegal-gendu-1-6f5470ba,bus,Halte Tegal Gendu 1,tegal gendu 1,,Halte Tegal Gendu 1,matched_exact,6a8a55a40d6732db988bd319,110.39183869483821,-7.826017116757498,2026-08-23T02:06:28.000Z,1,2026-09-12
+bus-tegal-gendu-2-b21fd1ee,bus,Halte TJ Tegal Gendu 2,tegal gendu 2,,Halte TJ Tegal Gendu 2,matched_exact,6a8a63d60d6732db988bdba4,110.39132452910576,-7.825830130625448,2026-08-23T03:07:02.443Z,1,2026-09-12
+bus-tegal-turi-1-c6504b7f,bus,TPB Tegal Turi 1,tegal turi 1,,TPB Tegal Turi 1,review_fuzzy,,,,,0,2026-09-12
+bus-tegal-turi-2-2dbf8ff0,bus,TPB Tegal Turi 2,tegal turi 2,,TPB Tegal Turi 2,review_fuzzy,,,,,0,2026-09-12
+bus-tejokusuman-tamansari-e7596b7b,bus,Portabel Tejokusuman (Tamansari),tejokusuman tamansari,,Portabel Tejokusuman (Tamansari),review_fuzzy,,,,,0,2026-09-12
+bus-teknik-ugm-n-590d475e,bus,Teknik UGM (Utara),teknik ugm,N,Teknik UGM (Utara),unmatched,,,,,0,2026-09-12
+bus-teknik-ugm-s-43bf9635,bus,Teknik UGM (Selatan),teknik ugm,S,Teknik UGM (Selatan),review_fuzzy,,,,,0,2026-09-12
+bus-teras-malioboro-2-d4789a15,bus,Portable Teras Malioboro 2,teras malioboro 2,,Portable Teras Malioboro 2,review_fuzzy,,,,,0,2026-09-12
+bus-terminal-bangunan-df9b71ae,bus,Terminal Bangunan,terminal bangunan,,Terminal Bangunan,review_fuzzy,,,,,0,2026-09-12
+bus-terminal-condongcatur-fcb890e4,bus,Terminal Condongcatur,terminal condongcatur,,Terminal Condongcatur | Terminal Condong Catur,matched_exact,6a8ee08652d86e03b51ba5d2,110.3958987657677,-7.756704954686867,2026-08-26T12:48:06.486Z,1,2026-09-12
+bus-terminal-giwangan-ee421b03,bus,Terminal Giwangan,terminal giwangan,,Terminal Giwangan,matched_exact,6a8d6eb952d86e03b51ac23f,110.39183977163486,-7.834127418517099,2026-08-25T10:30:17.563Z,1,2026-09-12
+bus-terminal-jombor-536d39cc,bus,Terminal Jombor,terminal jombor,,Terminal Jombor,matched_exact,6a82732138bb192425f47850,110.36128820793846,-7.747511361346895,2026-08-17T02:34:09.677Z,1,2026-09-12
+bus-terminal-pakem-ee26af28,bus,Terminal Pakem,terminal pakem,,Terminal Pakem,unmatched,,,,,0,2026-09-12
+bus-terminal-palbapang-w-c84e2640,bus,Terminal Palbapang (B),terminal palbapang,W,Terminal Palbapang (B),review_fuzzy,,,,,0,2026-09-12
+bus-terminal-prambanan-fabbab31,bus,Terminal Prambanan,terminal prambanan,,Terminal Prambanan,matched_exact,6a86dc1a0235f477d3591718,110.48986020764943,-7.755608814123619,2026-08-20T10:51:06.201Z,1,2026-09-12
+bus-timoho-e-91beeecd,bus,Timoho (Timur),timoho,E,Timoho (Timur),unmatched,,,,,0,2026-09-12
+bus-timoho-w-b557460d,bus,Timoho (Barat),timoho,W,Timoho (Barat),unmatched,,,,,0,2026-09-12
+bus-timur-jembatan-yapah-2-c23c9c0a,bus,Timur Jembatan Yapah 2,timur jembatan yapah 2,,Timur Jembatan Yapah 2,unmatched,,,,,0,2026-09-12
+bus-timur-jembatan-yapah-f9e728bc,bus,Timur Jembatan Yapah,timur jembatan yapah,,Timur Jembatan Yapah,unmatched,,,,,0,2026-09-12
+bus-timur-jembatan-yapah-n-99a51436,bus,Timur Jembatan Yapah (U),timur jembatan yapah,N,Timur Jembatan Yapah (U),unmatched,,,,,0,2026-09-12
+bus-timur-jembatan-yapah-s-bc77fe61,bus,Timur Jembatan Yapah (S),timur jembatan yapah,S,Timur Jembatan Yapah (S),unmatched,,,,,0,2026-09-12
+bus-timur-simpang-bantulan-022eaf0f,bus,Timur Simpang Bantulan,timur simpang bantulan,,Timur Simpang Bantulan,unmatched,,,,,0,2026-09-12
+bus-tk-bias-e-49f1378f,bus,TK BIAS (T),tk bias,E,TK BIAS (T),unmatched,,,,,0,2026-09-12
+bus-tk-bias-kaliurang-cb4024c2,bus,TK Bias Kaliurang,tk bias kaliurang,,TK Bias Kaliurang,unmatched,,,,,0,2026-09-12
+bus-tni-al-1-713b0f9f,bus,TPB TNI AL 1,tni al 1,,TPB TNI AL 1,unmatched,,,,,0,2026-09-12
+bus-toko-saerah-n-27c4075a,bus,Toko Saerah (U),toko saerah,N,Toko Saerah (U),unmatched,,,,,0,2026-09-12
+bus-toko-saerah-s-526320bd,bus,Toko Saerah (S),toko saerah,S,Toko Saerah (S),unmatched,,,,,0,2026-09-12
+bus-total-security-sp-demak-ijo-1a6933c9,bus,Portabel Total Security (SP Demak Ijo),total security sp demak ijo,,Portabel Total Security (SP Demak Ijo),unmatched,,,,,0,2026-09-12
+bus-transmart-maguwo-83e44d9b,bus,Transmart Maguwo,transmart maguwo,,Transmart Maguwo,review_fuzzy,,,,,0,2026-09-12
+bus-tugu-adipura-bantul-halte-2-b6a74e9c,bus,Halte Tugu Adipura Bantul (Halte 2),tugu adipura bantul halte 2,,Halte Tugu Adipura Bantul (Halte 2),review_fuzzy,,,,,0,2026-09-12
+bus-tugu-adipura-bantul-polres-bantul-40ff2d29,bus,Tugu Adipura Bantul (Polres Bantul),tugu adipura bantul polres bantul,,Tugu Adipura Bantul (Polres Bantul),review_fuzzy,,,,,0,2026-09-12
+bus-tugu-batas-desa-yapah-2-d76e547f,bus,Tugu Batas Desa Yapah 2,tugu batas desa yapah 2,,Tugu Batas Desa Yapah 2,unmatched,,,,,0,2026-09-12
+bus-tugu-batas-desa-yapah-89c1dac7,bus,Tugu Batas Desa Yapah,tugu batas desa yapah,,Tugu Batas Desa Yapah,unmatched,,,,,0,2026-09-12
+bus-tugu-batas-desa-yapah-n-c5ad09e1,bus,Tugu Batas Desa Yapah (U),tugu batas desa yapah,N,Tugu Batas Desa Yapah (U),unmatched,,,,,0,2026-09-12
+bus-tugu-batas-desa-yapah-s-833f3792,bus,Tugu Batas Desa Yapah (S),tugu batas desa yapah,S,Tugu Batas Desa Yapah (S),unmatched,,,,,0,2026-09-12
+bus-tvri-e-436715b2,bus,TVRI (T),tvri,E,TVRI (T) | TPB TVRI (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-tvri-w-05cc82e3,bus,TVRI (B),tvri,W,TVRI (B) | TVRI (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-uad-ringroad-selatan-1-12450bcf,bus,TPB UAD Ringroad Selatan 1,uad ringroad selatan 1,,TPB UAD Ringroad Selatan 1,review_fuzzy,,,,,0,2026-09-12
+bus-uad-ringroad-selatan-2-1cdc1ec5,bus,TPB UAD Ringroad Selatan 2,uad ringroad selatan 2,,TPB UAD Ringroad Selatan 2,review_fuzzy,,,,,0,2026-09-12
+bus-uii-barat-jalan-38ce747d,bus,UII (Barat Jalan),uii barat jalan,,UII (Barat Jalan),unmatched,,,,,0,2026-09-12
+bus-uii-e-1d36c15a,bus,UII (T),uii,E,UII (T),unmatched,,,,,0,2026-09-12
+bus-uii-timur-jalan-4bb919c8,bus,UII (Timur Jalan),uii timur jalan,,UII (Timur Jalan),unmatched,,,,,0,2026-09-12
+bus-uii-w-d1ee7fb5,bus,UII (B),uii,W,UII (B),unmatched,,,,,0,2026-09-12
+bus-uin-sunan-kalijaga-e-43ed7f2c,bus,UIN Sunan Kalijaga (Timur),uin sunan kalijaga,E,UIN Sunan Kalijaga (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-uin-sunan-kalijaga-w-d08ce32b,bus,UIN Sunan Kalijaga (Barat),uin sunan kalijaga,W,UIN Sunan Kalijaga (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-ukdw-ac100776,bus,UKDW,ukdw,,UKDW,matched_exact,6a82a3f49870dcf66e4587ac,110.37880061400199,-7.785615943750678,2026-08-17T06:02:28.781Z,1,2026-09-12
+bus-umy-1-990ef287,bus,TPB UMY 1,umy 1,,TPB UMY 1,review_fuzzy,,,,,0,2026-09-12
+bus-umy-2-f4825ea1,bus,TPB UMY 2,umy 2,,TPB UMY 2,review_fuzzy,,,,,0,2026-09-12
+bus-unisa-51efca60,bus,TPB UNISA,unisa,,TPB UNISA,unmatched,,,,,0,2026-09-12
+bus-univeristas-ahmad-dahlan-0f60ec71,bus,Halte TJ Univeristas Ahmad Dahlan,univeristas ahmad dahlan,,Halte TJ Univeristas Ahmad Dahlan,unmatched,,,,,0,2026-09-12
+bus-universitas-ahmad-dahlan-f6ee4d47,bus,Halte TJ Universitas Ahmad Dahlan,universitas ahmad dahlan,,Halte TJ Universitas Ahmad Dahlan,unmatched,,,,,0,2026-09-12
+bus-universitas-alma-ata-d05d3a6b,bus,TPB Universitas Alma Ata,universitas alma ata,,TPB Universitas Alma Ata,matched_exact,6a8aa2870d6732db988c21e1,110.32421513238114,-7.817894228385825,2026-08-23T07:34:31.685Z,1,2026-09-12
+bus-unriyo-e-2a33f7d2,bus,UNRIYO (T),unriyo,E,UNRIYO (T),unmatched,,,,,0,2026-09-12
+bus-unriyo-w-b750694f,bus,UNRIYO (B),unriyo,W,UNRIYO (B),unmatched,,,,,0,2026-09-12
+bus-unu-yogyakarta-56921deb,bus,TPB UNU Yogyakarta,unu yogyakarta,,TPB UNU Yogyakarta,matched_exact,6a8929d6478dc3b356b72ecf,110.37641803537275,-7.819695073497641,2026-08-22T04:47:18.055Z,1,2026-09-12
+bus-uny-colombo-n-97a5170f,bus,UNY Colombo (U),uny colombo,N,UNY Colombo (U),review_fuzzy,,,,,0,2026-09-12
+bus-upn-veteran-6a3e2bb0,bus,Halte UPN Veteran,upn veteran,,Halte UPN Veteran,review_fuzzy,,,,,0,2026-09-12
+bus-uty-glagahsari-e-dcaab61f,bus,UTY Glagahsari (Timur),uty glagahsari,E,UTY Glagahsari (Timur),review_fuzzy,,,,,0,2026-09-12
+bus-uty-glagahsari-w-ea753827,bus,UTY Glagahsari (Barat),uty glagahsari,W,UTY Glagahsari (Barat),review_fuzzy,,,,,0,2026-09-12
+bus-uty-ringroad-utara-1-d1f84e81,bus,Portabel UTY Ringroad Utara 1,uty ringroad utara 1,,Portabel UTY Ringroad Utara 1,review_fuzzy,,,,,0,2026-09-12
+bus-uty-ringroad-utara-2-a1cdb21a,bus,Portabel UTY Ringroad Utara 2,uty ringroad utara 2,,Portabel UTY Ringroad Utara 2,review_fuzzy,,,,,0,2026-09-12
+bus-vokasi-ugm-541fef52,bus,Vokasi UGM,vokasi ugm,,Vokasi UGM,matched_exact,6a8cfb1f52d86e03b51a5dd9,110.3749454685335,-7.774505145151281,2026-08-25T02:17:03.498Z,1,2026-09-12
+bus-vokasi-ugm-e-2e702393,bus,Vokasi UGM (T),vokasi ugm,E,Vokasi UGM (T),review_fuzzy,,,,,0,2026-09-12
+bus-vokasi-ugm-w-08874eb4,bus,Vokasi UGM (B),vokasi ugm,W,Vokasi UGM (B),review_fuzzy,,,,,0,2026-09-12
+bus-warung-sego-penyetan-banyuwangi-c614c8b7,bus,Warung Sego Penyetan Banyuwangi,warung sego penyetan banyuwangi,,Warung Sego Penyetan Banyuwangi,unmatched,,,,,0,2026-09-12
+bus-wedangan-kampoeng-1ea8493d,bus,Wedangan Kampoeng,wedangan kampoeng,,Wedangan Kampoeng,unmatched,,,,,0,2026-09-12
+bus-wedangan-kampoeng-e-ceacc5d5,bus,Wedangan Kampoeng (T),wedangan kampoeng,E,Wedangan Kampoeng (T) | Wedangan Kampoeng (Timur),unmatched,,,,,0,2026-09-12
+bus-wedangan-kampoeng-w-12246027,bus,Wedangan Kampoeng (B),wedangan kampoeng,W,Wedangan Kampoeng (B),unmatched,,,,,0,2026-09-12
+bus-westlake-1-686853be,bus,Portabel Westlake 1,westlake 1,,Portabel Westlake 1,review_fuzzy,,,,,0,2026-09-12
+bus-westlake-2-9ab01be8,bus,Portabel Westlake 2,westlake 2,,Portabel Westlake 2,review_fuzzy,,,,,0,2026-09-12
+bus-widya-wiwaha-1-70c25809,bus,TPB Widya Wiwaha 1,widya wiwaha 1,,TPB Widya Wiwaha 1,review_fuzzy,,,,,0,2026-09-12
+bus-widya-wiwaha-2-c73a5779,bus,TPB Widya Wiwaha 2,widya wiwaha 2,,TPB Widya Wiwaha 2,review_fuzzy,,,,,0,2026-09-12
+bus-wirobrajan-1-372c96cd,bus,TPB Wirobrajan 1,wirobrajan 1,,TPB Wirobrajan 1,unmatched,,,,,0,2026-09-12
+bus-wirogunan-e-42aa1c47,bus,Wirogunan (Timur),wirogunan,E,Wirogunan (Timur),unmatched,,,,,0,2026-09-12
+bus-wirogunan-w-d030e655,bus,Wirogunan (Barat),wirogunan,W,Wirogunan (Barat),unmatched,,,,,0,2026-09-12
+bus-wonocatur-664b8ba7,bus,Wonocatur,wonocatur,,Wonocatur,matched_exact,6a92c82652d86e03b51dbb4a,110.40645039690395,-7.798686441635368,2026-08-29T11:53:10.481Z,1,2026-09-12
+bus-yakkum-e-64febcd3,bus,YAKKUM (T),yakkum,E,YAKKUM (T),unmatched,,,,,0,2026-09-12
+bus-yakkum-w-f4278b8b,bus,YAKKUM (B),yakkum,W,YAKKUM (B),unmatched,,,,,0,2026-09-12
+bus-ykpn-8f047ea0,bus,Halte TJ YKPN,ykpn,,Halte TJ YKPN,review_fuzzy,,,,,0,2026-09-12
+bus-yogyakarta-0b7ac635,bus,Stasiun Yogyakarta,yogyakarta,,Stasiun Yogyakarta,matched_exact,6a8a8dda52d86e03b519227c,110.36179815416784,-7.789620476123076,2026-08-23T06:06:18.544Z,1,2026-09-12
+rail-brambanan-00e94f37,rail,Brambanan,brambanan,,Brambanan,unmatched,,,,,0,2026-09-12
+rail-ceper-ad02f5e6,rail,Ceper,ceper,,Ceper,unmatched,,,,,0,2026-09-12
+rail-delanggu-cb9b7971,rail,Delanggu,delanggu,,Delanggu,unmatched,,,,,0,2026-09-12
+rail-gawok-67f76c7a,rail,Gawok,gawok,,Gawok,unmatched,,,,,0,2026-09-12
+rail-jenar-b5839ec3,rail,Jenar,jenar,,Jenar,unmatched,,,,,0,2026-09-12
+rail-klaten-e7b4990a,rail,Klaten,klaten,,Klaten,unmatched,,,,,0,2026-09-12
+rail-kutoarjo-2e81b286,rail,Kutoarjo,kutoarjo,,Kutoarjo,unmatched,,,,,0,2026-09-12
+rail-lempuyangan-165ee6f0,rail,Lempuyangan,lempuyangan,,Lempuyangan,matched_exact,6a82aa139870dcf66e458f1f,110.37746284627354,-7.790234774910843,2026-08-17T06:28:35.004Z,1,2026-09-12
+rail-maguwo-489e95b8,rail,Maguwo,maguwo,,Maguwo,unmatched,,,,,0,2026-09-12
+rail-palur-afe08766,rail,Palur,palur,,Palur,unmatched,,,,,0,2026-09-12
+rail-purwosari-e43dd915,rail,Purwosari,purwosari,,Purwosari,unmatched,,,,,0,2026-09-12
+rail-solobalapan-924cecca,rail,Solobalapan,solobalapan,,Solobalapan,unmatched,,,,,0,2026-09-12
+rail-solojebres-abe3e7be,rail,Solojebres,solojebres,,Solojebres,unmatched,,,,,0,2026-09-12
+rail-srowot-56a56498,rail,Srowot,srowot,,Srowot,unmatched,,,,,0,2026-09-12
+rail-wates-ce53a26a,rail,Wates,wates,,Wates,unmatched,,,,,0,2026-09-12
+rail-wojo-082cf34c,rail,Wojo,wojo,,Wojo,unmatched,,,,,0,2026-09-12
+rail-yogyakarta-ee79e4bf,rail,Yogyakarta,yogyakarta,,Yogyakarta,matched_exact,6a8a8dda52d86e03b519227c,110.36179815416784,-7.789620476123076,2026-08-23T06:06:18.544Z,1,2026-09-12

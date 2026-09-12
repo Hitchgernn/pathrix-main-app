@@ -1,0 +1,7 @@
+fare_id,service_id,product,payment_method,currency,fare_min,fare_max,notes,source_file,source_page,effective_from,effective_until,source_last_updated,freshness_as_of,freshness_status
+krl-map-regular,krl,regular,card_or_gojek,IDR,8000,8000,Card available at stations.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+yia-map-range,yia,all_services,station_or_online,IDR,10000,60000,Combined range printed in map legend.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+transjogja-cash,transjogja,regular,cash,IDR,3500,3500,,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+transjogja-cashless,transjogja,regular,qris_or_card,IDR,2700,2700,,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+yia-page8-regular,yia,regular,not_stated,IDR,10000,20000,Effective date not stated on page 8.,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+yia-page8-xpress,yia,xpress,not_stated,IDR,40000,60000,Effective date not stated on page 8.,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified

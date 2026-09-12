@@ -1,0 +1,27 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+EV3,1,bus-terminal-jombor-536d39cc,Terminal Jombor,unmatched,,,,,,,
+EV3,2,bus-indogrosir-a30b9f32,Indogrosir,unmatched,,,,,,,
+EV3,3,bus-jogja-city-mall-e-58185771,Jogja City Mall (T),unmatched,,,,,,,
+EV3,4,bus-atakrib-jalan-magelang-830dd5b2,Atakrib Jl. Magelang,unmatched,,,,,,,
+EV3,5,bus-tvri-e-436715b2,TVRI (T),review_fuzzy,6a82820238bb192425f486c2,Halte Trans Jogja - TVRI A,0.680000,approved,codex-evidence-review,2026-09-12,Platform A is east of B and matches Timur
+EV3,5,bus-tvri-e-436715b2,TVRI (T),review_fuzzy,6a82835d70c999b67933de3c,Halte Trans Jogja - TVRI B,0.680000,rejected,codex-evidence-review,2026-09-12,Platform B is west of A
+EV3,6,bus-karangwaru-e-d57a2b75,Karangwaru (T),unmatched,,,,,,,
+EV3,7,bus-hotel-utara-e-a8afeab1,Hotel Utara (T),review_fuzzy,6a86caf989acf23707a36360,Halte Hotel Utara A,0.816667,approved,codex-evidence-review,2026-09-12,Platform A is east of B and matches Timur
+EV3,7,bus-hotel-utara-e-a8afeab1,Hotel Utara (T),review_fuzzy,6a88263dd57440d48a1f481b,Halte Hotel Utara B,0.816667,rejected,codex-evidence-review,2026-09-12,Platform B is west of A
+EV3,14,bus-bhayangkara-3972633d,Bhayangkara,review_fuzzy,6a86d589460277aa84152f9e,Halte Trans Jogja - Halte RS Bhayangkara B,0.622222,rejected,codex-evidence-review,2026-09-12,Coordinate is far east outside EV3 corridor
+EV3,15,bus-pasar-pathuk-2eb8737e,Pasar Pathuk,unmatched,,,,,,,
+EV3,16,bus-sosrowijayan-dcdae1fc,Sosrowijayan,unmatched,6a8a69c30d6732db988bded7,Halte Sosrowijayan di Jl. Gandekan,,approved,codex-evidence-review,2026-09-12,Exact place name with street qualifier on route corridor
+EV3,17,bus-yogyakarta-0b7ac635,Stasiun Yogyakarta,review_fuzzy,6a8929d6478dc3b356b72ecf,Halte UNU Yogyakarta,0.700000,rejected,codex-evidence-review,2026-09-12,UNU coordinate is south of route and not railway station
+EV3,18,bus-jlagran-402c26ac,Jlagran,unmatched,6a8d7e2452d86e03b51adbe2,Halte Jlagran stasiun Tugu,,approved,codex-evidence-review,2026-09-12,Exact place name with station qualifier on route corridor
+EV3,19,bus-badran-5dad26c1,Badran,unmatched,,,,,,,
+EV3,20,bus-smpn-14-c41a3ead,SMPN 14,review_fuzzy,6a8d045352d86e03b51a6286,Halte SMPN 1,0.687179,rejected,codex-evidence-review,2026-09-12,School number differs
+EV3,20,bus-smpn-14-c41a3ead,SMPN 14,review_fuzzy,6a8ba82fa4262ae1033d0be2,Halte SMP N 14,0.660000,approved,codex-evidence-review,2026-09-12,Same school number and normalized name
+EV3,20,bus-smpn-14-c41a3ead,SMPN 14,review_fuzzy,6a8d4cbc52d86e03b51aa790,Halte SMPN 11,0.647619,rejected,codex-evidence-review,2026-09-12,School number differs
+EV3,21,bus-hotel-utara-w-13ce416a,Hotel Utara (B),review_fuzzy,6a86caf989acf23707a36360,Halte Hotel Utara A,0.816667,rejected,codex-evidence-review,2026-09-12,Platform A is east of B
+EV3,21,bus-hotel-utara-w-13ce416a,Hotel Utara (B),review_fuzzy,6a88263dd57440d48a1f481b,Halte Hotel Utara B,0.816667,approved,codex-evidence-review,2026-09-12,Platform B is west of A and matches Barat
+EV3,23,bus-karangwaru-w-2eff8d12,Karangwaru (B),unmatched,,,,,,,
+EV3,24,bus-tvri-w-05cc82e3,TVRI (B),review_fuzzy,6a82820238bb192425f486c2,Halte Trans Jogja - TVRI A,0.680000,rejected,codex-evidence-review,2026-09-12,Platform A is east of B
+EV3,24,bus-tvri-w-05cc82e3,TVRI (B),review_fuzzy,6a82835d70c999b67933de3c,Halte Trans Jogja - TVRI B,0.680000,approved,codex-evidence-review,2026-09-12,Platform B is west of A and matches Barat
+EV3,25,bus-daytrans-jalan-magelang-d2cbfb7a,Daytrans Jl. Magelang,unmatched,,,,,,,
+EV3,26,bus-jogja-city-mall-w-5608534c,Jogja City Mall (B),unmatched,,,,,,,
+EV3,27,bus-mmtc-yogyakarta-c259b05f,MMTC Yogyakarta,unmatched,,,,,,,

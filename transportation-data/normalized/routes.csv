@@ -1,0 +1,21 @@
+route_id,route_id_raw,mode,operator,origin,destination,source_file,source_page,effective_from,effective_until,source_last_updated,freshness_as_of,freshness_status
+1A,1A,bus,TransJogja,Prambanan,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+1B,1B,bus,TransJogja,Adisutjipto,Ngabean,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+2A,2A,bus,TransJogja,Condongcatur,XT Square,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+2B,2B,bus,TransJogja,Condongcatur,XT Square,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+3A,3A,bus,TransJogja,Giwangan,Condongcatur,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+3B,3B,bus,TransJogja,Giwangan,Condongcatur,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+4A,4A,bus,TransJogja,Giwangan,Condongcatur,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+4B,4B,bus,TransJogja,Giwangan,Condongcatur,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+5A,5A,bus,TransJogja,Jombor,Janti,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+5B,5B,bus,TransJogja,Jombor,Adisutjipto,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+6,6,bus,TransJogja,Gamping,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+8,8,bus,TransJogja,Jombor,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+9,9,bus,TransJogja,Giwangan,Jombor,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+10,10,bus,TransJogja,Gamping,Kusumanegara,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+11,11,bus,TransJogja,Giwangan,Cik Di Tiro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+12,12,bus,TransJogja,Condongcatur,Pakem,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+13,13,bus,TransJogja,Godean,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+14,14,bus,TransJogja,Adisutjipto,Pakem,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+15,15,bus,TransJogja,Palbapang,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+EV3,EV,bus,TransJogja,Jombor,Malioboro,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified

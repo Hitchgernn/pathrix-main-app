@@ -1,0 +1,15 @@
+source_id,kind,name,longitude,latitude,observed_at,source
+6a82732138bb192425f47850,halte,Aksesibilitas Halte Trans Jogja - Terminal Jombor,110.36128820793846,-7.747511361346895,2026-08-17T02:34:09.677Z,mapid_activities
+6a82762f38bb192425f47b1b,halte,Aksesibilitas Halte TPB Trans Jogja - JCM A,110.36176508244739,-7.753358379938787,2026-08-17T02:47:11.801Z,mapid_activities
+6a8276c070c999b67933d100,halte,Aksesibilitas Halte Trans Jogja - MMTC Yogyakarta,110.36207457674249,-7.753191901082519,2026-08-17T02:49:36.022Z,mapid_activities
+6a8279ea70c999b67933d38e,halte,Kondisi Bus Stop Trans Jogja - Atakrib Jl. Magelang,110.36207623374708,-7.7561639477196245,2026-08-17T03:03:06.596Z,mapid_activities
+6a827b319870dcf66e45516e,halte,Bus Stop Trans Jogja - Daytrans Jl. Magelang,110.36206630764042,-7.756402966070512,2026-08-17T03:08:33.104Z,mapid_activities
+6a8285bc70c999b67933e189,halte,Halte Trans Jogja - Karang Waru A,110.36132785396217,-7.772231270094686,2026-08-17T03:53:32.440Z,mapid_activities
+6a8287f89870dcf66e45637e,halte,Bus Stop Halte Trans Jogja - Karangwaru,110.36120706604345,-7.7718298755167226,2026-08-17T04:03:04.575Z,mapid_activities
+6a8a7e5b52d86e03b5190e6e,halte,TPB Trans Jogja - Badran,110.35791779774598,-7.788030277687739,2026-08-23T05:00:11.546Z,mapid_activities
+6a8a80d052d86e03b51910ff,halte,TPB Trans Jogja - Badran,110.35791779774598,-7.788030277687739,2026-08-23T05:10:40.172Z,mapid_activities
+6a8a88b40d6732db988bfbb8,halte,TPB Trans Jogja - Bhayangkara,110.36208001256682,-7.799398820735533,2026-08-23T05:44:20.681Z,mapid_activities
+6a8a8a0652d86e03b5191cab,halte,TPB Trans Jogja - Pasar Pathuk,110.36181950219066,-7.7960169118630205,2026-08-23T05:49:58.065Z,mapid_activities
+6a8a8a110d6732db988bfe24,halte,TPB Trans Jogja - Pasar Pathuk,110.36181950219066,-7.7960169118630205,2026-08-23T05:50:09.201Z,mapid_activities
+6a8a8dda52d86e03b519227c,halte,TPB Trans Jogja - Stasiun Yogyakarta,110.36179815416784,-7.789620476123076,2026-08-23T06:06:18.544Z,mapid_activities
+6a8abfd40d6732db988c587d,halte,Bus Stop Trans Jogja - Indogrosir,110.36238089063244,-7.750937298556053,2026-08-23T09:39:32.287Z,mapid_activities

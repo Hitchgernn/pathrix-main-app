@@ -1,0 +1,109 @@
+{
+  "retrieved_at": "2026-09-12T07:08:48.977Z",
+  "study_area": "Daerah Istimewa Yogyakarta bbox",
+  "missions": {
+    "total": 264,
+    "valid_points": 264,
+    "datasets": {
+      "propertigo": {
+        "fetched": 182,
+        "api_total": 182,
+        "pages": 2,
+        "valid_points": 182,
+        "unique_coordinates": 180,
+        "name_present": 0,
+        "category_present": 182,
+        "date_present": 0,
+        "date_range": [],
+        "transport_keyword_rows": 0,
+        "property_keys": [
+          "alamat",
+          "foto_spanduk",
+          "foto_tampak_depan",
+          "jenis_properti",
+          "kategori_properti",
+          "tanggal"
+        ]
+      },
+      "menugo": {
+        "fetched": 2,
+        "api_total": 2,
+        "pages": 1,
+        "valid_points": 2,
+        "unique_coordinates": 2,
+        "name_present": 2,
+        "category_present": 2,
+        "date_present": 0,
+        "date_range": [],
+        "transport_keyword_rows": 1,
+        "property_keys": [
+          "foto_menu_1",
+          "foto_menu_2",
+          "foto_tempat",
+          "harga_rata_rata",
+          "jenis_tempat",
+          "kondisi_tempat",
+          "menu_utama",
+          "mobilitas",
+          "nama_tempat",
+          "tanggal"
+        ]
+      },
+      "struckgo": {
+        "fetched": 80,
+        "api_total": 80,
+        "pages": 1,
+        "valid_points": 80,
+        "unique_coordinates": 60,
+        "name_present": 80,
+        "category_present": 80,
+        "date_present": 0,
+        "date_range": [],
+        "transport_keyword_rows": 5,
+        "property_keys": [
+          "foto_struk",
+          "kategori_tempat",
+          "metode_pembayaran",
+          "nama_tempat",
+          "tanggal"
+        ]
+      }
+    },
+    "transport_keyword_rows": 6,
+    "data_quality": {
+      "tanggal": "Documented as String; live API returned empty objects. No usable mission dates."
+    }
+  },
+  "activities": {
+    "total": 963,
+    "api_total": 963,
+    "valid_points": 963,
+    "date_range": [
+      "2026-01-27T15:14:59.917Z",
+      "2026-08-30T07:05:19.102Z"
+    ],
+    "transport_candidates": 390,
+    "transport_counts": {
+      "halte": 311,
+      "becak": 64,
+      "andong": 15
+    }
+  },
+  "spatial_overlap": {
+    "missions_near_any_activity": {
+      "within_100m": 55,
+      "within_250m": 112,
+      "within_500m": 177
+    },
+    "missions_near_transport_activity": {
+      "within_100m": 23,
+      "within_250m": 71,
+      "within_500m": 153
+    }
+  },
+  "interpretation": [
+    "Mission rows are destinations/POIs, not transit route topology.",
+    "Activities contain transport infrastructure candidates.",
+    "Neither source provides ordered routes or schedules."
+  ]
+}

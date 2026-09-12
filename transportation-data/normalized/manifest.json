@@ -1,0 +1,75 @@
+{
+  "freshness_as_of": "2026-09-12",
+  "freshness_status": "unverified",
+  "generated_at": "2026-09-12T09:51:44.825190+00:00",
+  "match_status_counts": {
+    "matched_exact": 64,
+    "review_fuzzy": 169,
+    "unmatched": 435
+  },
+  "notes": [
+    "No September 2026 freshness claim is made.",
+    "Page 8 states last updated 01/02/2025 but gives no effective date.",
+    "Page 3 map geometry is schematic and was not exported as route geometry.",
+    "Route CSV contains mixed hyphen and en-dash stop separators.",
+    "Bus segment times are medians derived from adjacent published timetable rows.",
+    "Bus segment times remain estimated; no road geometry was inferred."
+  ],
+  "parser": "app.data.transport_extract",
+  "row_counts": {
+    "activity_stop_catalog.csv": 321,
+    "bus_segments.csv": 213,
+    "bus_stop_times.csv": 6813,
+    "bus_trips.csv": 126,
+    "fares.csv": 6,
+    "rail_services.csv": 6,
+    "rail_stop_times.csv": 525,
+    "rail_trips.csv": 87,
+    "route_stops.csv": 957,
+    "routes.csv": 20,
+    "service_profiles.csv": 44,
+    "stop_match_candidates.csv": 278,
+    "stops.csv": 668
+  },
+  "schema_version": 2,
+  "source_pages": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "sources": {
+    "Peta Integrasi Angkutan Umum.pdf": "04d35b532e495d6313b7d8327ce1e24b52568a7b103d739017cc5a9b6a7d099b",
+    "mapid-ev3-activity-supplement.csv": "9e06260637991951c792f0ae3bcd3dc49b089207d73240963cc4421b524aa852",
+    "mapid-transport-activities.csv": "165baad4e821879627f4bf3914a462280e345771c1f764f77abb7734472d7cc0",
+    "trans-jogja.csv": "794443b3a2a170ae9e1c9dc7caf99830b10ae31539bff1f51099b920a6d79bfc"
+  },
+  "warnings": [
+    {
+      "code": "non_monotonic_source_time",
+      "message": "Source time decreases within one journey; value preserved.",
+      "previous_minutes": 1111,
+      "scheduled_time_local": "18:20",
+      "source_page": 8,
+      "trip_id": "rail-krl_yogyakarta_palur-708"
+    },
+    {
+      "code": "non_monotonic_source_time",
+      "message": "Source time decreases within one journey; value preserved.",
+      "previous_minutes": 823,
+      "scheduled_time_local": "13:39",
+      "source_page": 8,
+      "trip_id": "rail-krl_palur_yogyakarta-725"
+    },
+    {
+      "code": "non_monotonic_source_time",
+      "message": "Source time decreases within one journey; value preserved.",
+      "previous_minutes": 992,
+      "scheduled_time_local": "16:30",
+      "source_page": 8,
+      "trip_id": "rail-krl_palur_yogyakarta-715"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-09-12T07:03:51.165Z",
+  "api_endpoint": "https://server.mapid.io/web/competition/activities",
+  "api_docs_updated": "2026-08-05",
+  "query": {
+    "feature": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            110,
+            -8.25
+          ],
+          [
+            110.65,
+            -8.25
+          ],
+          [
+            110.65,
+            -7.55
+          ],
+          [
+            110,
+            -7.55
+          ],
+          [
+            110,
+            -8.25
+          ]
+        ]
+      ]
+    },
+    "start_date": "2000-01-01",
+    "end_date": "2026-09-12"
+  },
+  "source_activity_count": 963,
+  "classified_count_before_privacy_filter": 390,
+  "output_rows": 387,
+  "counts": {
+    "andong": 15,
+    "becak": 64,
+    "halte": 308
+  },
+  "privacy": {
+    "excluded_rows": 3,
+    "excluded_fields": [
+      "description",
+      "medias",
+      "user identity",
+      "community identity",
+      "likes/comments"
+    ],
+    "title_filter": "Removed titles containing phone/contact patterns."
+  },
+  "classification": {
+    "halte": "title starts with 'halte'",
+    "becak": "title contains 'becak'",
+    "andong": "title contains 'andong' or 'delman'"
+  },
+  "limitations": [
+    "Community observations, not authoritative infrastructure records.",
+    "Requires manual review and deduplication before production database import.",
+    "Does not contain route order, timetable, fare, or route geometry."
+  ]
+}

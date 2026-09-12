@@ -1,0 +1,958 @@
+route_id,stop_sequence,stop_id,stop_name_raw,source_file,source_page,effective_from,effective_until,source_last_updated,freshness_as_of,freshness_status
+1A,1,bus-terminal-prambanan-fabbab31,Terminal Prambanan,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,2,bus-edotel-kalasan-2-9b48bce6,TPB Edotel Kalasan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,3,bus-rs-bhayangkara-c2217522,RS Bhayangkara,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,4,bus-pasar-kalasan-a79eab4a,Portable Pasar Kalasan,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,5,bus-cupuwatu-ac95b213,Cupuwatu,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,6,bus-jalan-solo-kr-2-9c904b99,Halte Jl. Solo KR 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,7,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,8,bus-hyundai-9b4bda77,Halte Hyundai,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,9,bus-jalan-solo-jayakarta-1c449de7,Halte Jl. Solo (Jayakarta),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,10,bus-janti-selatan-bawah-jembatan-04f06a52,Halte Janti Selatan (Bawah Jembatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,11,bus-ambarukmo-ca38052e,Halte Ambarukmo,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,12,bus-gedung-wanita-763bc43c,Halte Gedung Wanita,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,13,bus-lpp-80c48bc4,Halte LPP,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,14,bus-superindo-urip-sumoharjo-9f223797,Halte Superindo Urip Sumoharjo,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,15,bus-rs-bethesda-634b544c,Halte RS Bethesda,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,16,bus-sudirman-bumiputera-453f2846,Halte Sudirman Bumiputera,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,17,bus-mangkubumi-1-c45ff36a,Halte Mangkubumi 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,18,bus-mangkubumi-2-f24a8c2b,Halte Mangkubumi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,19,bus-eks-menara-kopi-n-a0aeefe1,Eks Menara Kopi (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,20,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,21,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,22,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,23,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,24,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,25,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,26,bus-jalan-mayor-suryotomo-1-c556f1ef,TPB Jl. Mayor Suryotomo 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,27,bus-progo-e27cb7fc,Halte Progo,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,28,bus-jalan-mataram-hotel-akur-bfbbe7b3,Halte Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,29,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,30,bus-eks-menara-kopi-n-a0aeefe1,Eks Menara Kopi (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,31,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,32,bus-ykpn-8f047ea0,Halte TJ YKPN,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,33,bus-demangan-d2a020bd,TPB Demangan,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,34,bus-solo-sma-debrito-1edde087,Halte TJ Solo (SMA Debrito),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,35,bus-ambarukmo-plaza-2-565c1eec,Ambarukmo Plaza 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,36,bus-janti-selatan-bawah-jembatan-04f06a52,Halte Janti Selatan (Bawah Jembatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1A,37,bus-janti-utara-95bc8d19,Halte Janti Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,38,bus-manna-kampus-transmart-maguwo-85fe6e11,TPB Manna Kampus- Transmart Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,39,bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,40,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,41,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,42,bus-makam-sorogenen-1814bab5,TPB Makam Sorogenen,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,43,bus-jalan-solo-kr-1-9ae31760,TPB Jl. Solo KR 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,44,bus-bpd-kalasan-c034d3b7,BPD Kalasan,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,45,bus-jalan-solo-kalasan-9e89bd29,TPB Jl. Solo Kalasan,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,46,bus-rs-bhayangkara-c2217522,TPB Rs. Bhayangkara,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,47,bus-edotel-kalasan-1-a343eedf,TPB Edotel Kalasan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1A,48,bus-terminal-prambanan-fabbab31,Terminal Prambanan,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,1,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,2,bus-kha-dahlan-n-3fb74d20,Halte KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,3,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,4,bus-pakualaman-afc81afa,Pakualaman,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,5,bus-taman-makam-pahlawan-n-ca938221,Taman Makam Pahlawan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,6,bus-makam-gajah-n-5baf9986,Makam Gajah (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,7,bus-sgm-kusumanegara-n-ff7fc910,SGM Kusumanegara (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,8,bus-gedung-juang-45-3299e2b0,Gedung Juang 45,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,9,bus-jec-5c342f7d,JEC,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,10,bus-blok-o-b354f518,Blok O,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,11,bus-janti-utara-95bc8d19,Halte Janti Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,12,bus-manna-kampus-d2f38df1,TPB Manna Kampus,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,13,bus-transmart-maguwo-83e44d9b,Transmart Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,14,bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,15,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,16,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,17,bus-hyundai-9b4bda77,Halte Hyundai,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,18,bus-jalan-solo-jayakarta-1c449de7,Halte Jl. Solo (Jayakarta),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,19,bus-janti-utara-95bc8d19,Halte Janti Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,20,bus-mall-sahid-j-walk-9eace41d,Halte Mall Sahid J-Walk,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,21,bus-tambak-bayan-1-6c8972ca,TPB Tambak Bayan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,22,bus-ruko-babarsari-3ba71551,TPB Ruko Babarsari,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,23,bus-kledokan-6604b0d7,Kledokan,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,24,bus-pasar-angkasa-e-020347ed,Pasar Angkasa (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,25,bus-rs-dr-s-hardjolukito-f33f9e2c,Halte RS dr.S.HARDJOLUKITO,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,26,bus-wonocatur-664b8ba7,Wonocatur,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,27,bus-bkpm-diy-c690757d,TPB BKPM DIY,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,28,bus-kusumanegara-gembira-loka-d17c1b91,Halte Kusumanegara (Gembira Loka),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,29,bus-sgm-kusumanegara-s-c3683ba7,Halte SGM Kusumanegara (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,30,bus-makam-gajah-s-7e2af406,TPB Makam Gajah (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,31,bus-taman-makam-pahlawan-s-b570770d,Taman Makam Pahlawan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,32,bus-pasar-sentul-s-84478365,Pasar Sentul (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+1B,33,bus-museum-biologi-1a19a994,Museum Biologi,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,34,bus-suryotomo-9ab084b2,Suryotomo,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,35,bus-progo-e27cb7fc,Progo,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,36,bus-jalan-mataram-hotel-akur-bfbbe7b3,Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,37,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,38,bus-abu-bakar-ali-953e3c6d,Halte Abu Bakar Ali,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,39,bus-abadi-hotel-jogja-ae73687b,Abadi Hotel Jogja,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,40,bus-yogyakarta-0b7ac635,Stasiun Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,41,bus-jlagran-402c26ac,Jlagran,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,42,bus-letjen-suprapto-73f7595c,Letjen Suprapto,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,43,bus-sdn-gedong-tengen-fb792715,SDN Gedong Tengen,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,44,bus-ks-tubun-aa0fe678,KS Tubun,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,45,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,1,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,2,bus-rru-manggung-53668e66,TPB RRU Manggung,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,3,bus-monjali-s-cbddf0a1,Monjali (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,4,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,5,bus-monjali-n-7719f0b6,Monjali (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,6,bus-pdam-monjali-d9f381ae,PDAM Monjali,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,7,bus-spbu-monjali-e-8ca8e172,SPBU Monjali (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,8,bus-karangjati-e-18a90a3c,Karangjati (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,9,bus-batas-kota-jalan-monjali-timur-b05b374d,Batas Kota Jl. Monjali Timur,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,10,bus-a-m-sangaji-e-43a1c92b,Halte A.M. Sangaji (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,11,bus-pasar-kranggan-e-a032bc95,Pasar Kranggan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,12,bus-mangkubumi-1-c45ff36a,Halte Mangkubumi 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,13,bus-mangkubumi-2-f24a8c2b,Halte Mangkubumi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,14,bus-eks-menara-kopi-n-a0aeefe1,Eks Menara Kopi (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,15,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,16,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,17,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,18,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,19,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,20,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,21,bus-jogjatronik-061d67dd,Jogjatronik,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,22,bus-katamso-1-purawisata-5990e6fb,TPB Katamso 1 (Purawisata),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,23,bus-sdn-kintelan-e54b7bb2,SDN Kintelan,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,24,bus-kol-sugiono-1-pujokusuman-ba46a3cf,Halte Kol.Sugiono 1 (Pujokusuman),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,25,bus-eks-stie-kerjasama-57790499,Eks STIE Kerjasama,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,26,bus-rsi-hidayatullah-f2e5ddcc,Halte Rsi Hidayatullah,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,27,bus-gambiran-2-jalan-veteran-kota-1d0703dd,TPB Gambiran 2 Jl. Veteran Kota,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,28,bus-jalan-perintis-kemerdekaan-08047d39,Jl. Perintis Kemerdekaan,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,29,bus-ngeksigondo-diklat-pu-ba0f9bc7,Halte Ngeksigondo Diklat Pu,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,30,bus-smp-9-kota-a0cfd8bc,TPB SMP 9 Kota,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,31,bus-gedong-kuning-657f51a3,Halte Gedong Kuning,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,32,bus-pilar-1-gedong-kuning-kota-31b75629,TPB Pilar 1 Gedong Kuning Kota,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,33,bus-banguntapan-1-gedong-kuning-50b8a187,TPB Banguntapan 1 Gedong Kuning,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,34,bus-gembira-loka-746e2bf0,Gembira Loka,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,35,bus-sgm-kusumanegara-s-c3683ba7,SGM Kusumanegara (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,36,bus-makam-gajah-s-7e2af406,Makam Gajah (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,37,bus-kppn-jalan-cendana-52add500,KPPN (Jl. Cendana),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,38,bus-gor-among-rogo-e2afbc5d,TPB GOR Among Rogo,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,39,bus-kenari-1-4439a100,Halte Kenari 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,40,bus-smp-kanisius-gayam-w-ae552fef,SMP Kanisius Gayam (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,41,bus-eks-bioskop-mataram-fcd6b8b6,TPB Eks Bioskop Mataram,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,42,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,43,bus-ukdw-ac100776,UKDW,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,44,bus-rs-bethesda-634b544c,Halte RS Bethesda,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,45,bus-cik-di-tiro-2-c9609bbb,Halte TJ Cik Di Tiro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,46,bus-smpn-1-yogyakarta-f7500491,TPB SMPN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,47,bus-colombo-kosudgama-d0852f9e,Halte TJ Colombo (Kosudgama),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,48,bus-jalan-colombo-uny-29a043e3,TPB Jl. Colombo (UNY),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,49,bus-plaza-uny-9f5e7dd7,Plaza UNY,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,50,bus-santren-1292f082,Halte Santren,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,51,bus-prayan-w-756ecdc4,Halte Prayan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,52,bus-spbu-condongcatur-w-a4e66ecc,SPBU Condongcatur (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2A,53,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,1,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,2,bus-spbu-condongcatur-e-794333df,SPBU Condongcatur (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,3,bus-prayan-e-d22ce9c8,Halte Prayan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,4,bus-susteran-novisiat-33aaae59,TPB Susteran Novisiat,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,5,bus-sanata-dharma-25692b3b,Halte Sanata Dharma,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,6,bus-jalan-colombo-samirono-0f6c71b2,JL Colombo (Samirono),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,7,bus-jalan-colombo-panti-rapih-bfea009f,JL Colombo (Panti Rapih),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,8,bus-panti-rapih-9daeebbb,TPB Panti Rapih,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,9,bus-cik-di-tiro-1-c10dd170,Halte Cik Di Tiro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,10,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,11,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,12,bus-lempuyangan-gudang-n-dc79fb4e,Lempuyangan Gudang (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,13,bus-lempuyangan-1f307a91,Stasiun Lempuyangan,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,14,bus-smp-kanisius-gayam-e-3c37e1d9,TPB SMP Kanisius Gayam (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,15,bus-kenari-2-e7e409cf,Halte TJ Kenari 2,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,16,bus-among-rogo-kota-4654767a,TPB Among Rogo Kota,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,17,bus-makam-gajah-n-5baf9986,Makam Gajah (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,18,bus-sgm-kusumanegara-n-ff7fc910,SGM Kusumanegara (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,19,bus-gedung-juang-45-3299e2b0,Gedung Juang 45,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,20,bus-gedong-kuning-banguntapan-ccef67ea,Gedong Kuning Banguntapan,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,21,bus-poltekkes-bsi-a1e35c13,TPB Poltekkes BSI,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,22,bus-kehutanan-gedongkuning-d6464bd8,TPB Kehutanan Gedongkuning,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,23,bus-smp-9-basen-5068183c,TPB SMP 9 Basen,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,24,bus-ngeksigondo-basen-66d681be,Halte Ngeksigondo Basen,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,25,bus-jalan-perintis-kemerdekaan-s-0ce14968,Jl. Perintis Kemerdekaan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,26,bus-gambiran-1-b1d95bb9,TPB Gambiran 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,27,bus-jalan-veteran-d6be785d,TPB Jl. Veteran,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,28,bus-psky-255eae47,Halte PSKY,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,29,bus-pasar-sepeda-tunjungsari-c4695341,TPB Pasar Sepeda Tunjungsari,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,30,bus-sugiono-2-940b3592,Halte Sugiono 2,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,31,bus-purawisata-39337894,TPB Purawisata,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,32,bus-katamso-2-41ce8750,Halte Katamso 2,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,33,bus-senopati-6e9010fe,Senopati,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,34,bus-kha-dahlan-s-065936ef,Halte KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,35,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,36,bus-pasar-serangan-0fab18f3,TPB Pasar Serangan,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,37,bus-cokroaminoto-sma-1-63bf5f7a,Halte Cokroaminoto SMA 1,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,38,bus-smpn-11-aa0a8dda,Halte SMPN 11,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,39,bus-eks-perpusda-80a03598,Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,40,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,41,bus-hotel-utara-ea824463,Hotel Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,42,bus-eks-borobudur-plaza-9ab82812,Eks Borobudur Plaza,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,43,bus-smk-n-3-b9368922,SMK N 3,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,44,bus-am-sangaji-w-aa483780,AM Sangaji (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,45,bus-batas-kota-jalan-monjali-w-68b41405,Batas Kota Jl. Monjali (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,46,bus-karangjati-w-693f50d8,Karangjati (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,47,bus-spbu-monjali-w-7e90b609,SPBU Monjali (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,48,bus-pdam-monjali-w-de8c4f3e,PDAM Monjali (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,49,bus-monjali-s-cbddf0a1,Monjali (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,50,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,51,bus-monjali-n-7719f0b6,Monjali (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+2B,52,bus-rru-kentungan-132fb3e0,Halte TJ RRU Kentungan,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,53,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,1,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,2,bus-rru-manggung-53668e66,TPB RRU Manggung,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,3,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,4,bus-mcd-jakal-f29584d4,TPB McD Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,5,bus-biologi-ugm-b03972b2,Biologi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,6,bus-rs-sardjito-e-a2691dbb,Halte RS Sardjito (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,7,bus-fkg-ugm-n-14f6b4a2,FKG UGM (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,8,bus-gik-ugm-5b041db4,Halte GIK UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,9,bus-panti-rapih-9daeebbb,TPB Panti Rapih,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,10,bus-cik-di-tiro-1-c10dd170,Halte Cik Di Tiro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,11,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,12,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,13,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,14,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,15,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,16,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,17,bus-kha-dahlan-s-065936ef,KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,18,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,19,bus-tamansari-7a17b638,Portable Tamansari,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,20,bus-mt-haryono-1-jokteng-kulon-be1d0306,TPB MT Haryono 1 (Jokteng Kulon),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,21,bus-jalan-mayjen-sutoyo-plengkung-gading-e73901f8,TPB Jl. Mayjen Sutoyo (Plengkung Gading),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,22,bus-kol-sugiono-1-pujokusuman-ba46a3cf,Halte Kol. Sugiono 1 (Pujokusuman),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,23,bus-lowanu-792a5ebc,TPB Lowanu,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,24,bus-unu-yogyakarta-56921deb,TPB UNU Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,25,bus-widya-wiwaha-1-70c25809,TPB Widya Wiwaha 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,26,bus-sorogenen-wirosaban-a0db3a0a,TPB Sorogenen (Wirosaban),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,27,bus-tegal-turi-1-c6504b7f,TPB Tegal Turi 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,28,bus-gudang-sgm-2-39feb111,TPB Gudang SGM 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,29,bus-pasar-giwangan-2-f0dc3c5b,TPB Pasar Giwangan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,30,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,31,bus-pasar-giwangan-1-20ae3e33,TPB Pasar Giwangan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,32,bus-gudang-sgm-c4a1d188,TPB Gudang SGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,33,bus-tegal-gendu-1-6f5470ba,Halte Tegal Gendu 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,34,bus-lapangan-karang-5bfabf8e,TPB Lapangan Karang,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,35,bus-sma-5-7ee38138,TPB SMA 5,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,36,bus-gedong-kuning-657f51a3,Halte Gedong Kuning,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,37,bus-pilar-1-gedong-kuning-kota-31b75629,TPB Pilar 1 Gedong Kuning Kota,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,38,bus-banguntapan-1-gedong-kuning-50b8a187,TPB Banguntapan 1 Gedong Kuning,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,39,bus-jec-5c342f7d,Halte JEC,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,40,bus-blok-o-rs-hardjolukito-882b9a9c,Halte Blok O (RS Hardjolukito),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,41,bus-janti-utara-95bc8d19,Halte Janti Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,42,bus-manna-kampus-d2f38df1,TPB Manna Kampus,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,43,bus-transmart-maguwo-83e44d9b,Transmart Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,44,bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,45,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,46,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,47,bus-kantor-kesehatan-pelabuhan-yogya-46efdf82,Kantor Kesehatan Pelabuhan Yogya,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,48,bus-rru-disnaker-eeaaa2dd,TJ RRU Disnaker,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,49,bus-rru-instiper-2-ea07186b,Halte RRU Instiper 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,50,bus-polsek-depok-timur-74b977a6,TPB Polsek Depok Timur,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,51,bus-upn-veteran-6a3e2bb0,Halte UPN Veteran,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,52,bus-pakuwon-mall-s-2202544e,Pakuwon Mall (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+3A,53,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,1,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,2,bus-pasar-giwangan-1-20ae3e33,TPB Pasar Giwangan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,3,bus-gudang-sgm-c4a1d188,TPB Gudang SGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,4,bus-tegal-turi-2-2dbf8ff0,TPB Tegal Turi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,5,bus-nitikan-3cd761a8,Halte Nitikan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,6,bus-widya-wiwaha-2-c73a5779,TPB Widya Wiwaha 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,7,bus-pa-muhammadiyah-a2f5c15d,TPB PA Muhammadiyah,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,8,bus-sugiono-2-940b3592,Halte Sugiono 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,9,bus-jalan-mayjen-sutoyo-jokteng-wetan-fb44ee8b,Portabel Jl. Mayjen Sutoyo (Jokteng Wetan),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,10,bus-jalan-mayjen-sutoyo-pasar-gading-4125f520,Portabel Jl. Mayjen Sutoyo (Pasar Gading),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,11,bus-mt-haryono-2-sma-n-7-f2748d4c,Halte MT Haryono 2 (SMA N 7),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,12,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,13,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,14,bus-kha-dahlan-n-3fb74d20,Halte KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,15,bus-bhayangkara-3972633d,Portabel Bhayangkara,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,16,bus-pasar-pathuk-2eb8737e,Portabel Pasar Pathuk,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,17,bus-sosrowijayan-dcdae1fc,Sosrowijayan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,18,bus-yogyakarta-0b7ac635,Stasiun Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,19,bus-jlagran-402c26ac,Jlagran,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,20,bus-eks-perpusda-80a03598,Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,21,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,22,bus-pasar-kranggan-b6b88028,Halte Pasar Kranggan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,23,bus-sudirman-santika-3b336a7b,Halte Sudirman (Santika),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,24,bus-cik-di-tiro-2-c9609bbb,Halte TJ Cik Di Tiro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,25,bus-smpn-1-yogyakarta-f7500491,TPB SMPN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,26,bus-vokasi-ugm-541fef52,Vokasi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,27,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,28,bus-rs-sardjito-w-0ad8bcca,Halte RS Sardjito (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,29,bus-mm-ugm-6d86cbe8,MM UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,30,bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,31,bus-hokben-jakal-w-08061330,Hokben Jakal (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,32,bus-rru-kentungan-132fb3e0,Halte TJ RRU Kentungan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,33,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,34,bus-pakuwon-mall-n-50267f5f,Pakuwon Mall (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,35,bus-jih-b7958843,JIH,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,36,bus-stikes-guna-bangsa-aed05817,Halte Stikes Guna Bangsa,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,37,bus-polsek-depok-timur-74b977a6,TPB Polsek Depok Timur,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,38,bus-rru-instiper-1-baca4daa,TPB RRU Instiper 1,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,39,bus-smk-tajem-ringroad-utara-5c71b7ff,TPB SMK Tajem Ringroad Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,40,bus-rru-binamarga-74dcd5b9,Halte TJ RRU (Binamarga),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,41,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,42,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,43,bus-hyundai-9b4bda77,Halte Hyundai,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,44,bus-jalan-solo-jayakarta-1c449de7,Halte Jl. Solo (Jayakarta),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,45,bus-pasar-angkasa-e-020347ed,Pasar Angkasa (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+3B,46,bus-rs-hardjolukito-9e48d6f4,RS Hardjolukito,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,47,bus-wonocatur-664b8ba7,Wonocatur,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,48,bus-bkpm-b11114ea,BKPM,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,49,bus-gedong-kuning-banguntapan-ccef67ea,Gedong Kuning Banguntapan,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,50,bus-poltekkes-bsi-a1e35c13,TPB Poltekkes BSI,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,51,bus-kehutanan-gedongkuning-d6464bd8,TPB Kehutanan Gedongkuning,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,52,bus-pegadaian-edf98ce4,TPB Pegadaian,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,53,bus-lap-karang-kotagede-85bec77d,TPB Lap. Karang Kotagede,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,54,bus-tegal-gendu-2-b21fd1ee,Halte TJ Tegal Gendu 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,55,bus-gudang-sgm-2-39feb111,TPB Gudang SGM 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,56,bus-pasar-giwangan-2-f0dc3c5b,TPB Pasar Giwangan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,57,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,1,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,2,bus-pasar-giwangan-1-20ae3e33,TPB Pasar Giwangan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,3,bus-gudang-sgm-c4a1d188,TPB Gudang SGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,4,bus-muhammadiyah-3-cb194b98,Halte Muhammadiyah 3,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,5,bus-jalan-pramuka-f6939358,TPB Jl. Pramuka,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,6,bus-pasar-sepeda-tunjungsari-c4695341,TPB Pasar Sepeda Tunjungsari,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,7,bus-nyutran-tamansiswa-080d9b74,Nyutran Tamansiswa,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,8,bus-wirogunan-w-d030e655,Wirogunan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,9,bus-pasar-sentul-s-84478365,Pasar Sentul (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,10,bus-museum-biologi-1a19a994,Museum Biologi,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,11,bus-hayam-wuruk-w-b2b765b2,Hayam Wuruk (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,12,bus-pasar-lempuyangan-a52fea47,TPB Pasar Lempuyangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,13,bus-lempuyangan-1f307a91,Stasiun Lempuyangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,14,bus-krisdosono-9dea3135,Halte Krisdosono,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,15,bus-ukdw-ac100776,UKDW,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,16,bus-rs-bethesda-634b544c,Halte RS Bethesda,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,17,bus-cik-di-tiro-2-c9609bbb,Halte TJ Cik Di Tiro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,18,bus-smpn-1-yogyakarta-f7500491,TPB SMPN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,19,bus-vokasi-ugm-541fef52,Vokasi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,20,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,21,bus-rs-sardjito-w-0ad8bcca,Halte RS Sardjito (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,22,bus-mm-ugm-6d86cbe8,MM UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,23,bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,24,bus-hokben-jakal-w-08061330,Hokben Jakal (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,25,bus-rru-kentungan-132fb3e0,Halte TJ RRU Kentungan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,26,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,27,bus-spbu-condongcatur-e-794333df,SPBU Condongcatur (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,28,bus-prayan-e-d22ce9c8,Prayan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,29,bus-susteran-novisiat-33aaae59,Susteran Novisiat,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,30,bus-sanata-dharma-25692b3b,Halte Sanata Dharma,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,31,bus-pasar-demangan-3cd97b08,Pasar Demangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,32,bus-demangan-d2a020bd,TPB Demangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,33,bus-solo-sma-de-britto-38b4feb0,Halte TJ Solo (SMA De Britto),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,34,bus-uin-sunan-kalijaga-w-d08ce32b,UIN Sunan Kalijaga (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,35,bus-apmd-e-d0d231a5,APMD (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,36,bus-timoho-e-91beeecd,Timoho (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,37,bus-smk-n-5-n-5d2e3d5f,SMK N 5 (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,38,bus-sgm-kusumanegara-s-c3683ba7,SGM Kusumanegara (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,39,bus-uty-glagahsari-e-dcaab61f,UTY Glagahsari (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,40,bus-makam-prajurit-e-331fb8be,Makam Prajurit (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4A,41,bus-psky-255eae47,Halte PSKY,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,42,bus-univeristas-ahmad-dahlan-0f60ec71,Halte TJ Univeristas Ahmad Dahlan,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,43,bus-gudang-sgm-2-39feb111,TPB Gudang SGM 2,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,44,bus-pasar-giwangan-2-f0dc3c5b,TPB Pasar Giwangan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,45,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,1,bus-pasar-giwangan-1-20ae3e33,TPB Pasar Giwangan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,2,bus-gudang-sgm-c4a1d188,TPB Gudang SGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,3,bus-muhammadiyah-3-cb194b98,Halte Muhammadiyah 3,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,4,bus-universitas-ahmad-dahlan-f6ee4d47,Halte TJ Universitas Ahmad Dahlan,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,5,bus-jalan-pramuka-f6939358,TPB Jl. Pramuka,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,6,bus-pandeyan-w-cd4dd021,Pandeyan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,7,bus-uty-glagahsari-w-ea753827,UTY Glagahsari (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,8,bus-olive-glagahsari-w-48c71355,Olive Glagahsari (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,9,bus-sgm-kusumanegara-n-ff7fc910,SGM Kusumanegara (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,10,bus-smk-n-5-s-0d099053,SMK N 5 (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,11,bus-timoho-w-b557460d,Timoho (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,12,bus-apmd-w-2b5c8bb1,APMD (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,13,bus-uin-sunan-kalijaga-e-43ed7f2c,UIN Sunan Kalijaga (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,14,bus-gedung-wanita-763bc43c,Halte Gedung Wanita,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,15,bus-rri-gejayan-5325a510,RRI Gejayan,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,16,bus-plaza-uny-9f5e7dd7,Plaza UNY,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,17,bus-santren-1292f082,Santren,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,18,bus-prayan-w-756ecdc4,Prayan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,19,bus-spbu-condongcatur-w-a4e66ecc,SPBU Condongcatur (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,20,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,21,bus-rru-manggung-53668e66,TPB RRU Manggung,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,22,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,23,bus-mcd-jakal-f29584d4,TPB Mcd Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,24,bus-biologi-ugm-b03972b2,Biologi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,25,bus-rs-sardjito-e-a2691dbb,Halte RS Sardjito (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,26,bus-fkg-ugm-n-14f6b4a2,FKG UGM (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,27,bus-gik-ugm-5b041db4,Halte GIK UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,28,bus-man-1-yogyakarta-f2a678cf,MAN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,29,bus-pdin-c-simanjuntak-ab3e4ee7,Halte PDIN C Simanjuntak,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,30,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,31,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,32,bus-lempuyangan-gudang-n-dc79fb4e,Lempuyangan Gudang (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,33,bus-hayam-wuruk-e-c4b95c88,Hayam Wuruk (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,34,bus-pakualaman-afc81afa,Pakualaman,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,35,bus-wirogunan-e-42aa1c47,Wirogunan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+4B,36,bus-stsrd-visi-tamansiswa-77a7a21f,STSRD Visi Tamansiswa,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,37,bus-eks-stie-kerjasama-57790499,Eks STIE Kerjasama,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,38,bus-universitas-ahmad-dahlan-f6ee4d47,Halte TJ Universitas Ahmad Dahlan,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,39,bus-gudang-sgm-2-39feb111,TPB Gudang SGM 2,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,40,bus-pasar-giwangan-2-f0dc3c5b,TPB Pasar Giwangan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,41,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,1,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,2,bus-indogrosir-a30b9f32,Indogrosir,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,3,bus-jogja-city-mall-e-58185771,Jogja City Mall (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,4,bus-atakrib-jalan-magelang-830dd5b2,Atakrib Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,5,bus-tvri-e-436715b2,TPB TVRI (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,6,bus-karangwaru-e-d57a2b75,Karangwaru (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,7,bus-eks-borobudur-plaza-9ab82812,Eks Borobudur Plaza,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,8,bus-smk-n-3-b9368922,SMK N 3,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,9,bus-fisipol-ugm-w-97df7db9,Fisipol UGM (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,10,bus-panti-rapih-9daeebbb,TPB Panti Rapih,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,11,bus-cik-di-tiro-1-c10dd170,Halte Cik Di Tiro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,12,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,13,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,14,bus-ykpn-8f047ea0,Halte TJ YKPN,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,15,bus-demangan-d2a020bd,TPB Demangan,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,16,bus-solo-sma-de-britto-38b4feb0,Halte TJ Solo (SMA De Britto),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,17,bus-ambarukmo-plaza-2-565c1eec,Ambarukmo Plaza 2,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,18,bus-janti-selatan-bawah-jembatan-04f06a52,Halte Janti Selatan (Bawah Jembatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,19,bus-janti-utara-95bc8d19,Halte Janti Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,20,bus-mall-sahid-j-walk-9eace41d,Halte Mall Sahid J-Walk,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,21,bus-tambak-bayan-1-6c8972ca,TPB Tambak Bayan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,22,bus-ruko-babarsari-3ba71551,TPB Ruko Babarsari,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,23,bus-stie-ykpn-w-baea62ce,STIE YKPN (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,24,bus-upn-veteran-6a3e2bb0,Halte UPN Veteran,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,25,bus-pakuwon-mall-s-2202544e,Pakuwon Mall (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,26,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,27,bus-rru-manggung-53668e66,TPB RRU Manggung,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,28,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,29,bus-mcd-jakal-f29584d4,TPB McD Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,30,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,31,bus-rs-sardjito-w-0ad8bcca,Halte RS Sardjito (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,32,bus-teknik-ugm-s-43bf9635,Teknik UGM (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,33,bus-spbu-monjali-w-7e90b609,SPBU Monjali (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,34,bus-pdam-monjali-w-de8c4f3e,PDAM Monjali (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,35,bus-monjali-s-cbddf0a1,Monjali (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5A,36,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,1,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,2,bus-monjali-n-7719f0b6,Monjali (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,3,bus-pdam-monjali-d9f381ae,PDAM Monjali,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,4,bus-spbu-monjali-e-8ca8e172,SPBU Monjali (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,5,bus-teknik-ugm-n-590d475e,Teknik UGM (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,6,bus-rs-sardjito-e-a2691dbb,Halte RS Sardjito (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,7,bus-fkg-ugm-n-14f6b4a2,FKG UGM (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,8,bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,9,bus-hokben-jakal-barat-ea5e4cb6,Hokben Jakal Barat,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,10,bus-rru-kentungan-132fb3e0,Halte TJ RRU Kentungan,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,11,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,12,bus-pakuwon-mall-n-50267f5f,Pakuwon Mall (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,13,bus-jih-b7958843,JIH,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,14,bus-stikes-guna-bangsa-aed05817,Halte Stikes Guna Bangsa,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,15,bus-stie-ykpn-e-34a03129,STIE YKPN (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,16,bus-smp-n-4-depok-ced1844f,SMP N 4 Depok,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,17,bus-dishub-diy-f1346f4c,Dishub DIY,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,18,bus-manna-kampus-d2f38df1,TPB Manna Kampus,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,19,bus-transmart-maguwo-83e44d9b,Transmart Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,20,bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,21,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,22,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,23,bus-hyundai-9b4bda77,Halte Hyundai,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,24,bus-jalan-solo-jayakarta-1c449de7,Halte Jl. Solo (Jayakarta),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,25,bus-janti-selatan-bawah-jembatan-04f06a52,Halte Janti Selatan (Bawah Jembatan),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,26,bus-ambarukmo-ca38052e,Halte Ambarukmo,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,27,bus-gedung-wanita-763bc43c,Halte Gedung Wanita,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,28,bus-lpp-80c48bc4,Halte LPP,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,29,bus-superindo-urip-sumoharjo-9f223797,Halte Superindo Urip Sumoharjo,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,30,bus-rs-bethesda-634b544c,Halte RS Bethesda,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,31,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,32,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,33,bus-suroto-1-321a9677,TPB Suroto 1,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,34,bus-cik-di-tiro-2-c9609bbb,Halte TJ Cik Di Tiro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,35,bus-smpn-1-yogyakarta-f7500491,TPB SMPN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,36,bus-fisipol-ugm-e-1c7537a9,Fisipol UGM (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,37,bus-smp-n-6-3c66eb40,SMP N 6,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,38,bus-kricak-7a2314de,Kricak,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,39,bus-karangwaru-w-2eff8d12,Karangwaru (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,40,bus-tvri-w-05cc82e3,TVRI (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,41,bus-daytrans-jalan-magelang-d2cbfb7a,Daytrans Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,42,bus-jogja-city-mall-w-5608534c,Jogja City Mall (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+5B,43,bus-mmtc-yogya-27d0c99b,MMTC Yogya,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,44,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+6,1,bus-park-and-ride-gamping-2562ef81,Park and Ride Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+6,2,bus-pku-gamping-0fdc4be0,PKU Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+6,3,bus-pasar-gamping-n-afa34dac,Pasar Gamping (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+6,4,bus-bsi-98bb411e,Portabel BSI,trans-jogja.csv,,,,,2026-09-12,unverified
+6,5,bus-umy-2-f4825ea1,TPB UMY 2,trans-jogja.csv,,,,,2026-09-12,unverified
+6,6,bus-bri-umy-8fdcca3e,TPB BRI UMY,trans-jogja.csv,,,,,2026-09-12,unverified
+6,7,bus-universitas-alma-ata-d05d3a6b,TPB Universitas Alma Ata,trans-jogja.csv,,,,,2026-09-12,unverified
+6,8,bus-jadan-2-a581f4d4,Jadan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+6,9,bus-kasihan-d9bd2111,TPB Kasihan,trans-jogja.csv,,,,,2026-09-12,unverified
+6,10,bus-simpang-diklat-diy-4f84a321,TPB Simpang Diklat DIY,trans-jogja.csv,,,,,2026-09-12,unverified
+6,11,bus-gedung-madu-candhya-2-3a76d53b,TPB Gedung Madu Candhya 2,trans-jogja.csv,,,,,2026-09-12,unverified
+6,12,bus-sman-1-kasihan-w-23845f53,SMAN 1 Kasihan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+6,13,bus-smk-seni-2-88816be2,TPB SMK Seni 2,trans-jogja.csv,,,,,2026-09-12,unverified
+6,14,bus-pasar-legi-yogyakarta-9455c379,Pasar Legi Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+6,15,bus-muallimin-n-49002d1a,Muallimin (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+6,16,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+6,17,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+6,18,bus-kha-dahlan-n-3fb74d20,KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+6,19,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+6,20,bus-jalan-mayor-suryotomo-78bd4048,TPB Jl. Mayor Suryotomo,trans-jogja.csv,,,,,2026-09-12,unverified
+6,21,bus-progo-e27cb7fc,Progo,trans-jogja.csv,,,,,2026-09-12,unverified
+6,22,bus-jalan-mataram-hotel-akur-bfbbe7b3,Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+6,23,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+6,24,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+6,25,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+6,26,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+6,27,bus-kha-dahlan-s-065936ef,KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+6,28,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+6,29,bus-muallimin-s-2f1d1246,Muallimin (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+6,30,bus-pasar-legi-352c9c2c,TPB Pasar Legi,trans-jogja.csv,,,,,2026-09-12,unverified
+6,31,bus-smk-seni-1-4ee60558,TPB SMK Seni 1,trans-jogja.csv,,,,,2026-09-12,unverified
+6,32,bus-sman-1-kasihan-e-713cf506,SMAN 1 Kasihan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+6,33,bus-gedung-madu-candhya-1-7aa1ea1b,TPB Gedung Madu Candhya 1,trans-jogja.csv,,,,,2026-09-12,unverified
+6,34,bus-ponpes-hamatul-quran-0542f85d,TPB Ponpes Hamatul Quran,trans-jogja.csv,,,,,2026-09-12,unverified
+6,35,bus-lap-kasihan-b684de58,TPB Lap. Kasihan,trans-jogja.csv,,,,,2026-09-12,unverified
+6,36,bus-jadan-1-942625db,Jadan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+6,37,bus-apotek-muji-sehat-948061e4,TPB Apotek Muji Sehat,trans-jogja.csv,,,,,2026-09-12,unverified
+6,38,bus-umy-1-990ef287,TPB UMY 1,trans-jogja.csv,,,,,2026-09-12,unverified
+6,39,bus-amik-bsi-60e8ad5a,TPB AMIK BSI,trans-jogja.csv,,,,,2026-09-12,unverified
+6,40,bus-pasar-gamping-s-09bd18f9,Pasar Gamping (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+6,41,bus-bpd-gamping-s-4c58803f,BPD Gamping (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+6,42,bus-park-and-ride-gamping-2562ef81,Park and Ride Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+8,1,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+8,2,bus-uty-ringroad-utara-2-a1cdb21a,Portabel UTY Ringroad Utara 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,3,bus-dusun-ngawen-d785cc2b,Portable Dusun Ngawen,trans-jogja.csv,,,,,2026-09-12,unverified
+8,4,bus-westlake-2-9ab01be8,Portabel Westlake 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,5,bus-rs-queen-latifa-f8657100,RS Queen Latifa,trans-jogja.csv,,,,,2026-09-12,unverified
+8,6,bus-perumahan-nogotirto-01efa425,Perumahan Nogotirto,trans-jogja.csv,,,,,2026-09-12,unverified
+8,7,bus-simpang-demak-ijo-d6a576b5,Portabel Simpang Demak Ijo,trans-jogja.csv,,,,,2026-09-12,unverified
+8,8,bus-simpang-godean-nogotirto-1b7226f0,Simpang Godean Nogotirto,trans-jogja.csv,,,,,2026-09-12,unverified
+8,9,bus-kantor-pos-demak-ijo-9a532390,Kantor Pos Demak Ijo,trans-jogja.csv,,,,,2026-09-12,unverified
+8,10,bus-sdn-1-demak-ijo-c2c3b953,SDN 1 Demak Ijo,trans-jogja.csv,,,,,2026-09-12,unverified
+8,11,bus-pasar-tlogorejo-a9a5b6ae,Pasar Tlogorejo,trans-jogja.csv,,,,,2026-09-12,unverified
+8,12,bus-mcd-godean-f30996f8,Portabel McD Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+8,13,bus-soragan-1-0aad9df9,Portabel Soragan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+8,14,bus-badan-kepegawaian-di-yogyakarta-9ccbb65f,Badan Kepegawaian DI Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+8,15,bus-pasar-pingit-n-b419e949,Pasar Pingit (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+8,16,bus-pasar-krangan-8db5e3eb,Halte Pasar Krangan,trans-jogja.csv,,,,,2026-09-12,unverified
+8,17,bus-mangkubumi-1-c45ff36a,Halte Mangkubumi 1,trans-jogja.csv,,,,,2026-09-12,unverified
+8,18,bus-mangkubumi-2-f24a8c2b,Halte Mangkubumi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,19,bus-eks-menara-kopi-n-a0aeefe1,Eks Menara Kopi (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+8,20,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+8,21,bus-eks-menara-kopi-s-dd0efb75,Eks Menara Kopi (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,22,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+8,23,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,24,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+8,25,bus-kha-dahlan-s-065936ef,Halte KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,26,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+8,27,bus-kha-dahlan-n-3fb74d20,KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+8,28,bus-bhayangkara-3972633d,Bhayangkara,trans-jogja.csv,,,,,2026-09-12,unverified
+8,29,bus-pasar-pathuk-2eb8737e,Pasar Pathuk,trans-jogja.csv,,,,,2026-09-12,unverified
+8,30,bus-sosrowijayan-dcdae1fc,Sosrowijayan,trans-jogja.csv,,,,,2026-09-12,unverified
+8,31,bus-yogyakarta-0b7ac635,Stasiun Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+8,32,bus-jlagran-402c26ac,Jlagran,trans-jogja.csv,,,,,2026-09-12,unverified
+8,33,bus-eks-perpusda-80a03598,Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+8,34,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+8,35,bus-pasar-pingit-s-ef51f110,Pasar Pingit (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,36,bus-bkd-s-fe8220fe,BKD (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,37,bus-soragan-2-49e0e9cb,Portabel Soragan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,38,bus-dentes-ruko-godean-2ce70ad6,Portabel Dentes (Ruko Godean),trans-jogja.csv,,,,,2026-09-12,unverified
+8,39,bus-pasar-tlogorejo-2-43254f03,Pasar Tlogorejo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,40,bus-sdn-1-demak-ijo-2-4199d9d2,SDN 1 Demak Ijo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,41,bus-kantor-pos-demak-ijo-2-8eeba9b2,Kantor Pos Demak Ijo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+8,42,bus-simpang-nogotirto-a8516abc,Halte Simpang Nogotirto,trans-jogja.csv,,,,,2026-09-12,unverified
+8,43,bus-kompi-senapan-c-s-e0038af6,Kompi Senapan-C (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+8,44,bus-total-security-sp-demak-ijo-1a6933c9,Portabel Total Security (SP Demak Ijo),trans-jogja.csv,,,,,2026-09-12,unverified
+8,45,bus-smp-3-gamping-6fb14f1c,SMP 3 Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+8,46,bus-unisa-51efca60,TPB UNISA,trans-jogja.csv,,,,,2026-09-12,unverified
+8,47,bus-westlake-1-686853be,Portabel Westlake 1,trans-jogja.csv,,,,,2026-09-12,unverified
+8,48,bus-uty-ringroad-utara-1-d1f84e81,Portabel UTY Ringroad Utara 1,trans-jogja.csv,,,,,2026-09-12,unverified
+8,49,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+9,1,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+9,2,bus-uad-ringroad-selatan-2-1cdc1ec5,TPB UAD Ringroad Selatan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+9,3,bus-simpang-wojo-1-45f7fc67,TPB Simpang Wojo 1,trans-jogja.csv,,,,,2026-09-12,unverified
+9,4,bus-salakan-druwo-4c17bc86,Salakan Druwo,trans-jogja.csv,,,,,2026-09-12,unverified
+9,5,bus-jogokariyan-72238fe9,Jogokariyan,trans-jogja.csv,,,,,2026-09-12,unverified
+9,6,bus-jalan-mayjen-sutoyo-jokteng-wetan-fb44ee8b,Portabel Jl. Mayjen Sutoyo (Jokteng Wetan),trans-jogja.csv,,,,,2026-09-12,unverified
+9,7,bus-jalan-mayjen-sutoyo-pasar-gading-4125f520,Portabel Jl. Mayjen Sutoyo (Pasar Gading),trans-jogja.csv,,,,,2026-09-12,unverified
+9,8,bus-mt-haryono-2-sma-n-7-f2748d4c,Halte MT Haryono 2 (SMA N 7),trans-jogja.csv,,,,,2026-09-12,unverified
+9,9,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+9,10,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+9,11,bus-pasar-serangan-0fab18f3,TPB Pasar Serangan,trans-jogja.csv,,,,,2026-09-12,unverified
+9,12,bus-cokroaminoto-sma-1-63bf5f7a,Halte Cokroaminoto SMA 1,trans-jogja.csv,,,,,2026-09-12,unverified
+9,13,bus-smpn-11-eks-perpusda-7eb02814,Halte SMPN 11- Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+9,14,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+9,15,bus-hotel-utara-ea824463,Hotel Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+9,16,bus-kricak-7a2314de,Kricak,trans-jogja.csv,,,,,2026-09-12,unverified
+9,17,bus-karangwaru-w-2eff8d12,Karangwaru (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+9,18,bus-tvri-w-05cc82e3,TVRI (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+9,19,bus-daytrans-jalan-magelang-d2cbfb7a,Daytrans Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+9,20,bus-jogja-city-mall-w-5608534c,Jogja City Mall (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+9,21,bus-mmtc-yogya-27d0c99b,MMTC Yogya,trans-jogja.csv,,,,,2026-09-12,unverified
+9,22,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+9,23,bus-indogrosir-a30b9f32,Indogrosir,trans-jogja.csv,,,,,2026-09-12,unverified
+9,24,bus-jogja-city-mall-e-58185771,Jogja City Mall (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+9,25,bus-atakrib-jalan-magelang-830dd5b2,Atakrib Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+9,26,bus-tvri-e-436715b2,TPB TVRI (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+9,27,bus-karangwaru-e-d57a2b75,Karangwaru (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+9,28,bus-hotel-utara-e-a8afeab1,Hotel Utara (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+9,29,bus-samsat-4b659405,Halte Samsat,trans-jogja.csv,,,,,2026-09-12,unverified
+9,30,bus-saudagaran-cf7f3da6,Halte Saudagaran,trans-jogja.csv,,,,,2026-09-12,unverified
+9,31,bus-sma-1-yogyakarta-a1494736,Halte SMA 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+9,32,bus-re-martadinata-51558c5d,TPB RE Martadinata,trans-jogja.csv,,,,,2026-09-12,unverified
+9,33,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+9,34,bus-tamansari-7a17b638,Portable Tamansari,trans-jogja.csv,,,,,2026-09-12,unverified
+9,35,bus-mt-haryono-1-jokteng-kulon-be1d0306,TPB MT Haryono 1 (Jokteng Kulon),trans-jogja.csv,,,,,2026-09-12,unverified
+9,36,bus-jalan-mayjen-sutoyo-plengkung-gading-e73901f8,TPB Jl. Mayjen Sutoyo (Plengkung Gading),trans-jogja.csv,,,,,2026-09-12,unverified
+9,37,bus-hotel-noola-1d14dbb7,Halte Hotel Noola,trans-jogja.csv,,,,,2026-09-12,unverified
+9,38,bus-jogokaryan-kimia-farma-1-89e48fc3,Portabel Jogokaryan Kimia Farma 1,trans-jogja.csv,,,,,2026-09-12,unverified
+9,39,bus-druwo-12f06437,Portabel Druwo,trans-jogja.csv,,,,,2026-09-12,unverified
+9,40,bus-uad-ringroad-selatan-1-12450bcf,TPB UAD Ringroad Selatan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+9,41,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+10,1,bus-park-and-ride-gamping-2562ef81,Park and Ride Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+10,2,bus-pku-gamping-0fdc4be0,PKU Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+10,3,bus-pasar-gamping-n-afa34dac,Pasar Gamping (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,4,bus-palem-gurih-2929ac62,Palem Gurih,trans-jogja.csv,,,,,2026-09-12,unverified
+10,5,bus-ruko-bayeman-2-23c4a9d2,TPB Ruko Bayeman 2,trans-jogja.csv,,,,,2026-09-12,unverified
+10,6,bus-museum-bahari-2-26c36bd9,TPB Museum Bahari 2,trans-jogja.csv,,,,,2026-09-12,unverified
+10,7,bus-smp-muhammadiyah-3-8d306de7,SMP Muhammadiyah 3,trans-jogja.csv,,,,,2026-09-12,unverified
+10,8,bus-gkj-wirobrajan-e-23f9db6e,GKJ Wirobrajan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+10,9,bus-muallimin-n-49002d1a,Muallimin (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,10,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+10,11,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+10,12,bus-kha-dahlan-n-3fb74d20,KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,13,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+10,14,bus-suryotomo-9ab084b2,Suryotomo,trans-jogja.csv,,,,,2026-09-12,unverified
+10,15,bus-progo-e27cb7fc,Progo,trans-jogja.csv,,,,,2026-09-12,unverified
+10,16,bus-jalan-mataram-hotel-akur-bfbbe7b3,Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+10,17,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+10,18,bus-eks-menara-kopi-n-a0aeefe1,Eks Menara Kopi (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,19,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+10,20,bus-lempuyangan-gudang-n-dc79fb4e,Lempuyangan Gudang (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,21,bus-lempuyangan-1f307a91,Stasiun Lempuyangan,trans-jogja.csv,,,,,2026-09-12,unverified
+10,22,bus-tarumartani-n-f5b09b35,Tarumartani (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,23,bus-mako-lanal-yogyakarta-8cfe6215,Mako Lanal Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+10,24,bus-timoho-e-91beeecd,Timoho (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+10,25,bus-smk-n-5-n-5d2e3d5f,SMK N 5 (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+10,26,bus-sgm-kusumanegara-s-c3683ba7,SGM Kusumanegara (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,27,bus-timoho-w-b557460d,Timoho (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+10,28,bus-tni-al-1-713b0f9f,TPB TNI AL 1,trans-jogja.csv,,,,,2026-09-12,unverified
+10,29,bus-tarumartani-e70598d0,TPB Tarumartani,trans-jogja.csv,,,,,2026-09-12,unverified
+10,30,bus-smp-kanisius-gayam-e-3c37e1d9,SMP Kanisius Gayam (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+10,31,bus-jalan-mataram-hotel-akur-bfbbe7b3,Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+10,32,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+10,33,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+10,34,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,35,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+10,36,bus-kha-dahlan-s-065936ef,KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,37,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+10,38,bus-muallimin-s-2f1d1246,Muallimin (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,39,bus-sma-muhammadiyah-3-6d7172c5,SMA Muhammadiyah 3,trans-jogja.csv,,,,,2026-09-12,unverified
+10,40,bus-wirobrajan-1-372c96cd,TPB Wirobrajan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+10,41,bus-museum-bahari-1-6c9571e7,TPB Museum Bahari 1,trans-jogja.csv,,,,,2026-09-12,unverified
+10,42,bus-ruko-bayeman-1-0f4e80e5,TPB Ruko Bayeman 1,trans-jogja.csv,,,,,2026-09-12,unverified
+10,43,bus-pelem-gurih-b79f91fc,TPB Pelem Gurih,trans-jogja.csv,,,,,2026-09-12,unverified
+10,44,bus-pasar-gamping-s-09bd18f9,Pasar Gamping (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,45,bus-bpd-gamping-s-4c58803f,BPD Gamping (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+10,46,bus-park-and-ride-gamping-2562ef81,Park and Ride Gamping,trans-jogja.csv,,,,,2026-09-12,unverified
+11,1,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+11,2,bus-uad-ringroad-selatan-2-1cdc1ec5,TPB UAD Ringroad Selatan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+11,3,bus-randubelang-w-52dbb8d9,Randubelang (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+11,4,bus-pasar-telo-1-a1824672,TPB Pasar Telo 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,5,bus-jogokariyan-72238fe9,Jogokariyan,trans-jogja.csv,,,,,2026-09-12,unverified
+11,6,bus-hotel-pramesthi-063819fe,TPB Hotel Pramesthi,trans-jogja.csv,,,,,2026-09-12,unverified
+11,7,bus-ruba-graha-1-1f748207,TPB Ruba Graha 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,8,bus-suryodiningratan-w-774bda0f,Suryodiningratan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+11,9,bus-mt-haryono-2-sman-7-3e1dac42,Halte MT Haryono 2 (SMAN 7),trans-jogja.csv,,,,,2026-09-12,unverified
+11,10,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+11,11,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+11,12,bus-pasar-serangan-0fab18f3,TPB Pasar Serangan,trans-jogja.csv,,,,,2026-09-12,unverified
+11,13,bus-cokroaminoto-sma-1-63bf5f7a,Halte Cokroaminoto SMA 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,14,bus-smpn-11-aa0a8dda,Halte SMPN 11,trans-jogja.csv,,,,,2026-09-12,unverified
+11,15,bus-eks-perpusda-80a03598,Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+11,16,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+11,17,bus-pasar-kranggan-b6b88028,Halte Pasar Kranggan,trans-jogja.csv,,,,,2026-09-12,unverified
+11,18,bus-sudirman-santika-3b336a7b,Halte Sudirman (Santika),trans-jogja.csv,,,,,2026-09-12,unverified
+11,19,bus-cik-di-tiro-2-c9609bbb,Halte TJ Cik Di Tiro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+11,20,bus-smpn-1-yogyakarta-f7500491,TPB SMPN 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+11,21,bus-panti-rapih-9daeebbb,TPB Panti Rapih,trans-jogja.csv,,,,,2026-09-12,unverified
+11,22,bus-cik-di-tiro-1-c10dd170,Halte Cik Di Tiro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,23,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+11,24,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+11,25,bus-kotabaru-98a0964c,Halte TJ Kotabaru,trans-jogja.csv,,,,,2026-09-12,unverified
+11,26,bus-sudirman-bumiputera-453f2846,Halte Sudirman Bumiputera,trans-jogja.csv,,,,,2026-09-12,unverified
+11,27,bus-diponegoro-4e843c81,Halte TJ Diponegoro,trans-jogja.csv,,,,,2026-09-12,unverified
+11,28,bus-samsat-4b659405,Halte Samsat,trans-jogja.csv,,,,,2026-09-12,unverified
+11,29,bus-saudagaran-cf7f3da6,Halte Saudagaran,trans-jogja.csv,,,,,2026-09-12,unverified
+11,30,bus-sma-1-yogyakarta-a1494736,Halte SMA 1 Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+11,31,bus-re-martadinata-51558c5d,TPB RE Martadinata,trans-jogja.csv,,,,,2026-09-12,unverified
+11,32,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+11,33,bus-tamansari-7a17b638,Portable Tamansari,trans-jogja.csv,,,,,2026-09-12,unverified
+11,34,bus-mt-haryono-1-jokteng-kulon-be1d0306,TPB MT Haryono 1 (Jokteng Kulon),trans-jogja.csv,,,,,2026-09-12,unverified
+11,35,bus-suryodiningratan-e-0ee7519f,Suryodiningratan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+11,36,bus-ruba-graha-2-31bc4852,TPB Ruba Graha 2,trans-jogja.csv,,,,,2026-09-12,unverified
+11,37,bus-jogokaryan-kimia-farma-1-89e48fc3,Portabel Jogokaryan Kimia Farma 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,38,bus-pasar-telo-2-124ef082,TPB Pasar Telo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+11,39,bus-randubelang-e-f45783e6,Randubelang (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+11,40,bus-uad-ringroad-selatan-1-12450bcf,TPB UAD Ringroad Selatan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+11,41,bus-terminal-giwangan-ee421b03,Terminal Giwangan,trans-jogja.csv,,,,,2026-09-12,unverified
+12,1,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+12,2,bus-spbu-condongcatur-e-794333df,SPBU Condongcatur (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,3,bus-prayan-e-d22ce9c8,Prayan (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,4,bus-susteran-novisiat-33aaae59,Susteran Novisiat,trans-jogja.csv,,,,,2026-09-12,unverified
+12,5,bus-sanata-dharma-25692b3b,Halte Sanata Dharma,trans-jogja.csv,,,,,2026-09-12,unverified
+12,6,bus-jalan-colombo-samirono-0f6c71b2,JL Colombo (Samirono),trans-jogja.csv,,,,,2026-09-12,unverified
+12,7,bus-jalan-colombo-panti-raph-97207924,JL Colombo (Panti Raph),trans-jogja.csv,,,,,2026-09-12,unverified
+12,8,bus-vokasi-ugm-541fef52,Vokasi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+12,9,bus-fkg-ugm-s-1cd7bfe3,FKG UGM (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+12,10,bus-rs-sardjito-w-0ad8bcca,Halte RS Sardjito (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+12,11,bus-mm-ugm-6d86cbe8,MM UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+12,12,bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+12,13,bus-hokben-jakal-w-08061330,Hokben Jakal (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+12,14,bus-superindo-kaliurang-55a294ae,Superindo Kaliurang,trans-jogja.csv,,,,,2026-09-12,unverified
+12,15,bus-pasar-kolombo-69cbcaf2,Pasar Kolombo,trans-jogja.csv,,,,,2026-09-12,unverified
+12,16,bus-terminal-bangunan-df9b71ae,Terminal Bangunan,trans-jogja.csv,,,,,2026-09-12,unverified
+12,17,bus-simpang-palem-raya-e-c72c93bc,Simpang Palem Raya (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,18,bus-kantor-camat-ngaglik-91c4f095,Kantor Camat Ngaglik,trans-jogja.csv,,,,,2026-09-12,unverified
+12,19,bus-puskesmas-ngaglik-i-ac4d2b11,Puskesmas Ngaglik I,trans-jogja.csv,,,,,2026-09-12,unverified
+12,20,bus-smp-negeri-2-ngaglik-15131f5b,SMP Negeri 2 Ngaglik,trans-jogja.csv,,,,,2026-09-12,unverified
+12,21,bus-warung-sego-penyetan-banyuwangi-c614c8b7,Warung Sego Penyetan Banyuwangi,trans-jogja.csv,,,,,2026-09-12,unverified
+12,22,bus-wedangan-kampoeng-1ea8493d,Wedangan Kampoeng,trans-jogja.csv,,,,,2026-09-12,unverified
+12,23,bus-simpang-besi-jangkang-4d0a717a,Simpang Besi Jangkang,trans-jogja.csv,,,,,2026-09-12,unverified
+12,24,bus-pusat-rehabilitasi-yakkum-c69b76c2,Pusat Rehabilitasi YAKKUM,trans-jogja.csv,,,,,2026-09-12,unverified
+12,25,bus-boulevard-uii-1c76a601,Boulevard UII,trans-jogja.csv,,,,,2026-09-12,unverified
+12,26,bus-uii-barat-jalan-38ce747d,UII (Barat Jalan),trans-jogja.csv,,,,,2026-09-12,unverified
+12,27,bus-simpang-dogolan-dab8862a,Simpang Dogolan,trans-jogja.csv,,,,,2026-09-12,unverified
+12,28,bus-raminten-boutique-cafe-ea7b41ba,Raminten Boutique & Cafe,trans-jogja.csv,,,,,2026-09-12,unverified
+12,29,bus-dusun-kledokan-soto-brakot-fc4d12ed,Dusun Kledokan (Soto Brakot),trans-jogja.csv,,,,,2026-09-12,unverified
+12,30,bus-rs-panti-nugroho-5e1208a0,RS Panti Nugroho,trans-jogja.csv,,,,,2026-09-12,unverified
+12,31,bus-terminal-pakem-ee26af28,Terminal Pakem,trans-jogja.csv,,,,,2026-09-12,unverified
+12,32,bus-smpn-4-pakem-c5d3922a,SMPN 4 Pakem,trans-jogja.csv,,,,,2026-09-12,unverified
+12,33,bus-dusun-kledokan-soto-brakot-2-0ae3a409,Dusun Kledokan (Soto Brakot) 2,trans-jogja.csv,,,,,2026-09-12,unverified
+12,34,bus-raminten-boutique-cafe-halte-2-0e5ed010,Raminten Boutique & Cafe (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+12,35,bus-simpang-dogolan-2-b22541ba,Simpang Dogolan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+12,36,bus-boulevard-uii-1c76a601,Boulevard UII,trans-jogja.csv,,,,,2026-09-12,unverified
+12,37,bus-uii-timur-jalan-4bb919c8,UII (Timur Jalan),trans-jogja.csv,,,,,2026-09-12,unverified
+12,38,bus-pusat-rehabilitasi-yakkum-halte-2-8dc4e258,Pusat Rehabilitasi YAKKUM (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+12,39,bus-simpang-besi-jangkang-2-3ce47645,Simpang Besi Jangkang 2,trans-jogja.csv,,,,,2026-09-12,unverified
+12,40,bus-wedangan-kampoeng-e-ceacc5d5,Wedangan Kampoeng (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,41,bus-spbu-kaliurang-5896c57f,SPBU Kaliurang,trans-jogja.csv,,,,,2026-09-12,unverified
+12,42,bus-smp-negeri-2-ngaglik-e-849e20e5,SMP Negeri 2 Ngaglik (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,43,bus-puskesmas-ngaglik-1-halte-2-356048c0,Puskesmas Ngaglik 1 (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+12,44,bus-tk-bias-kaliurang-cb4024c2,TK Bias Kaliurang,trans-jogja.csv,,,,,2026-09-12,unverified
+12,45,bus-simpang-palem-raya-e-c72c93bc,Simpang Palem Raya (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,46,bus-pln-gardu-induk-kentungan-ccdb7caf,PLN Gardu Induk Kentungan,trans-jogja.csv,,,,,2026-09-12,unverified
+12,47,bus-pasar-kolombo-e-853be528,Pasar Kolombo (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,48,bus-superindo-kaliurang-halte-2-ac22e6e8,Superindo Kaliurang (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+12,49,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,50,bus-mcd-jakal-f29584d4,TPB McD Jakal,trans-jogja.csv,,,,,2026-09-12,unverified
+12,51,bus-biologi-ugm-b03972b2,Biologi UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+12,52,bus-rs-sardjito-e-a2691dbb,Halte RS Sardjito (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+12,53,bus-fkg-ugm-n-14f6b4a2,FKG UGM (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+12,54,bus-gik-ugm-5b041db4,Halte GIK UGM,trans-jogja.csv,,,,,2026-09-12,unverified
+12,55,bus-colombo-kosudgama-d0852f9e,Halte TJ Colombo (Kosudgama),trans-jogja.csv,,,,,2026-09-12,unverified
+12,56,bus-jalan-colombo-uny-29a043e3,TPB Jl. Colombo (UNY),trans-jogja.csv,,,,,2026-09-12,unverified
+12,57,bus-plaza-uny-9f5e7dd7,Plaza UNY,trans-jogja.csv,,,,,2026-09-12,unverified
+12,58,bus-santren-1292f082,Santren,trans-jogja.csv,,,,,2026-09-12,unverified
+12,59,bus-prayan-w-756ecdc4,Prayan (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+12,60,bus-spbu-condongcatur-w-a4e66ecc,SPBU Condongcatur (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+12,61,bus-terminal-condongcatur-fcb890e4,Terminal Condong Catur,trans-jogja.csv,,,,,2026-09-12,unverified
+13,1,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,2,bus-pasar-serangan-0fab18f3,TPB Pasar Serangan,trans-jogja.csv,,,,,2026-09-12,unverified
+13,3,bus-cokroaminoto-sma-1-63bf5f7a,Halte Cokroaminoto SMA 1,trans-jogja.csv,,,,,2026-09-12,unverified
+13,4,bus-smpn-11-aa0a8dda,Halte SMPN 11,trans-jogja.csv,,,,,2026-09-12,unverified
+13,5,bus-soragan-2-49e0e9cb,Portabel Soragan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,6,bus-dentes-ruko-godean-2ce70ad6,Portabel Dentes (Ruko Godean),trans-jogja.csv,,,,,2026-09-12,unverified
+13,7,bus-pasar-tlogorejo-2-43254f03,Pasar Tlogorejo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,8,bus-sdn-1-demak-ijo-2-4199d9d2,SDN 1 Demak Ijo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,9,bus-kantor-pos-demak-ijo-2-8eeba9b2,Kantor Pos Demak Ijo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,10,bus-simpang-nogotirto-a8516abc,Halte Simpang Nogotirto,trans-jogja.csv,,,,,2026-09-12,unverified
+13,11,bus-kompi-senapan-c-s-e0038af6,Kompi Senapan-C (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+13,12,bus-barat-jembatan-moyudan-toko-saerah-2-4abe8813,Barat Jembatan Moyudan (Toko Saerah) 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,13,bus-kantor-desa-sidoarum-bf0f3167,Kantor Desa Sidoarum,trans-jogja.csv,,,,,2026-09-12,unverified
+13,14,bus-barat-simpang-bantulan-2-00b7c5ce,Barat Simpang Bantulan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,15,bus-simpang-munggur-sidomoyo-153bef9c,Simpang Munggur Sidomoyo,trans-jogja.csv,,,,,2026-09-12,unverified
+13,16,bus-simpang-gesikan-2-fc161a14,Simpang Gesikan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,17,bus-indomaret-klajuran-d5ed150c,Indomaret Klajuran,trans-jogja.csv,,,,,2026-09-12,unverified
+13,18,bus-neutron-yogyakarta-godean-845b1965,Neutron Yogyakarta Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,19,bus-simpang-polsek-godean-2-a9bcfcc0,Simpang Polsek Godean 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,20,bus-koramil-godean-2-02c30cae,Koramil Godean 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,21,bus-simpang-mandungan-iwak-kalen-2-e86f2aa4,Simpang Mandungan (Iwak Kalen) 2,trans-jogja.csv,,,,,2026-09-12,unverified
+13,22,bus-kantor-kecamatan-godean-c51005b9,Kantor Kecamatan Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,23,bus-pusat-kuliner-belut-godean-7bc5eef1,Pusat Kuliner Belut Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,24,bus-kantor-kecamatan-godean-halte-2-b731f16c,Kantor Kecamatan Godean (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+13,25,bus-simpang-mandungan-iwak-kalen-9f9a83fc,Simpang Mandungan (Iwak Kalen),trans-jogja.csv,,,,,2026-09-12,unverified
+13,26,bus-koramil-godean-ddb7c21d,Koramil Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,27,bus-simpang-polsek-godean-e69bfb23,Simpang Polsek Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,28,bus-neutron-yogyakarta-godean-halte-2-b83475d4,Neutron Yogyakarta Godean (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+13,29,bus-indomaret-klajuran-d5ed150c,Indomaret Klajuran,trans-jogja.csv,,,,,2026-09-12,unverified
+13,30,bus-simpang-gesikan-3cb84e29,Simpang Gesikan,trans-jogja.csv,,,,,2026-09-12,unverified
+13,31,bus-simpang-munggur-94a899fe,Simpang Munggur,trans-jogja.csv,,,,,2026-09-12,unverified
+13,32,bus-timur-simpang-bantulan-022eaf0f,Timur Simpang Bantulan,trans-jogja.csv,,,,,2026-09-12,unverified
+13,33,bus-kantor-desa-sidoarum-bf0f3167,Kantor Desa Sidoarum,trans-jogja.csv,,,,,2026-09-12,unverified
+13,34,bus-barat-jembatan-moyudan-toko-saerah-c31b10c2,Barat Jembatan Moyudan (Toko Saerah),trans-jogja.csv,,,,,2026-09-12,unverified
+13,35,bus-simpang-godean-nogotirto-1b7226f0,Simpang Godean Nogotirto,trans-jogja.csv,,,,,2026-09-12,unverified
+13,36,bus-kantor-pos-demak-ijo-9a532390,Kantor Pos Demak Ijo,trans-jogja.csv,,,,,2026-09-12,unverified
+13,37,bus-sdn-1-demak-ijo-c2c3b953,SDN 1 Demak Ijo,trans-jogja.csv,,,,,2026-09-12,unverified
+13,38,bus-pasar-tlogorejo-a9a5b6ae,Pasar Tlogorejo,trans-jogja.csv,,,,,2026-09-12,unverified
+13,39,bus-mcd-godean-f30996f8,Portabel McD Godean,trans-jogja.csv,,,,,2026-09-12,unverified
+13,40,bus-soragan-1-0aad9df9,Portabel Soragan 1,trans-jogja.csv,,,,,2026-09-12,unverified
+13,41,bus-badan-kepegawaian-di-yogyakarta-9ccbb65f,Badan Kepegawaian DI Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+13,42,bus-pasar-pingit-n-b419e949,Pasar Pingit (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+13,43,bus-pasar-kranggan-b6b88028,Halte Pasar Kranggan,trans-jogja.csv,,,,,2026-09-12,unverified
+13,44,bus-sudirman-santika-3b336a7b,Halte Sudirman (Santika),trans-jogja.csv,,,,,2026-09-12,unverified
+13,45,bus-bulog-970050c0,Halte Bulog,trans-jogja.csv,,,,,2026-09-12,unverified
+13,46,bus-kridosono-2bc75039,Halte Kridosono,trans-jogja.csv,,,,,2026-09-12,unverified
+13,47,bus-eks-menara-kopi-selatan-a7802379,Eks Menara Kopi Selatan,trans-jogja.csv,,,,,2026-09-12,unverified
+13,48,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+13,49,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+13,50,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+13,51,bus-kha-dahlan-s-065936ef,KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+13,52,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+14,1,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+14,2,bus-kantor-kesehatan-pelabuhan-yogya-46efdf82,Kantor Kesehatan Pelabuhan Yogya,trans-jogja.csv,,,,,2026-09-12,unverified
+14,3,bus-rru-disnaker-eeaaa2dd,TJ RRU Disnaker,trans-jogja.csv,,,,,2026-09-12,unverified
+14,4,bus-smkn-1-depok-16f4e579,SMKN 1 Depok,trans-jogja.csv,,,,,2026-09-12,unverified
+14,5,bus-sd-n-1-depok-4283089a,SD N 1 Depok,trans-jogja.csv,,,,,2026-09-12,unverified
+14,6,bus-kantor-urusan-agama-depok-6e09f175,Kantor Urusan Agama Depok,trans-jogja.csv,,,,,2026-09-12,unverified
+14,7,bus-man-2-sleman-190352c8,MAN 2 Sleman,trans-jogja.csv,,,,,2026-09-12,unverified
+14,8,bus-kampus-unriyo-445e1f15,Kampus Unriyo,trans-jogja.csv,,,,,2026-09-12,unverified
+14,9,bus-sma-budi-mulia-dua-4466124f,SMA Budi Mulia Dua,trans-jogja.csv,,,,,2026-09-12,unverified
+14,10,bus-indomaret-pokoh-sambiroto-825fb845,Indomaret Pokoh Sambiroto,trans-jogja.csv,,,,,2026-09-12,unverified
+14,11,bus-kantor-desa-wedomartani-ca280dac,Kantor Desa Wedomartani,trans-jogja.csv,,,,,2026-09-12,unverified
+14,12,bus-simpang-babadan-c39aa2ae,Simpang Babadan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,13,bus-simpang-selomartani-884b05f3,Simpang Selomartani,trans-jogja.csv,,,,,2026-09-12,unverified
+14,14,bus-simpang-kabunan-9d1322f0,Simpang Kabunan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,15,bus-raya-kabunan-3b027ee4,Halte Raya Kabunan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,16,bus-rs-kemasan-b3d3f265,RS Kemasan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,17,bus-dusun-kenthi-0ba5bcc5,Dusun Kenthi,trans-jogja.csv,,,,,2026-09-12,unverified
+14,18,bus-simpang-pasar-jangkang-6b931381,Simpang Pasar Jangkang,trans-jogja.csv,,,,,2026-09-12,unverified
+14,19,bus-puskesmas-ngemplak-2-145b1653,Puskesmas Ngemplak 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,20,bus-tugu-batas-desa-yapah-89c1dac7,Tugu Batas Desa Yapah,trans-jogja.csv,,,,,2026-09-12,unverified
+14,21,bus-timur-jembatan-yapah-f9e728bc,Timur Jembatan Yapah,trans-jogja.csv,,,,,2026-09-12,unverified
+14,22,bus-sma-negeri-2-ngaglik-9e9eeab5,SMA Negeri 2 Ngaglik,trans-jogja.csv,,,,,2026-09-12,unverified
+14,23,bus-simpang-losari-cozy-51845a25,Simpang Losari (Cozy),trans-jogja.csv,,,,,2026-09-12,unverified
+14,24,bus-spbu-mindi-6c8960fa,SPBU Mindi,trans-jogja.csv,,,,,2026-09-12,unverified
+14,25,bus-lapangan-klidon-8f908bd2,Lapangan Klidon,trans-jogja.csv,,,,,2026-09-12,unverified
+14,26,bus-sdn-selomulyo-b39b4b23,SDN Selomulyo,trans-jogja.csv,,,,,2026-09-12,unverified
+14,27,bus-rsu-gramedika-268ded80,RSU Gramedika,trans-jogja.csv,,,,,2026-09-12,unverified
+14,28,bus-simpang-besi-jangkang-4d0a717a,Simpang Besi Jangkang,trans-jogja.csv,,,,,2026-09-12,unverified
+14,29,bus-pusat-rehabilitasi-yakkum-c69b76c2,Pusat Rehabilitasi YAKKUM,trans-jogja.csv,,,,,2026-09-12,unverified
+14,30,bus-boulevard-uii-1c76a601,Boulevard UII,trans-jogja.csv,,,,,2026-09-12,unverified
+14,31,bus-uii-barat-jalan-38ce747d,UII (Barat Jalan),trans-jogja.csv,,,,,2026-09-12,unverified
+14,32,bus-simpang-dogolan-dab8862a,Simpang Dogolan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,33,bus-raminten-boutique-cafe-ea7b41ba,Raminten Boutique & Cafe,trans-jogja.csv,,,,,2026-09-12,unverified
+14,34,bus-dusun-kledokan-soto-brakot-fc4d12ed,Dusun Kledokan (Soto Brakot),trans-jogja.csv,,,,,2026-09-12,unverified
+14,35,bus-rs-panti-nugroho-5e1208a0,RS Panti Nugroho,trans-jogja.csv,,,,,2026-09-12,unverified
+14,36,bus-terminal-pakem-ee26af28,Terminal Pakem,trans-jogja.csv,,,,,2026-09-12,unverified
+14,37,bus-sd-n-percobaan-3-pakem-6d3873f6,SD N Percobaan 3 Pakem,trans-jogja.csv,,,,,2026-09-12,unverified
+14,38,bus-smpn-4-pakem-c5d3922a,SMPN 4 Pakem,trans-jogja.csv,,,,,2026-09-12,unverified
+14,39,bus-dusun-kledokan-soto-brakot-2-0ae3a409,Dusun Kledokan (Soto Brakot) 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,40,bus-raminten-boutique-cafe-halte-2-0e5ed010,Raminten Boutique & Cafe (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,41,bus-simpang-dogolan-2-b22541ba,Simpang Dogolan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,42,bus-boulevard-uii-1c76a601,Boulevard UII,trans-jogja.csv,,,,,2026-09-12,unverified
+14,43,bus-uii-timur-jalan-4bb919c8,UII (Timur Jalan),trans-jogja.csv,,,,,2026-09-12,unverified
+14,44,bus-pusat-rehabilitasi-yakkum-halte-2-8dc4e258,Pusat Rehabilitasi YAKKUM (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,45,bus-simpang-besi-jangkang-2-3ce47645,Simpang Besi Jangkang 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,46,bus-rsu-gramedika-2-cb945382,RSU Gramedika 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,47,bus-sd-negeri-selomulyo-halte-2-e4b1ce33,SD Negeri Selomulyo (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,48,bus-kantor-kal-sukoharjo-d97d4a8e,Kantor Kal. Sukoharjo,trans-jogja.csv,,,,,2026-09-12,unverified
+14,49,bus-lapangan-klidon-2-f0819a6d,Lapangan Klidon 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,50,bus-spbu-mindi-2-ce3fb31c,SPBU Mindi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,51,bus-simpang-losari-cozy-51845a25,Simpang Losari (Cozy),trans-jogja.csv,,,,,2026-09-12,unverified
+14,52,bus-sma-negeri-2-ngaglik-halte-2-da0e0964,SMA Negeri 2 Ngaglik (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,53,bus-timur-jembatan-yapah-2-c23c9c0a,Timur Jembatan Yapah 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,54,bus-tugu-batas-desa-yapah-2-d76e547f,Tugu Batas Desa Yapah 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,55,bus-puskesmas-ngemplak-2-halte-2-baf9532f,Puskesmas Ngemplak 2 (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,56,bus-simpang-pasar-jangkang-halte-2-b656e0eb,Simpang Pasar Jangkang (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,57,bus-dusun-kenthi-2-e0d38c86,Dusun Kenthi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,58,bus-rs-kemasan-halte-2-d40e54c3,RS Kemasan (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,59,bus-raya-kabunan-3b027ee4,Halte Raya Kabunan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,60,bus-simpang-kabunan-halte-2-36d11693,Simpang Kabunan (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,61,bus-simpang-selomartani-2-71176374,Simpang Selomartani 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,62,bus-simpang-babadan-2-e5b06fc4,Simpang Babadan 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,63,bus-kantor-desa-wedomartani-halte-2-8ca3a4ae,Kantor Desa Wedomartani (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,64,bus-indomaret-pokoh-sambiroto-2-8c35c082,Indomaret Pokoh Sambiroto 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,65,bus-sma-budi-mulia-dua-halte-2-a875f96a,SMA Budi Mulia Dua (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,66,bus-kampus-unriyo-2-3037d304,Kampus Unriyo 2,trans-jogja.csv,,,,,2026-09-12,unverified
+14,67,bus-man-2-sleman-halte-2-16734ec3,MAN 2 Sleman (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,68,bus-kantor-urusan-agama-depok-halte-2-d63f74be,Kantor Urusan Agama Depok (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,69,bus-pasar-stan-3701dec0,Pasar Stan,trans-jogja.csv,,,,,2026-09-12,unverified
+14,70,bus-smkn-1-depok-halte-2-25f1181b,SMKN 1 Depok (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+14,71,bus-disnakertrans-di-yogyakarta-2f728f54,Disnakertrans DI Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+14,72,bus-selokan-mataram-maguwo-6164f755,Selokan Mataram Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+14,73,bus-rru-binamarga-74dcd5b9,Halte TJ RRU (Binamarga),trans-jogja.csv,,,,,2026-09-12,unverified
+14,74,bus-jalan-solo-maguwo-1f37f812,Halte Jl. Solo Maguwo,trans-jogja.csv,,,,,2026-09-12,unverified
+14,75,bus-bandara-adisucipto-545ec9b5,Halte TJ Bandara Adisucipto,trans-jogja.csv,,,,,2026-09-12,unverified
+15,1,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+15,2,bus-kha-dahlan-s-065936ef,KHA Dahlan (Selatan),trans-jogja.csv,,,,,2026-09-12,unverified
+15,3,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+15,4,bus-tamansari-7a17b638,Portable Tamansari,trans-jogja.csv,,,,,2026-09-12,unverified
+15,5,bus-gereja-pugeran-ab090bbd,Halte Gereja Pugeran,trans-jogja.csv,,,,,2026-09-12,unverified
+15,6,bus-dukuh-e-9d567c71,Dukuh (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+15,7,bus-park-and-ride-dongkelan-pasty-7561163e,Park and Ride Dongkelan (Pasty),trans-jogja.csv,,,,,2026-09-12,unverified
+15,8,bus-simpang-dongkelan-d0234b3a,Simpang Dongkelan,trans-jogja.csv,,,,,2026-09-12,unverified
+15,9,bus-pasar-niten-b37a4715,Pasar Niten,trans-jogja.csv,,,,,2026-09-12,unverified
+15,10,bus-simpang-kasongan-e0220233,Simpang Kasongan,trans-jogja.csv,,,,,2026-09-12,unverified
+15,11,bus-kantor-badan-kesatuan-bangsa-politik-c2b0ae66,Kantor Badan Kesatuan Bangsa & Politik,trans-jogja.csv,,,,,2026-09-12,unverified
+15,12,bus-kantor-kelurahan-pendowoharjo-0862e377,Kantor Kelurahan Pendowoharjo,trans-jogja.csv,,,,,2026-09-12,unverified
+15,13,bus-smp-n-2-bantul-5cb13e64,Halte SMP N 2 Bantul,trans-jogja.csv,,,,,2026-09-12,unverified
+15,14,bus-kantor-kapanewon-bantul-cdd6be86,Kantor Kapanewon Bantul,trans-jogja.csv,,,,,2026-09-12,unverified
+15,15,bus-pasar-bantul-de60e961,Pasar Bantul,trans-jogja.csv,,,,,2026-09-12,unverified
+15,16,bus-eks-stasiun-ka-bantul-aaacaef2,Eks. Stasiun KA Bantul,trans-jogja.csv,,,,,2026-09-12,unverified
+15,17,bus-tugu-adipura-bantul-polres-bantul-40ff2d29,Tugu Adipura Bantul (Polres Bantul),trans-jogja.csv,,,,,2026-09-12,unverified
+15,18,bus-simpang-gose-halte-1-986d3737,Simpang Gose (Halte 1),trans-jogja.csv,,,,,2026-09-12,unverified
+15,19,bus-sd-unggulan-aisyiyah-2-873ecdff,SD Unggulan Aisyiyah 2,trans-jogja.csv,,,,,2026-09-12,unverified
+15,20,bus-sma-n-1-bantul-i-bd617eae,SMA N 1 Bantul I,trans-jogja.csv,,,,,2026-09-12,unverified
+15,21,bus-terminal-palbapang-w-c84e2640,Terminal Palbapang (B),trans-jogja.csv,,,,,2026-09-12,unverified
+15,22,bus-sma-n-1-bantul-2-5de4317a,Halte SMA N 1 Bantul 2,trans-jogja.csv,,,,,2026-09-12,unverified
+15,23,bus-sd-unggulan-aisyiyah-1-66442619,SD Unggulan Aisyiyah 1,trans-jogja.csv,,,,,2026-09-12,unverified
+15,24,bus-simpang-gose-halte-2-9d1af7ff,Simpang Gose (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,25,bus-tugu-adipura-bantul-halte-2-b6a74e9c,Halte Tugu Adipura Bantul (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,26,bus-pasar-bantul-halte-2-a4a1fd5f,Pasar Bantul (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,27,bus-bri-cabang-bantul-ca5f6e41,Halte BRI Cabang Bantul,trans-jogja.csv,,,,,2026-09-12,unverified
+15,28,bus-karanggede-044ebf69,Halte Karanggede,trans-jogja.csv,,,,,2026-09-12,unverified
+15,29,bus-kantor-kelurahan-pendowoharjo-0862e377,Kantor Kelurahan Pendowoharjo,trans-jogja.csv,,,,,2026-09-12,unverified
+15,30,bus-kantor-badan-kesatuan-bangsa-politik-hal-a008e6f1,Kantor Badan Kesatuan Bangsa & Politik (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,31,bus-simpang-kasongan-halte-2-57f682a0,Simpang Kasongan (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,32,bus-pasar-niten-halte-2-cc89169e,Pasar Niten (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,33,bus-simpang-dongkelan-halte-2-40d99d82,Simpang Dongkelan (Halte 2),trans-jogja.csv,,,,,2026-09-12,unverified
+15,34,bus-pasty-a2ad35ef,TPB Pasty,trans-jogja.csv,,,,,2026-09-12,unverified
+15,35,bus-dukuh-w-69bdab86,Dukuh (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+15,36,bus-fip-uny-ffd961ca,FIP UNY,trans-jogja.csv,,,,,2026-09-12,unverified
+15,37,bus-tejokusuman-tamansari-e7596b7b,Portabel Tejokusuman (Tamansari),trans-jogja.csv,,,,,2026-09-12,unverified
+15,38,bus-ngabean-4b97c318,Halte Ngabean,trans-jogja.csv,,,,,2026-09-12,unverified
+15,39,bus-kha-dahlan-n-3fb74d20,KHA Dahlan (Utara),trans-jogja.csv,,,,,2026-09-12,unverified
+15,40,bus-taman-pintar-1b9e094b,Taman Pintar,trans-jogja.csv,,,,,2026-09-12,unverified
+15,41,bus-suryotomo-9ab084b2,Suryotomo,trans-jogja.csv,,,,,2026-09-12,unverified
+15,42,bus-progo-e27cb7fc,Progo,trans-jogja.csv,,,,,2026-09-12,unverified
+15,43,bus-jalan-mataram-hotel-akur-bfbbe7b3,Jl. Mataram Hotel Akur,trans-jogja.csv,,,,,2026-09-12,unverified
+15,44,bus-teras-malioboro-2-d4789a15,Portable Teras Malioboro 2,trans-jogja.csv,,,,,2026-09-12,unverified
+15,45,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+15,46,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+15,47,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,1,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,2,bus-indogrosir-a30b9f32,Indogrosir,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,3,bus-jogja-city-mall-e-58185771,Jogja City Mall (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,4,bus-atakrib-jalan-magelang-830dd5b2,Atakrib Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,5,bus-tvri-e-436715b2,TPB TVRI (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,6,bus-karangwaru-e-d57a2b75,Karangwaru (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,7,bus-hotel-utara-e-a8afeab1,Hotel Utara (Timur),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,8,bus-pasar-kranggan-b6b88028,Halte Pasar Kranggan,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,9,bus-mangkubumi-1-c45ff36a,Halte Mangkubumi 1,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,10,bus-mangkubumi-2-f24a8c2b,Halte Mangkubumi 2,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,11,bus-malioboro-1-b886c248,Halte Malioboro 1,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,12,bus-malioboro-2-kepatihan-edeea5b5,Halte Malioboro 2 (Kepatihan),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,13,bus-malioboro-3-d1dc4d12,Halte Malioboro 3,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,14,bus-bhayangkara-3972633d,Portabel Bhayangkara,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,15,bus-pasar-pathuk-yogyakarta-92bcefb1,Portabel Pasar Pathuk Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,16,bus-sosrowijayan-dcdae1fc,Sosrowijayan,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,17,bus-yogyakarta-0b7ac635,Stasiun Yogyakarta,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,18,bus-jlagran-402c26ac,Jlagran,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,19,bus-eks-perpusda-80a03598,Eks Perpusda,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,20,bus-smp-n-14-86dc3cfa,Halte SMP N 14,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,21,bus-hotel-utara-ea824463,Hotel Utara,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,22,bus-kricak-7a2314de,Kricak,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,23,bus-karangwaru-w-2eff8d12,Karangwaru (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,24,bus-tvri-w-05cc82e3,TVRI (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,25,bus-daytrans-jalan-magelang-d2cbfb7a,Daytrans Jl. Magelang,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,26,bus-jogja-city-mall-w-5608534c,Jogja City Mall (Barat),trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,27,bus-mmtc-yogya-27d0c99b,MMTC Yogya,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,28,bus-terminal-jombor-536d39cc,Terminal Jombor,trans-jogja.csv,,,,,2026-09-12,unverified
