@@ -11,7 +11,7 @@ from app.api.routes import router as http_router
 from app.api.search import router as search_router
 from app.api.ws import router as ws_router
 from app.config import settings
-from app.data.db import make_engine
+from app.data.db import init_db, make_engine
 
 
 @asynccontextmanager
@@ -19,6 +19,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     engine = make_engine()
     http_client = httpx.AsyncClient()
     cache = make_redis_client(settings.redis_url)
+
+    # Schema changes are additive (`create_all`): ensure new schedule tables
+    # exist before the runtime repository queries them.
+    await init_db(engine)
 
     app.state.engine = engine
     app.state.http_client = http_client

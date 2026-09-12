@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-09-12T07:08:48.977Z",
+  "api_endpoint": "https://server.mapid.io/web/competition/{mission-type}",
+  "api_docs_updated": "2026-08-04",
+  "query": {
+    "feature": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            110,
+            -8.25
+          ],
+          [
+            110.65,
+            -8.25
+          ],
+          [
+            110.65,
+            -7.55
+          ],
+          [
+            110,
+            -7.55
+          ],
+          [
+            110,
+            -8.25
+          ]
+        ]
+      ]
+    },
+    "offset_pages": "until hasMore=false"
+  },
+  "output_rows": 264,
+  "datasets": {
+    "propertigo": {
+      "rows": 182,
+      "pages": 2,
+      "api_total": 182
+    },
+    "menugo": {
+      "rows": 2,
+      "pages": 1,
+      "api_total": 2
+    },
+    "struckgo": {
+      "rows": 80,
+      "pages": 1,
+      "api_total": 80
+    }
+  },
+  "privacy": {
+    "excluded_fields": [
+      "property address",
+      "notes",
+      "photos",
+      "receipt images",
+      "payment method",
+      "raw properties"
+    ],
+    "propertigo_name": "omitted to avoid persisting property addresses"
+  },
+  "limitations": [
+    "Accepted MAPID mission records, not authoritative POI registry.",
+    "Requires review before production database import.",
+    "Does not contain transit route order, timetable, fare, or route geometry."
+  ],
+  "data_quality": {
+    "tanggal": "Live API returned empty objects for all sampled mission tanggal values; observed_date left blank."
+  }
+}

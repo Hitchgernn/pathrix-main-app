@@ -9,6 +9,11 @@ class Settings(BaseSettings):
 
     mapid_basemap_key: str = ""
     mapid_mission_api_key: str = ""
+    # geoserver.mapid.io publishes project vector layers under its own key,
+    # separate from the mission API key.
+    mapid_geoserver_api_key: str = ""
+    mapid_project_id: str = ""
+    mapid_halte_layer_id: str = ""
 
     llm_provider: str = ""
     llm_model: str = ""

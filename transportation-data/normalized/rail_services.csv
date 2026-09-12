@@ -1,0 +1,7 @@
+service_id,mode,operator,name,direction_id,origin,destination,source_file,source_page,effective_from,effective_until,source_last_updated,freshness_as_of,freshness_status
+krl_yogyakarta_palur,rail,KAI Commuter,Commuterline KRL,0,Yogyakarta,Palur,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+krl_palur_yogyakarta,rail,KAI Commuter,Commuterline KRL,1,Palur,Yogyakarta,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+yia_yogyakarta_airport,airport_rail,KAI Bandara,KA Bandara YIA,0,Yogyakarta,YIA,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+yia_airport_yogyakarta,airport_rail,KAI Bandara,KA Bandara YIA,1,YIA,Yogyakarta,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+prameks_yogyakarta_kutoarjo,rail,KAI Commuter,Commuterline Prameks,0,Yogyakarta,Kutoarjo,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified
+prameks_kutoarjo_yogyakarta,rail,KAI Commuter,Commuterline Prameks,1,Kutoarjo,Yogyakarta,Peta Integrasi Angkutan Umum.pdf,8,,,2025-02-01,2026-09-12,unverified

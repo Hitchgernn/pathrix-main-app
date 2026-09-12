@@ -1,12 +1,13 @@
 import { bboxKey, memo, SESSION, snapBBox } from "./cache";
 import type { Place, PlaceHit } from "./places";
 import { placeFromHit } from "./places";
-import type { BBox, LayerMeta, MissionFeature } from "./types";
+import type { BBox, LayerMeta, MissionFeature, StopDeparture } from "./types";
 
 const base = import.meta.env.VITE_API_BASE ?? "";
 
 const FEATURES_TTL_MS = 2 * 60_000;
 const SEARCH_TTL_MS = 5 * 60_000;
+const DEPARTURES_TTL_MS = 60_000;
 
 /** The layer catalogue is served from the backend, but the design's row
  *  presentation (name, swatch, meta line) is the visual contract — see
@@ -60,5 +61,23 @@ export function searchPlaces(query: string, limit = 8): Promise<Place[]> {
     const response = await fetch(`${base}/api/geocode?${params}`);
     if (!response.ok) throw new Error(`GET /api/geocode → ${response.status}`);
     return ((await response.json()) as PlaceHit[]).map(placeFromHit);
+  });
+}
+
+/** Imported timetable rows for one canonical MAPID Activity stop. */
+export function fetchStopDepartures(
+  externalStopId: string,
+  afterLocal?: string,
+  limit = 8,
+): Promise<StopDeparture[]> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (afterLocal) params.set("after_local", afterLocal);
+  const key = `departures:${externalStopId}:${afterLocal ?? "all"}:${limit}`;
+  return memo(key, DEPARTURES_TTL_MS, async () => {
+    const response = await fetch(
+      `${base}/api/transit/stops/${encodeURIComponent(externalStopId)}/departures?${params}`,
+    );
+    if (!response.ok) throw new Error(`GET stop departures → ${response.status}`);
+    return (await response.json()) as StopDeparture[];
   });
 }

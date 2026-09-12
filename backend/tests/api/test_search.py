@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import func, insert
 
 from app.data.geocode import GeocodeResolver
-from app.data.repository import search_places, upsert_poi
+from app.data.repository import search_places, upsert_poi, upsert_transit_stops
 from app.data.schema import TransitStop
 from app.main import app
 from app.models.mapid import Feature
@@ -148,3 +148,51 @@ async def test_search_places_respects_the_limit(db_session, limit):
     hits = await search_places(db_session, "Angkringan Limit", limit)
 
     assert len(hits) <= limit
+
+
+async def test_search_carries_the_surveyed_row_through_to_the_hit(db_session):
+    """A halte found in the search box must open the sheet its marker opens."""
+    await upsert_transit_stops(
+        db_session,
+        [
+            Feature(
+                external_id="act-1",
+                properties={
+                    "title": "Halte UIN Sunan Kalijaga A",
+                    "description": "Halte shelter, atap baik, ramp rusak ringan.",
+                    "medias": ["https://cdn.example/a.jpg", "https://cdn.example/b.jpg"],
+                    "user_full_name": "Elang Gading Permana",
+                    "community_name": "CONNECTED FUTURE",
+                    "created_at": "2026-08-29T12:53:12.861Z",
+                },
+                geometry={"type": "Point", "coordinates": [110.3948, -7.7862]},
+            )
+        ],
+        source="mapid_activities",
+    )
+
+    hits = await search_places(db_session, "UIN")
+    assert len(hits) == 1
+    raw = hits[0].raw
+    assert raw is not None
+    assert raw["description"].startswith("Halte shelter")
+    assert len(raw["medias"]) == 2
+    assert raw["community_name"] == "CONNECTED FUTURE"
+
+
+async def test_search_leaves_raw_empty_for_a_nominatim_address():
+    async with _nominatim_client(
+        [
+            {
+                "place_id": 42,
+                "display_name": "Malioboro, Gedongtengen, Yogyakarta",
+                "lon": "110.3656",
+                "lat": "-7.7935",
+            }
+        ]
+    ) as http_client:
+        hits = await GeocodeResolver(http_client, _MemoryCache()).search("malioboro", 5)
+
+    # There is no mirrored row behind an address, and the sheet must not
+    # pretend otherwise.
+    assert hits[0].raw is None

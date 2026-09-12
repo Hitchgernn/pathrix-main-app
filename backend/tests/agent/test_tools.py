@@ -7,6 +7,7 @@ from app.agent.tools import (
     make_calculate_carbon_savings_tool,
     make_calculate_route_tool,
     make_get_data_in_viewport_tool,
+    make_get_stop_departures_tool,
     make_plan_multistop_tool,
     make_toggle_layer_tool,
 )
@@ -51,6 +52,38 @@ async def test_get_data_in_viewport_queries_db(db_session):
     small_bbox = BBox(min_lon=110.30, min_lat=-7.85, max_lon=110.45, max_lat=-7.75)
     results = await t.ainvoke({"bbox": small_bbox.model_dump(), "data_type": "poi", "limit": 10})
     assert any(f.external_id == "viewport1" for f in results)
+
+
+async def test_get_stop_departures_tool_preserves_schedule_provenance(monkeypatch):
+    from app.models.routing import StopDeparture
+
+    expected = StopDeparture(
+        stop_id="activity-a",
+        route_id=10,
+        service_name="EV3",
+        trip_external_id="EV3-0800",
+        scheduled_time_local="08:10",
+        source="transportation-data/Peta Integrasi Angkutan Umum.pdf",
+        effective_from="2025-01-01",
+        freshness_as_of="2026-09-12",
+        freshness_status="unverified",
+    )
+
+    async def fake_fetch(session, external_stop_id, *, after_local, limit):
+        assert external_stop_id == "activity-a"
+        assert after_local == "08:00"
+        assert limit == 3
+        return [expected]
+
+    monkeypatch.setattr("app.agent.tools.fetch_stop_departures", fake_fetch)
+
+    @asynccontextmanager
+    async def session_factory():
+        yield object()
+
+    t = make_get_stop_departures_tool(session_factory)
+    result = await t.ainvoke({"external_stop_id": "activity-a", "after_local": "08:00", "limit": 3})
+    assert result == [expected]
 
 
 def _line_graph():

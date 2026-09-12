@@ -1,0 +1,45 @@
+route_id,basis,service_start_local,service_end_local,service_end_alternate_local,headway_min_minutes,headway_max_minutes,headway_is_approximate,fleet_count,notes,source_file,source_page,effective_from,effective_until,source_last_updated,freshness_as_of,freshness_status
+1A,map_nominal,05:30,20:30,,11,11,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+1A,route_csv,05:30,20:30,,,,,9,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+1B,map_nominal,05:30,20:30,,16,16,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+1B,route_csv,05:30,20:30,,,,,7,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+2A,map_nominal,05:30,20:30,,21,21,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+2A,route_csv,05:30,20:30,,,,,6,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+2B,map_nominal,05:30,20:30,,16,16,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+2B,route_csv,05:30,20:30,,,,,8,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+3A,map_nominal,05:30,20:30,,12,12,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+3A,route_csv,05:30,20:30,,,,,10,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+3B,map_nominal,05:30,20:30,,12,12,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+3B,route_csv,05:30,20:30,,,,,9,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+4A,map_nominal,05:30,20:30,,25,25,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+4A,route_csv,05:30,20:30,,,,,4,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+4B,map_nominal,05:30,20:30,,25,25,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+4B,route_csv,05:30,20:30,,,,,4,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+5A,map_nominal,05:30,20:30,,25,25,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+5A,route_csv,05:30,20:30,,,,,5,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+5B,map_nominal,05:30,20:30,,25,25,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+5B,route_csv,05:30,20:30,,,,,4,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+6,map_nominal,05:30,20:30,,20,20,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+6,route_csv,05:30,20:30,,,,,6,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+8,map_nominal,05:30,20:30,,15,15,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+8,route_csv,05:30,20:30,,,,,6,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+9,map_nominal,05:30,20:30,,20,20,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+9,route_csv,05:30,20:30,,,,,6,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+10,map_nominal,05:30,20:30,,20,20,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+10,route_csv,05:30,20:30,,,,,7,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+11,map_nominal,05:30,20:30,,25,25,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+11,route_csv,05:30,20:30,,,,,5,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+12,map_nominal,05:30,20:30,,20,20,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+12,route_csv,05:30,20:30,,,,,7,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+12,timetable_header,05:30,20:10,,15,30,false,6,Departure times are estimates and may change.,Peta Integrasi Angkutan Umum.pdf,4,2025-12-01,,,2026-09-12,unverified
+13,map_nominal,05:30,20:30,,37,37,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+13,route_csv,05:30,20:30,,,,,5,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+13,timetable_header,05:30,19:49,20:15,30,40,false,3,Departure times are estimates and may change.,Peta Integrasi Angkutan Umum.pdf,5,2025-12-01,,,2026-09-12,unverified
+14,map_nominal,05:30,20:30,,32,32,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+14,route_csv,05:30,20:30,,,,,2,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+14,timetable_header,05:30,19:59,20:10,25,35,false,4,Departure times are estimates and may change.,Peta Integrasi Angkutan Umum.pdf,6,2025-12-01,,,2026-09-12,unverified
+15,map_nominal,05:30,20:30,,10,10,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+15,route_csv,05:30,20:30,,,,,11,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,map_nominal,05:30,20:30,,45,45,true,,Service ends at nearest stop; published times may change.,Peta Integrasi Angkutan Umum.pdf,3,2026-01-01,,2025-12-21,2026-09-12,unverified
+EV3,route_csv,05:30,20:30,,,,,2,Undated source CSV; retained separately from PDF profiles.,trans-jogja.csv,,,,,2026-09-12,unverified
+EV3,timetable_header,05:30,20:04,20:29,25,55,false,2,Departure times are estimates and may change.,Peta Integrasi Angkutan Umum.pdf,7,2025-12-01,,,2026-09-12,unverified

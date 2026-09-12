@@ -1,15 +1,16 @@
 import json
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_session
-from app.data.repository import ViewportDataType, query_features_in_viewport
+from app.data.repository import ViewportDataType, fetch_stop_departures, query_features_in_viewport
 from app.data.schema import Isochrone
 from app.models.geo import BBox
 from app.models.layers import IsochroneOut, LayerMeta
 from app.models.mapid import Feature
+from app.models.routing import StopDeparture
 
 router = APIRouter(prefix="/api")
 
@@ -31,19 +32,19 @@ LAYER_CATALOGUE: list[LayerMeta] = [
     ),
     LayerMeta(
         id="transit",
-        name="Transit (TransJogja/KRL/YIA)",
-        queryable=False,
-        description="Bus, rail, and airport rail stops and routes. Feature query not wired yet.",
+        name="Halte & Stasiun (TransJogja/KRL/YIA)",
+        queryable=True,
+        description="Halte mirrored from the MAPID geoserver; rail stops once surveyed.",
     ),
     LayerMeta(
         id="pangkalan",
         name="Andong/Becak",
-        queryable=False,
-        description="First/last-mile andong and becak stands. Feature query not wired yet.",
+        queryable=True,
+        description="First/last-mile andong and becak stands, from the MAPID activity survey.",
     ),
 ]
 
-_QUERYABLE_LAYERS: set[ViewportDataType] = {"poi", "properti"}
+_QUERYABLE_LAYERS: set[ViewportDataType] = {"poi", "properti", "transit", "pangkalan"}
 
 
 @router.get("/layers", response_model=list[LayerMeta])
@@ -67,6 +68,27 @@ async def layer_features(
         )
     bbox = BBox(min_lon=min_lon, min_lat=min_lat, max_lon=max_lon, max_lat=max_lat)
     return await query_features_in_viewport(session, layer_id, bbox, limit)
+
+
+@router.get(
+    "/transit/stops/{external_stop_id}/departures",
+    response_model=list[StopDeparture],
+)
+async def stop_departures(
+    external_stop_id: str,
+    after_local: str | None = Query(
+        default=None,
+        pattern=r"^(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$",
+    ),
+    limit: int = Query(default=8, ge=1, le=50),
+    session: AsyncSession = Depends(get_session),
+) -> list[StopDeparture]:
+    return await fetch_stop_departures(
+        session,
+        external_stop_id,
+        after_local=after_local,
+        limit=limit,
+    )
 
 
 @router.get("/isochrone/{stop_id}", response_model=IsochroneOut)

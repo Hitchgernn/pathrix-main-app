@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { ArrowLeft, MessageCircle, Navigation, Share2, Star } from "lucide-react";
 import { askFromAnywhere } from "../../lib/actions";
+import { fetchStopDepartures } from "../../lib/api";
 import { useT } from "../../i18n";
-import { KIND_META } from "../../lib/places";
+import { rupiah, surveyDate } from "../../lib/format";
+import { KIND_META, transitFromDepartures } from "../../lib/places";
 import { NAV_W, NAV_W_COLLAPSED, TABBAR_H } from "../../lib/tokens";
 import { usePhoto } from "../../lib/usePhoto";
 import { useStore } from "../../store";
@@ -24,12 +27,51 @@ export function PlaceSheet() {
   const navCollapsed = useStore((s) => s.navCollapsed);
   const { photo, resolved } = usePhoto(place?.name);
   const t = useT();
+  const [scheduleState, setScheduleState] = useState<"idle" | "loading" | "error">("idle");
+
+  useEffect(() => {
+    setScheduleState("idle");
+    if (!place || place.kind !== "transit" || place.transit) return;
+    const externalId = place.id.startsWith("transit:") ? place.id.slice("transit:".length) : "";
+    if (!externalId) return;
+
+    let cancelled = false;
+    setScheduleState("loading");
+    const afterLocal = new Date().toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jakarta",
+    });
+    void fetchStopDepartures(externalId, afterLocal)
+      .then((departures) => {
+        if (cancelled) return;
+        const current = useStore.getState().selectedPlace;
+        if (!current || current.id !== place.id) return;
+        useStore.getState().selectPlace({
+          ...current,
+          transit: transitFromDepartures(departures),
+        });
+        setScheduleState("idle");
+      })
+      .catch(() => {
+        if (!cancelled) setScheduleState("error");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [place?.id, place?.kind, Boolean(place?.transit)]);
 
   if (!place) return null;
 
   const meta = KIND_META[place.kind];
   const coords = `${place.coord[1].toFixed(5)}, ${place.coord[0].toFixed(5)}`;
   const hero = place.photoUrl ?? photo?.url ?? null;
+  // The post's own photographs, minus the one already filling the hero.
+  const strip = (place.photos ?? []).filter((url) => url !== hero);
+  const surveyedAt = place.survey?.at ? surveyDate(place.survey.at) : null;
+  const hasSurvey = Boolean(place.description || place.survey?.by || surveyedAt);
+  const transit = place.transit;
 
   const source = t(
     place.kind === "address"
@@ -103,16 +145,46 @@ export function PlaceSheet() {
           <span className="label-sm rounded-control bg-surface-3 px-[11px] py-[6px] text-ink-2">
             {t(meta.labelKey)}
           </span>
-          {place.kind === "pangkalan" && (
+          {/* The gold says a person stood there, and now names whose survey it
+              was: the andong/becak stands arrive from the MAPID activity feed,
+              so claiming our own field survey for them would be false. */}
+          {(place.survey?.community || place.kind === "pangkalan") && (
             <span className="label-sm flex items-center gap-[5px] rounded-control bg-surface px-[11px] py-[6px] text-gold-text ring-1 ring-line">
               <Star size={13} strokeWidth={0} fill="var(--color-gold)" aria-hidden />
-              {t("place.fieldSurvey")}
+              {t(place.survey?.community ? "place.communitySurvey" : "place.fieldSurvey")}
             </span>
           )}
         </div>
 
         <h3 className="title-lg mt-3">{place.name}</h3>
         {place.subtitle && <p className="body-13 mt-[6px] text-ink-2">{place.subtitle}</p>}
+
+        {/* A halte condition survey is prose, not fields: shelter type, roof,
+            ramp, guiding block, pavement. Rendered whole and as written —
+            summarising someone's survey would be us inventing the summary. */}
+        {place.description && (
+          <>
+            <h4 className="label-sm mt-[20px]">{t("place.surveyNote")}</h4>
+            <p className="body-13 mt-[6px] whitespace-pre-line text-ink-2">{place.description}</p>
+          </>
+        )}
+
+        {strip.length > 0 && (
+          <div
+            aria-label={t("place.photos", strip.length + 1)}
+            className="no-scrollbar mt-[14px] flex gap-2 overflow-x-auto"
+          >
+            {strip.map((url) => (
+              <img
+                key={url}
+                src={url}
+                alt=""
+                loading="lazy"
+                className="h-[68px] w-[92px] flex-none rounded-card object-cover ring-1 ring-line"
+              />
+            ))}
+          </div>
+        )}
 
         {place.facts.length > 0 && (
           <div className="mt-[14px] flex flex-wrap gap-[6px]">
@@ -127,14 +199,153 @@ export function PlaceSheet() {
           </div>
         )}
 
+        {place.kind === "transit" && !transit && scheduleState !== "idle" && (
+          <p className="body-13 mt-[18px] text-ink-3" role={scheduleState === "error" ? "alert" : "status"}>
+            {t(scheduleState === "error" ? "transit.scheduleError" : "transit.loadingSchedule")}
+          </p>
+        )}
+
+        {transit && (
+          <section className="mt-[22px]" aria-labelledby="transit-schedule-heading">
+            <h4 id="transit-schedule-heading" className="label-sm">
+              {t("transit.routes")}
+            </h4>
+
+            {transit.routes.length > 0 ? (
+              <div className="mt-1">
+                {transit.routes.map((service, index) => {
+                  const departures = service.next_departures ?? [];
+                  const effectiveFrom = service.effective_from ?? transit.effectiveFrom;
+                  const effectiveUntil = service.effective_until ?? transit.effectiveUntil;
+                  const freshness = service.freshness_status ?? transit.freshnessStatus;
+                  const source = service.source ?? transit.source;
+                  const serviceName = service.name ?? String(service.route_id ?? index + 1);
+                  const headwayMin = service.headway_min_minutes ?? service.headway_min;
+                  const headwayMax = service.headway_max_minutes ?? headwayMin;
+                  const headway =
+                    headwayMin != null && headwayMax != null && headwayMin !== headwayMax
+                      ? t("transit.headwayRange", headwayMin, headwayMax)
+                      : headwayMin != null
+                        ? t("transit.headway", headwayMin)
+                        : null;
+                  const serviceHours =
+                    service.service_start_local && service.service_end_local
+                      ? t(
+                          "transit.serviceHours",
+                          service.service_start_local,
+                          service.service_end_local,
+                        )
+                      : null;
+                  const meta = [
+                    service.operator,
+                    serviceHours,
+                    headway,
+                    service.headway_is_approximate ? t("transit.approximate") : null,
+                    service.fare_idr != null ? t("transit.fare", rupiah(service.fare_idr)) : null,
+                  ].filter(Boolean);
+
+                  return (
+                    <article
+                      key={String(service.route_id ?? `${serviceName}-${index}`)}
+                      className="hairline py-[12px]"
+                    >
+                      <h5 className="title-row break-words">{serviceName}</h5>
+                      {meta.length > 0 && (
+                        <p className="body-13 mt-[3px] break-words text-ink-2">{meta.join(" · ")}</p>
+                      )}
+                      {departures.length > 0 && (
+                        <p className="figure mt-[6px] break-words text-[12px] text-ink">
+                          {t("transit.nextDepartures", departures.slice(0, 5).join(" · "))}
+                        </p>
+                      )}
+                      {service.service_basis && (
+                        <p className="body-13 mt-[3px] break-words text-ink-3">
+                          {t("transit.scheduleBasis", service.service_basis)}
+                        </p>
+                      )}
+                      {(effectiveFrom || effectiveUntil) && (
+                        <p className="body-13 mt-[5px] break-words text-ink-3">
+                          {[
+                            effectiveFrom ? t("transit.effectiveFrom", effectiveFrom) : null,
+                            effectiveUntil ? t("transit.effectiveUntil", effectiveUntil) : null,
+                          ]
+                            .filter(Boolean)
+                            .join(" ")}
+                        </p>
+                      )}
+                      {freshness && (
+                        <p className="body-13 mt-[3px] break-words text-ink-3">
+                          {t("transit.freshness", freshness)}
+                        </p>
+                      )}
+                      {source && (
+                        <p className="body-13 mt-[3px] break-words text-ink-3">
+                          {t("transit.source")}: {source}
+                        </p>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            ) : transit.schedule ? (
+              <div className="hairline mt-1 py-[12px]">
+                {(transit.schedule.next_departures?.length ?? 0) > 0 && (
+                  <p className="figure break-words text-[12px] text-ink">
+                    {t(
+                      "transit.nextDepartures",
+                      transit.schedule.next_departures!.slice(0, 5).join(" · "),
+                    )}
+                  </p>
+                )}
+                {transit.schedule.headway_min != null && (
+                  <p className="body-13 mt-[3px] text-ink-2">
+                    {t("transit.headway", transit.schedule.headway_min)}
+                  </p>
+                )}
+                {(transit.effectiveFrom || transit.effectiveUntil) && (
+                  <p className="body-13 mt-[5px] break-words text-ink-3">
+                    {[
+                      transit.effectiveFrom
+                        ? t("transit.effectiveFrom", transit.effectiveFrom)
+                        : null,
+                      transit.effectiveUntil
+                        ? t("transit.effectiveUntil", transit.effectiveUntil)
+                        : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  </p>
+                )}
+                {transit.freshnessStatus && (
+                  <p className="body-13 mt-[3px] break-words text-ink-3">
+                    {t("transit.freshness", transit.freshnessStatus)}
+                  </p>
+                )}
+                {transit.source && (
+                  <p className="body-13 mt-[3px] break-words text-ink-3">
+                    {t("transit.source")}: {transit.source}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <p className="body-13 mt-[6px] text-ink-3">{t("transit.noSchedule")}</p>
+            )}
+          </section>
+        )}
+
         <h4 className="label-sm mt-[22px]">{t("place.details")}</h4>
         <dl className="mt-1">
           <Row label={t("place.coordinate")} value={coords} mono />
           <Row label={t("place.source")} value={source} />
+          {place.survey?.by && <Row label={t("place.surveyedBy")} value={place.survey.by} />}
+          {place.survey?.community && (
+            <Row label={t("place.community")} value={place.survey.community} />
+          )}
+          {surveyedAt && <Row label={t("place.surveyedAt")} value={surveyedAt} mono />}
           {photo && !place.photoUrl && <Row label={t("place.photo")} value={photo.credit} href={photo.href} />}
         </dl>
 
-        {place.facts.length === 0 && place.kind !== "address" && (
+        {place.facts.length === 0 && !hasSurvey && !transit && place.kind !== "address" && (
           <p className="body-13 mt-[14px] text-ink-3">
             {t("place.pendingDetails")}
           </p>

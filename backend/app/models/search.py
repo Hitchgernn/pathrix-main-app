@@ -19,3 +19,12 @@ class PlaceHit(BaseModel):
     subtitle: str | None = None
     lon: float
     lat: float
+    raw: dict | None = None
+    """Upstream attributes of a mirrored row, verbatim — the same payload
+    `/api/layers/{id}/features` returns for the same place.
+
+    Present so a result chosen from the search box opens the detail sheet a
+    tapped marker opens: a halte surveyed through the MAPID activity feed
+    carries its survey note, photographs, surveyor and date here, and without
+    them the same place reads as bare depending only on how it was found.
+    `None` for a Nominatim address, which has no mirrored row behind it."""

@@ -180,11 +180,12 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 -- ---------- transit network ----------
 CREATE TABLE transit_stops (
   id            bigserial PRIMARY KEY,
-  external_id   text,
+  external_id   text UNIQUE,               -- upstream id; mirrored sources upsert on it
   name          text NOT NULL,
   mode          text NOT NULL CHECK (mode IN ('bus','rail','airport_rail')),
   operator      text NOT NULL,              -- TransJogja | KAI Commuter | KA Bandara YIA
   geom          geometry(Point,4326) NOT NULL,
+  raw           jsonb,                      -- upstream attributes, verbatim (§6.6)
   source        text NOT NULL,              -- provenance, required
   updated_at    timestamptz NOT NULL DEFAULT now()
 );
@@ -213,6 +214,7 @@ CREATE TABLE route_stops (
 -- ---------- first/last mile ----------
 CREATE TABLE pangkalan (
   id            bigserial PRIMARY KEY,
+  external_id   text UNIQUE,               -- upstream id; mirrored surveys upsert on it
   type          text NOT NULL CHECK (type IN ('andong','becak')),
   name          text,
   operating_hours text,
@@ -357,7 +359,11 @@ Endpoint is spelled **`struckgo`**.
                               "user_full_name", "community_name" } ] } }
 ```
 
-Server behaviour: polygon queries use a spatial index; only missions with status `"Diterima"` are returned (hardcoded, not overridable).
+Server behaviour: polygon queries use a spatial index; only missions with status `"Diterima"` are returned (hardcoded, not overridable). The polygon filter is real for every dataset including `activities` — a 100 m box returns 5 posts where the study area returns hundreds. It still matters that the surrounding communities survey other cities: a box reaching east of ~110.7 pulls Surakarta's BST halte into a Yogyakarta ETL, so `ingest missions` uses a DIY bbox tighter than `geocode.YOGYA_VIEWBOX`.
+
+**`activities` truncates silently and cannot be paged `[VERIFIED]`.** It answers at most **60 posts, newest first**, and nothing in the response says so: there is no `pagination` block, `meta.total` reports only what was returned, and **`offset` is ignored** — offset=100 returns the same 60 as offset=0. A capped answer is therefore byte-indistinguishable in shape from a complete one. The proof is two queries a day apart: a DIY box returned 60 posts dated 28–30 Aug; a Java-wide box returned 60 dated 30 Aug–12 Sep with **no ids in common**, because a wider polygon lets newer posts elsewhere push the Yogyakarta ones out entirely. Taking one response at face value is how the first pass mirrored 26 halte out of an actual 311. `limit` is ignored by all four datasets (asking for 3 returns the server's own 100); harmless, because the `*go` missions compute `hasMore` correctly against `offset` regardless.
+
+**The mission key and the geoserver key are different credentials `[VERIFIED]`.** The mission key is a 24-character ObjectId (`MAPID_MISSION_API_KEY`); the geoserver key is a 32-character hex string (`MAPID_GEOSERVER_API_KEY`, §6.6). Each host rejects the other's key — `server.mapid.io` answers `500 Internal server error` on all four datasets, `geoserver.mapid.io` answers `404 {}`. Neither failure names the credential, so a swapped pair looks like an outage.
 
 ### 6.3 Why mirror rather than proxy `[DESIGNED]`
 
@@ -369,6 +375,12 @@ The mission API is itself a polygon query, which maps almost 1:1 onto `get_data_
 - **Nothing is real-time.** Only accepted missions are returned; a scheduled refresh loses nothing.
 
 ETL: one polygon over the study area → paginate to exhaustion → upsert on `external_id` → stamp `fetched_at`. Nightly, plus one manual run immediately before judging.
+
+**`activities` is harvested by tiling, not paging** (`fetch_activities_in_full`). A response that comes back at the 60 cap is assumed truncated and its area is quartered — clipped to the study polygon, so a non-rectangular area never reaches beyond its own edges — and a response that comes back short is complete and taken as-is. Posts are keyed by id, so overlap between tiles costs requests, not duplicates. Measured against the live DIY area, which holds **963 posts**: depth 4 recovers 561 with 5 tiles still capped, depth 7 recovers 957 with 2, and **depth 8 recovers all 963 with none** — depths 9 and 10 return the identical set, so `ACTIVITIES_MAX_TILE_DEPTH = 8` is where the harvest converges rather than where we stopped trying. Only dense tiles split, so the whole study area costs **77 requests and ~4 seconds**, not 4⁸. A tile still at the cap at maximum depth is **counted and reported** (`ActivityHarvest.capped_tiles`, surfaced by `ingest` as "incomplete: N tile(s) still at the 60 cap"): posts stacked on one coordinate cannot be separated by any amount of subdivision, and the one thing this must never do is reproduce the silent truncation it exists to defeat.
+
+**A second pass files transport infrastructure out of `activities`** (`run_activity_survey_etl`, `ingest survey`). The feed is mixed — halte condition surveys with photographs and accessibility notes, becak stands, market crowding observations — and the first pass mirrors all of it into `poi` verbatim. The second classifies by title (opens with "halte" → `transit_stops`; names becak or andong → `pangkalan`) and leaves everything else where it is; rows stay in `poi` either way, since that is the unedited record of what was posted. Two things this yields that the geoserver layer (§6.6) does not: **directional A/B pairs** (`Halte UIN Sunan Kalijaga A`/`B`) where the city inventory has one point per shelter, and halte **outside Kota Yogyakarta** — 48 of the 311 sit beyond the city core, in Sleman and Bantul. With tiling the feed yields **311 halte, 64 becak stands and 15 andong stands** against the 73-point city layer's shelters-only coverage; the andong stands run the length of Malioboro, and they are the first andong data the project has held at all. Some of the 26 originally found sit within 40 m of a geoserver halte — the same shelter surveyed twice, kept under a distinct `source` rather than merged, because merging would discard the direction and deduplicating by distance would collapse an A/B pair that is 13 m wide.
+
+Stands ingested this way carry **no `fare_base`/`fare_per_km`** — an activity post records where a stand is, not what it charges — and `fetch_network_data` only lifts a pangkalan into the graph once both are known. They are therefore real markers on the map and not yet connectors, which is the honest state of them until the field survey prices them (§15.8).
 
 ### 6.4 Adapter interface `[DESIGNED]`
 
@@ -400,9 +412,76 @@ class MapidClient(Protocol):
 
 **Deliberately not an agent tool.** It is an internal resolver in `app/data/geocode.py`, called inside `calculate_route` and `plan_multistop` so their arguments accept a coordinate *or* a place string. This preserves the exact five-tool surface the PRD commits to (§8.3).
 
+A hit for a mirrored row carries that row's upstream attributes in `PlaceHit.raw` — the same payload `/api/layers/{id}/features` returns — so the client's detail sheet is identical whether a place was typed or tapped; a Nominatim address has no mirrored row and leaves it null. Rows that `run_activity_survey_etl` filed into `transit_stops`/`pangkalan` are excluded from `poi` results, because the original activity row is deliberately left in `poi` (§6.3) and would otherwise answer the same query twice.
+
 **It is, however, exposed over REST** as `GET /api/geocode` (§9.2) — the app's search box needs standalone place search, and that is a client concern, not a sixth agent tool. `GeocodeResolver.search()` returns several candidates where `forward()` returns one coordinate, and bounds the query to `YOGYA_VIEWBOX` (`110.00,-7.50,110.95,-8.25`): the product only routes inside the special region, so answering "Malioboro" with a street in Surabaya is a wrong answer, not a broader one.
 
 Cache resolutions in Redis keyed by normalised query string — place names repeat heavily and this is free latency.
+
+### 6.6 Geoserver vector layers `[VERIFIED]`
+
+Separate from the mission API, MAPID publishes a project's uploaded vector
+layers from a second host. **These are ordinary survey uploads — ours, another
+team's, or an earlier competition period's — not mission submissions**, and
+they are the practical source for anything the field survey has not reached
+yet:
+
+```
+GET https://geoserver.mapid.io/layers_new/get_layer_list?api_key={key}&project_id={project}
+GET https://geoserver.mapid.io/layers_new/get_layer?api_key={key}&layer_id={layer}&project_id={project}
+```
+
+`get_layer_list` returns a bare JSON array of layer documents (`_id`, `name`,
+`type`, `fields[]`) and is how a project is surveyed for what it actually holds
+— `uv run python -m app.data.ingest layers`. Found by probing; MAPID does not
+document it, and the neighbouring spellings (`get_layers`, `get_all_layers`)
+all 404.
+
+The response is a plain FeatureCollection plus its metadata, and **there is no
+pagination** — the whole layer arrives in one body, unlike §6.2's offset pages,
+so `run_transit_stop_etl` is a single call rather than a loop:
+
+```jsonc
+{ "layer_id": "...", "layer_name": "HALTE DI KOTA YOGYAKARTA TAHUN 2025",
+  "type": "FeatureCollection",
+  "fields":   [ { "key": "...", "name": "NAMA", "type": "text" } ],
+  "features": [ { "id": "<uuid>", "type": "Feature",
+                  "geometry": { "type": "Point", "coordinates": [lon, lat] },
+                  "properties": { "fid": 547, "NAMA": "...", "TIPE_1": "TRANSPORTASI", ... } } ] }
+```
+
+Two differences from the mission shape, both handled in `_normalize_layer`:
+the per-feature id is spelled `id`, not `_id`, and there is no `success` flag —
+the presence of `features` is the success signal. `fid` is the source
+shapefile's row number and unique only within a layer, so it is namespaced by
+`layer_id` when a feature has no uuid.
+
+**Halte source of truth.** Project `6aa40ac8753cb27abe032542` publishes two
+layers and they are two editions of one survey: `6aa40d79753cb27abe0473e5`
+(2025) and `6aa40d7e753cb27abe047532` (2024), each 73 points, **identical
+names and identical coordinates, but with no feature id in common** — mirroring
+both duplicates every shelter rather than enriching anything. 2025 is the one
+ingested: it carries `STATUS` and `TANGGAL PENGUMPULAN`/`TANGGAL UPDATE` where
+2024 has only `WAKTU`. `uv run python -m app.data.ingest stops` mirrors it into
+`transit_stops`, stamping `source` as `mapid_geoserver:{layer_id}` so an
+edition or another team's upload stays identifiable after the fact. The layer carries no operator column
+— every row is `TIPE_1=TRANSPORTASI` / `TIPE_2=HALTE` — so `operator` is read
+off the name (`TRANS JOGJA`, `TJ `, `TPB `, `TRANS BONBIN` → `TransJogja`);
+anything the name does not identify is stored as `Halte Kota Yogyakarta` rather
+than assigned to a network on a guess. Names ending in a run of literal `?`
+(Javanese script lost in an upstream encoding round-trip) are trimmed; the
+Latin part, including its upstream casing, is left alone. Everything MAPID sent
+is kept verbatim in `transit_stops.raw` and handed back by
+`/api/layers/transit/features`.
+
+The geoserver takes its own per-project key. `HttpMapidClient` accepts it
+separately and falls back to the mission key, which is what the competition
+project currently issues for both.
+
+**What this does *not* give us.** Stops only. `transit_routes` / `route_stops` —
+the sequences the board→ride→alight chains are built from — have no upstream
+source and still come from the field survey, so ingesting this layer populates
+the map and the search box but does not by itself make the graph routable.
 
 ---
 

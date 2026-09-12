@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-09-12T09:49:51Z",
+  "api_endpoint": "https://server.mapid.io/web/competition/activities",
+  "query": {
+    "feature": "DIY_BBOX",
+    "start_date": "2000-01-01",
+    "end_date": "2026-09-12"
+  },
+  "harvest": {
+    "source_activity_count": 963,
+    "capped_tiles": 0
+  },
+  "output_rows": 14,
+  "selection": "Activity ids whose titles or coordinates can resolve EV3 review gaps excluded by the original title-starts-with-Halte classifier.",
+  "privacy": {
+    "included_fields": [
+      "source_id",
+      "kind",
+      "name",
+      "longitude",
+      "latitude",
+      "observed_at",
+      "source"
+    ],
+    "excluded_fields": "All other Activity properties"
+  },
+  "limitations": [
+    "Community observations, not authoritative infrastructure records.",
+    "Selection is EV3-specific and requires reviewed stop matching.",
+    "No September 2026 transport-service freshness claim is made."
+  ]
+}
