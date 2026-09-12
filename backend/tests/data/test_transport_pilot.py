@@ -513,8 +513,15 @@ def test_real_snapshot_reports_all_services_without_bridging_unresolved_stops() 
     assert plan.report["attached_stop_times"] > 0
     ev3 = next(row for row in plan.report["blocked_routes"] if row["route_id"] == "EV3")
     assert any("unmatched" in reason for reason in ev3["reasons"])
+    assert "non_fixed_fare" not in ev3["reasons"]
+    assert not any(
+        "non_fixed_fare" in row["reasons"]
+        for row in plan.report["blocked_routes"]
+        if row["mode"] == "bus"
+    )
 
     ev3_route = next(item for item in plan.routes if item.route.route_id == "EV3")
+    assert ev3_route.route.fare_idr == 3500
     attached_activity_ids = {
         stop.activity_id for trip in ev3_route.trips for stop in trip.stop_times
     }

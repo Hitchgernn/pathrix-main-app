@@ -541,6 +541,14 @@ def build_normalized_schedule_plan(
             and row.get("fare_min")
             and row["fare_min"] == row.get("fare_max")
         ]
+        # Multiple real, equally-fixed fares can coexist by payment method (e.g.
+        # TransJogja's cash vs cashless tiers). Cash is the fare printed on
+        # official signage and needs no card/app, so it is the canonical single
+        # fare whenever it disambiguates an otherwise-tied set of values -
+        # mirrors load_pilot_route's cash_fares convention above.
+        cash_matches = [row for row in matches if row.get("payment_method") == "cash"]
+        if len(cash_matches) == 1:
+            return int(cash_matches[0]["fare_min"])
         values = {int(row["fare_min"]) for row in matches}
         return values.pop() if len(values) == 1 else None
 
