@@ -4,11 +4,23 @@ import networkx as nx
 from langchain_core.tools import BaseTool, tool
 
 from app.data.geocode import GeocodeResolver
-from app.data.repository import ViewportDataType, query_features_in_viewport
+from app.data.repository import (
+    ViewportDataType,
+    fetch_stop_departures,
+    query_features_in_viewport,
+)
 from app.models.agent import LayerResult
 from app.models.geo import BBox, Coord
 from app.models.mapid import Feature
-from app.models.routing import CarbonResult, EmissionFactor, Itinerary, Optimize, Route
+from app.models.routing import (
+    CarbonResult,
+    EmissionFactor,
+    Itinerary,
+    Optimize,
+    Route,
+    StopDeparture,
+    TransitMode,
+)
 from app.routing.carbon import calculate_carbon_savings as routing_calculate_carbon_savings
 from app.routing.constants import W_TRANSFER, W_WALK
 from app.routing.graph import nearest_node
@@ -72,6 +84,30 @@ def make_get_data_in_viewport_tool(
     return tool(get_data_in_viewport)
 
 
+def make_get_stop_departures_tool(
+    session_factory: Callable[[], Awaitable],
+) -> BaseTool:
+    async def get_stop_departures(
+        external_stop_id: str,
+        after_local: str | None = None,
+        limit: int = 8,
+    ) -> list[StopDeparture]:
+        """Get imported departures for a surveyed Activity stop ID.
+
+        Times are local timetable values. Report source, effective dates, and
+        freshness status; never present unverified data as current.
+        """
+        async with session_factory() as session:
+            return await fetch_stop_departures(
+                session,
+                external_stop_id,
+                after_local=after_local,
+                limit=limit,
+            )
+
+    return tool(get_stop_departures)
+
+
 async def _resolve_node(
     query: str | Coord, coords: dict[str, tuple[float, float]], geocode_resolver: GeocodeResolver
 ) -> str:
@@ -91,9 +127,9 @@ def make_calculate_route_tool(
     geocode_resolver: GeocodeResolver,
 ) -> BaseTool:
     async def calculate_route(
-        start: str | Coord, end: str | Coord, modes: list[str], optimize: Optimize
+        start: str | Coord, end: str | Coord, modes: list[TransitMode], optimize: Optimize
     ) -> Route:
-        """Compute a route between two places, optimizing for time, fare, or ease."""
+        """Compute a multimodal route. Use public modes such as bus, rail, or walk."""
         coords = coords_provider()
         start_node = await _resolve_node(start, coords, geocode_resolver)
         end_node = await _resolve_node(end, coords, geocode_resolver)

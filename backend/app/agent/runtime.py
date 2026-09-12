@@ -11,6 +11,7 @@ from app.agent.tools import (
     make_calculate_carbon_savings_tool,
     make_calculate_route_tool,
     make_get_data_in_viewport_tool,
+    make_get_stop_departures_tool,
     make_plan_multistop_tool,
     make_toggle_layer_tool,
 )
@@ -58,6 +59,7 @@ class AgentRuntime:
         tools: list[BaseTool] = [
             make_toggle_layer_tool(),
             make_get_data_in_viewport_tool(lambda: session_scope(engine)),
+            make_get_stop_departures_tool(lambda: session_scope(engine)),
             make_calculate_route_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
             make_plan_multistop_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
             make_calculate_carbon_savings_tool(lambda: factors),
