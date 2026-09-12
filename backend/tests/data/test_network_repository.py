@@ -1,7 +1,25 @@
+from datetime import date
+from uuid import uuid4
+
+import pytest
 from sqlalchemy import func, insert
 
-from app.data.repository import fetch_emission_factors, fetch_network_data, upsert_walk_network
-from app.data.schema import EmissionFactor, Pangkalan, RouteStop, TransitRoute, TransitStop
+from app.data.repository import (
+    fetch_emission_factors,
+    fetch_network_data,
+    fetch_stop_departures,
+    upsert_walk_network,
+)
+from app.data.schema import (
+    EmissionFactor,
+    Pangkalan,
+    RouteStop,
+    TransitRoute,
+    TransitScheduleImport,
+    TransitStop,
+    TransitStopTime,
+    TransitTrip,
+)
 from app.models.network import WalkEdgeRow, WalkNodeRow
 
 
@@ -9,11 +27,19 @@ async def test_fetch_network_data_returns_seeded_rows(db_session):
     stop_result = await db_session.execute(
         insert(TransitStop)
         .values(
+            external_id="activity-halte-a",
             name="Halte A",
             mode="bus",
             operator="TransJogja",
             geom=func.ST_SetSRID(func.ST_MakePoint(110.30, -7.80), 4326),
-            source="test",
+            raw={
+                "description": "Shelter dekat pasar",
+                "medias": ["https://img.example/halte-a.jpg"],
+                "user_full_name": "Surveyor A",
+                "community_name": "Komunitas A",
+                "created_at": "2026-08-17T10:00:00Z",
+            },
+            source="mapid_activities",
         )
         .returning(TransitStop.id)
     )
@@ -27,7 +53,7 @@ async def test_fetch_network_data_returns_seeded_rows(db_session):
             mode="bus",
             headway_min=10,
             fare_idr=3500,
-            source="test",
+            source="transport-pdf:1A;effective_from=2025-01-01;freshness_status=unverified",
         )
         .returning(TransitRoute.id)
     )
@@ -53,6 +79,12 @@ async def test_fetch_network_data_returns_seeded_rows(db_session):
     assert len(network.stops) == 1
     assert network.stops[0].id == stop_id
     assert network.stops[0].lon == 110.30
+    assert network.stops[0].external_id == "activity-halte-a"
+    assert network.stops[0].photo_url == "https://img.example/halte-a.jpg"
+    assert network.stops[0].description == "Shelter dekat pasar"
+    assert network.stops[0].surveyor == "Surveyor A"
+    assert network.stops[0].routes[0].name == "1A"
+    assert network.stops[0].routes[0].freshness_status == "unverified"
     assert len(network.routes) == 1
     assert network.routes[0].fare_idr == 3500
     assert len(network.route_stops) == 1
@@ -70,6 +102,87 @@ async def test_fetch_network_data_skips_pangkalan_missing_fares(db_session):
 
     network = await fetch_network_data(db_session)
     assert network.pangkalan == []
+
+
+async def test_fetch_stop_departures_rejects_invalid_local_time(db_session):
+    with pytest.raises(ValueError, match="valid HH:MM"):
+        await fetch_stop_departures(db_session, "activity-halte-a", after_local="29:99")
+
+
+async def test_fetch_stop_departures_joins_only_canonical_activity_stop(db_session):
+    stop_id = await db_session.scalar(
+        insert(TransitStop)
+        .values(
+            external_id="activity-departure-stop",
+            name="Halte Jadwal",
+            mode="bus",
+            operator="TransJogja",
+            geom=func.ST_SetSRID(func.ST_MakePoint(110.30, -7.80), 4326),
+            raw={"medias": ["https://img.example/stop.jpg"]},
+            source="mapid_activities",
+        )
+        .returning(TransitStop.id)
+    )
+    route_id = await db_session.scalar(
+        insert(TransitRoute)
+        .values(
+            name="EV3",
+            operator="TransJogja",
+            mode="bus",
+            headway_min=10,
+            fare_idr=3500,
+            source="transportation-data/trans-jogja.csv",
+        )
+        .returning(TransitRoute.id)
+    )
+    schedule_import_id = await db_session.scalar(
+        insert(TransitScheduleImport)
+        .values(
+            import_key=f"test-{uuid4()}",
+            source_digest="abc123",
+            source_path="transportation-data/trans-jogja.csv",
+            status="complete",
+            effective_from=date(2025, 1, 1),
+            freshness_as_of=date(2026, 9, 12),
+            freshness_status="unverified",
+            report={},
+        )
+        .returning(TransitScheduleImport.id)
+    )
+    trip_id = await db_session.scalar(
+        insert(TransitTrip)
+        .values(
+            schedule_import_id=schedule_import_id,
+            route_id=route_id,
+            external_id="EV3-0800",
+            is_estimated=False,
+            provenance={},
+        )
+        .returning(TransitTrip.id)
+    )
+    await db_session.execute(
+        insert(TransitStopTime).values(
+            trip_id=trip_id,
+            stop_id=stop_id,
+            seq=1,
+            scheduled_time_local="08:10",
+            day_offset=0,
+            is_estimated=False,
+        )
+    )
+    await db_session.commit()
+
+    departures = await fetch_stop_departures(
+        db_session,
+        "activity-departure-stop",
+        after_local="08:00",
+    )
+
+    assert len(departures) == 1
+    assert departures[0].service_name == "EV3"
+    assert departures[0].scheduled_time_local == "08:10"
+    assert departures[0].freshness_status == "unverified"
+    assert departures[0].source == "transportation-data/trans-jogja.csv"
 
 
 async def test_upsert_walk_network_is_idempotent_and_fetch_returns_it(db_session):
