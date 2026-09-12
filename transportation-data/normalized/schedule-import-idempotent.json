@@ -1082,16 +1082,16 @@
   ],
   "trips_imported": 181,
   "routes_imported": 26,
-  "stop_time_count": 770,
+  "stop_time_count": 977,
   "bus_routes_total": 20,
   "attachable_routes": [],
   "profiles_imported": 50,
-  "attached_stop_times": 770,
+  "attached_stop_times": 977,
   "blocked_route_count": 26,
   "partial_route_count": 26,
   "rail_services_total": 6,
   "route_records_total": 26,
-  "stop_times_imported": 770,
+  "stop_times_imported": 977,
   "transit_stops_after": 322,
   "transit_stops_before": 322,
   "activity_catalog_total": 321,
@@ -1159,5 +1159,5 @@
   "transit_stops_raw_unchanged": true,
   "database_activity_raw_digest": "09060ff4b3fb2084af85864a5856f42a03eae38a6398595c46a6cd499644581b",
   "database_activity_stop_count": 322,
-  "database_attached_stop_times": 770
+  "database_attached_stop_times": 977
 }

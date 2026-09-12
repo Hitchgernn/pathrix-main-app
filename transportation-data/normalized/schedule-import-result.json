@@ -972,8 +972,8 @@
     "prameks_kutoarjo_yogyakarta"
   ],
   "trip_count": 181,
-  "attached_stop_times": 770,
-  "stop_time_count": 770,
+  "attached_stop_times": 977,
+  "stop_time_count": 977,
   "database_activity_stop_count": 322,
   "database_activity_raw_digest": "09060ff4b3fb2084af85864a5856f42a03eae38a6398595c46a6cd499644581b",
   "database_schedule_routes": [
@@ -1005,14 +1005,14 @@
     "prameks_kutoarjo_yogyakarta"
   ],
   "database_routable_routes": [],
-  "database_attached_stop_times": 770,
+  "database_attached_stop_times": 977,
   "database_blocked_routes": [],
   "would_write": true,
   "routes_imported": 26,
   "routable_routes_imported": 0,
   "profiles_imported": 50,
   "trips_imported": 181,
-  "stop_times_imported": 770,
+  "stop_times_imported": 977,
   "transit_stops_before": 322,
   "transit_stops_after": 322,
   "transit_stops_raw_unchanged": true,
