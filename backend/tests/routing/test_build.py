@@ -109,8 +109,21 @@ def test_walk_network_connects_two_stops_with_no_route_between_them():
 
 def test_route_legs_carry_drawable_coordinates():
     network = NetworkData(
-        stops=[StopRow(id=1, lon=110.30, lat=-7.80), StopRow(id=2, lon=110.35, lat=-7.82)],
-        routes=[RouteRow(id=10, headway_min=10, fare_idr=3500)],
+        stops=[
+            StopRow(id=1, lon=110.30, lat=-7.80, name="Halte A"),
+            StopRow(id=2, lon=110.35, lat=-7.82, name="Halte B"),
+        ],
+        routes=[
+            RouteRow(
+                id=10,
+                headway_min=10,
+                fare_idr=3500,
+                name="EV3",
+                operator="TransJogja",
+                mode="bus",
+                source="transport-pdf:EV3;effective_from=2025-01-01;freshness_status=unverified",
+            )
+        ],
         route_stops=[
             RouteStopRow(route_id=10, stop_id=1, seq=0, travel_time_from_prev_s=None),
             RouteStopRow(route_id=10, stop_id=2, seq=1, travel_time_from_prev_s=600),
@@ -119,13 +132,20 @@ def test_route_legs_carry_drawable_coordinates():
     )
     graph, _ = build_graph_from_network(network)
 
-    route = calculate_route(graph, stop_node(1), stop_node(2), "tercepat")
+    route = calculate_route(graph, stop_node(1), stop_node(2), "tercepat", allowed_modes={"bus"})
 
     # Every leg is drawable — the ride leg included, since a route node sits at
     # its stop rather than floating unpinned.
     assert all(len(leg.coordinates) == 2 for leg in route.legs)
     ride = next(leg for leg in route.legs if leg.mode == "ride")
     assert ride.coordinates == [[110.30, -7.80], [110.35, -7.82]]
+    assert ride.distance_m > 0
+    assert ride.from_name == "Halte A"
+    assert ride.to_name == "Halte B"
+    assert ride.transit_mode == "bus"
+    assert ride.service_name == "EV3"
+    assert ride.operator == "TransJogja"
+    assert ride.source and "freshness_status=unverified" in ride.source
 
 
 def test_unpinned_nodes_yield_no_leg_geometry():
@@ -136,3 +156,49 @@ def test_unpinned_nodes_yield_no_leg_geometry():
     route = calculate_route(builder.build(), "A", "B", "tercepat")
 
     assert [leg.coordinates for leg in route.legs] == [[]]
+
+
+def test_route_deduplicates_rich_activity_stops():
+    network = NetworkData(
+        stops=[
+            StopRow(
+                id=1,
+                external_id="activity-a",
+                lon=110.30,
+                lat=-7.80,
+                name="Halte A",
+                photo_url="https://img.example/a.jpg",
+                photos=["https://img.example/a.jpg", "https://img.example/a-2.jpg"],
+                description="Shelter beside the market",
+                surveyor="Surveyor A",
+                community="Community A",
+                surveyed_at="2026-08-17T10:00:00Z",
+                source="mapid_activities",
+            ),
+            StopRow(
+                id=2,
+                external_id="activity-b",
+                lon=110.31,
+                lat=-7.81,
+                name="Halte B",
+                source="mapid_activities",
+            ),
+        ],
+        routes=[RouteRow(id=10, headway_min=10, fare_idr=3500, name="EV3")],
+        route_stops=[
+            RouteStopRow(route_id=10, stop_id=1, seq=0, travel_time_from_prev_s=None),
+            RouteStopRow(route_id=10, stop_id=2, seq=1, travel_time_from_prev_s=300),
+        ],
+        pangkalan=[],
+    )
+    graph, _ = build_graph_from_network(network)
+
+    route = calculate_route(graph, stop_node(1), stop_node(2), "tercepat")
+
+    assert [stop.id for stop in route.stops] == ["activity-a", "activity-b"]
+    assert route.stops[0].database_id == 1
+    assert route.stops[0].coord == [110.30, -7.80]
+    assert route.stops[0].photo_url == "https://img.example/a.jpg"
+    assert route.stops[0].description == "Shelter beside the market"
+    assert route.stops[0].survey and route.stops[0].survey.by == "Surveyor A"
+    assert route.stops[0].source == "mapid_activities"

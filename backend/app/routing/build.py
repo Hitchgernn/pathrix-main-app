@@ -56,8 +56,10 @@ def build_graph_from_network(
     stops_by_id = {s.id: s for s in network.stops}
 
     for stop in network.stops:
-        coords[stop_node(stop.id)] = (stop.lon, stop.lat)
-        builder.set_coord(stop_node(stop.id), stop.lon, stop.lat)
+        node = stop_node(stop.id)
+        coords[node] = (stop.lon, stop.lat)
+        builder.set_coord(node, stop.lon, stop.lat, stop.name)
+        builder.graph.nodes[node]["stop_detail"] = stop.model_dump()
 
     stops_by_route: dict[int, list] = {}
     for rs in sorted(network.route_stops, key=lambda rs: (rs.route_id, rs.seq)):
@@ -67,20 +69,31 @@ def build_graph_from_network(
         route = routes_by_id.get(route_id)
         if route is None:
             continue
+        service = {
+            "transit_mode": route.mode,
+            "service_name": route.name,
+            "operator": route.operator,
+            "source": route.source,
+        }
         for rs in ordered_stops:
             if rs.stop_id not in stops_by_id:
                 continue
             # A route node sits at its stop: a ride leg between two route nodes
             # is drawn stop to stop, which is what the map needs.
             stop = stops_by_id[rs.stop_id]
-            builder.set_coord(_route_node(route_id, rs.stop_id), stop.lon, stop.lat)
+            route_node = _route_node(route_id, rs.stop_id)
+            builder.set_coord(route_node, stop.lon, stop.lat, stop.name)
+            builder.graph.nodes[route_node]["stop_detail"] = stop.model_dump()
             builder.add_board_edge(
                 stop_node(rs.stop_id),
                 _route_node(route_id, rs.stop_id),
                 route.headway_min,
                 route.fare_idr,
+                **service,
             )
-            builder.add_alight_edge(_route_node(route_id, rs.stop_id), stop_node(rs.stop_id))
+            builder.add_alight_edge(
+                _route_node(route_id, rs.stop_id), stop_node(rs.stop_id), **service
+            )
 
         for prev_rs, rs in zip(ordered_stops, ordered_stops[1:], strict=False):
             if rs.travel_time_from_prev_s is None:
@@ -91,6 +104,11 @@ def build_graph_from_network(
                 _route_node(route_id, prev_rs.stop_id),
                 _route_node(route_id, rs.stop_id),
                 rs.travel_time_from_prev_s,
+                _haversine_m(
+                    (stops_by_id[prev_rs.stop_id].lon, stops_by_id[prev_rs.stop_id].lat),
+                    (stops_by_id[rs.stop_id].lon, stops_by_id[rs.stop_id].lat),
+                ),
+                **service,
             )
 
     for p in network.pangkalan:
