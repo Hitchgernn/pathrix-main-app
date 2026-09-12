@@ -19,6 +19,14 @@ export const rupiah = (idr: number) => `Rp${nf(0).format(Math.round(idr))}`;
 export const km = (metres: number) => `${nf(1).format(metres / 1000)} km`;
 export const kg = (grams: number) => `${nf(2).format(grams / 1000)} kg`;
 
+/** An ISO timestamp → "30 Agustus 2026". Returns null for anything unparseable,
+ *  so a malformed upstream date renders as nothing rather than "Invalid Date". */
+export const surveyDate = (iso: string): string | null => {
+  const at = new Date(iso);
+  if (Number.isNaN(at.getTime())) return null;
+  return at.toLocaleDateString(intlTag(), { day: "numeric", month: "long", year: "numeric" });
+};
+
 /** The four-stat summary line above the itinerary timeline. */
 export const routeSummary = (route: Route): string[] => [
   minutes(route.total_time_s),
@@ -30,3 +38,10 @@ export const routeSummary = (route: Route): string[] => [
 /** Compact form for the inline card inside an agent reply. */
 export const routeCardMeta = (route: Route): string =>
   `${minutes(route.total_time_s)} · ${rupiah(route.total_fare_idr)} · ${route.legs.length} leg`;
+
+export const routeTitle = (route: Route): string => {
+  const first = route.legs[0];
+  const last = route.legs[route.legs.length - 1];
+  if (!first || !last) return currentLocale() === "en" ? "Route" : "Rute";
+  return `${first.from_name ?? first.from_node} → ${last.to_name ?? last.to_node}`;
+};

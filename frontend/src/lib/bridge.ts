@@ -1,8 +1,10 @@
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
-import type { Feature, FeatureCollection, GeoJSON, LineString } from "geojson";
+import type { Feature, FeatureCollection, GeoJSON, LineString, Point } from "geojson";
+import { goToPlace } from "./actions";
+import { placeFromRouteStop } from "./places";
 import type { MapPalette } from "./tokens";
 import { MODE_KEY } from "./tokens";
-import type { Route, ServerMessage, UICommandAction } from "./types";
+import type { Route, RouteLeg, ServerMessage, UICommandAction } from "./types";
 
 /** The map ↔ agent bridge — ARCHITECTURE.md §10.2.
  *
@@ -15,6 +17,8 @@ const ROUTE_SOURCE = "pathrix-agent-route";
 const ROUTE_CASING = "pathrix-agent-route-casing";
 const ROUTE_LINE = "pathrix-agent-route-line";
 const ROUTE_WALK = "pathrix-agent-route-walk";
+const ROUTE_STOPS_SOURCE = "pathrix-agent-route-stops";
+const ROUTE_STOPS_LAYER = "pathrix-agent-route-stops-circle";
 const HIGHLIGHT_SOURCE = "pathrix-agent-highlight";
 const HIGHLIGHT_LAYER = "pathrix-agent-highlight-circle";
 
@@ -23,6 +27,7 @@ type Command = Extract<ServerMessage, { type: "ui_command" }>;
 /** setStyle drops everything the bridge added, so the last route is kept here
  *  and re-applied when the new style finishes loading. */
 let lastRoute: Route | null = null;
+const routeStopHandlers = new WeakSet<MapLibreMap>();
 
 function flyTo(map: MapLibreMap, payload: Record<string, unknown>): void {
   const { lon, lat, zoom, bbox } = payload as {
@@ -65,11 +70,50 @@ function routeToGeoJson(route: Route): FeatureCollection<LineString> {
     .filter((leg) => leg.coordinates.length >= 2)
     .map((leg, index) => ({
       type: "Feature",
-      properties: { mode: leg.mode, family: MODE_KEY[leg.mode] ?? "blue", index },
+      properties: {
+        mode: leg.mode,
+        transit_mode: leg.transit_mode,
+        service_name: leg.service_name,
+        operator: leg.operator,
+        source: leg.source,
+        family: routeFamily(leg),
+        index,
+      },
       geometry: { type: "LineString", coordinates: leg.coordinates },
     }));
   return { type: "FeatureCollection", features };
 }
+
+function routeStopsToGeoJson(route: Route): FeatureCollection<Point> {
+  const features: Feature<Point>[] = (route.stops ?? []).flatMap((stop, index) => {
+    const coordinate = stop.coord ?? stop.coordinate;
+    if (
+      !coordinate ||
+      coordinate.length < 2 ||
+      !Number.isFinite(coordinate[0]) ||
+      !Number.isFinite(coordinate[1])
+    ) {
+      return [];
+    }
+    const service = stop.routes?.[0];
+    return [
+      {
+        type: "Feature",
+        properties: {
+          stop_index: index,
+          stop_id: String(stop.external_id ?? stop.id),
+          name: stop.name ?? "",
+          family: MODE_KEY[service?.mode ?? "bus"] ?? "blue",
+        },
+        geometry: { type: "Point", coordinates: [coordinate[0], coordinate[1]] },
+      },
+    ];
+  });
+  return { type: "FeatureCollection", features };
+}
+
+const routeFamily = (leg: RouteLeg): keyof MapPalette =>
+  MODE_KEY[leg.transit_mode ?? leg.mode] ?? "blue";
 
 const familyColor = (palette: MapPalette) => [
   "match",
@@ -91,15 +135,23 @@ const casingWidth = ["match", ["get", "family"], "walk", 9, "gold", 11, "krl", 1
  *  and walk legs dashed and thin — walk is never the hero. */
 function drawRoute(map: MapLibreMap, route: Route, palette: MapPalette): void {
   const data = routeToGeoJson(route);
+  const stops = routeStopsToGeoJson(route);
   lastRoute = route;
 
+  // Clear prior data before returning: an empty new result must not leave an
+  // old itinerary visible as if it were still selected.
+  if (data.features.length > 0 || map.getSource(ROUTE_SOURCE)) {
+    setGeoJson(map, ROUTE_SOURCE, data);
+  }
+  if (stops.features.length > 0 || map.getSource(ROUTE_STOPS_SOURCE)) {
+    setGeoJson(map, ROUTE_STOPS_SOURCE, stops);
+  }
+
   // The backend sends coordinates only for legs whose endpoints are pinned on
-  // the graph. Nothing pinned means nothing to draw; leave the map alone.
-  if (data.features.length === 0) return;
+  // the graph. Nothing pinned means both prior sources have now been cleared.
+  if (data.features.length === 0 && stops.features.length === 0) return;
 
-  setGeoJson(map, ROUTE_SOURCE, data);
-
-  if (!map.getLayer(ROUTE_CASING)) {
+  if (data.features.length > 0 && !map.getLayer(ROUTE_CASING)) {
     map.addLayer({
       id: ROUTE_CASING,
       type: "line",
@@ -131,12 +183,45 @@ function drawRoute(map: MapLibreMap, route: Route, palette: MapPalette): void {
         "line-dasharray": [0.5, 2],
       },
     });
-    return;
+  } else if (data.features.length > 0) {
+    map.setPaintProperty(ROUTE_CASING, "line-color", palette.halo);
+    map.setPaintProperty(ROUTE_LINE, "line-color", familyColor(palette) as never);
+    map.setPaintProperty(ROUTE_WALK, "line-color", palette.walk);
   }
 
-  map.setPaintProperty(ROUTE_CASING, "line-color", palette.halo);
-  map.setPaintProperty(ROUTE_LINE, "line-color", familyColor(palette) as never);
-  map.setPaintProperty(ROUTE_WALK, "line-color", palette.walk);
+  if (stops.features.length > 0 && !map.getLayer(ROUTE_STOPS_LAYER)) {
+    map.addLayer({
+      id: ROUTE_STOPS_LAYER,
+      type: "circle",
+      source: ROUTE_STOPS_SOURCE,
+      paint: {
+        "circle-radius": 5,
+        "circle-color": familyColor(palette) as never,
+        "circle-stroke-width": 2,
+        "circle-stroke-color": palette.halo,
+      },
+    });
+  } else if (stops.features.length > 0) {
+    map.setPaintProperty(ROUTE_STOPS_LAYER, "circle-color", familyColor(palette) as never);
+    map.setPaintProperty(ROUTE_STOPS_LAYER, "circle-stroke-color", palette.halo);
+  }
+
+  if (stops.features.length > 0 && !routeStopHandlers.has(map)) {
+    routeStopHandlers.add(map);
+    map.on("mouseenter", ROUTE_STOPS_LAYER, () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", ROUTE_STOPS_LAYER, () => {
+      map.getCanvas().style.cursor = "";
+    });
+    map.on("click", ROUTE_STOPS_LAYER, (event) => {
+      const index = Number(event.features?.[0]?.properties?.stop_index);
+      const stop = Number.isInteger(index) ? lastRoute?.stops?.[index] : null;
+      if (!stop) return;
+      const place = placeFromRouteStop(stop);
+      if (place) goToPlace(place);
+    });
+  }
 }
 
 function highlight(map: MapLibreMap, payload: Record<string, unknown>, color: string): void {
@@ -188,7 +273,11 @@ export function reapplyRoute(map: MapLibreMap, palette: MapPalette): void {
 
 /** Fits the camera to a drawn route. */
 export function fitRoute(map: MapLibreMap, route: Route): void {
-  const points = route.legs.flatMap((leg) => leg.coordinates);
+  const stopPoints = (route.stops ?? []).flatMap((stop) => {
+    const coordinate = stop.coord ?? stop.coordinate;
+    return coordinate && coordinate.length >= 2 ? [[coordinate[0], coordinate[1]] as [number, number]] : [];
+  });
+  const points = [...route.legs.flatMap((leg) => leg.coordinates), ...stopPoints];
   if (points.length === 0) return;
   const lons = points.map((p) => p[0]);
   const lats = points.map((p) => p[1]);

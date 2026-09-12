@@ -73,6 +73,9 @@ export const RAIL_LIFT =
  *  onto the design's four visual families. */
 export const MODE_KEY: Record<string, keyof MapPalette> = {
   walk: "walk",
+  bus: "blue",
+  rail: "krl",
+  airport_rail: "gold",
   board: "blue",
   ride: "blue",
   alight: "blue",

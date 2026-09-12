@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { useT } from "../i18n";
-import { routeCardMeta } from "../lib/format";
+import { routeCardMeta, routeTitle } from "../lib/format";
 import type { Route } from "../lib/types";
 import { useStore } from "../store";
 
@@ -14,7 +14,8 @@ const SAMPLE_TITLE = "Malioboro → Candi Prambanan";
  *  itinerary — the reply itself stays prose, never an instruction to parse. */
 export function RouteCard({ route }: RouteCardProps) {
   const openPanel = useStore((s) => s.openPanel);
-  const saved = useStore((s) => s.savedRoutes.some((r) => r.id === SAMPLE_TITLE));
+  const title = route ? routeTitle(route) : SAMPLE_TITLE;
+  const saved = useStore((s) => s.savedRoutes.some((r) => r.id === title));
   const toggleSavedRoute = useStore((s) => s.toggleSavedRoute);
   const t = useT();
 
@@ -29,7 +30,7 @@ export function RouteCard({ route }: RouteCardProps) {
         <span className="h-[30px] w-[3px] flex-none rounded-[2px] bg-ink" />
         <span className="min-w-0 flex-1">
           <span className="block truncate text-[15px] font-semibold tracking-[-.01em]">
-            {SAMPLE_TITLE}
+            {title}
           </span>
           <span className="figure mt-[4px] block text-[12px] text-ink-3">{meta}</span>
         </span>
@@ -39,9 +40,9 @@ export function RouteCard({ route }: RouteCardProps) {
       <button
         onClick={() =>
           toggleSavedRoute({
-            id: SAMPLE_TITLE,
-            title: SAMPLE_TITLE,
-            prompt: SAMPLE_TITLE,
+            id: title,
+            title,
+            prompt: title,
             meta,
             savedAt: Date.now(),
           })

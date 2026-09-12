@@ -21,6 +21,79 @@ export type EdgeType =
   | "becak";
 
 export type Optimize = "tercepat" | "termurah" | "termudah";
+export type TransitMode = "walk" | "bus" | "rail" | "airport_rail" | "andong" | "becak";
+
+export interface RouteStopSurvey {
+  by: string | null;
+  community: string | null;
+  at: string | null;
+}
+
+/** Schedule attached to one surveyed Activity stop. Fields stay optional so
+ *  routes produced before timetable ingestion remain valid. */
+export interface RouteStopService {
+  route_id?: string | number | null;
+  name?: string | null;
+  operator?: string | null;
+  mode?: TransitMode | string | null;
+  headway_min?: number | null;
+  fare_idr?: number | null;
+  source?: string | null;
+  effective_from?: string | null;
+  effective_until?: string | null;
+  freshness_status?: string | null;
+  service_basis?: string | null;
+  service_start_local?: string | null;
+  service_end_local?: string | null;
+  headway_min_minutes?: number | null;
+  headway_max_minutes?: number | null;
+  headway_is_approximate?: boolean | null;
+  next_departures?: string[];
+}
+
+export interface StopDeparture {
+  stop_id: string;
+  route_id: number;
+  service_name: string;
+  trip_external_id: string;
+  scheduled_time_local: string;
+  day_offset: number;
+  is_estimated: boolean;
+  source: string;
+  effective_from: string | null;
+  effective_until: string | null;
+  freshness_as_of: string | null;
+  freshness_status: string;
+}
+
+export interface RouteStopSchedule {
+  next_departures?: string[];
+  headway_min?: number | null;
+  source?: string | null;
+  effective_from?: string | null;
+  effective_until?: string | null;
+  freshness_status?: string | null;
+}
+
+/** A deduplicated stop at route level. `coordinate` is the backend's current
+ *  spelling; `coord` keeps the client compatible with the planned public DTO. */
+export interface RichTransitStop {
+  id: string | number;
+  external_id?: string | null;
+  name?: string | null;
+  coordinate?: [number, number] | number[];
+  coord?: [number, number] | number[];
+  photo_url?: string | null;
+  photos?: string[];
+  description?: string | null;
+  survey?: RouteStopSurvey | null;
+  routes?: RouteStopService[];
+  schedule?: RouteStopSchedule | null;
+  source?: string | null;
+  effective_from?: string | null;
+  effective_until?: string | null;
+  freshness_status?: string | null;
+}
 
 export interface RouteLeg {
   mode: EdgeType;
@@ -29,12 +102,21 @@ export interface RouteLeg {
   time_s: number;
   fare_idr: number;
   distance_m: number;
+  from_name?: string | null;
+  to_name?: string | null;
+  transit_mode?: TransitMode | null;
+  service_name?: string | null;
+  operator?: string | null;
+  /** Includes effective dates/freshness inherited from normalized source data. */
+  source?: string | null;
   /** [lon, lat] pairs. Empty when either endpoint is unpinned on the graph. */
   coordinates: [number, number][];
 }
 
 export interface Route {
   legs: RouteLeg[];
+  /** Survey-rich stops are new; absent on cached and older backend payloads. */
+  stops?: RichTransitStop[];
   total_time_s: number;
   total_fare_idr: number;
   total_distance_m: number;
