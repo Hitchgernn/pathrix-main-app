@@ -1,0 +1,133 @@
+"""Hand-authored Route fixture for demo recordings, standing in for calculate_route.
+
+Real bus topology (`route_stops`) is empty across the whole dataset right now
+(the schedule-import review effort found ~80 stop positions still unresolved
+across routes 12/3A/3B/4A/4B, and the same gate applies to every other route),
+so `calculate_route` can only ever return a walk-only path today. This fixture
+is not a random invention.
+
+Halte RS Sardjito Timur is itself a real stop on route 3A (sequence 6, right
+before FKG UGM/GIK UGM) — user-confirmed and approved this session
+(`route3a_shared_remaining_manual_review.v1.csv`, copying an already-approved
+match from route 4B). So the walker boards there directly rather than walking
+past it to Kopma UGM: the walk leg is a short, real local-walk-network path
+from Fakultas Teknik UGM to Halte RS Sardjito Timur (303.0m, 227.8s), and the
+ride leg starts at Sardjito Timur itself.
+
+Swapped in for `make_calculate_route_tool` only when `settings.demo_mock_route`
+is set (`AgentRuntime.create`) — the real LLM still plans/narrates/calls tools
+normally; only this one tool's data is pre-authored.
+
+The bus leg's polyline (`demo_bus_polyline.json`) is a real, road-snapped
+driving route from Halte RS Sardjito Timur straight to Halte Malioboro 1
+(4119.9m, 125 points), computed by GraphHopper Maps (a proper drive-network
+routing engine — solves the wrong-side-of-a-roundabout and one-way-street
+artifacts a pedestrian-network proxy kept producing) and exported by the user
+as GPX to `routes/halte-rs-sardjito-halte-malioboro-1.gpx`. Parsed into this
+JSON by `app/agent/build_demo_bus_polyline.py` — re-run that (`uv run python
+-m app.agent.build_demo_bus_polyline`) if the source GPX changes. Route 3A's
+own "TPB Panti Rapih" waypoint between
+these two stops is deliberately not named/stopped-at here on the user's
+explicit call — it's actually a genuine, photographed community survey post
+(shelter/ramp/guiding-block condition, dated 2026-08-22) whose pin sits ~96m
+from the real hospital per a Nominatim geocode, so the underlying survey data
+is likely fine; the actual confirmed-bad match this session found was a
+*different* stop (`bus-rs-panti-nugroho-...`, fuzzy-matched to a
+same-named-sounding but physically different hospital in Pakem, left
+rejected as before).
+"""
+
+import json
+from pathlib import Path
+
+from langchain_core.tools import BaseTool, tool
+
+from app.models.geo import Coord
+from app.models.routing import Optimize, Route, RouteLeg, TransitMode
+
+_WALK_POLYLINE = json.loads((Path(__file__).parent / "demo_walk_polyline.json").read_text())
+_BUS_POLYLINE = json.loads((Path(__file__).parent / "demo_bus_polyline.json").read_text())
+
+_WALK_COORDINATES = _WALK_POLYLINE["coordinates"]
+_WALK_DISTANCE_M = _WALK_POLYLINE["distance_m"]
+_WALK_TIME_S = _WALK_POLYLINE["time_s"]
+
+_BUS_COORDINATES = _BUS_POLYLINE["coordinates"]
+_BUS_DISTANCE_M = _BUS_POLYLINE["distance_m"]
+# A real drive-network shortest path isn't a straight shot between stops —
+# Yogyakarta's one-way grid makes this genuinely longer than the straight-line
+# distance. A priority-lane bus average (25 km/h) keeps the duration honest to
+# that real distance rather than reusing a generic-car estimate.
+_BUS_TIME_S = round(_BUS_DISTANCE_M / (25_000 / 3600), 1)
+_BOARD_TIME_S = 420.0
+_ALIGHT_TIME_S = 30.0
+_FARE_IDR = 3500
+
+DEMO_ROUTE = Route(
+    legs=[
+        RouteLeg(
+            mode="walk",
+            from_node="poi:fakultas-teknik-ugm",
+            to_node="stop:234",
+            time_s=_WALK_TIME_S,
+            fare_idr=0,
+            distance_m=_WALK_DISTANCE_M,
+            from_name="Fakultas Teknik UGM",
+            to_name="Halte RS Sardjito Timur",
+            transit_mode="walk",
+            coordinates=_WALK_COORDINATES,
+        ),
+        RouteLeg(
+            mode="board",
+            from_node="stop:234",
+            to_node="stop:234",
+            time_s=_BOARD_TIME_S,
+            fare_idr=_FARE_IDR,
+            distance_m=0.0,
+            from_name="Halte RS Sardjito Timur",
+            to_name="Halte RS Sardjito Timur",
+            transit_mode="bus",
+            service_name="3A",
+            operator="TransJogja",
+        ),
+        RouteLeg(
+            mode="ride",
+            from_node="stop:234",
+            to_node="stop:malioboro-1",
+            time_s=_BUS_TIME_S,
+            fare_idr=0,
+            distance_m=_BUS_DISTANCE_M,
+            from_name="Halte RS Sardjito Timur",
+            to_name="Halte Malioboro 1",
+            transit_mode="bus",
+            service_name="3A",
+            operator="TransJogja",
+            coordinates=_BUS_COORDINATES,
+        ),
+        RouteLeg(
+            mode="alight",
+            from_node="stop:malioboro-1",
+            to_node="stop:malioboro-1",
+            time_s=_ALIGHT_TIME_S,
+            fare_idr=0,
+            distance_m=0.0,
+            from_name="Halte Malioboro 1",
+            to_name="Halte Malioboro 1",
+            transit_mode="bus",
+        ),
+    ],
+    total_time_s=_WALK_TIME_S + _BOARD_TIME_S + _BUS_TIME_S + _ALIGHT_TIME_S,
+    total_fare_idr=_FARE_IDR,
+    total_distance_m=_WALK_DISTANCE_M + _BUS_DISTANCE_M,
+    transfers=0,
+)
+
+
+def make_demo_calculate_route_tool() -> BaseTool:
+    async def calculate_route(
+        start: str | Coord, end: str | Coord, modes: list[TransitMode], optimize: Optimize
+    ) -> Route:
+        """Compute a multimodal route. Use public modes such as bus, rail, or walk."""
+        return DEMO_ROUTE
+
+    return tool(calculate_route)

@@ -5,6 +5,7 @@ from langchain_core.tools import BaseTool
 from langgraph.graph.state import CompiledStateGraph
 from sqlalchemy.ext.asyncio import AsyncEngine
 
+from app.agent.demo_route import make_demo_calculate_route_tool
 from app.agent.graph import build_agent_graph
 from app.agent.llm import UnsupportedLLMProviderError, get_llm
 from app.agent.tools import (
@@ -55,11 +56,16 @@ class AgentRuntime:
 
         routing_graph, coords = build_graph_from_network(network)
 
+        route_tool = (
+            make_demo_calculate_route_tool()
+            if settings.demo_mock_route
+            else make_calculate_route_tool(lambda: routing_graph, lambda: coords, geocode_resolver)
+        )
         tools: list[BaseTool] = [
             make_toggle_layer_tool(),
             make_get_data_in_viewport_tool(lambda: session_scope(engine)),
             make_get_stop_departures_tool(lambda: session_scope(engine)),
-            make_calculate_route_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
+            route_tool,
             make_plan_multistop_tool(lambda: routing_graph, lambda: coords, geocode_resolver),
             make_calculate_carbon_savings_tool(lambda: factors),
         ]
