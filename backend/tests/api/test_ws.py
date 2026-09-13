@@ -6,6 +6,7 @@ from langchain_core.tools import tool
 
 from app.agent.graph import build_agent_graph
 from app.agent.tools import make_toggle_layer_tool
+from app.config import settings
 from app.main import app
 from app.models.routing import Route, RouteLeg
 
@@ -42,12 +43,17 @@ class _FailingGraph:
         raise RuntimeError("boom")
 
 
-def test_lifespan_builds_a_runtime_with_no_llm_configured():
+def test_lifespan_builds_a_runtime_with_no_llm_configured(monkeypatch):
+    # This test asserts the real startup path (AgentRuntime.create via the
+    # lifespan) — it must force "unconfigured" itself rather than rely on the
+    # dev .env being empty, since a real provider is now wired there.
+    monkeypatch.setattr(settings, "llm_provider", "")
     with TestClient(app) as client:
         assert client.app.state.runtime.graph is None
 
 
-def test_user_message_without_llm_returns_llm_unavailable_error():
+def test_user_message_without_llm_returns_llm_unavailable_error(monkeypatch):
+    monkeypatch.setattr(settings, "llm_provider", "")
     with TestClient(app) as client, client.websocket_connect("/ws") as ws:
         ws.send_json({"type": "user_message", "text": "hi", "viewport": _VIEWPORT})
         response = ws.receive_json()
@@ -58,7 +64,8 @@ def test_user_message_without_llm_returns_llm_unavailable_error():
         }
 
 
-def test_invalid_message_returns_error_and_keeps_the_connection_open():
+def test_invalid_message_returns_error_and_keeps_the_connection_open(monkeypatch):
+    monkeypatch.setattr(settings, "llm_provider", "")
     with TestClient(app) as client, client.websocket_connect("/ws") as ws:
         ws.send_json({"type": "bogus"})
         response = ws.receive_json()
