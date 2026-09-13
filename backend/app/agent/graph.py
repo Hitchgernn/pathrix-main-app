@@ -13,13 +13,12 @@ from app.agent.ui_commands import command_for_tool
 from app.models.agent import AgentState
 from app.models.routing import CarbonResult, Route
 
-MAX_TOOL_ROUNDS = 8  # per-turn tool-call budget, ARCHITECTURE.md §8.4/§12
+MAX_TOOL_ROUNDS = 15  # per-turn tool-call budget, ARCHITECTURE.md §8.4/§12
 # 5 undercounted a real LLM: the last-mile choreography alone (calculate_route
 # -> get_data_in_viewport -> calculate_route again -> calculate_carbon_savings)
-# is 4 sequential, non-batchable tool calls, and a live model's occasional
-# extra/duplicate call left no room for the final text turn — observed
-# hitting the round-budget fallback on the deployed agent despite the tool
-# calls themselves succeeding.
+# is 4 sequential, non-batchable tool calls. Bumped to 8 first; still hit the
+# fallback on the deployed agent, so raised further while the per-call log
+# below (temporary) confirms what the live model is actually looping on.
 
 # Hitting the round budget can land on a message that is itself an unexecuted
 # tool call (empty .content) — ws.py sends this text straight to the user, so
@@ -98,6 +97,7 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
         last_route = None
         last_carbon = None
         for call in last.tool_calls:
+            print(f"[agent tool call] {call['name']}({call['args']!r})", flush=True)
             selected = tools_by_name.get(call["name"])
             if selected is None:
                 tool_messages.append(
