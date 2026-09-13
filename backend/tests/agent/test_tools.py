@@ -50,8 +50,9 @@ async def test_get_data_in_viewport_queries_db(db_session):
 
     t = make_get_data_in_viewport_tool(session_factory)
     small_bbox = BBox(min_lon=110.30, min_lat=-7.85, max_lon=110.45, max_lat=-7.75)
-    results = await t.ainvoke({"bbox": small_bbox.model_dump(), "data_type": "poi", "limit": 10})
+    results = await t.ainvoke({"bbox": small_bbox.model_dump(), "data_type": "menugo", "limit": 10})
     assert any(f.external_id == "viewport1" for f in results)
+    assert results[0].properties["source_type"] == "menugo"
 
 
 async def test_get_stop_departures_tool_preserves_schedule_provenance(monkeypatch):

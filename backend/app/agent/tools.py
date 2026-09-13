@@ -76,6 +76,9 @@ def make_get_data_in_viewport_tool(
     ) -> list[Feature]:
         """List features of a data type within the current map viewport.
 
+        data_type="menugo" returns menu, price, and venue-photo surveys;
+        data_type="struckgo" returns payment and receipt-photo surveys. Every
+        feature includes source_type so these culinary datasets stay distinct.
         data_type="pangkalan" finds andong/becak stands — use it to locate the
         nearest one for a last-mile leg, then pass its coordinate as a Coord
         end to calculate_route.

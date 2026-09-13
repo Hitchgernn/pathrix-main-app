@@ -69,6 +69,10 @@ export const id = {
   "layer.pangkalan.meta": "42 titik dari survei lapangan",
   "layer.pariwisata.name": "Pariwisata & Sosial Budaya",
   "layer.pariwisata.meta": "96 titik",
+  "layer.menugo.name": "Menu Go",
+  "layer.menugo.meta": "Menu, harga, dan foto tempat dari survei MAPID",
+  "layer.struckgo.name": "Struck Go",
+  "layer.struckgo.meta": "Kategori, pembayaran, dan foto struk dari survei MAPID",
   "layer.properti.name": "Properti",
   "layer.properti.meta": "310 titik dari Properti Go",
   "layer.jangkauan.name": "Jangkauan Jalan Kaki",
@@ -146,6 +150,7 @@ export const id = {
   "filter.transit": "Halte & KRL",
   "filter.pangkalan": "Andong & becak",
   "filter.tourism": "Wisata",
+  "filter.culinary": "Kuliner",
   "filter.property": "Properti",
   "filter.reach": "Jangkauan",
 

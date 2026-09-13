@@ -26,9 +26,21 @@ router = APIRouter(prefix="/api")
 LAYER_CATALOGUE: list[LayerMeta] = [
     LayerMeta(
         id="poi",
-        name="Kuliner & Aktivitas (MAPID)",
+        name="Aktivitas (MAPID)",
         queryable=True,
-        description="Menu Go / Struk Go / Activities mission mirror.",
+        description="Community activities mission mirror.",
+    ),
+    LayerMeta(
+        id="menugo",
+        name="Menu Go (MAPID)",
+        queryable=True,
+        description="Places, menus, prices, and venue photos from Menu Go.",
+    ),
+    LayerMeta(
+        id="struckgo",
+        name="Struck Go (MAPID)",
+        queryable=True,
+        description="Places, payment methods, and receipt photos from Struck Go.",
     ),
     LayerMeta(
         id="properti",
@@ -50,7 +62,14 @@ LAYER_CATALOGUE: list[LayerMeta] = [
     ),
 ]
 
-_QUERYABLE_LAYERS: set[ViewportDataType] = {"poi", "properti", "transit", "pangkalan"}
+_QUERYABLE_LAYERS: set[ViewportDataType] = {
+    "poi",
+    "menugo",
+    "struckgo",
+    "properti",
+    "transit",
+    "pangkalan",
+}
 
 
 @router.get("/layers", response_model=list[LayerMeta])
