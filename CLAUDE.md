@@ -77,9 +77,23 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 
 `app/routing/build.py` connects route stops via board→ride→alight chains, and snaps stops/pangkalan onto the nearest OSMnx pedestrian walk node (`app/data/osm.py` fetches the walk network — `OsmnxWalkNetworkFetcher` hits the real Overpass API, `FakeWalkNetworkFetcher` is the test double, same `Protocol` pattern as `MapidClient`). Pangkalan also keep a direct-to-stop radius fallback for when no walk network has been ETL'd yet (`PANGKALAN_CONNECT_RADIUS_M`). Live Overpass calls are deliberately excluded from the automated test suite (external API, would make CI flaky) — verify `OsmnxWalkNetworkFetcher` manually before relying on it in a new environment.
 
+`app/data/mapid_routing.py` is a thin factory seam for road-leg display
+geometry — **no provider is wired yet** (`docs/CLAUDE_TRANSIT_HANDOFF.md`,
+Phase 0, open on purpose): it holds the `MapidRoutingClient` protocol, the
+`RoadLegResult` typed result, and `FakeMapidRoutingClient` (the test double),
+but deliberately no `HttpMapidRoutingClient` — that needs a real base URL,
+auth method, and request/response contract from the MAPID owner first (a
+separate product from the basemap/mission/geoserver keys), never guessed.
+`MAPID_ROUTING_ENABLED` defaults to `false`, leaving today's local-OSM-only
+road geometry (`app/data/transport_geometry.py`) unchanged. Wiring a real
+provider means adding one client class here plus its settings; nothing in
+`routing/`/`agent/` should need to change.
+
 ### The agent
 
 `app/agent/graph.py` is a hand-rolled LangGraph `plan → tools → respond` loop (not the prebuilt `ToolNode`, so tool results stay typed Pydantic objects instead of stringified content) with a per-turn tool-call round budget. The five tools (`app/agent/tools.py`) are exactly the ones named in the competition PRD — don't add a sixth without checking `ARCHITECTURE.md` §8.3 first — and are real callables wired to `routing/`/`data/` via injected dependencies (graph provider, coords provider, geocode resolver, DB session factory), not stubs.
+
+`app/agent/demo_route.py` swaps `calculate_route` for a hand-authored `Route` fixture when `settings.demo_mock_route` is set (`DEMO_MOCK_ROUTE` env var, default off) — real bus topology (`route_stops`) is empty across the whole dataset today, so this exists purely to have something to show in a recording; the LLM still plans/narrates/calls tools normally, only this one tool's data is pre-authored. Never enable it outside recording a demo.
 
 `app/agent/llm.py` is a thin factory seam: **no LLM provider is chosen yet** (`ARCHITECTURE.md` §15.1, open on purpose). `get_llm()` raises `UnsupportedLLMProviderError` until `LLM_PROVIDER` is set, and `AgentRuntime` catches that and leaves `.graph = None` rather than crashing app startup — the `/ws` endpoint then replies with a structured `llm_unavailable` error instead of failing the connection. Wiring a real provider means adding one branch in `llm.py` plus its client dependency; nothing upstream should need to change.
 
