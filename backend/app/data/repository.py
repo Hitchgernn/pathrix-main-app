@@ -542,14 +542,23 @@ async def fetch_stop_departures(
     ]
 
 
+# A real OSMnx pedestrian network for anything bigger than a neighbourhood
+# easily produces tens of thousands of rows; asyncpg refuses a single bound
+# statement past 32767 parameters, so a whole-list `.values([...])` blows up
+# on any reasonably dense area. Chunk conservatively — well under the limit
+# even at a few bound params per row.
+_WALK_NETWORK_CHUNK_SIZE = 5000
+
+
 async def upsert_walk_network(
     session: AsyncSession, nodes: list[WalkNodeRow], edges: list[WalkEdgeRow]
 ) -> tuple[int, int]:
-    if nodes:
+    for start in range(0, len(nodes), _WALK_NETWORK_CHUNK_SIZE):
+        chunk = nodes[start : start + _WALK_NETWORK_CHUNK_SIZE]
         node_stmt = pg_insert(WalkNode).values(
             [
                 {"id": n.id, "geom": func.ST_SetSRID(func.ST_MakePoint(n.lon, n.lat), 4326)}
-                for n in nodes
+                for n in chunk
             ]
         )
         node_stmt = node_stmt.on_conflict_do_update(
@@ -557,9 +566,10 @@ async def upsert_walk_network(
         )
         await session.execute(node_stmt)
 
-    if edges:
+    for start in range(0, len(edges), _WALK_NETWORK_CHUNK_SIZE):
+        chunk = edges[start : start + _WALK_NETWORK_CHUNK_SIZE]
         edge_stmt = pg_insert(WalkEdge).values(
-            [{"u": e.u, "v": e.v, "length_m": e.length_m} for e in edges]
+            [{"u": e.u, "v": e.v, "length_m": e.length_m} for e in chunk]
         )
         edge_stmt = edge_stmt.on_conflict_do_update(
             index_elements=[WalkEdge.u, WalkEdge.v], set_={"length_m": edge_stmt.excluded.length_m}
