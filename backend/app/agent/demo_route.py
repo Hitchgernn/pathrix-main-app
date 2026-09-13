@@ -35,6 +35,13 @@ is likely fine; the actual confirmed-bad match this session found was a
 *different* stop (`bus-rs-panti-nugroho-...`, fuzzy-matched to a
 same-named-sounding but physically different hospital in Pakem, left
 rejected as before).
+
+The closing walk leg (`demo_walk_to_andong_polyline.json`) covers the actual
+last-mile point the demo script asks about: a real andong stand (survey id
+`6a8f00fd52d86e03b51bc293`, the nearest one on file) 26.1m from where the bus
+leg's own polyline already ends, so the two legs meet without a visible jump.
+Distance/time are haversine + `WALK_SPEED_MPS` (`routing/constants.py`), the
+same formula `walk_edge_attrs` uses for a real walk edge — not invented.
 """
 
 import json
@@ -47,6 +54,9 @@ from app.models.routing import Optimize, Route, RouteLeg, TransitMode
 
 _WALK_POLYLINE = json.loads((Path(__file__).parent / "demo_walk_polyline.json").read_text())
 _BUS_POLYLINE = json.loads((Path(__file__).parent / "demo_bus_polyline.json").read_text())
+_WALK_TO_ANDONG_POLYLINE = json.loads(
+    (Path(__file__).parent / "demo_walk_to_andong_polyline.json").read_text()
+)
 
 _WALK_COORDINATES = _WALK_POLYLINE["coordinates"]
 _WALK_DISTANCE_M = _WALK_POLYLINE["distance_m"]
@@ -54,6 +64,10 @@ _WALK_TIME_S = _WALK_POLYLINE["time_s"]
 
 _BUS_COORDINATES = _BUS_POLYLINE["coordinates"]
 _BUS_DISTANCE_M = _BUS_POLYLINE["distance_m"]
+
+_WALK_TO_ANDONG_COORDINATES = _WALK_TO_ANDONG_POLYLINE["coordinates"]
+_WALK_TO_ANDONG_DISTANCE_M = _WALK_TO_ANDONG_POLYLINE["distance_m"]
+_WALK_TO_ANDONG_TIME_S = _WALK_TO_ANDONG_POLYLINE["time_s"]
 # A real drive-network shortest path isn't a straight shot between stops —
 # Yogyakarta's one-way grid makes this genuinely longer than the straight-line
 # distance. A priority-lane bus average (25 km/h) keeps the duration honest to
@@ -115,10 +129,26 @@ DEMO_ROUTE = Route(
             to_name="Halte Malioboro 1",
             transit_mode="bus",
         ),
+        RouteLeg(
+            mode="walk",
+            from_node="stop:malioboro-1",
+            to_node="pangkalan:andong-malioboro",
+            time_s=_WALK_TO_ANDONG_TIME_S,
+            fare_idr=0,
+            distance_m=_WALK_TO_ANDONG_DISTANCE_M,
+            from_name="Halte Malioboro 1",
+            to_name="Andong Malioboro",
+            transit_mode="walk",
+            coordinates=_WALK_TO_ANDONG_COORDINATES,
+        ),
     ],
-    total_time_s=_WALK_TIME_S + _BOARD_TIME_S + _BUS_TIME_S + _ALIGHT_TIME_S,
+    total_time_s=_WALK_TIME_S
+    + _BOARD_TIME_S
+    + _BUS_TIME_S
+    + _ALIGHT_TIME_S
+    + _WALK_TO_ANDONG_TIME_S,
     total_fare_idr=_FARE_IDR,
-    total_distance_m=_WALK_DISTANCE_M + _BUS_DISTANCE_M,
+    total_distance_m=_WALK_DISTANCE_M + _BUS_DISTANCE_M + _WALK_TO_ANDONG_DISTANCE_M,
     transfers=0,
 )
 
