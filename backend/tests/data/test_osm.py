@@ -19,6 +19,18 @@ def test_convert_osmnx_graph_extracts_nodes_and_edges():
     assert edges == [WalkEdgeRow(u=1, v=2, length_m=120.5)]
 
 
+def test_convert_osmnx_graph_keeps_shortest_parallel_edge():
+    g = nx.MultiDiGraph()
+    g.add_node(1, x=110.30, y=-7.80)
+    g.add_node(2, x=110.31, y=-7.81)
+    g.add_edge(1, 2, length=180.0)
+    g.add_edge(1, 2, length=120.5)
+
+    _, edges = _convert_osmnx_graph(g)
+
+    assert edges == [WalkEdgeRow(u=1, v=2, length_m=120.5)]
+
+
 async def test_fake_fetcher_returns_canned_data_regardless_of_polygon():
     nodes = [WalkNodeRow(id=1, lon=110.30, lat=-7.80)]
     edges = [WalkEdgeRow(u=1, v=1, length_m=0.0)]

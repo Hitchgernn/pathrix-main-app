@@ -2,6 +2,7 @@ from app.models.network import (
     NetworkData,
     PangkalanRow,
     RouteRow,
+    RouteSegmentGeometryRow,
     RouteStopRow,
     StopRow,
     WalkEdgeRow,
@@ -9,6 +10,7 @@ from app.models.network import (
 )
 from app.routing.build import (
     PANGKALAN_CONNECT_RADIUS_M,
+    WALK_NETWORK_SNAP_RADIUS_M,
     build_graph_from_network,
     pangkalan_node,
     stop_node,
@@ -81,6 +83,22 @@ def test_pangkalan_connects_only_within_radius():
     assert PANGKALAN_CONNECT_RADIUS_M == 500.0
 
 
+def test_walk_network_does_not_snap_a_stop_outside_its_local_area():
+    network = NetworkData(
+        stops=[StopRow(id=1, lon=110.300, lat=-7.800), StopRow(id=2, lon=110.500, lat=-7.950)],
+        routes=[],
+        route_stops=[],
+        pangkalan=[],
+        walk_nodes=[WalkNodeRow(id=1, lon=110.3005, lat=-7.800)],
+    )
+
+    graph, _ = build_graph_from_network(network)
+
+    assert graph.has_edge(stop_node(1), walk_node(1))
+    assert not graph.has_edge(stop_node(2), walk_node(1))
+    assert WALK_NETWORK_SNAP_RADIUS_M == 500.0
+
+
 def test_walk_network_connects_two_stops_with_no_route_between_them():
     # Two isolated stops, no shared route, no pangkalan — only reachable
     # through the walk network snapping each stop to its nearest walk node.
@@ -146,6 +164,45 @@ def test_route_legs_carry_drawable_coordinates():
     assert ride.service_name == "EV3"
     assert ride.operator == "TransJogja"
     assert ride.source and "freshness_status=unverified" in ride.source
+
+
+def test_ride_leg_uses_stored_osm_segment_geometry_when_available():
+    network = NetworkData(
+        stops=[StopRow(id=1, lon=110.30, lat=-7.80), StopRow(id=2, lon=110.35, lat=-7.82)],
+        routes=[
+            RouteRow(
+                id=10,
+                headway_min=10,
+                fare_idr=3500,
+                name="EV3",
+                operator="TransJogja",
+                mode="bus",
+                source="normalized-transport:EV3;routable=true",
+                source_route_id="EV3",
+            )
+        ],
+        route_stops=[
+            RouteStopRow(route_id=10, stop_id=1, seq=1, travel_time_from_prev_s=None),
+            RouteStopRow(route_id=10, stop_id=2, seq=2, travel_time_from_prev_s=600),
+        ],
+        route_segment_geometries=[
+            RouteSegmentGeometryRow(
+                route_id="EV3",
+                from_stop_sequence=1,
+                to_stop_sequence=2,
+                coordinates=[[110.30, -7.80], [110.32, -7.81], [110.35, -7.82]],
+                distance_m=6500,
+            )
+        ],
+        pangkalan=[],
+    )
+
+    graph, _ = build_graph_from_network(network)
+    route = calculate_route(graph, stop_node(1), stop_node(2), "tercepat", allowed_modes={"bus"})
+    ride = next(leg for leg in route.legs if leg.mode == "ride")
+
+    assert ride.coordinates == [[110.30, -7.80], [110.32, -7.81], [110.35, -7.82]]
+    assert ride.distance_m == 6500
 
 
 def test_unpinned_nodes_yield_no_leg_geometry():

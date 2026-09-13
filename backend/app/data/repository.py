@@ -15,7 +15,9 @@ from app.data.schema import (
     Poi,
     Properti,
     RouteStop,
+    StopManualReview,
     TransitRoute,
+    TransitRouteSegmentGeometry,
     TransitScheduleImport,
     TransitServiceProfile,
     TransitStop,
@@ -30,6 +32,7 @@ from app.models.network import (
     NetworkData,
     PangkalanRow,
     RouteRow,
+    RouteSegmentGeometryRow,
     RouteStopRow,
     StopRow,
     StopServiceRow,
@@ -106,6 +109,57 @@ async def query_features_in_viewport(
         Feature(external_id=row.external_id, properties=row.raw, geometry=json.loads(row.geom_json))
         for row in result
     ]
+
+
+async def fetch_manually_reviewed_stop_external_ids(session: AsyncSession) -> list[str]:
+    """external_ids of every stop with at least one StopManualReview row — used
+    by the frontend to draw a real pin instead of the flat circle dot for a
+    field-survey-reviewed location."""
+    stmt = (
+        select(TransitStop.external_id)
+        .join(StopManualReview, StopManualReview.stop_id == TransitStop.id)
+        .where(TransitStop.external_id.is_not(None))
+        .distinct()
+    )
+    result = await session.execute(stmt)
+    return [row[0] for row in result]
+
+
+async def fetch_estimated_transit_segments(session: AsyncSession, bbox: BBox) -> dict[str, object]:
+    """GeoJSON road estimates for reviewed adjacent stop pairs in a viewport."""
+    envelope = func.ST_MakeEnvelope(bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat, 4326)
+    rows = await session.execute(
+        select(
+            TransitRouteSegmentGeometry.route_id,
+            TransitRouteSegmentGeometry.from_stop_sequence,
+            TransitRouteSegmentGeometry.to_stop_sequence,
+            TransitRouteSegmentGeometry.from_activity_id,
+            TransitRouteSegmentGeometry.to_activity_id,
+            TransitRouteSegmentGeometry.distance_m,
+            TransitRouteSegmentGeometry.source,
+            func.ST_AsGeoJSON(TransitRouteSegmentGeometry.geom),
+        ).where(func.ST_Intersects(TransitRouteSegmentGeometry.geom, envelope))
+    )
+    return {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "route_id": row[0],
+                    "from_stop_sequence": row[1],
+                    "to_stop_sequence": row[2],
+                    "from_activity_id": row[3],
+                    "to_activity_id": row[4],
+                    "distance_m": row[5],
+                    "source": row[6],
+                    "estimated": True,
+                },
+                "geometry": json.loads(row[7]),
+            }
+            for row in rows
+        ],
+    }
 
 
 async def search_places(session: AsyncSession, query: str, limit: int = 8) -> list[PlaceHit]:
@@ -259,6 +313,15 @@ async def fetch_network_data(session: AsyncSession) -> NetworkData:
             RouteStop.route_id, RouteStop.stop_id, RouteStop.seq, RouteStop.travel_time_from_prev_s
         )
     )
+    segment_geometry_rows = await session.execute(
+        select(
+            TransitRouteSegmentGeometry.route_id,
+            TransitRouteSegmentGeometry.from_stop_sequence,
+            TransitRouteSegmentGeometry.to_stop_sequence,
+            func.ST_AsGeoJSON(TransitRouteSegmentGeometry.geom),
+            TransitRouteSegmentGeometry.distance_m,
+        )
+    )
     profile_rows = await session.execute(
         select(
             TransitServiceProfile.route_id,
@@ -303,6 +366,11 @@ async def fetch_network_data(session: AsyncSession) -> NetworkData:
             operator=r[4],
             mode=r[5],
             source=r[6],
+            source_route_id=(
+                r[6].split(";", 1)[0].removeprefix("normalized-transport:")
+                if r[6] and r[6].startswith("normalized-transport:")
+                else None
+            ),
         )
         for r in route_rows
     ]
@@ -382,6 +450,16 @@ async def fetch_network_data(session: AsyncSession) -> NetworkData:
         stops=stops,
         routes=routes,
         route_stops=route_stops,
+        route_segment_geometries=[
+            RouteSegmentGeometryRow(
+                route_id=r[0],
+                from_stop_sequence=r[1],
+                to_stop_sequence=r[2],
+                coordinates=json.loads(r[3])["coordinates"],
+                distance_m=r[4],
+            )
+            for r in segment_geometry_rows
+        ],
         pangkalan=[
             PangkalanRow(id=r[0], type=r[1], lon=r[2], lat=r[3], fare_base=r[4], fare_per_km=r[5])
             for r in pangkalan_rows

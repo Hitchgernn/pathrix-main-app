@@ -33,9 +33,13 @@ class GraphBuilder:
         v: str,
         travel_time_s: float,
         distance_m: float = 0.0,
+        coordinates: list[list[float]] | None = None,
         **service: str | None,
     ) -> None:
-        self.graph.add_edge(u, v, **edges.ride_edge_attrs(travel_time_s, distance_m), **service)
+        attrs = edges.ride_edge_attrs(travel_time_s, distance_m)
+        if coordinates:
+            attrs["coordinates"] = coordinates
+        self.graph.add_edge(u, v, **attrs, **service)
 
     def add_alight_edge(self, route_node: str, stop: str, **service: str | None) -> None:
         self.graph.add_edge(route_node, stop, **edges.alight_edge_attrs(), **service)

@@ -108,7 +108,7 @@ def calculate_route(
                 service_name=attrs.get("service_name"),
                 operator=attrs.get("operator"),
                 source=attrs.get("source"),
-                coordinates=_leg_coordinates(graph, u, v),
+                coordinates=attrs.get("coordinates") or _leg_coordinates(graph, u, v),
             )
         )
 

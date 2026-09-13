@@ -5,8 +5,17 @@ import { useStore } from "../store";
 import { getMap as getMapHandle, setMap } from "../lib/mapHandle";
 import { reapplyRoute } from "../lib/bridge";
 import { applyBuildings3d, reapplyBuildings3d } from "../lib/buildings3d";
-import { fetchLayerFeatures } from "../lib/api";
+import {
+  fetchLayerFeatures,
+  fetchManualReviewStopIds,
+  fetchTransitEstimatedSegments,
+} from "../lib/api";
 import { reapplyMissionLayers, removeMissionLayer, syncMissionLayer } from "../lib/missionLayers";
+import {
+  reapplyTransitEstimatedSegments,
+  removeTransitEstimatedSegments,
+  syncTransitEstimatedSegments,
+} from "../lib/transitSegments";
 import { LAYER_ROWS } from "../lib/sample";
 import { paletteFor, NAV_W, NAV_W_COLLAPSED } from "../lib/tokens";
 import { placeFromFeature } from "../lib/places";
@@ -56,6 +65,22 @@ export function MapCanvas() {
   const setCamera = useStore((s) => s.setCamera);
   const [veiled, setVeiled] = useState(false);
   const drawnMissionLayers = useRef<Set<string>>(new Set());
+  // Small, session-static list (which stops came from manual review) — fetched
+  // once, not tied to the viewport, and threaded into syncMissionLayer so
+  // those specific features draw a pin instead of the flat circle.
+  const [reviewedIds, setReviewedIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchManualReviewStopIds()
+      .then((ids) => {
+        if (!cancelled) setReviewedIds(new Set(ids));
+      })
+      .catch(() => undefined); // never break the map over this
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!BASEMAP_KEY || !container.current) return;
@@ -106,6 +131,7 @@ export function MapCanvas() {
         reapplyBuildings3d(instance, palette.building3d, useStore.getState().view3d);
         reapplyRoute(instance, palette);
         reapplyMissionLayers(instance);
+        reapplyTransitEstimatedSegments(instance);
       });
 
       // Tapping a mission marker opens the place sheet. Registered with a
@@ -215,7 +241,7 @@ export function MapCanvas() {
         fetchLayerFeatures(layerId, bbox)
           .then((features) => {
             if (!map.current) return;
-            syncMissionLayer(map.current, layerId, features, row.color);
+            syncMissionLayer(map.current, layerId, features, row.color, reviewedIds);
             drawnMissionLayers.current.add(layerId);
           })
           .catch(() => undefined); // a failed mission fetch must never break the map
@@ -223,7 +249,23 @@ export function MapCanvas() {
     }, MISSION_FETCH_DEBOUNCE_MS);
 
     return () => window.clearTimeout(timer);
-  }, [active, bbox, catalogue]);
+  }, [active, bbox, catalogue, reviewedIds]);
+
+  // Road estimates are only shown with the transit layer. They remain broken
+  // at unresolved stops, so this never draws a fictional complete bus route.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    if (!active.has("transit") || !bbox) {
+      removeTransitEstimatedSegments(instance);
+      return;
+    }
+    fetchTransitEstimatedSegments(bbox)
+      .then((segments) => {
+        if (map.current) syncTransitEstimatedSegments(map.current, segments);
+      })
+      .catch(() => undefined);
+  }, [active, bbox]);
 
   const inset = wide ? (navCollapsed ? NAV_W_COLLAPSED : NAV_W) : 0;
 

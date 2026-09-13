@@ -20,6 +20,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.data.schema import (
     RouteStop,
+    StopManualReview,
     TransitRoute,
     TransitScheduleImport,
     TransitScheduleRoute,
@@ -1217,6 +1218,37 @@ async def import_normalized_schedule(
                 ]
                 if route_stop_rows:
                     await session.execute(pg_insert(RouteStop).values(route_stop_rows))
+
+            # Independent of database_routable: a stop's location can be
+            # confirmed by manual review even while other stops on the same
+            # route are still blocked (mirrors the partial stop-time
+            # attachment below). Never touches transit_stops itself, so this
+            # cannot trip the _stop_fingerprint invariant.
+            reviewed_rows = [
+                {
+                    "stop_id": stop_database_ids[stop.activity_id],
+                    "route_id": route.route_id,
+                    "reviewer": stop.review["reviewer"],
+                    "reviewed_at": stop.review["reviewed_at"],
+                    "notes": stop.review.get("notes") or None,
+                }
+                for stop in route.stops
+                if stop.match_status == "reviewed_activity"
+                and stop.activity_id in stop_database_ids
+                and stop.review is not None
+            ]
+            if reviewed_rows:
+                insert_reviewed = pg_insert(StopManualReview).values(reviewed_rows)
+                await session.execute(
+                    insert_reviewed.on_conflict_do_update(
+                        index_elements=["stop_id", "route_id"],
+                        set_={
+                            "reviewer": insert_reviewed.excluded.reviewer,
+                            "reviewed_at": insert_reviewed.excluded.reviewed_at,
+                            "notes": insert_reviewed.excluded.notes,
+                        },
+                    )
+                )
 
             for profile in item.profiles:
                 session.add(

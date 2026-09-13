@@ -27,10 +27,9 @@ class AgentRuntime:
 
     The routing graph is built once at startup from whatever's in the DB
     (ARCHITECTURE.md §4.2 — process-local state), via AgentRuntime.create.
-    No OSMnx pedestrian network is wired in yet (ARCHITECTURE.md §7.1's walk
-    nodes) — that needs a real OSM fetch over the study area, a separate
-    task. An empty DB still produces a valid (empty) graph, so route/
-    multistop tools degrade through the same typed-error path either way.
+    A populated OSM pedestrian network is read from ``walk_nodes`` and
+    ``walk_edges`` at startup. An empty DB still produces a valid (empty)
+    graph, so route/multistop tools degrade through the same typed-error path.
     """
 
     def __init__(
