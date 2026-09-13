@@ -38,6 +38,11 @@ export const YOGYA_ZOOM = 12;
  *  state rather than store state only for the canceller, which is not UI. */
 let cancelDemo: (() => void) | null = null;
 
+/** Held between "token" and "done" so the reply text and its route card land
+ *  in one render instead of two visible steps (ws.py always sends done right
+ *  after token in the same turn, so there is nothing to hold this across). */
+let pendingReplyText: string | null = null;
+
 const initialLayers = new Set(LAYER_ROWS.filter((l) => l.on).map((l) => l.id));
 
 interface MapSlice {
@@ -249,12 +254,10 @@ export const useStore = create<Store>()((set, get) => ({
       case "token":
         cancelDemo?.();
         cancelDemo = null;
-        set((s) => ({
-          streaming: false,
-          demoKind: null,
-          demoStep: 0,
-          messages: s.messages.concat([{ who: "agent", text: message.delta }]),
-        }));
+        // Held, not appended yet — "done" (route/carbon) always follows right
+        // after in the same turn, so the text and its route card render together.
+        pendingReplyText = message.delta;
+        set({ demoKind: null, demoStep: 0 });
         break;
 
       case "ui_command":
@@ -268,11 +271,12 @@ export const useStore = create<Store>()((set, get) => ({
 
       case "done":
         set((s) => {
-          const messages = s.messages.slice();
-          const last = messages[messages.length - 1];
-          if (message.route && last && last.who === "agent") {
-            messages[messages.length - 1] = { ...last, route: message.route };
-          }
+          const text = pendingReplyText;
+          pendingReplyText = null;
+          const messages =
+            text !== null
+              ? s.messages.concat([{ who: "agent", text, route: message.route ?? null }])
+              : s.messages;
           return {
             streaming: false,
             messages,
