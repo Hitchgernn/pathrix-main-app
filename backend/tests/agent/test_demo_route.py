@@ -4,7 +4,7 @@ from app.agent.demo_route import DEMO_ROUTE, make_demo_calculate_route_tool
 
 
 def test_demo_route_legs_have_drawable_geometry_where_expected():
-    walk, board, ride, alight, walk_to_andong = DEMO_ROUTE.legs
+    walk, board, ride, alight, walk_to_andong, andong = DEMO_ROUTE.legs
     assert walk.mode == "walk"
     assert len(walk.coordinates) >= 2
     assert ride.mode == "ride"
@@ -15,6 +15,10 @@ def test_demo_route_legs_have_drawable_geometry_where_expected():
     assert walk_to_andong.mode == "walk"
     assert walk_to_andong.to_name == "Andong Malioboro"
     assert len(walk_to_andong.coordinates) >= 2
+    assert andong.mode == "andong"
+    assert andong.to_name == "Titik Nol Kilometer"
+    assert andong.fare_idr > 0
+    assert len(andong.coordinates) >= 2
 
 
 def test_demo_route_totals_match_leg_sums():

@@ -36,12 +36,24 @@ is likely fine; the actual confirmed-bad match this session found was a
 same-named-sounding but physically different hospital in Pakem, left
 rejected as before).
 
-The closing walk leg (`demo_walk_to_andong_polyline.json`) covers the actual
-last-mile point the demo script asks about: a real andong stand (survey id
-`6a8f00fd52d86e03b51bc293`, the nearest one on file) 26.1m from where the bus
-leg's own polyline already ends, so the two legs meet without a visible jump.
-Distance/time are haversine + `WALK_SPEED_MPS` (`routing/constants.py`), the
-same formula `walk_edge_attrs` uses for a real walk edge — not invented.
+The walk leg after alighting (`demo_walk_to_andong_polyline.json`) covers a
+real andong stand (survey id `6a8f00fd52d86e03b51bc293`, the nearest one on
+file) 26.1m from where the bus leg's own polyline already ends, so the two
+legs meet without a visible jump. Distance/time are haversine +
+`WALK_SPEED_MPS` (`routing/constants.py`), the same formula `walk_edge_attrs`
+uses for a real walk edge — not invented.
+
+The closing andong leg (`demo_andong_polyline.json`) is the actual last-mile
+point the demo script asks about: a ride from that same stand to Titik Nol
+Kilometer Yogyakarta (110.364444, -7.801389 — the landmark itself, no survey
+row for it in `poi` to key off), 1216.8m by the straight line down Jl.
+Malioboro/Jl. A. Yani, both streets running close enough to that line that it
+tracks the real route. `fare_base`/`fare_per_km` are null on every andong
+`pangkalan` row today (the activity-survey harvest carries no fare field), so
+this leg's numbers use the same `andong_edge_attrs` formula
+(`routing/edges.py`) real routing would, fed the flat rate `tests/routing`
+already uses for an andong edge (`fare_base=5000, fare_per_km=2000,
+speed_mps=ANDONG_SPEED_MPS`) rather than inventing a separate one here.
 """
 
 import json
@@ -51,12 +63,15 @@ from langchain_core.tools import BaseTool, tool
 
 from app.models.geo import Coord
 from app.models.routing import Optimize, Route, RouteLeg, TransitMode
+from app.routing.build import ANDONG_SPEED_MPS
+from app.routing.edges import andong_edge_attrs
 
 _WALK_POLYLINE = json.loads((Path(__file__).parent / "demo_walk_polyline.json").read_text())
 _BUS_POLYLINE = json.loads((Path(__file__).parent / "demo_bus_polyline.json").read_text())
 _WALK_TO_ANDONG_POLYLINE = json.loads(
     (Path(__file__).parent / "demo_walk_to_andong_polyline.json").read_text()
 )
+_ANDONG_POLYLINE = json.loads((Path(__file__).parent / "demo_andong_polyline.json").read_text())
 
 _WALK_COORDINATES = _WALK_POLYLINE["coordinates"]
 _WALK_DISTANCE_M = _WALK_POLYLINE["distance_m"]
@@ -68,6 +83,15 @@ _BUS_DISTANCE_M = _BUS_POLYLINE["distance_m"]
 _WALK_TO_ANDONG_COORDINATES = _WALK_TO_ANDONG_POLYLINE["coordinates"]
 _WALK_TO_ANDONG_DISTANCE_M = _WALK_TO_ANDONG_POLYLINE["distance_m"]
 _WALK_TO_ANDONG_TIME_S = _WALK_TO_ANDONG_POLYLINE["time_s"]
+
+_ANDONG_COORDINATES = _ANDONG_POLYLINE["coordinates"]
+_ANDONG_DISTANCE_M = _ANDONG_POLYLINE["distance_m"]
+_ANDONG_ATTRS = andong_edge_attrs(
+    _ANDONG_DISTANCE_M, ANDONG_SPEED_MPS, fare_base=5000, fare_per_km=2000
+)
+_ANDONG_TIME_S = _ANDONG_ATTRS["time_s"]
+_ANDONG_FARE_IDR = _ANDONG_ATTRS["fare_idr"]
+
 # A real drive-network shortest path isn't a straight shot between stops —
 # Yogyakarta's one-way grid makes this genuinely longer than the straight-line
 # distance. A priority-lane bus average (25 km/h) keeps the duration honest to
@@ -141,14 +165,30 @@ DEMO_ROUTE = Route(
             transit_mode="walk",
             coordinates=_WALK_TO_ANDONG_COORDINATES,
         ),
+        RouteLeg(
+            mode="andong",
+            from_node="pangkalan:andong-malioboro",
+            to_node="poi:titik-nol",
+            time_s=_ANDONG_TIME_S,
+            fare_idr=_ANDONG_FARE_IDR,
+            distance_m=_ANDONG_DISTANCE_M,
+            from_name="Andong Malioboro",
+            to_name="Titik Nol Kilometer",
+            transit_mode="andong",
+            coordinates=_ANDONG_COORDINATES,
+        ),
     ],
     total_time_s=_WALK_TIME_S
     + _BOARD_TIME_S
     + _BUS_TIME_S
     + _ALIGHT_TIME_S
-    + _WALK_TO_ANDONG_TIME_S,
-    total_fare_idr=_FARE_IDR,
-    total_distance_m=_WALK_DISTANCE_M + _BUS_DISTANCE_M + _WALK_TO_ANDONG_DISTANCE_M,
+    + _WALK_TO_ANDONG_TIME_S
+    + _ANDONG_TIME_S,
+    total_fare_idr=_FARE_IDR + _ANDONG_FARE_IDR,
+    total_distance_m=_WALK_DISTANCE_M
+    + _BUS_DISTANCE_M
+    + _WALK_TO_ANDONG_DISTANCE_M
+    + _ANDONG_DISTANCE_M,
     transfers=0,
 )
 
