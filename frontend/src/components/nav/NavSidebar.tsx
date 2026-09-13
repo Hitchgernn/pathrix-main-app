@@ -1,4 +1,6 @@
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import logoBlack from "../../assets/logo-pathrix-black.png";
+import logoWhite from "../../assets/logo-pathrix-white.png";
 import { useT } from "../../i18n";
 import { NAV_W, NAV_W_COLLAPSED } from "../../lib/tokens";
 import { useStore } from "../../store";
@@ -15,6 +17,7 @@ export function NavSidebar() {
   const setCollapsed = useStore((s) => s.setNavCollapsed);
   const profile = useStore((s) => s.profile);
   const savedCount = useStore((s) => s.savedPlaces.length + s.savedRoutes.length);
+  const dark = useStore((s) => s.basemap) === "dark";
   const t = useT();
 
   const groups: TabDef["group"][] = ["utama", "anda"];
@@ -26,9 +29,11 @@ export function NavSidebar() {
       style={{ width: collapsed ? NAV_W_COLLAPSED : NAV_W }}
     >
       <div className="flex items-center gap-[10px] px-4 pb-5 pt-6">
-        <span className="flex h-9 w-9 flex-none items-center justify-center rounded-[11px] bg-ink">
-          <PathrixMark />
-        </span>
+        <img
+          src={dark ? logoWhite : logoBlack}
+          alt=""
+          className="h-9 w-9 flex-none object-contain"
+        />
         {!collapsed && (
           <span className="min-w-0 flex-1">
             <span className="block truncate text-[15px] font-bold tracking-[.09em]">PATHRIX</span>
@@ -98,29 +103,5 @@ export function NavSidebar() {
         )}
       </button>
     </nav>
-  );
-}
-
-/** The brand mark: three stops on one line, which is what the whole product
- *  does. Drawn, not an imported glyph. */
-function PathrixMark() {
-  return (
-    <svg viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden>
-      <path
-        d="M5 17.5c0-3 3-3 3-6s-3-3-3-6"
-        stroke="#fff"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        opacity=".55"
-      />
-      <path
-        d="M11 5.5c4.2 0 4.2 6 0 6s-4.2 6 0 6h8"
-        stroke="#fff"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="19" cy="17.5" r="2" fill="#fff" />
-    </svg>
   );
 }

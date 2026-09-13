@@ -6,10 +6,8 @@ import type { Route } from "../lib/types";
 import { useStore } from "../store";
 
 interface RouteCardProps {
-  route: Route | null;
+  route: Route;
 }
-
-const SAMPLE_TITLE = "Malioboro → Candi Prambanan";
 
 /** docs/DESIGN.md's Route Card spec: mode is a colored 4px vertical, in the
  *  map category palette — never a second icon system. */
@@ -24,13 +22,13 @@ const FAMILY_COLOR: Record<"krl" | "gold" | "blue" | "walk", string> = {
  *  itinerary — the reply itself stays prose, never an instruction to parse. */
 export function RouteCard({ route }: RouteCardProps) {
   const openPanel = useStore((s) => s.openPanel);
-  const title = route ? routeTitle(route) : SAMPLE_TITLE;
+  const title = routeTitle(route);
   const saved = useStore((s) => s.savedRoutes.some((r) => r.id === title));
   const toggleSavedRoute = useStore((s) => s.toggleSavedRoute);
   const t = useT();
 
-  const meta = route ? routeCardMeta(route) : "51 MNT · RP63.000 · 5 LEG";
-  const family = route ? routePrimaryFamily(route) : "blue";
+  const meta = routeCardMeta(route);
+  const family = routePrimaryFamily(route);
 
   return (
     <div className="mt-[10px] w-full overflow-hidden rounded-card bg-surface ring-1 ring-line">
@@ -51,15 +49,13 @@ export function RouteCard({ route }: RouteCardProps) {
         <ChevronRight size={17} strokeWidth={2} className="flex-none text-ink-4" />
       </button>
 
-      {route && (
-        <button
-          onClick={() => focusRouteIn3d(route)}
-          className="flex w-full items-center gap-2 border-t border-line px-[13px] py-[10px] text-left text-[13px] font-semibold text-ink-2 transition-colors hover:bg-surface-2"
-        >
-          <Navigation size={15} strokeWidth={2} />
-          {t("route.goTo")}
-        </button>
-      )}
+      <button
+        onClick={() => focusRouteIn3d(route)}
+        className="flex w-full items-center gap-2 border-t border-line px-[13px] py-[10px] text-left text-[13px] font-semibold text-ink-2 transition-colors hover:bg-surface-2"
+      >
+        <Navigation size={15} strokeWidth={2} />
+        {t("route.goTo")}
+      </button>
 
       <button
         onClick={() =>
