@@ -1,5 +1,6 @@
 import { currentLocale } from "../i18n";
 import { translate } from "../i18n";
+import { MODE_KEY } from "./tokens";
 import type { Route } from "./types";
 
 /** Grouping and decimal marks follow the locale: Indonesian writes Rp63.000 and
@@ -38,6 +39,17 @@ export const routeSummary = (route: Route): string[] => [
 /** Compact form for the inline card inside an agent reply. */
 export const routeCardMeta = (route: Route): string =>
   `${minutes(route.total_time_s)} · ${rupiah(route.total_fare_idr)} · ${route.legs.length} leg`;
+
+/** Which map-category family a route's own accent should echo, mirroring
+ *  bridge.ts's `routeFamily` — the transit leg if there is one (bridge.ts's
+ *  default of "blue" for anything unmapped stays the fallback here too),
+ *  since a walk-then-bus itinerary reads as "a bus trip" overall. */
+export const routePrimaryFamily = (route: Route): "krl" | "gold" | "blue" | "walk" => {
+  const transitLeg = route.legs.find((leg) => (leg.transit_mode ?? leg.mode) !== "walk");
+  const key = transitLeg?.transit_mode ?? transitLeg?.mode ?? route.legs[0]?.mode;
+  const family = key ? MODE_KEY[key] : undefined;
+  return family === "krl" || family === "gold" || family === "walk" ? family : "blue";
+};
 
 export const routeTitle = (route: Route): string => {
   const first = route.legs[0];
