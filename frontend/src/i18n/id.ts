@@ -251,10 +251,10 @@ export const id = {
   "profile.saveName": "Simpan nama",
   "profile.storedHere": "Tersimpan di perangkat ini",
   "profile.trips": "Perjalanan",
-  "profile.carbonSample": "CO₂e contoh",
+  "profile.carbonSample": "CO₂e bulan ini",
   "profile.saved": "Tersimpan",
   "profile.carbonNote":
-    "Angka CO₂e masih memakai faktor emisi contoh. Nilai asli muncul setelah faktor emisi dimuat dari basis data.",
+    "Angka CO₂e dihitung dari faktor emisi yang tersimpan di basis data setiap kali agen menyusun rute; sebelum ada perjalanan yang dihitung, angka contoh yang ditampilkan.",
   "profile.sourcePrefix": (source: string) => `Sumber: ${source}`,
   "profile.groupAppearance": "Tampilan",
   "profile.groupMap": "Peta",

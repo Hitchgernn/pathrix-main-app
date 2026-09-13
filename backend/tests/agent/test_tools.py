@@ -13,7 +13,7 @@ from app.agent.tools import (
 )
 from app.models.geo import BBox, Coord
 from app.models.mapid import Feature
-from app.models.routing import EmissionFactor
+from app.models.routing import EmissionFactor, Route, RouteLeg
 from app.routing.graph import GraphBuilder
 
 
@@ -150,3 +150,34 @@ async def test_calculate_carbon_savings_tool_uses_primary_mode():
     result = await t.ainvoke({"route": route.model_dump()})
     assert result.mode == "walk"
     assert result.saved_g_co2 == pytest.approx(192.0 * (route.total_distance_m / 1000))
+
+
+async def test_calculate_carbon_savings_tool_uses_rail_not_bus_for_a_krl_leg():
+    route = Route(
+        legs=[
+            RouteLeg(
+                mode="ride",
+                from_node="stop:1",
+                to_node="stop:2",
+                time_s=600.0,
+                fare_idr=8000,
+                distance_m=8000.0,
+                transit_mode="rail",
+            )
+        ],
+        total_time_s=600.0,
+        total_fare_idr=8000,
+        total_distance_m=8000.0,
+        transfers=0,
+    )
+    factors = {
+        "bus": EmissionFactor(mode="bus", g_co2_per_km=95.0, source_citation="KLHK 2023"),
+        "rail": EmissionFactor(mode="rail", g_co2_per_km=41.0, source_citation="IPCC 2006 Tier 1"),
+        "private_vehicle": EmissionFactor(
+            mode="private_vehicle", g_co2_per_km=192.0, source_citation="KLHK 2023"
+        ),
+    }
+    t = make_calculate_carbon_savings_tool(lambda: factors)
+    result = await t.ainvoke({"route": route.model_dump()})
+    assert result.mode == "rail"
+    assert result.saved_g_co2 == pytest.approx((192.0 - 41.0) * 8.0)

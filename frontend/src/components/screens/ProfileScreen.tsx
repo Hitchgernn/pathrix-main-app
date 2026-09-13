@@ -3,6 +3,7 @@ import { Check, Database, Languages, MapPinned, Moon, Pencil, Sun, Trash2 } from
 import { useT, type Locale } from "../../i18n";
 import type { ThemePref } from "../../store/persist";
 import { requestLocation } from "../../lib/geolocation";
+import { carbonThisMonthG, kg } from "../../lib/format";
 import { SAMPLE_CARBON } from "../../lib/sample";
 import { useStore } from "../../store";
 import { Avatar } from "../ui/avatar";
@@ -27,6 +28,8 @@ export function ProfileScreen() {
   const setUserCoord = useStore((s) => s.setUserCoord);
   const savedPlaces = useStore((s) => s.savedPlaces);
   const recents = useStore((s) => s.recents);
+  const carbonLog = useStore((s) => s.carbonLog);
+  const lastCarbon = useStore((s) => s.lastCarbon);
   const resetLocalData = useStore((s) => s.resetLocalData);
   const locale = useStore((s) => s.locale);
   const setLocale = useStore((s) => s.setLocale);
@@ -110,13 +113,19 @@ export function ProfileScreen() {
 
       <div className="mt-3 grid grid-cols-3 gap-[10px]">
         <Stat value={String(recents.length)} label={t("profile.trips")} />
-        <Stat value={SAMPLE_CARBON.month} label={t("profile.carbonSample")} accent />
+        <Stat
+          value={carbonLog.length > 0 ? kg(carbonThisMonthG(carbonLog)) : SAMPLE_CARBON.month}
+          label={t("profile.carbonSample")}
+          accent
+        />
         <Stat value={String(savedPlaces.length)} label={t("profile.saved")} />
       </div>
       <p className="body-13 mt-[10px] text-ink-3">
         {t("profile.carbonNote")}
       </p>
-      <p className="body-13 mt-[6px] text-ink-3">{t("profile.sourcePrefix", SAMPLE_CARBON.source)}</p>
+      <p className="body-13 mt-[6px] text-ink-3">
+        {t("profile.sourcePrefix", lastCarbon?.source_citation ?? SAMPLE_CARBON.source)}
+      </p>
 
       <Group label={t("profile.groupAppearance")}>
         <Row

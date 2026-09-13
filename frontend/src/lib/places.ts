@@ -68,6 +68,13 @@ export interface RecentEntry {
   at: number;
 }
 
+/** One computed carbon result, logged so Home/Profile/Sustainability can show
+ *  a real running "this month" total instead of a permanent sample. */
+export interface CarbonLogEntry {
+  g: number;
+  at: number;
+}
+
 /** Display name and accent for each kind. Only pangkalan carries the gold: it
  *  is the one category the field survey owns, and the One Warm Rule allows the
  *  accent exactly one job per screen. */

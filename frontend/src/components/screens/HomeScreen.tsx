@@ -2,6 +2,7 @@ import { ChevronRight, Layers, Leaf, Route, TramFront } from "lucide-react";
 import type { ComponentType } from "react";
 import { currentLocale, useT } from "../../i18n";
 import { askFromAnywhere, goToPlace } from "../../lib/actions";
+import { carbonThisMonthG, kg } from "../../lib/format";
 import { QUICK_ACTIONS, SAMPLE_CARBON, type QuickAction } from "../../lib/sample";
 import { usePhoto } from "../../lib/usePhoto";
 import { recentsForDisplay, useStore } from "../../store";
@@ -25,10 +26,13 @@ export function HomeScreen() {
   const profile = useStore((s) => s.profile);
   const savedPlaces = useStore((s) => s.savedPlaces);
   const recents = useStore((s) => s.recents);
+  const carbonLog = useStore((s) => s.carbonLog);
   const setTab = useStore((s) => s.setTab);
   const openPanel = useStore((s) => s.openPanel);
   const toggleLayer = useStore((s) => s.toggleLayer);
   const t = useT();
+
+  const carbonMonth = carbonLog.length > 0 ? kg(carbonThisMonthG(carbonLog)) : SAMPLE_CARBON.month;
 
   const runAction = (action: QuickAction) => {
     if (action.layers) action.layers.forEach((id) => toggleLayer(id, true));
@@ -55,7 +59,7 @@ export function HomeScreen() {
           <Leaf size={17} strokeWidth={1.9} className="text-gold-text" />
           <span>
             <span className="figure block text-[14px] font-medium leading-none text-gold-text">
-              {SAMPLE_CARBON.month}
+              {carbonMonth}
             </span>
             <span className="label-sm mt-[4px] block font-normal leading-none text-gold-text">
               {t("home.carbonMonth")}

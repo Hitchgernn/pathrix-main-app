@@ -1,5 +1,5 @@
 import { useT } from "../i18n";
-import { kg } from "../lib/format";
+import { carbonThisMonthG, kg } from "../lib/format";
 import { SAMPLE_CARBON } from "../lib/sample";
 import { useStore } from "../store";
 
@@ -9,11 +9,13 @@ import { useStore } from "../store";
 export function SustainabilityStat() {
   const openPanel = useStore((s) => s.openPanel);
   const carbon = useStore((s) => s.lastCarbon);
+  const carbonLog = useStore((s) => s.carbonLog);
   const messages = useStore((s) => s.messages);
   const t = useT();
   // The empty state is a real state now, not a prototype switch: nothing has
   // been calculated yet this session, so there is no figure to show.
   const empty = carbon === null && messages.length === 0;
+  const hasLog = carbonLog.length > 0;
 
   return (
     <div>
@@ -38,13 +40,13 @@ export function SustainabilityStat() {
             <div className="hairline flex items-baseline justify-between gap-3 py-[14px]">
               <span className="title-row min-w-0 flex-1 whitespace-nowrap">{t("sustain.thisMonth")}</span>
               <span className="figure flex-none whitespace-nowrap text-[16px] font-medium text-gold-text">
-                {SAMPLE_CARBON.month}
+                {hasLog ? kg(carbonThisMonthG(carbonLog)) : SAMPLE_CARBON.month}
               </span>
             </div>
             <div className="hairline flex items-baseline justify-between gap-3 py-[14px]">
               <span className="title-row min-w-0 flex-1 whitespace-nowrap">{t("sustain.tripsRecorded")}</span>
               <span className="figure flex-none whitespace-nowrap text-[13px] text-ink-2">
-                {SAMPLE_CARBON.trips}
+                {hasLog ? String(carbonLog.length) : SAMPLE_CARBON.trips}
               </span>
             </div>
             <div className="hairline" />

@@ -51,10 +51,11 @@ def _primary_mode(route: Route) -> str:
     for leg in route.legs:
         if leg.mode in ("andong", "becak"):
             return leg.mode
+    for leg in route.legs:
+        if leg.mode == "ride" and leg.transit_mode:
+            return leg.transit_mode
     if any(leg.mode == "ride" for leg in route.legs):
-        return (
-            "bus"  # edge type has no operator identity yet; bus covers the common TransJogja case
-        )
+        return "bus"  # no transit_mode on the leg at all; bus is the common case
     return "walk"
 
 
