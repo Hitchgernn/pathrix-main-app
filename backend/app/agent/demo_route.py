@@ -37,25 +37,25 @@ same-named-sounding but physically different hospital in Pakem, left
 rejected as before).
 
 The walk leg after alighting (`demo_walk_to_andong_polyline.json`) covers a
-real andong stand (survey id `6a8f00fd52d86e03b51bc293`, the nearest one on
-file) 26.1m from where the bus leg's own polyline already ends, so the two
-legs meet without a visible jump. Distance/time are haversine +
+real andong stand near Halte Malioboro 1, ending exactly where the closing
+andong leg's own GPX begins (19.6m from where the bus leg's polyline ends) so
+all three legs meet without a visible jump. Distance/time are haversine +
 `WALK_SPEED_MPS` (`routing/constants.py`), the same formula `walk_edge_attrs`
 uses for a real walk edge — not invented.
 
 The closing andong leg (`demo_andong_polyline.json`) is the actual last-mile
-point the demo script asks about: a ride from that same stand to Titik Nol
-Kilometer Yogyakarta (110.364444, -7.801389 — the landmark itself, no survey
-row for it in `poi` to key off). The polyline is a real shortest path down
-Jl. Malioboro/Jl. A. Yani — 21 points, 1352.5m — computed with `networkx`
-over the actual OSM pedestrian network already ingested into `walk_nodes`/
-`walk_edges` for this corridor (`ingest walk-network`), not a straight line.
-`fare_base`/`fare_per_km` are null on every andong `pangkalan` row today
-(the activity-survey harvest carries no fare field), so this leg's numbers
-use the same `andong_edge_attrs` formula (`routing/edges.py`) real routing
-would, fed the flat rate `tests/routing` already uses for an andong edge
-(`fare_base=5000, fare_per_km=2000,
-speed_mps=ANDONG_SPEED_MPS`) rather than inventing a separate one here.
+point the demo script asks about: a ride from that stand to Titik Nol
+Kilometer Yogyakarta, down Jl. Malioboro/Jl. A. Yani. Same provenance as the
+bus leg — a GraphHopper Maps road-network route, exported by the user as GPX
+to `routes/andong-titik-nol.gpx` (5 points, 1165.3m) and parsed into this
+JSON by `app/agent/build_demo_andong_polyline.py` (re-run that, `uv run
+python -m app.agent.build_demo_andong_polyline`, if the source GPX changes).
+`fare_base`/`fare_per_km` are null on every andong `pangkalan` row today (the
+activity-survey harvest carries no fare field), so this leg's time/fare use
+the same `andong_edge_attrs` formula (`routing/edges.py`) real routing would,
+fed the flat rate `tests/routing` already uses for an andong edge
+(`fare_base=5000, fare_per_km=2000, speed_mps=ANDONG_SPEED_MPS`) rather than
+inventing a separate one here.
 """
 
 import json
