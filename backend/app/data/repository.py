@@ -586,6 +586,46 @@ async def fetch_emission_factors(session: AsyncSession) -> dict[str, EmissionFac
     }
 
 
+# Estimates, not a measured local study. Fuel-combustion modes (private_vehicle,
+# bus) cite KLHK 2023's national fuel emission factors; grid-electric and
+# non-motorized modes (rail, airport_rail, andong, becak, walk) cite IPCC 2006
+# Tier 1 default methodology.
+DEFAULT_EMISSION_FACTORS: list[EmissionFactor] = [
+    EmissionFactor(mode="private_vehicle", g_co2_per_km=192.0, source_citation="KLHK 2023"),
+    EmissionFactor(mode="bus", g_co2_per_km=95.0, source_citation="KLHK 2023"),
+    EmissionFactor(mode="rail", g_co2_per_km=41.0, source_citation="IPCC 2006 Tier 1"),
+    EmissionFactor(mode="airport_rail", g_co2_per_km=52.0, source_citation="IPCC 2006 Tier 1"),
+    EmissionFactor(mode="andong", g_co2_per_km=0.0, source_citation="IPCC 2006 Tier 1"),
+    EmissionFactor(mode="becak", g_co2_per_km=0.0, source_citation="IPCC 2006 Tier 1"),
+    EmissionFactor(mode="walk", g_co2_per_km=0.0, source_citation="IPCC 2006 Tier 1"),
+]
+
+
+async def upsert_emission_factors(session: AsyncSession, factors: list[EmissionFactor]) -> int:
+    rows = [
+        {
+            "mode": factor.mode,
+            "g_co2_per_km": factor.g_co2_per_km,
+            "source_citation": factor.source_citation,
+        }
+        for factor in factors
+    ]
+    if not rows:
+        return 0
+
+    stmt = pg_insert(EmissionFactorRow).values(rows)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[EmissionFactorRow.mode],
+        set_={
+            "g_co2_per_km": stmt.excluded.g_co2_per_km,
+            "source_citation": stmt.excluded.source_citation,
+        },
+    )
+    await session.execute(stmt)
+    await session.commit()
+    return len(rows)
+
+
 def _point_lon_lat(feature: Feature) -> tuple[float, float] | None:
     coords = feature.geometry.get("coordinates")
     if not coords or len(coords) < 2:

@@ -8,6 +8,7 @@ filled without a notebook or a REPL:
     uv run python -m app.data.ingest stops --layer-id <id>   # mirror one of them
     uv run python -m app.data.ingest missions                # the mission datasets
     uv run python -m app.data.ingest survey                  # halte/becak out of activities
+    uv run python -m app.data.ingest emission-factors         # seed estimated CO2 factors
     uv run --extra data python -m app.data.ingest transport-pdf \
         --pdf <map.pdf> --routes-csv <routes.csv> --activities-csv <activities.csv> \
         [--activities-supplement <activities.csv>] --output <directory> --as-of YYYY-MM-DD
@@ -112,6 +113,18 @@ async def ingest_survey() -> dict[str, int]:
         async with httpx.AsyncClient(timeout=60.0) as http_client:
             async with session_scope(engine) as session:
                 return await run_activity_survey_etl(_client(http_client), session, polygon)
+    finally:
+        await engine.dispose()
+
+
+async def ingest_emission_factors() -> int:
+    from app.data.repository import DEFAULT_EMISSION_FACTORS, upsert_emission_factors
+
+    engine = make_engine()
+    try:
+        await init_db(engine)
+        async with session_scope(engine) as session:
+            return await upsert_emission_factors(session, DEFAULT_EMISSION_FACTORS)
     finally:
         await engine.dispose()
 
@@ -238,6 +251,8 @@ def main() -> None:
     sub.add_parser(
         "survey", help="file halte/becak/andong out of the activities feed into their own tables"
     )
+
+    sub.add_parser("emission-factors", help="seed the estimated per-mode CO2 emission factors")
 
     walk_network = sub.add_parser(
         "walk-network", help="fetch and persist OSM pedestrian nodes and edges"
@@ -441,6 +456,11 @@ def main() -> None:
             print(f"{kind:<8} {count}")
         if capped:
             print(_capped_note(capped).lstrip())
+        return
+
+    if args.command == "emission-factors":
+        count = asyncio.run(ingest_emission_factors())
+        print(f"upserted {count} emission factors")
         return
 
     if args.command == "stops":

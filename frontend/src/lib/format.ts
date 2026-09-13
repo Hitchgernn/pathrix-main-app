@@ -1,5 +1,6 @@
 import { currentLocale } from "../i18n";
 import { translate } from "../i18n";
+import type { CarbonLogEntry } from "./places";
 import { MODE_KEY } from "./tokens";
 import type { Route } from "./types";
 
@@ -19,6 +20,17 @@ export const minutes = (seconds: number) =>
 export const rupiah = (idr: number) => `Rp${nf(0).format(Math.round(idr))}`;
 export const km = (metres: number) => `${nf(1).format(metres / 1000)} km`;
 export const kg = (grams: number) => `${nf(2).format(grams / 1000)} kg`;
+
+/** Sum of grams CO2 logged in the current calendar month. */
+export const carbonThisMonthG = (log: CarbonLogEntry[]): number => {
+  const now = new Date();
+  return log
+    .filter((entry) => {
+      const at = new Date(entry.at);
+      return at.getMonth() === now.getMonth() && at.getFullYear() === now.getFullYear();
+    })
+    .reduce((sum, entry) => sum + entry.g, 0);
+};
 
 /** An ISO timestamp → "30 Agustus 2026". Returns null for anything unparseable,
  *  so a malformed upstream date renders as nothing rather than "Invalid Date". */

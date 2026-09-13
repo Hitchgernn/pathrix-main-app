@@ -17,6 +17,7 @@ import {
   capRecents,
   clearPersisted,
   loadPersisted,
+  pruneCarbonLog,
   savePersisted,
   type LocationPermission,
   type PersistedLocale,
@@ -174,6 +175,7 @@ const persistNow = (state: Store): void =>
     savedPlaces: state.savedPlaces,
     savedRoutes: state.savedRoutes,
     recents: state.recents,
+    carbonLog: state.carbonLog,
     locationPermission: state.locationPermission,
     onboarded: state.onboarded,
     locale: state.locale,
@@ -277,13 +279,18 @@ export const useStore = create<Store>()((set, get) => ({
             text !== null
               ? s.messages.concat([{ who: "agent", text, route: message.route ?? null }])
               : s.messages;
+          const carbonLog = message.carbon
+            ? pruneCarbonLog([...s.carbonLog, { g: message.carbon.saved_g_co2, at: Date.now() }])
+            : s.carbonLog;
           return {
             streaming: false,
             messages,
             lastRoute: message.route ?? s.lastRoute,
             lastCarbon: message.carbon ?? s.lastCarbon,
+            carbonLog,
           };
         });
+        if (message.carbon) persistNow(get());
         break;
 
       case "error": {
@@ -441,6 +448,7 @@ export const useStore = create<Store>()((set, get) => ({
       savedPlaces: [],
       savedRoutes: [],
       recents: [],
+      carbonLog: [],
       locationPermission: "unknown",
       onboarded: false,
       locale: "id",

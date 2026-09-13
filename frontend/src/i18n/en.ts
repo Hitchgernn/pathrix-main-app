@@ -247,10 +247,10 @@ export const en: Messages = {
   "profile.saveName": "Save name",
   "profile.storedHere": "Kept on this device",
   "profile.trips": "Trips",
-  "profile.carbonSample": "CO₂e sample",
+  "profile.carbonSample": "CO₂e this month",
   "profile.saved": "Saved",
   "profile.carbonNote":
-    "The CO₂e figure still uses sample emission factors. Real values appear once the factors are loaded from the database.",
+    "The CO₂e figure is computed from emission factors stored in the database each time the agent plans a route; a sample figure shows until a real trip has been computed.",
   "profile.sourcePrefix": (source: string) => `Source: ${source}`,
   "profile.groupAppearance": "Appearance",
   "profile.groupMap": "Map",

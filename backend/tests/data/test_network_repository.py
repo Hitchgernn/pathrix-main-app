@@ -8,6 +8,7 @@ from app.data.repository import (
     fetch_emission_factors,
     fetch_network_data,
     fetch_stop_departures,
+    upsert_emission_factors,
     upsert_walk_network,
 )
 from app.data.schema import (
@@ -21,6 +22,7 @@ from app.data.schema import (
     TransitTrip,
 )
 from app.models.network import WalkEdgeRow, WalkNodeRow
+from app.models.routing import EmissionFactor as EmissionFactorModel
 
 
 async def test_fetch_network_data_returns_seeded_rows(db_session):
@@ -214,3 +216,25 @@ async def test_fetch_emission_factors_returns_a_mode_keyed_dict(db_session):
     factors = await fetch_emission_factors(db_session)
     assert factors["bus"].g_co2_per_km == 68.0
     assert factors["bus"].source_citation == "IPCC 2021"
+
+
+async def test_upsert_emission_factors_inserts_then_updates_in_place(db_session):
+    count = await upsert_emission_factors(
+        db_session,
+        [
+            EmissionFactorModel(mode="bus", g_co2_per_km=95.0, source_citation="KLHK 2023"),
+            EmissionFactorModel(mode="rail", g_co2_per_km=41.0, source_citation="IPCC 2006 Tier 1"),
+        ],
+    )
+    assert count == 2
+
+    updated = await upsert_emission_factors(
+        db_session,
+        [EmissionFactorModel(mode="bus", g_co2_per_km=100.0, source_citation="KLHK 2024")],
+    )
+    assert updated == 1
+
+    factors = await fetch_emission_factors(db_session)
+    assert factors["bus"].g_co2_per_km == 100.0
+    assert factors["bus"].source_citation == "KLHK 2024"
+    assert factors["rail"].g_co2_per_km == 41.0

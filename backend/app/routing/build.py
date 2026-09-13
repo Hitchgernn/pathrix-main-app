@@ -45,10 +45,12 @@ def build_graph_from_network(
 
     Stops connect to each other through route board/ride/alight edges, and to
     the pedestrian network (network.walk_nodes/walk_edges, from OSMnx via
-    data/osm.py) by snapping each stop to its nearest walk node. When no walk
-    network is present — the common case until an ETL run populates it —
-    pangkalan still fall back to connecting directly to any stop within
-    PANGKALAN_CONNECT_RADIUS_M, a stand-in for real walk distance.
+    data/osm.py) by snapping each stop to its nearest walk node. Every
+    pangkalan within PANGKALAN_CONNECT_RADIUS_M of a stop also gets a genuine
+    walk edge to it — first/last-mile on foot, independent of whether an OSMnx
+    walk network has been ETL'd for that area — alongside a paid andong/becak
+    ride edge for hiring the vehicle instead of walking; Dijkstra picks
+    whichever the objective (tercepat/termurah/termudah) prefers.
     """
     builder = GraphBuilder()
     coords: dict[str, tuple[float, float]] = {}
@@ -136,6 +138,8 @@ def build_graph_from_network(
                 continue
             add_edge(node, stop_node(stop.id), distance_m, speed, p.fare_base, p.fare_per_km)
             add_edge(stop_node(stop.id), node, distance_m, speed, p.fare_base, p.fare_per_km)
+            builder.add_walk_edge(node, stop_node(stop.id), distance_m)
+            builder.add_walk_edge(stop_node(stop.id), node, distance_m)
 
     walk_coords: dict[str, tuple[float, float]] = {}
     for wn in network.walk_nodes:

@@ -1,4 +1,4 @@
-import type { Place, RecentEntry, SavedRoute } from "../lib/places";
+import type { CarbonLogEntry, Place, RecentEntry, SavedRoute } from "../lib/places";
 
 /** Everything the app remembers between sessions, in localStorage.
  *
@@ -31,6 +31,7 @@ export interface PersistedState {
   savedPlaces: Place[];
   savedRoutes: SavedRoute[];
   recents: RecentEntry[];
+  carbonLog: CarbonLogEntry[];
   locationPermission: LocationPermission;
   onboarded: boolean;
   locale: PersistedLocale;
@@ -42,6 +43,7 @@ export const EMPTY_PERSISTED: PersistedState = {
   savedPlaces: [],
   savedRoutes: [],
   recents: [],
+  carbonLog: [],
   locationPermission: "unknown",
   onboarded: false,
   // Indonesian is the default: this is a Yogyakarta product before it is a
@@ -81,6 +83,9 @@ export function loadPersisted(): PersistedState {
     savedPlaces: isArray<Place>(raw.savedPlaces).filter((p) => p && typeof p.id === "string"),
     savedRoutes: isArray<SavedRoute>(raw.savedRoutes).filter((r) => r && typeof r.id === "string"),
     recents: isArray<RecentEntry>(raw.recents).filter((r) => r && typeof r.prompt === "string"),
+    carbonLog: isArray<CarbonLogEntry>(raw.carbonLog).filter(
+      (e) => e && typeof e.g === "number" && typeof e.at === "number",
+    ),
     locationPermission:
       raw.locationPermission === "granted" || raw.locationPermission === "denied"
         ? raw.locationPermission
@@ -118,3 +123,11 @@ export function clearPersisted(): void {
 
 export const capRecents = (recents: RecentEntry[]): RecentEntry[] =>
   recents.slice(0, RECENTS_CAP);
+
+// A count cap could drop entries still inside the current calendar month if
+// someone takes many trips; prune by age instead so "this month" always sums
+// correctly no matter where in the month it's read.
+const CARBON_LOG_MAX_AGE_MS = 40 * 24 * 60 * 60 * 1000;
+
+export const pruneCarbonLog = (log: CarbonLogEntry[]): CarbonLogEntry[] =>
+  log.filter((entry) => Date.now() - entry.at < CARBON_LOG_MAX_AGE_MS);
