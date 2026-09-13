@@ -1,0 +1,22 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+12,2,bus-spbu-condongcatur-e-794333df,SPBU Condongcatur (Timur),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No SPBU/fuel-station Activity in catalog; Terminal Condongcatur is a separate physical stop.
+12,3,bus-prayan-e-d22ce9c8,Prayan (Timur),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Prayan Activity in catalog; nearest surveyed stops do not identify this location.
+12,4,bus-susteran-novisiat-33aaae59,Susteran Novisiat,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Novisiat Activity in catalog; Susteran Jetis is a different physical stop.
+12,6,bus-jalan-colombo-samirono-0f6c71b2,JL Colombo (Samirono),review_fuzzy,6a8d39db52d86e03b51a8ece,Halte Jl. Colombo UNY,0.661538,approved,codex-gpt-5,2026-09-13,Existing approved 2B match for same stop_id; only fuzzy candidate, on Colombo/UNY corridor and 245m from segment-time interpolation.
+12,12,bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Hotel Vidi/Vidi Activity in catalog; nearest surveyed stops are different landmarks.
+12,13,bus-hokben-jakal-w-08061330,Hokben Jakal (Barat),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Hokben Activity in catalog on either Kaliurang carriageway.
+12,14,bus-superindo-kaliurang-55a294ae,Superindo Kaliurang,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Superindo Activity in catalog; nearest surveyed stops are different landmarks.
+12,15,bus-pasar-kolombo-69cbcaf2,Pasar Kolombo,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Pasar Kolombo Activity in catalog; Colombo-named candidates are distinct stops.
+12,17,bus-simpang-palem-raya-e-c72c93bc,Simpang Palem Raya (Timur),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Palem Raya Activity in catalog; nearest interpolated candidates are different stops.
+12,18,bus-kantor-camat-ngaglik-91c4f095,Kantor Camat Ngaglik,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Ngaglik sub-district-office Activity in catalog.
+12,19,bus-puskesmas-ngaglik-i-ac4d2b11,Puskesmas Ngaglik I,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Puskesmas Ngaglik Activity in catalog.
+12,20,bus-smp-negeri-2-ngaglik-15131f5b,SMP Negeri 2 Ngaglik,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No SMP Negeri 2 Ngaglik Activity in catalog.
+12,21,bus-warung-sego-penyetan-banyuwangi-c614c8b7,Warung Sego Penyetan Banyuwangi,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No matching warung/restaurant Activity in catalog.
+12,22,bus-wedangan-kampoeng-1ea8493d,Wedangan Kampoeng,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Wedangan or Kampoeng Activity in catalog.
+12,24,bus-pusat-rehabilitasi-yakkum-c69b76c2,Pusat Rehabilitasi YAKKUM,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No YAKKUM or rehabilitation Activity in catalog.
+12,25,bus-boulevard-uii-1c76a601,Boulevard UII,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No UII/Boulevard Activity in catalog; nearest surveyed stops are distinct locations.
+12,26,bus-uii-barat-jalan-38ce747d,UII (Barat Jalan),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No UII Activity in catalog; no real candidate for west-side platform.
+12,27,bus-simpang-dogolan-dab8862a,Simpang Dogolan,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Dogolan/Degolan Activity in catalog.
+12,28,bus-raminten-boutique-cafe-ea7b41ba,Raminten Boutique & Cafe,unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Raminten Activity in catalog.
+12,29,bus-dusun-kledokan-soto-brakot-fc4d12ed,Dusun Kledokan (Soto Brakot),unmatched,,,,rejected,codex-gpt-5,2026-09-13,No Kledokan/Soto Brakot Activity in catalog corridor.
+12,30,bus-rs-panti-nugroho-5e1208a0,RS Panti Nugroho,review_fuzzy,6a8d0a83eca288692ef377ee,Halte RS Panti Rapih,0.640000,rejected,codex-gpt-5,2026-09-13,Preserved rejection: Panti Nugroho (Pakem) and Panti Rapih (city center) are different hospitals.

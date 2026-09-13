@@ -1,0 +1,14 @@
+route_id,stop_sequence,stop_id,stop_name,match_status,candidate_activity_id,candidate_name,score,decision,reviewer,reviewed_at,notes
+3A,3,bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,Full catalog has no Hokben record; nearby resolved McD Jakal is a different physical stop on same corridor.
+3A,6,bus-rs-sardjito-e-a2691dbb,Halte RS Sardjito (Timur),review_fuzzy,,,,rejected,codex-gpt-5.6,2026-09-13,Preserve documented rejection: three fuzzy candidates are confirmed West/Barat cluster; no catalog Activity represents Timur side.
+3A,11,bus-bulog-970050c0,Halte Bulog,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Bulog Activity in full catalog; Cik Di Tiro and Kridosono neighbor stops are distinct physical places.
+3A,34,bus-lapangan-karang-5bfabf8e,TPB Lapangan Karang,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Lapangan Karang/Kotagede Activity in full catalog; nearest Tegal Gendu and Ngeksigondo stops are distinct.
+3A,35,bus-sma-5-7ee38138,TPB SMA 5,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,Only SMKN 5 catalog records are a different school near Gembira Loka; wrong location for Gedong Kuning corridor.
+3A,39,bus-jec-5c342f7d,Halte JEC,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Jogja Expo Center/JEC Activity in full catalog or Banguntapan bounding area.
+3A,40,bus-blok-o-rs-hardjolukito-882b9a9c,Halte Blok O (RS Hardjolukito),unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Hardjolukito/Lanud hospital Activity in full catalog; nearby Wonocatur is a separate stop.
+3A,42,bus-manna-kampus-d2f38df1,TPB Manna Kampus,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Manna Activity in full catalog; Jayakarta and Transmart candidates are separate stops.
+3A,44,bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No DJPb/Kanwil Perbendaharaan Activity in Maguwo corridor; Wirogunan Kanwil is different agency and location.
+3A,47,bus-kantor-kesehatan-pelabuhan-yogya-46efdf82,Kantor Kesehatan Pelabuhan Yogya,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Port Health Office Activity in full catalog; nearby Bina Marga is a different government office.
+3A,49,bus-rru-instiper-2-ea07186b,Halte RRU Instiper 2,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Instiper Activity in full catalog; RRU Disnaker and UPN Veteran anchors are distinct stops.
+3A,50,bus-polsek-depok-timur-74b977a6,TPB Polsek Depok Timur,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,No Polsek/police-station Activity in full catalog; STIE YKPN candidates are unrelated.
+3B,37,bus-polsek-depok-timur-74b977a6,TPB Polsek Depok Timur,unmatched,,,,rejected,codex-gpt-5.6,2026-09-13,Same stop and evidence as 3A sequence 50; no police-station Activity in full catalog.
