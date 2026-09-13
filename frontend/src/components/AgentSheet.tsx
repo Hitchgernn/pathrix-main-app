@@ -173,7 +173,7 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
                 >
                   {message.text}
                 </div>
-                {message.who === "agent" && message.route !== undefined && (
+                {message.who === "agent" && message.route && (
                   <RouteCard route={message.route} />
                 )}
               </div>

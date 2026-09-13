@@ -31,7 +31,11 @@ export default defineConfig(({ command, mode }) => {
         registerType: "autoUpdate",
         // Off in dev so it cannot fight HMR or serve a stale module.
         devOptions: { enabled: false },
-        includeAssets: ["favicon.ico"],
+        includeAssets: [
+          "favicon-32-light.png",
+          "favicon-32-dark.png",
+          "apple-touch-icon.png",
+        ],
         manifest: {
           name: "PATHRIX",
           short_name: "PATHRIX",
@@ -41,6 +45,10 @@ export default defineConfig(({ command, mode }) => {
           display: "standalone",
           background_color: "#ffffff",
           theme_color: "#ffffff",
+          icons: [
+            { src: "/pwa-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+            { src: "/pwa-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+          ],
         },
         workbox: {
           // MapLibre alone is over the 2MB default.
