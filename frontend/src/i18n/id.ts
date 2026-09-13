@@ -310,6 +310,7 @@ export const id = {
   "layers.notConnected": (meta: string) => `${meta}, belum tersambung`,
 
   "route.transfers": (n: number) => `${n} transfer`,
+  "route.goTo": "Menuju rute ini",
   "route.saveThis": "Simpan rute ini",
   "route.savedHere": "Tersimpan di perangkat ini",
 

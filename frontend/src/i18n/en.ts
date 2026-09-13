@@ -306,6 +306,7 @@ export const en: Messages = {
   "layers.notConnected": (meta: string) => `${meta}, not connected yet`,
 
   "route.transfers": (n: number) => `${n} transfer${n === 1 ? "" : "s"}`,
+  "route.goTo": "Go to this route",
   "route.saveThis": "Save this route",
   "route.savedHere": "Saved on this device",
 

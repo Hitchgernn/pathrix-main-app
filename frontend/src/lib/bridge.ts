@@ -271,14 +271,40 @@ export function reapplyRoute(map: MapLibreMap, palette: MapPalette): void {
   if (lastRoute) drawRoute(map, lastRoute, palette);
 }
 
-/** Fits the camera to a drawn route. */
-export function fitRoute(map: MapLibreMap, route: Route): void {
+/** Great-circle initial bearing from A to B, in degrees, 0 = north. */
+function bearingBetween([lon1, lat1]: [number, number], [lon2, lat2]: [number, number]): number {
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const phi1 = toRad(lat1);
+  const phi2 = toRad(lat2);
+  const deltaLambda = toRad(lon2 - lon1);
+  const y = Math.sin(deltaLambda) * Math.cos(phi2);
+  const x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(deltaLambda);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+
+/** Overall direction of travel: first leg-polyline point to the last one, so
+ *  a nav-style focus can orient the camera with the destination "ahead"
+ *  instead of always north-up. `null` when the endpoints coincide (too short
+ *  or a loop) — nothing sensible to orient to. */
+export function routeBearing(route: Route): number | null {
+  const points = route.legs.flatMap((leg) => leg.coordinates);
+  if (points.length < 2) return null;
+  const first = points[0];
+  const last = points[points.length - 1];
+  if (Math.abs(first[0] - last[0]) < 1e-5 && Math.abs(first[1] - last[1]) < 1e-5) return null;
+  return bearingBetween(first, last);
+}
+
+/** Fits the camera to a drawn route, optionally rotated to a bearing so a
+ *  direction of travel reads as "up". Returns whether it actually moved the
+ *  camera — false (no points) means no `moveend` will follow. */
+export function fitRoute(map: MapLibreMap, route: Route, bearing?: number): boolean {
   const stopPoints = (route.stops ?? []).flatMap((stop) => {
     const coordinate = stop.coord ?? stop.coordinate;
     return coordinate && coordinate.length >= 2 ? [[coordinate[0], coordinate[1]] as [number, number]] : [];
   });
   const points = [...route.legs.flatMap((leg) => leg.coordinates), ...stopPoints];
-  if (points.length === 0) return;
+  if (points.length === 0) return false;
   const lons = points.map((p) => p[0]);
   const lats = points.map((p) => p[1]);
   map.fitBounds(
@@ -286,6 +312,7 @@ export function fitRoute(map: MapLibreMap, route: Route): void {
       [Math.min(...lons), Math.min(...lats)],
       [Math.max(...lons), Math.max(...lats)],
     ],
-    { padding: 72, duration: 900 },
+    { padding: 72, duration: 900, ...(bearing !== undefined ? { bearing } : {}) },
   );
+  return true;
 }
