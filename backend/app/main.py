@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 import httpx
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.agent.runtime import AgentRuntime, make_redis_client
 from app.api.layers import router as layers_router
@@ -37,6 +38,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="PATHRIX API", lifespan=lifespan)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_allow_origins_list,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_middleware(RateLimitMiddleware, requests_per_minute=settings.rate_limit_per_minute)
 app.include_router(http_router)
 app.include_router(layers_router)
