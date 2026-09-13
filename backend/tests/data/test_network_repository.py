@@ -207,6 +207,26 @@ async def test_upsert_walk_network_is_idempotent_and_fetch_returns_it(db_session
     assert network.walk_edges[0].length_m == 60.0
 
 
+async def test_upsert_walk_network_chunks_past_the_asyncpg_param_limit(db_session):
+    # A single unchunked `.values([...])` blows past asyncpg's 32767-bound-
+    # param ceiling on any reasonably dense OSM extract; regression coverage
+    # for the chunking in `upsert_walk_network`. 12000 rows is chosen to
+    # clear that ceiling (~3 bound params/row) even pre-chunking, so this
+    # test would have failed against the unchunked implementation.
+    node_count = 12000
+    nodes = [
+        WalkNodeRow(id=i, lon=110.30 + i * 1e-5, lat=-7.80 + i * 1e-5) for i in range(node_count)
+    ]
+    edges = [WalkEdgeRow(u=i, v=i + 1, length_m=1.0) for i in range(node_count - 1)]
+
+    count = await upsert_walk_network(db_session, nodes, edges)
+    assert count == (node_count, node_count - 1)
+
+    network = await fetch_network_data(db_session)
+    assert len(network.walk_nodes) == node_count
+    assert len(network.walk_edges) == node_count - 1
+
+
 async def test_fetch_emission_factors_returns_a_mode_keyed_dict(db_session):
     await db_session.execute(
         insert(EmissionFactor).values(mode="bus", g_co2_per_km=68.0, source_citation="IPCC 2021")
