@@ -17,6 +17,10 @@ filled without a notebook or a REPL:
         --route EV3 --reviews <review.csv> [--apply]
     uv run python -m app.data.ingest transport-schedule --snapshot <directory> \
         [--reviews <review.csv>] [--apply]
+    uv run python -m app.data.ingest transport-road-geometry --snapshot <directory> \
+        --reviews <review.csv> [--reviews <review.csv> ...] --output <segments.geojson> [--apply]
+    uv run python -m app.data.ingest walk-network \
+        --bbox <min_lon> <min_lat> <max_lon> <max_lat>
 
 The layers are ordinary MAPID survey uploads — the competition project's own,
 another team's, or an earlier period's — not mission data (§6.6). Which layer
@@ -137,6 +141,19 @@ async def ingest_transport_pilot(route) -> dict[str, int]:
         await engine.dispose()
 
 
+async def ingest_walk_network(polygon) -> tuple[int, int]:
+    from app.data.etl import run_walk_network_etl
+    from app.data.osm import OsmnxWalkNetworkFetcher
+
+    engine = make_engine()
+    try:
+        await init_db(engine)
+        async with session_scope(engine) as session:
+            return await run_walk_network_etl(OsmnxWalkNetworkFetcher(), session, polygon)
+    finally:
+        await engine.dispose()
+
+
 async def run_transport_schedule(plan, *, apply: bool, import_key: str | None):
     from app.data.transport_pilot import (
         dry_run_normalized_schedule,
@@ -166,6 +183,41 @@ async def rollback_transport_schedule(import_key: str) -> dict[str, int]:
         await engine.dispose()
 
 
+async def ingest_transport_road_geometry(
+    snapshot: Path, reviews: tuple[Path, ...], *, output: Path | None, apply: bool
+) -> dict[str, int]:
+    from app.data.transport_geometry import (
+        build_approved_segment_plan,
+        road_segment_report,
+        route_approved_segments,
+        upsert_road_segment_geometries,
+        write_road_segment_geojson,
+    )
+
+    planned = build_approved_segment_plan(snapshot, review_paths=reviews)
+    routed = await route_approved_segments(planned)
+    if output is not None:
+        write_road_segment_geojson(output, routed)
+    result = {
+        "approved_adjacent_segments": len(planned),
+        "osm_routed_segments": len(routed),
+        "unresolved_geometry_segments": len(planned) - len(routed),
+        "geojson_written": int(output is not None),
+    }
+    if not apply:
+        return result
+    engine = make_engine()
+    try:
+        await init_db(engine)
+        async with session_scope(engine) as session:
+            stored = await upsert_road_segment_geometries(session, routed)
+            await session.commit()
+            report = await road_segment_report(session)
+    finally:
+        await engine.dispose()
+    return {**result, "upserted_segments": stored, **report}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="PATHRIX data ingest")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -185,6 +237,17 @@ def main() -> None:
 
     sub.add_parser(
         "survey", help="file halte/becak/andong out of the activities feed into their own tables"
+    )
+
+    walk_network = sub.add_parser(
+        "walk-network", help="fetch and persist OSM pedestrian nodes and edges"
+    )
+    walk_network.add_argument(
+        "--bbox",
+        nargs=4,
+        type=float,
+        metavar=("MIN_LON", "MIN_LAT", "MAX_LON", "MAX_LAT"),
+        help="optional smaller area; default is configured study area",
     )
 
     transport_pdf = sub.add_parser(
@@ -231,6 +294,17 @@ def main() -> None:
         "--rollback", action="store_true", help="roll back --import-key without touching stops"
     )
 
+    transport_road_geometry = sub.add_parser(
+        "transport-road-geometry",
+        help="estimate OSM drive geometry for every approved adjacent bus-stop pair",
+    )
+    transport_road_geometry.add_argument("--snapshot", required=True, type=Path)
+    transport_road_geometry.add_argument("--reviews", action="append", type=Path, default=[])
+    transport_road_geometry.add_argument("--output", type=Path)
+    transport_road_geometry.add_argument(
+        "--apply", action="store_true", help="upsert routed geometry into the dev database"
+    )
+
     args = parser.parse_args()
 
     if args.command == "transport-pdf":
@@ -246,6 +320,12 @@ def main() -> None:
         )
         for filename, count in counts.items():
             print(f"{filename:<28} {count}")
+        return
+
+    if args.command == "walk-network":
+        polygon = box(*args.bbox) if args.bbox else study_area()
+        nodes, edges = asyncio.run(ingest_walk_network(polygon))
+        print(f"upserted {nodes} walk nodes and {edges} walk edges")
         return
 
     if args.command == "transport-review":
@@ -318,6 +398,22 @@ def main() -> None:
             print(f"wrote schedule report to {args.report}")
         else:
             print(rendered)
+        return
+
+    if args.command == "transport-road-geometry":
+        import json
+
+        from app.data.transport_pilot import PilotValidationError
+
+        try:
+            result = asyncio.run(
+                ingest_transport_road_geometry(
+                    args.snapshot, tuple(args.reviews), output=args.output, apply=args.apply
+                )
+            )
+        except PilotValidationError as error:
+            parser.error(str(error))
+        print(json.dumps(result, ensure_ascii=False, indent=2))
         return
 
     if args.command == "layers":

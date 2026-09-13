@@ -54,6 +54,16 @@
   --color-gold-text: #7c5e13; /* 6.06 on white · 5.26 on the tint */
   --color-gold-tint: #f7eedd;
 
+  /* --- map category (cartographic, not chrome) -----------------------------
+   * Mirrors lib/tokens.ts's MapPalette exactly — used sparingly outside the
+   * canvas, only where a UI element must echo a leg's own mode colour
+   * (RouteCard's accent bar), per docs/DESIGN.md's Route Card spec: "mode
+   * icons are colored 4px verticals in the map category palette." */
+  --color-map-blue: #1f6592;
+  --color-map-krl: #0f766e;
+  --color-map-gold: #7c5e13;
+  --color-map-walk: #17293a;
+
   --font-sans: Archivo, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
@@ -121,6 +131,11 @@
   --color-gold: #f2c94c;
   --color-gold-text: #f2c94c;
   --color-gold-tint: #312c20;
+
+  --color-map-blue: #5aa9dd;
+  --color-map-krl: #2dd4bf;
+  --color-map-gold: #f2c94c;
+  --color-map-walk: #e7f0f7;
 
   /* Shadow does almost no work on a dark ground; the hairline above carries
    * the edge instead, and these only deepen the sense of stacking. */

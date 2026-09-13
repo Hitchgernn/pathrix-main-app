@@ -19,6 +19,21 @@ class Settings(BaseSettings):
     llm_model: str = ""
     llm_api_key: str = ""
 
+    # MAPID Routing is a separate product from the basemap/mission/geoserver
+    # keys above — a different base URL, auth, and contract entirely (see
+    # docs/CLAUDE_TRANSIT_HANDOFF.md). Defaults leave current behavior
+    # (local-OSM-only road-leg geometry) unchanged until a real contract is
+    # verified and wired in `app/data/mapid_routing.py`.
+    mapid_routing_base_url: str = ""
+    mapid_routing_api_key: str = ""
+    mapid_routing_enabled: bool = False
+    mapid_routing_timeout_s: float = 5.0
+
+    # Swaps calculate_route for a hand-authored fixture (app/agent/demo_route.py)
+    # — real bus topology is empty across the dataset today, so this is for
+    # recording a demo only. Default off; never enable in a real deployment.
+    demo_mock_route: bool = False
+
     study_area_polygon: str = ""
 
     rate_limit_per_minute: int = 60

@@ -1,7 +1,7 @@
 from datetime import date, datetime
 
 from geoalchemy2 import Geometry
-from sqlalchemy import CheckConstraint, ForeignKey, Index, UniqueConstraint, func
+from sqlalchemy import BigInteger, CheckConstraint, ForeignKey, Index, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -31,6 +31,25 @@ class TransitStop(Base):
     __table_args__ = (CheckConstraint("mode IN ('bus','rail','airport_rail')"),)
 
 
+class StopManualReview(Base):
+    """A stop whose Activity match came from human review, not an automated
+    match — recorded separately from transit_stops.raw (which must stay a
+    verbatim upstream mirror, since upsert_transit_stops overwrites it
+    wholesale on every re-ingest) so the frontend can mark it distinctly."""
+
+    __tablename__ = "stop_manual_reviews"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    stop_id: Mapped[int] = mapped_column(ForeignKey("transit_stops.id"))
+    route_id: Mapped[str]
+    reviewer: Mapped[str]
+    reviewed_at: Mapped[str]
+    notes: Mapped[str | None]
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
+
+    __table_args__ = (UniqueConstraint("stop_id", "route_id"),)
+
+
 class TransitRoute(Base):
     __tablename__ = "transit_routes"
 
@@ -52,6 +71,34 @@ class RouteStop(Base):
     stop_id: Mapped[int] = mapped_column(ForeignKey("transit_stops.id"))
     seq: Mapped[int] = mapped_column(primary_key=True)
     travel_time_from_prev_s: Mapped[int | None]
+
+
+class TransitRouteSegmentGeometry(Base):
+    """Estimated road geometry for one directed, adjacent source-stop pair.
+
+    ``route_id`` deliberately holds the normalized source route id (for
+    example ``"3B"``), rather than a foreign key to ``transit_routes``. A
+    normalized route may be blocked while only some of its Activity matches
+    are approved, and those useful partial segments must not be discarded.
+    """
+
+    __tablename__ = "transit_route_segment_geometries"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    route_id: Mapped[str]
+    from_stop_sequence: Mapped[int]
+    to_stop_sequence: Mapped[int]
+    from_activity_id: Mapped[str]
+    to_activity_id: Mapped[str]
+    geom: Mapped[str] = mapped_column(Geometry("LINESTRING", srid=4326))
+    distance_m: Mapped[float]
+    source: Mapped[str]
+    updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("route_id", "from_stop_sequence", "to_stop_sequence"),
+        CheckConstraint("to_stop_sequence = from_stop_sequence + 1"),
+    )
 
 
 class TransitScheduleImport(Base):
@@ -215,15 +262,17 @@ class Properti(Base):
 class WalkNode(Base):
     __tablename__ = "walk_nodes"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    # OpenStreetMap ids routinely exceed PostgreSQL INTEGER's signed int32
+    # range. BigInteger keeps live OSM walk imports lossless.
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     geom: Mapped[str] = mapped_column(Geometry("POINT", srid=4326))
 
 
 class WalkEdge(Base):
     __tablename__ = "walk_edges"
 
-    u: Mapped[int] = mapped_column(primary_key=True)
-    v: Mapped[int] = mapped_column(primary_key=True)
+    u: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    v: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     length_m: Mapped[float]
     geom: Mapped[str | None] = mapped_column(Geometry("LINESTRING", srid=4326))
 

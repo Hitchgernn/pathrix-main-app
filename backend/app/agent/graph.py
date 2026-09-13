@@ -1,7 +1,8 @@
 import json
+import re
 
 from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.messages import SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, SystemMessage, ToolMessage
 from langchain_core.tools import BaseTool
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
@@ -13,6 +14,49 @@ from app.models.agent import AgentState
 from app.models.routing import CarbonResult, Route
 
 MAX_TOOL_ROUNDS = 5  # per-turn tool-call budget, ARCHITECTURE.md §8.4/§12
+
+# Hitting the round budget can land on a message that is itself an unexecuted
+# tool call (empty .content) — ws.py sends this text straight to the user, so
+# without this fallback a cut-off turn shows up as a silent, empty reply.
+# Keyed by AgentState's locale so it matches whichever language the rest of
+# the turn was in, rather than always breaking into English mid-conversation.
+ROUND_BUDGET_FALLBACK = {
+    "id": (
+        "Aku butuh lebih banyak langkah dari yang diizinkan untuk menyelesaikan "
+        "permintaan ini. Coba tanya dengan nama halte/tempat yang lebih spesifik, "
+        "atau tanya lagi."
+    ),
+    "en": (
+        "I needed more steps than I'm allowed to finish this request. "
+        "Try asking with a more specific stop or place name, or ask again."
+    ),
+}
+
+
+# Belt-and-suspenders companion to SYSTEM_PROMPT's plain-text instruction —
+# prompt compliance is probabilistic, this is deterministic. Strips emoji,
+# markdown emphasis/heading/quote markers, and bullet prefixes the model
+# still occasionally emits.
+_EMOJI_RE = re.compile(
+    "["
+    "\U0001f300-\U0001faff"  # symbols, pictographs, emoticons, transport, supplemental
+    "\U00002600-\U000027bf"  # misc symbols and dingbats
+    "\U0001f1e6-\U0001f1ff"  # regional indicators (flag emoji)
+    "\U00002b00-\U00002bff"  # misc symbols and arrows
+    "\U0000fe0f"  # emoji presentation selector
+    "]+"
+)
+_BULLET_PREFIX_RE = re.compile(r"^[ \t]*[-*•][ \t]+", flags=re.MULTILINE)
+_MARKDOWN_MARKUP_RE = re.compile(r"[*_`#>~]+")
+
+
+def _clean_reply(text: str) -> str:
+    cleaned = _EMOJI_RE.sub("", text)
+    cleaned = _BULLET_PREFIX_RE.sub("", cleaned)
+    cleaned = _MARKDOWN_MARKUP_RE.sub("", cleaned)
+    cleaned = re.sub(r"[ \t]+", " ", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def _serialize(result: object) -> str:
@@ -95,7 +139,14 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
         return update
 
     def respond(state: AgentState) -> dict:
-        return {}
+        last = state["messages"][-1]
+        if not (last.content or "").strip():
+            fallback = ROUND_BUDGET_FALLBACK.get(state["locale"], ROUND_BUDGET_FALLBACK["en"])
+            return {"messages": [AIMessage(content=fallback)]}
+        cleaned = _clean_reply(last.content)
+        if cleaned == last.content or not cleaned:
+            return {}
+        return {"messages": [AIMessage(content=cleaned)]}
 
     graph = StateGraph(AgentState)
     graph.add_node("plan", plan)

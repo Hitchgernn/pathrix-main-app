@@ -1,5 +1,5 @@
 {
-  "schedule_import_id": 1,
+  "schedule_import_id": 3,
   "idempotent": false,
   "activity_catalog_total": 321,
   "normalized_stops_total": 668,
@@ -109,6 +109,7 @@
         "bus-kenari-2-e7e409cf:unmatched",
         "bus-makam-gajah-n-5baf9986:unmatched",
         "bus-ngeksigondo-basen-66d681be:unmatched",
+        "bus-panti-rapih-9daeebbb:review_fuzzy",
         "bus-pasar-sepeda-tunjungsari-c4695341:unmatched",
         "bus-poltekkes-bsi-a1e35c13:unmatched",
         "bus-prayan-e-d22ce9c8:unmatched",
@@ -126,27 +127,18 @@
       "route_id": "3A",
       "mode": "bus",
       "reasons": [
-        "bus-banguntapan-1-gedong-kuning-50b8a187:unmatched",
         "bus-blok-o-rs-hardjolukito-882b9a9c:unmatched",
         "bus-bulog-970050c0:unmatched",
-        "bus-gedong-kuning-657f51a3:unmatched",
-        "bus-gik-ugm-5b041db4:unmatched",
         "bus-hokben-jakal-e-d425d6fc:unmatched",
-        "bus-jalan-mayjen-sutoyo-plengkung-gading-e73901f8:unmatched",
         "bus-jec-5c342f7d:unmatched",
         "bus-kantor-kesehatan-pelabuhan-yogya-46efdf82:unmatched",
         "bus-kantor-wilayah-djpb-f617b1d2:unmatched",
-        "bus-kol-sugiono-1-pujokusuman-ba46a3cf:unmatched",
         "bus-lapangan-karang-5bfabf8e:unmatched",
         "bus-manna-kampus-d2f38df1:unmatched",
-        "bus-mt-haryono-1-jokteng-kulon-be1d0306:unmatched",
-        "bus-pilar-1-gedong-kuning-kota-31b75629:unmatched",
+        "bus-panti-rapih-9daeebbb:review_fuzzy",
         "bus-polsek-depok-timur-74b977a6:unmatched",
-        "bus-rru-disnaker-eeaaa2dd:unmatched",
         "bus-rru-instiper-2-ea07186b:unmatched",
-        "bus-rs-sardjito-e-a2691dbb:review_fuzzy",
-        "bus-sma-5-7ee38138:unmatched",
-        "bus-sorogenen-wirosaban-a0db3a0a:unmatched"
+        "bus-sma-5-7ee38138:unmatched"
       ]
     },
     {
@@ -154,31 +146,17 @@
       "mode": "bus",
       "reasons": [
         "bus-bkpm-b11114ea:unmatched",
-        "bus-eks-perpusda-80a03598:unmatched",
-        "bus-gedong-kuning-banguntapan-ccef67ea:unmatched",
         "bus-hokben-jakal-w-08061330:unmatched",
         "bus-hotel-vidi-jakal-f9ee9a87:unmatched",
         "bus-hyundai-9b4bda77:unmatched",
-        "bus-jalan-mayjen-sutoyo-jokteng-wetan-fb44ee8b:unmatched",
-        "bus-jalan-mayjen-sutoyo-pasar-gading-4125f520:unmatched",
-        "bus-jih-b7958843:unmatched",
-        "bus-jlagran-402c26ac:unmatched",
-        "bus-kehutanan-gedongkuning-d6464bd8:unmatched",
         "bus-lap-karang-kotagede-85bec77d:unmatched",
-        "bus-mm-ugm-6d86cbe8:unmatched",
-        "bus-mt-haryono-2-sma-n-7-f2748d4c:unmatched",
-        "bus-nitikan-3cd761a8:unmatched",
-        "bus-pa-muhammadiyah-a2f5c15d:unmatched",
         "bus-pasar-angkasa-e-020347ed:unmatched",
         "bus-pegadaian-edf98ce4:unmatched",
         "bus-polsek-depok-timur-74b977a6:unmatched",
         "bus-poltekkes-bsi-a1e35c13:unmatched",
-        "bus-rru-binamarga-74dcd5b9:unmatched",
         "bus-rru-instiper-1-baca4daa:unmatched",
         "bus-rs-hardjolukito-9e48d6f4:unmatched",
-        "bus-smk-tajem-ringroad-utara-5c71b7ff:unmatched",
-        "bus-sosrowijayan-dcdae1fc:unmatched",
-        "bus-sugiono-2-940b3592:unmatched"
+        "bus-smk-tajem-ringroad-utara-5c71b7ff:unmatched"
       ]
     },
     {
@@ -187,25 +165,14 @@
       "reasons": [
         "bus-hokben-jakal-w-08061330:unmatched",
         "bus-hotel-vidi-jakal-f9ee9a87:unmatched",
-        "bus-jalan-pramuka-f6939358:unmatched",
-        "bus-krisdosono-9dea3135:unmatched",
-        "bus-makam-prajurit-e-331fb8be:unmatched",
-        "bus-mm-ugm-6d86cbe8:unmatched",
-        "bus-muhammadiyah-3-cb194b98:unmatched",
-        "bus-museum-biologi-1a19a994:unmatched",
         "bus-nyutran-tamansiswa-080d9b74:unmatched",
         "bus-pasar-sentul-s-84478365:unmatched",
         "bus-pasar-sepeda-tunjungsari-c4695341:unmatched",
         "bus-prayan-e-d22ce9c8:unmatched",
         "bus-psky-255eae47:unmatched",
-        "bus-sgm-kusumanegara-s-c3683ba7:unmatched",
-        "bus-smk-n-5-n-5d2e3d5f:unmatched",
-        "bus-solo-sma-de-britto-38b4feb0:unmatched",
         "bus-spbu-condongcatur-e-794333df:unmatched",
         "bus-susteran-novisiat-33aaae59:unmatched",
-        "bus-timoho-e-91beeecd:unmatched",
-        "bus-univeristas-ahmad-dahlan-0f60ec71:unmatched",
-        "bus-wirogunan-w-d030e655:unmatched"
+        "bus-timoho-e-91beeecd:unmatched"
       ]
     },
     {
@@ -213,26 +180,13 @@
       "mode": "bus",
       "reasons": [
         "bus-bulog-970050c0:unmatched",
-        "bus-eks-stie-kerjasama-57790499:unmatched",
-        "bus-gedung-wanita-763bc43c:unmatched",
-        "bus-gik-ugm-5b041db4:unmatched",
         "bus-hokben-jakal-e-d425d6fc:unmatched",
-        "bus-jalan-pramuka-f6939358:unmatched",
         "bus-man-1-yogyakarta-f2a678cf:review_fuzzy",
-        "bus-muhammadiyah-3-cb194b98:unmatched",
-        "bus-olive-glagahsari-w-48c71355:unmatched",
-        "bus-pakualaman-afc81afa:unmatched",
         "bus-pandeyan-w-cd4dd021:unmatched",
-        "bus-pdin-c-simanjuntak-ab3e4ee7:unmatched",
         "bus-prayan-w-756ecdc4:unmatched",
-        "bus-rs-sardjito-e-a2691dbb:review_fuzzy",
-        "bus-sgm-kusumanegara-n-ff7fc910:unmatched",
-        "bus-smk-n-5-s-0d099053:unmatched",
         "bus-spbu-condongcatur-w-a4e66ecc:unmatched",
         "bus-stsrd-visi-tamansiswa-77a7a21f:unmatched",
-        "bus-timoho-w-b557460d:unmatched",
-        "bus-universitas-ahmad-dahlan-f6ee4d47:unmatched",
-        "bus-wirogunan-e-42aa1c47:unmatched"
+        "bus-timoho-w-b557460d:unmatched"
       ]
     },
     {
@@ -246,6 +200,7 @@
         "bus-janti-selatan-bawah-jembatan-04f06a52:unmatched",
         "bus-jogja-city-mall-e-58185771:unmatched",
         "bus-mall-sahid-j-walk-9eace41d:unmatched",
+        "bus-panti-rapih-9daeebbb:review_fuzzy",
         "bus-ruko-babarsari-3ba71551:unmatched",
         "bus-solo-sma-de-britto-38b4feb0:unmatched",
         "bus-spbu-monjali-w-7e90b609:unmatched",
@@ -386,6 +341,7 @@
         "bus-kotabaru-98a0964c:unmatched",
         "bus-mt-haryono-1-jokteng-kulon-be1d0306:unmatched",
         "bus-mt-haryono-2-sman-7-3e1dac42:unmatched",
+        "bus-panti-rapih-9daeebbb:review_fuzzy",
         "bus-pasar-telo-1-a1824672:unmatched",
         "bus-pasar-telo-2-124ef082:unmatched",
         "bus-randubelang-e-f45783e6:unmatched",
@@ -406,17 +362,12 @@
         "bus-colombo-kosudgama-d0852f9e:review_fuzzy",
         "bus-dusun-kledokan-soto-brakot-2-0ae3a409:unmatched",
         "bus-dusun-kledokan-soto-brakot-fc4d12ed:unmatched",
-        "bus-gik-ugm-5b041db4:unmatched",
         "bus-hokben-jakal-e-d425d6fc:unmatched",
         "bus-hokben-jakal-w-08061330:unmatched",
         "bus-hotel-vidi-jakal-f9ee9a87:unmatched",
-        "bus-jalan-colombo-panti-raph-97207924:unmatched",
-        "bus-jalan-colombo-samirono-0f6c71b2:review_fuzzy",
         "bus-kantor-camat-ngaglik-91c4f095:unmatched",
-        "bus-mm-ugm-6d86cbe8:unmatched",
         "bus-pasar-kolombo-69cbcaf2:unmatched",
         "bus-pasar-kolombo-e-853be528:unmatched",
-        "bus-pln-gardu-induk-kentungan-ccdb7caf:unmatched",
         "bus-prayan-e-d22ce9c8:unmatched",
         "bus-prayan-w-756ecdc4:unmatched",
         "bus-pusat-rehabilitasi-yakkum-c69b76c2:unmatched",
@@ -427,9 +378,6 @@
         "bus-raminten-boutique-cafe-halte-2-0e5ed010:unmatched",
         "bus-rs-panti-nugroho-5e1208a0:review_fuzzy",
         "bus-rs-sardjito-e-a2691dbb:review_fuzzy",
-        "bus-santren-1292f082:review_fuzzy",
-        "bus-simpang-besi-jangkang-2-3ce47645:unmatched",
-        "bus-simpang-besi-jangkang-4d0a717a:unmatched",
         "bus-simpang-dogolan-2-b22541ba:unmatched",
         "bus-simpang-dogolan-dab8862a:unmatched",
         "bus-simpang-palem-raya-e-c72c93bc:unmatched",
@@ -442,7 +390,6 @@
         "bus-superindo-kaliurang-55a294ae:unmatched",
         "bus-superindo-kaliurang-halte-2-ac22e6e8:unmatched",
         "bus-susteran-novisiat-33aaae59:unmatched",
-        "bus-terminal-pakem-ee26af28:unmatched",
         "bus-tk-bias-kaliurang-cb4024c2:unmatched",
         "bus-uii-barat-jalan-38ce747d:unmatched",
         "bus-uii-timur-jalan-4bb919c8:unmatched",
@@ -707,10 +654,10 @@
     "prameks_kutoarjo_yogyakarta"
   ],
   "trip_count": 213,
-  "attached_stop_times": 1941,
-  "stop_time_count": 1941,
-  "database_activity_stop_count": 322,
-  "database_activity_raw_digest": "09060ff4b3fb2084af85864a5856f42a03eae38a6398595c46a6cd499644581b",
+  "attached_stop_times": 1605,
+  "stop_time_count": 1986,
+  "database_activity_stop_count": 310,
+  "database_activity_raw_digest": "bbfd4cd3c88be7963efa7ec20507561039042c2c28fb0fabb22dd771b49574d4",
   "database_schedule_routes": [
     "1A",
     "1B",
@@ -740,159 +687,304 @@
     "prameks_kutoarjo_yogyakarta"
   ],
   "database_routable_routes": [],
-  "database_attached_stop_times": 1941,
-  "database_blocked_routes": [],
+  "database_attached_stop_times": 1605,
+  "database_blocked_routes": [
+    {
+      "route_id": "1B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "2A",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850"
+      ]
+    },
+    {
+      "route_id": "2B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850"
+      ]
+    },
+    {
+      "route_id": "3B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "5A",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8279ea70c999b67933d38e",
+        "6a8287f89870dcf66e45637e",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "5B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8276c070c999b67933d100",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e"
+      ]
+    },
+    {
+      "route_id": "8",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "9",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8276c070c999b67933d100",
+        "6a8279ea70c999b67933d38e",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "EV3",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a82762f38bb192425f47b1b",
+        "6a8276c070c999b67933d100",
+        "6a8279ea70c999b67933d38e",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e",
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "krl_yogyakarta_palur",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "krl_palur_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "yia_yogyakarta_airport",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "yia_airport_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "prameks_yogyakarta_kutoarjo",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "prameks_kutoarjo_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    }
+  ],
   "would_write": true,
   "routes_imported": 26,
   "routable_routes_imported": 0,
   "profiles_imported": 50,
-  "trips_imported": 213,
-  "stop_times_imported": 1941,
-  "transit_stops_before": 322,
-  "transit_stops_after": 322,
+  "trips_imported": 153,
+  "stop_times_imported": 1605,
+  "transit_stops_before": 310,
+  "transit_stops_after": 310,
   "transit_stops_raw_unchanged": true,
   "route_backups": {
-    "1": {
-      "headway_min": 40.0,
+    "2": {
+      "headway_min": 11.0,
       "fare_idr": 3500,
-      "source": "transport-pdf:EV3;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=7;effective_from=2025-12-01;freshness_as_of=2026-09-12;freshness_status=unverified;skipped_stop_sequences=3;skip_reason=survey session ended; unresolved stop omitted for submission",
-      "route_stops": [
-        [
-          0,
-          1,
-          null
-        ],
-        [
-          1,
-          2,
-          180
-        ],
-        [
-          3,
-          3,
-          120
-        ],
-        [
-          4,
-          4,
-          180
-        ],
-        [
-          5,
-          5,
-          60
-        ],
-        [
-          6,
-          6,
-          300
-        ],
-        [
-          7,
-          7,
-          300
-        ],
-        [
-          8,
-          8,
-          120
-        ],
-        [
-          9,
-          9,
-          60
-        ],
-        [
-          10,
-          10,
-          180
-        ],
-        [
-          11,
-          11,
-          120
-        ],
-        [
-          12,
-          12,
-          120
-        ],
-        [
-          13,
-          13,
-          180
-        ],
-        [
-          14,
-          14,
-          60
-        ],
-        [
-          15,
-          15,
-          60
-        ],
-        [
-          16,
-          16,
-          60
-        ],
-        [
-          17,
-          17,
-          60
-        ],
-        [
-          18,
-          18,
-          120
-        ],
-        [
-          19,
-          19,
-          60
-        ],
-        [
-          20,
-          20,
-          240
-        ],
-        [
-          21,
-          21,
-          120
-        ],
-        [
-          22,
-          22,
-          60
-        ],
-        [
-          23,
-          23,
-          120
-        ],
-        [
-          24,
-          24,
-          240
-        ],
-        [
-          25,
-          25,
-          60
-        ],
-        [
-          26,
-          26,
-          60
-        ],
-        [
-          27,
-          1,
-          120
-        ]
-      ]
+      "source": "normalized-transport:1A;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "3": {
+      "headway_min": 16.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:1B;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "4": {
+      "headway_min": 21.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:2A;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "5": {
+      "headway_min": 16.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:2B;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "6": {
+      "headway_min": 12.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:3A;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "7": {
+      "headway_min": 12.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:3B;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "8": {
+      "headway_min": 25.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:4A;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "9": {
+      "headway_min": 25.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:4B;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "10": {
+      "headway_min": 25.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:5A;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "11": {
+      "headway_min": 25.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:5B;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "12": {
+      "headway_min": 20.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:6;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "13": {
+      "headway_min": 15.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:8;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "14": {
+      "headway_min": 20.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:9;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "15": {
+      "headway_min": 20.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:10;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "16": {
+      "headway_min": 25.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:11;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "17": {
+      "headway_min": 20.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:12;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "18": {
+      "headway_min": 37.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:13;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "19": {
+      "headway_min": 32.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:14;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "20": {
+      "headway_min": 10.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:15;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "21": {
+      "headway_min": 45.0,
+      "fare_idr": 3500,
+      "source": "normalized-transport:EV3;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=3;effective_from=2026-01-01;source_last_updated=2025-12-21;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "22": {
+      "headway_min": 67.0,
+      "fare_idr": 8000,
+      "source": "normalized-transport:krl_yogyakarta_palur;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "23": {
+      "headway_min": 90.0,
+      "fare_idr": 8000,
+      "source": "normalized-transport:krl_palur_yogyakarta;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "24": {
+      "headway_min": 35.5,
+      "fare_idr": 0,
+      "source": "normalized-transport:yia_yogyakarta_airport;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "25": {
+      "headway_min": 40.0,
+      "fare_idr": 0,
+      "source": "normalized-transport:yia_airport_yogyakarta;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "26": {
+      "headway_min": 155.0,
+      "fare_idr": 0,
+      "source": "normalized-transport:prameks_yogyakarta_kutoarjo;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
+    },
+    "27": {
+      "headway_min": 223.0,
+      "fare_idr": 0,
+      "source": "normalized-transport:prameks_kutoarjo_yogyakarta;routable=false;source_file=Peta Integrasi Angkutan Umum.pdf;source_page=8;source_last_updated=2025-02-01;freshness_as_of=2026-09-12;freshness_status=unverified",
+      "route_stops": []
     }
   }
 }

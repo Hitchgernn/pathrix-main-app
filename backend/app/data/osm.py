@@ -15,9 +15,14 @@ def _convert_osmnx_graph(graph) -> tuple[list[WalkNodeRow], list[WalkEdgeRow]]:
         WalkNodeRow(id=node_id, lon=data["x"], lat=data["y"])
         for node_id, data in graph.nodes(data=True)
     ]
-    edges = [
-        WalkEdgeRow(u=u, v=v, length_m=data["length"]) for u, v, data in graph.edges(data=True)
-    ]
+    # OSMnx exposes a MultiDiGraph: parallel ways can share the same u/v pair,
+    # while our persisted routing edge key is intentionally one directional
+    # pair. Retain its shortest traversable length for routing.
+    shortest_edges: dict[tuple[int, int], float] = {}
+    for u, v, data in graph.edges(data=True):
+        key = (u, v)
+        shortest_edges[key] = min(shortest_edges.get(key, float("inf")), float(data["length"]))
+    edges = [WalkEdgeRow(u=u, v=v, length_m=length) for (u, v), length in shortest_edges.items()]
     return nodes, edges
 
 

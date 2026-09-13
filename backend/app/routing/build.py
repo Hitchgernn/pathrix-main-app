@@ -6,6 +6,7 @@ from app.models.network import NetworkData
 from app.routing.graph import GraphBuilder, nearest_node
 
 PANGKALAN_CONNECT_RADIUS_M = 500.0  # first/last-mile walk range — placeholder, untuned
+WALK_NETWORK_SNAP_RADIUS_M = 500.0
 ANDONG_SPEED_MPS = 2.2  # ~8 km/h
 BECAK_SPEED_MPS = 3.3  # ~12 km/h
 
@@ -54,6 +55,10 @@ def build_graph_from_network(
 
     routes_by_id = {r.id: r for r in network.routes}
     stops_by_id = {s.id: s for s in network.stops}
+    segment_geometry_by_key = {
+        (segment.route_id, segment.from_stop_sequence, segment.to_stop_sequence): segment
+        for segment in network.route_segment_geometries
+    }
 
     for stop in network.stops:
         node = stop_node(stop.id)
@@ -100,14 +105,22 @@ def build_graph_from_network(
                 continue
             if prev_rs.stop_id not in stops_by_id or rs.stop_id not in stops_by_id:
                 continue
+            segment = (
+                segment_geometry_by_key.get((route.source_route_id, prev_rs.seq, rs.seq))
+                if route.source_route_id
+                else None
+            )
             builder.add_ride_edge(
                 _route_node(route_id, prev_rs.stop_id),
                 _route_node(route_id, rs.stop_id),
                 rs.travel_time_from_prev_s,
-                _haversine_m(
+                segment.distance_m
+                if segment
+                else _haversine_m(
                     (stops_by_id[prev_rs.stop_id].lon, stops_by_id[prev_rs.stop_id].lat),
                     (stops_by_id[rs.stop_id].lon, stops_by_id[rs.stop_id].lat),
                 ),
+                coordinates=segment.coordinates if segment else None,
                 **service,
             )
 
@@ -138,6 +151,8 @@ def build_graph_from_network(
         for stop in network.stops:
             nearest = nearest_node(walk_coords, (stop.lon, stop.lat))
             distance_m = _haversine_m((stop.lon, stop.lat), walk_coords[nearest])
+            if distance_m > WALK_NETWORK_SNAP_RADIUS_M:
+                continue
             builder.add_walk_edge(stop_node(stop.id), nearest, distance_m)
             builder.add_walk_edge(nearest, stop_node(stop.id), distance_m)
 
@@ -145,6 +160,8 @@ def build_graph_from_network(
             node = pangkalan_node(p.id)
             nearest = nearest_node(walk_coords, (p.lon, p.lat))
             distance_m = _haversine_m((p.lon, p.lat), walk_coords[nearest])
+            if distance_m > WALK_NETWORK_SNAP_RADIUS_M:
+                continue
             builder.add_walk_edge(node, nearest, distance_m)
             builder.add_walk_edge(nearest, node, distance_m)
 

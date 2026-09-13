@@ -32,7 +32,11 @@ docker compose up -d db cache    # from the repo root
 
 `routing/` tests are pure — synthetic graphs, no network, no DB, no LLM — and always run.
 
+**Tests own their own database, `pathrix_test`** (`TEST_DATABASE_URL`, created on demand by `tests/conftest.py` and overridable by env var). The `db_session` fixture `TRUNCATE`s every table it touches, so sharing a database with the running app means a `pytest` run silently wipes whatever was last ETL'd in — it did exactly that once. `tests/api/conftest.py` therefore also overrides the app's `get_session` dependency, because `main.lifespan` otherwise builds its engine from `settings.database_url` and an API test would read a different Postgres than it seeded.
+
 CI (`.github/workflows/backend-ci.yml`) runs `ruff check` + `pytest` with `postgis/postgis` and `redis:7-alpine` service containers on every push/PR touching `backend/` — both are required, since the rate-limit middleware and several fixtures hit Redis with no skip-if-unreachable path (unlike the DB-dependent tests).
+
+Filling a fresh database is `app/data/ingest.py`: `uv run python -m app.data.ingest layers` lists a MAPID project's survey layers, `... stops` mirrors one into `transit_stops`, `... missions` mirrors the four mission datasets into `poi`/`properti`, and `... survey` files halte/becak/andong out of the `activities` feed into `transit_stops`/`pangkalan` (`ARCHITECTURE.md` §6.3 — that feed carries directional A/B halte, regional stops, and the only andong/becak data the project has). **`activities` answers at most 60 posts, newest first, ignores `offset`, and never says it truncated**, so it is harvested by quartering the study area until each tile comes back under the cap (`fetch_activities_in_full`, depth 8, ~77 requests, 963 posts for DIY). Both ETL entry points return the number of tiles still at the cap and `ingest` prints it — never let that signal be dropped, since silent truncation is exactly the bug the tiling exists to fix. **The two MAPID credentials are not interchangeable** — `MAPID_MISSION_API_KEY` is a 24-char ObjectId, `MAPID_GEOSERVER_API_KEY` a 32-char hex string, and each host answers a wrong key with a bare 500/404 that looks like an outage rather than an auth failure (`ARCHITECTURE.md` §6.2).
 
 No LLM provider is configured by default (`LLM_PROVIDER` unset) — this is deliberate (see Agent below), not a setup step you're missing.
 
@@ -73,9 +77,23 @@ Edge types (`app/routing/edges.py`) — `walk`, `board`, `ride`, `alight`, `tran
 
 `app/routing/build.py` connects route stops via board→ride→alight chains, and snaps stops/pangkalan onto the nearest OSMnx pedestrian walk node (`app/data/osm.py` fetches the walk network — `OsmnxWalkNetworkFetcher` hits the real Overpass API, `FakeWalkNetworkFetcher` is the test double, same `Protocol` pattern as `MapidClient`). Pangkalan also keep a direct-to-stop radius fallback for when no walk network has been ETL'd yet (`PANGKALAN_CONNECT_RADIUS_M`). Live Overpass calls are deliberately excluded from the automated test suite (external API, would make CI flaky) — verify `OsmnxWalkNetworkFetcher` manually before relying on it in a new environment.
 
+`app/data/mapid_routing.py` is a thin factory seam for road-leg display
+geometry — **no provider is wired yet** (`docs/CLAUDE_TRANSIT_HANDOFF.md`,
+Phase 0, open on purpose): it holds the `MapidRoutingClient` protocol, the
+`RoadLegResult` typed result, and `FakeMapidRoutingClient` (the test double),
+but deliberately no `HttpMapidRoutingClient` — that needs a real base URL,
+auth method, and request/response contract from the MAPID owner first (a
+separate product from the basemap/mission/geoserver keys), never guessed.
+`MAPID_ROUTING_ENABLED` defaults to `false`, leaving today's local-OSM-only
+road geometry (`app/data/transport_geometry.py`) unchanged. Wiring a real
+provider means adding one client class here plus its settings; nothing in
+`routing/`/`agent/` should need to change.
+
 ### The agent
 
 `app/agent/graph.py` is a hand-rolled LangGraph `plan → tools → respond` loop (not the prebuilt `ToolNode`, so tool results stay typed Pydantic objects instead of stringified content) with a per-turn tool-call round budget. The five tools (`app/agent/tools.py`) are exactly the ones named in the competition PRD — don't add a sixth without checking `ARCHITECTURE.md` §8.3 first — and are real callables wired to `routing/`/`data/` via injected dependencies (graph provider, coords provider, geocode resolver, DB session factory), not stubs.
+
+`app/agent/demo_route.py` swaps `calculate_route` for a hand-authored `Route` fixture when `settings.demo_mock_route` is set (`DEMO_MOCK_ROUTE` env var, default off) — real bus topology (`route_stops`) is empty across the whole dataset today, so this exists purely to have something to show in a recording; the LLM still plans/narrates/calls tools normally, only this one tool's data is pre-authored. Never enable it outside recording a demo.
 
 `app/agent/llm.py` is a thin factory seam: **no LLM provider is chosen yet** (`ARCHITECTURE.md` §15.1, open on purpose). `get_llm()` raises `UnsupportedLLMProviderError` until `LLM_PROVIDER` is set, and `AgentRuntime` catches that and leaves `.graph = None` rather than crashing app startup — the `/ws` endpoint then replies with a structured `llm_unavailable` error instead of failing the connection. Wiring a real provider means adding one branch in `llm.py` plus its client dependency; nothing upstream should need to change.
 
@@ -94,7 +112,7 @@ one. `app/api/layers.py` serves `/api/layers` (a static catalogue grounded in wh
 
 ### Data layer
 
-`app/data/schema.py` mirrors `ARCHITECTURE.md` §5.1's DDL via SQLAlchemy + GeoAlchemy2. `app/data/mapid.py` normalizes MAPID's two different mission-API response shapes (`menugo`/`propertigo`/`struckgo` vs `activities`) into one `MissionPage` — the mission endpoint is spelled **`struckgo`**, not `strukgo`. `FakeMapidClient` in the same file is the fixture-backed double for offline dev/tests. Mission data is mirrored into Postgres on a schedule (`app/data/etl.py`), never proxied live (`ARCHITECTURE.md` §6.3).
+`app/data/schema.py` mirrors `ARCHITECTURE.md` §5.1's DDL via SQLAlchemy + GeoAlchemy2. `app/data/mapid.py` normalizes MAPID's two different mission-API response shapes (`menugo`/`propertigo`/`struckgo` vs `activities`) into one `MissionPage` — the mission endpoint is spelled **`struckgo`**, not `strukgo`. The same client also reads MAPID's *other* API, `geoserver.mapid.io` (`fetch_layer` / `fetch_layer_list`, `ARCHITECTURE.md` §6.6): a project's uploaded **survey** layers — ours, another team's, or a previous competition period's — returned whole with no pagination and with the feature id spelled `id` rather than `_id`. `app/data/ingest.py` is the CLI over both: `ingest layers` lists what a project holds, `ingest stops --layer-id ...` mirrors a point layer into `transit_stops`. That is where the 73 Kota Yogyakarta halte come from; the mapping derives `operator` from the name (the layer has no operator column) and keeps every upstream attribute in `transit_stops.raw`. **Pick the layer deliberately** — the project carries a 2024 and a 2025 edition of the same 73 shelters with no feature id in common, so ingesting both doubles them; `source` is stamped `mapid_geoserver:{layer_id}` so which edition landed stays answerable. Stops only: `transit_routes`/`route_stops` still await the field survey, so this fills the map and the search box without making the graph routable. `FakeMapidClient` in the same file is the fixture-backed double for offline dev/tests. Mission data is mirrored into Postgres on a schedule (`app/data/etl.py`), never proxied live (`ARCHITECTURE.md` §6.3).
 
 ### The frontend
 
@@ -208,6 +226,25 @@ calls. `src/lib/mapHandle.ts` holds the live map outside React, and
 `src/lib/actions.ts` holds the gestures that touch both (go to a place, ask from
 anywhere, recentre) so no component reaches for a GL context itself.
 
+A tapped marker's sheet renders **whatever the row actually carries**, and for
+an activity-derived halte or becak stand that is a real survey record: the
+surveyor's prose (shelter type, roof, ramp, guiding block, pavement), every
+photograph the post carried, the surveyor, their community, and the date.
+`Place.description`/`.survey`/`.photos` are optional so places persisted before
+those fields existed still load (`store/persist.ts` validates only `id`). The
+gold pill names whose survey it was — community where `survey.community` is
+set, ours only otherwise — because the andong/becak stands now arrive from the
+MAPID activity feed rather than from our own field survey. The same sheet opens from **search**: `PlaceHit.raw`
+carries a mirrored row's attributes verbatim (null for a Nominatim address), so
+`placeFromHit` and `placeFromFeature` build the same `Place` and share one
+`factsOf` — a place found by typing cannot read thinner than the same place
+tapped on the map. A row the survey pass filed into `transit_stops`/`pangkalan`
+is **excluded from `poi`** in both `search_places` and
+`query_features_in_viewport` (`_not_filed_as_infrastructure`), since the
+original activity row stays in `poi` as the record of the post and would
+otherwise be a second result and a second marker at one coordinate — under
+"Pariwisata & Sosial Budaya", which is not what a halte is.
+
 `draw_route` draws real geometry: `RouteLeg.coordinates` carries the leg's
 `[lon, lat]` polyline, pinned onto graph nodes by `routing/build.py` and read
 back in `shortest_path.calculate_route`. A leg with an unpinned endpoint yields
@@ -228,8 +265,9 @@ before the route and mission layers so those draw above them. Rotate and pitch
 gestures are disabled in 2D and enabled in 3D, so the toggle is the only door to
 a tilted camera.
 
-Mission-derived layers (`poi`, `properti` — the two `/api/layers` ids the backend
-actually serves; `transit`/`pangkalan` still 501) render as real map markers:
+Mission-derived layers (`poi`, `properti`, `transit` and `pangkalan` — every
+`/api/layers` id the backend serves; `jangkauan`/`bangunan` are client-side and
+have no repository query) render as real map markers:
 `MapCanvas` watches the Zustand `active` set, the viewport, and the catalogue's
 `queryable` flags, and fetches `/api/layers/{id}/features` (debounced against
 `moveend`), drawing them via `lib/missionLayers.ts`. Tapping one opens the place

@@ -188,7 +188,15 @@ export function AgentSheet({ variant, height, vh, bottomInset = 0 }: AgentSheetP
               {demoKind ? (
                 <ThinkingSteps kind={demoKind} step={demoStep} />
               ) : (
-                <p className="label-sm animate-pxdim text-ink-3">{t("agent.calculating")}</p>
+                // One honest status line, not a fabricated step sequence — a
+                // real LLM call has no per-step progress this app can observe,
+                // so claiming "reading map… found endpoints…" here would be
+                // exactly the fake progress docs/DESIGN.md's word-based-status
+                // rule exists to prevent. Sized/spaced to match ThinkingSteps'
+                // box so the row doesn't jump between demo and real mode.
+                <div className="grid py-1 text-[13px]">
+                  <p className="animate-pxdim text-ink-3">{t("agent.calculating")}</p>
+                </div>
               )}
             </div>
           )}

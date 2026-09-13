@@ -66,6 +66,22 @@ def _snapshot(tmp_path: Path, *, exact_second: bool = True) -> Path:
         ],
     )
     _write(
+        tmp_path / "route_stops.csv",
+        [
+            {
+                "route_id": "EV3",
+                "stop_sequence": sequence,
+                "stop_id": stop_id,
+                "stop_name_raw": name,
+            }
+            for sequence, stop_id, name in [
+                (1, "stop-a", "A"),
+                (2, "stop-b", "B"),
+                (3, "stop-c", "C"),
+            ]
+        ],
+    )
+    _write(
         tmp_path / "stops.csv",
         [
             {
@@ -188,6 +204,44 @@ def test_approved_review_resolves_activity_coordinate(tmp_path: Path) -> None:
 
     assert route.stops[1].match_status == "reviewed_activity"
     assert route.stops[1].longitude == 110.31
+
+
+def test_approved_road_segments_do_not_bridge_an_unresolved_stop(tmp_path: Path) -> None:
+    from app.data.transport_geometry import build_approved_segment_plan
+
+    segments = build_approved_segment_plan(_snapshot(tmp_path, exact_second=False))
+
+    assert segments == ()
+
+
+def test_approved_road_segments_accept_an_activity_backed_review(tmp_path: Path) -> None:
+    from app.data.transport_geometry import build_approved_segment_plan
+
+    reviews = tmp_path / "reviews.csv"
+    _write(
+        reviews,
+        [
+            {
+                "route_id": "EV3",
+                "stop_id": "stop-b",
+                "candidate_activity_id": "activity-b",
+                "decision": "approved",
+                "reviewer": "reviewer",
+                "reviewed_at": "2026-09-13",
+            }
+        ],
+    )
+
+    segments = build_approved_segment_plan(
+        _snapshot(tmp_path, exact_second=False), review_paths=(reviews,)
+    )
+
+    assert [(segment.from_stop_sequence, segment.to_stop_sequence) for segment in segments] == [
+        (1, 2),
+        (2, 3),
+    ]
+    assert segments[0].from_coordinate == (110.3, -7.8)
+    assert segments[1].to_coordinate == (110.32, -7.82)
 
 
 def test_skip_unresolved_stop_preserves_through_travel_time(tmp_path: Path) -> None:

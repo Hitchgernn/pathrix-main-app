@@ -45,6 +45,7 @@ class RouteRow(BaseModel):
     operator: str | None = None
     mode: str | None = None
     source: str | None = None
+    source_route_id: str | None = None
 
 
 class RouteStopRow(BaseModel):
@@ -52,6 +53,14 @@ class RouteStopRow(BaseModel):
     stop_id: int
     seq: int
     travel_time_from_prev_s: int | None
+
+
+class RouteSegmentGeometryRow(BaseModel):
+    route_id: str
+    from_stop_sequence: int
+    to_stop_sequence: int
+    coordinates: list[list[float]]
+    distance_m: float
 
 
 class PangkalanRow(BaseModel):
@@ -79,6 +88,7 @@ class NetworkData(BaseModel):
     stops: list[StopRow]
     routes: list[RouteRow]
     route_stops: list[RouteStopRow]
+    route_segment_geometries: list[RouteSegmentGeometryRow] = Field(default_factory=list)
     pangkalan: list[PangkalanRow]
     walk_nodes: list[WalkNodeRow] = Field(default_factory=list)
     walk_edges: list[WalkEdgeRow] = Field(default_factory=list)

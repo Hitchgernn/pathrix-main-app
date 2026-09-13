@@ -1,0 +1,419 @@
+stop_id,stop_name,routes
+bus-abadi-hotel-jogja-ae73687b,Abadi Hotel Jogja,1B
+bus-alfamart-pokoh-e-c8fc8eb4,Alfamart Pokoh (T),14
+bus-ambarukmo-plaza-2-565c1eec,Ambarukmo Plaza 2,1A|5A
+bus-bkpm-b11114ea,BKPM,3B
+bus-bpd-kalasan-c034d3b7,BPD Kalasan,1A
+bus-badan-kepegawaian-di-yogyakarta-9ccbb65f,Badan Kepegawaian DI Yogyakarta,13|8
+bus-barat-jembatan-moyudan-toko-saerah-c31b10c2,Barat Jembatan Moyudan (Toko Saerah),13
+bus-barat-jembatan-moyudan-toko-saerah-2-4abe8813,Barat Jembatan Moyudan (Toko Saerah) 2,13
+bus-barat-simpang-bantulan-2-00b7c5ce,Barat Simpang Bantulan 2,13
+bus-batas-kota-jalan-monjali-w-68b41405,Batas Kota Jl. Monjali (Barat),2B
+bus-batas-kota-jalan-monjali-timur-b05b374d,Batas Kota Jl. Monjali Timur,2A
+bus-binamarga-e-ab7d8067,Binamarga (T),14
+bus-blok-o-b354f518,Blok O,1B
+bus-boulevard-uii-1c76a601,Boulevard UII,12|14
+bus-budi-mulia-dua-w-ab139615,Budi Mulia Dua (B),14
+bus-budi-mulia-dua-e-a55ed31d,Budi Mulia Dua (T),14
+bus-cupuwatu-ac95b213,Cupuwatu,1A
+bus-dentes-godean-s-a68a5086,Dentes Godean (S),13
+bus-disnakertrans-w-93db3168,Disnakertrans (B),14
+bus-disnakertrans-e-6b55bbd8,Disnakertrans (T),14
+bus-disnakertrans-di-yogyakarta-2f728f54,Disnakertrans DI Yogyakarta,14
+bus-dusun-kenthi-0ba5bcc5,Dusun Kenthi,14
+bus-dusun-kenthi-2-e0d38c86,Dusun Kenthi 2,14
+bus-dusun-kledokan-w-a0cbb57b,Dusun Kledokan (B),12
+bus-dusun-kledokan-soto-brakot-fc4d12ed,Dusun Kledokan (Soto Brakot),12|14
+bus-dusun-kledokan-soto-brakot-2-0ae3a409,Dusun Kledokan (Soto Brakot) 2,12|14
+bus-dusun-kledokan-e-4b0dcd88,Dusun Kledokan (T),12
+bus-eks-perpusda-80a03598,Eks Perpusda,11|2B|3B|8|EV3
+bus-eks-stie-kerjasama-57790499,Eks STIE Kerjasama,2A|4B
+bus-fip-uny-ffd961ca,FIP UNY,15
+bus-fisipol-ugm-w-97df7db9,Fisipol UGM (Barat),5A
+bus-fisipol-ugm-e-1c7537a9,Fisipol UGM (Timur),5B
+bus-gkj-wirobrajan-e-23f9db6e,GKJ Wirobrajan (Timur),10
+bus-gardu-pln-w-546add69,Gardu PLN (B),12
+bus-gardu-pln-e-2cf004b2,Gardu PLN (T),12
+bus-gedong-kuning-banguntapan-ccef67ea,Gedong Kuning Banguntapan,2B|3B
+bus-gedung-juang-45-3299e2b0,Gedung Juang 45,1B|2B
+bus-abu-bakar-ali-953e3c6d,Halte Abu Bakar Ali,1B
+bus-blok-o-rs-hardjolukito-882b9a9c,Halte Blok O (RS Hardjolukito),3A
+bus-bulog-970050c0,Halte Bulog,11|13|2B|3A|4B|5A|5B
+bus-cokroaminoto-sma-1-63bf5f7a,Halte Cokroaminoto SMA 1,11|13|2B|9
+bus-gik-ugm-5b041db4,Halte GIK UGM,12|3A|4B
+bus-gedong-kuning-657f51a3,Halte Gedong Kuning,2A|3A
+bus-gedung-wanita-763bc43c,Halte Gedung Wanita,1A|4B|5B
+bus-hotel-noola-1d14dbb7,Halte Hotel Noola,9
+bus-hyundai-9b4bda77,Halte Hyundai,1A|1B|3B|5B
+bus-jec-5c342f7d,Halte JEC,1B|3A
+bus-janti-selatan-bawah-jembatan-04f06a52,Halte Janti Selatan (Bawah Jembatan),1A|5A|5B
+bus-karanggede-044ebf69,Halte Karanggede,15
+bus-kenari-1-4439a100,Halte Kenari 1,2A
+bus-kol-sugiono-1-pujokusuman-ba46a3cf,Halte Kol. Sugiono 1 (Pujokusuman),2A|3A
+bus-krisdosono-9dea3135,Halte Krisdosono,4A
+bus-kusumanegara-gembira-loka-d17c1b91,Halte Kusumanegara (Gembira Loka),1B
+bus-lpp-80c48bc4,Halte LPP,1A|5B
+bus-mt-haryono-2-sma-n-7-f2748d4c,Halte MT Haryono 2 (SMA N 7),3B|9
+bus-mt-haryono-2-sman-7-3e1dac42,Halte MT Haryono 2 (SMAN 7),11
+bus-mall-sahid-j-walk-9eace41d,Halte Mall Sahid J-Walk,1B|5A
+bus-muhammadiyah-3-cb194b98,Halte Muhammadiyah 3,4A|4B
+bus-ngeksigondo-basen-66d681be,Halte Ngeksigondo Basen,2B
+bus-ngeksigondo-diklat-pu-ba0f9bc7,Halte Ngeksigondo Diklat Pu,2A
+bus-nitikan-3cd761a8,Halte Nitikan,3B
+bus-pdin-c-simanjuntak-ab3e4ee7,Halte PDIN C Simanjuntak,4B
+bus-psky-255eae47,Halte PSKY,2B|4A
+bus-rru-instiper-2-ea07186b,Halte RRU Instiper 2,3A
+bus-rs-dr-s-hardjolukito-f33f9e2c,Halte RS dr.S.HARDJOLUKITO,1B
+bus-raya-kabunan-3b027ee4,Halte Raya Kabunan,14
+bus-rsi-hidayatullah-f2e5ddcc,Halte Rsi Hidayatullah,2A
+bus-smpn-11-eks-perpusda-7eb02814,Halte SMPN 11- Eks Perpusda,9
+bus-simpang-nogotirto-a8516abc,Halte Simpang Nogotirto,13|8
+bus-sugiono-2-940b3592,Halte Sugiono 2,2B|3B
+bus-kenari-2-e7e409cf,Halte TJ Kenari 2,2B
+bus-kotabaru-98a0964c,Halte TJ Kotabaru,11
+bus-rru-binamarga-74dcd5b9,Halte TJ RRU (Binamarga),14|3B
+bus-solo-sma-de-britto-38b4feb0,Halte TJ Solo (SMA De Britto),4A|5A
+bus-solo-sma-debrito-1edde087,Halte TJ Solo (SMA Debrito),1A
+bus-univeristas-ahmad-dahlan-0f60ec71,Halte TJ Univeristas Ahmad Dahlan,4A
+bus-universitas-ahmad-dahlan-f6ee4d47,Halte TJ Universitas Ahmad Dahlan,4B
+bus-hokben-jakal-w-08061330,Hokben Jakal (Barat),12|3B|4A
+bus-hokben-jakal-e-d425d6fc,Hokben Jakal (Timur),12|3A|4B|5A
+bus-hokben-jakal-barat-ea5e4cb6,Hokben Jakal Barat,5B
+bus-hotel-vidi-w-54b7fd5e,Hotel Vidi (B),12
+bus-indomaret-klajuran-d5ed150c,Indomaret Klajuran,13
+bus-indomaret-klajuran-s-7a9d6d5c,Indomaret Klajuran (S),13
+bus-indomaret-klajuran-n-05d831ba,Indomaret Klajuran (U),13
+bus-indomaret-pokoh-w-2b09e1e7,Indomaret Pokoh (B),14
+bus-indomaret-pokoh-sambiroto-825fb845,Indomaret Pokoh Sambiroto,14
+bus-indomaret-pokoh-sambiroto-2-8c35c082,Indomaret Pokoh Sambiroto 2,14
+bus-jih-b7958843,JIH,3B|5B
+bus-jalan-colombo-panti-raph-97207924,JL Colombo (Panti Raph),12
+bus-jalan-colombo-panti-rapih-bfea009f,JL Colombo (Panti Rapih),2B
+bus-jadan-1-942625db,Jadan 1,6
+bus-jadan-2-a581f4d4,Jadan 2,6
+bus-jalan-perintis-kemerdekaan-08047d39,Jl. Perintis Kemerdekaan,2A
+bus-jalan-perintis-kemerdekaan-s-0ce14968,Jl. Perintis Kemerdekaan (Selatan),2B
+bus-jalan-raya-kabunan-n-69a2aa61,Jl. Raya Kabunan (U),14
+bus-jlagran-402c26ac,Jlagran,1B|3B|8|EV3
+bus-jogja-city-mall-w-5608534c,Jogja City Mall (Barat),5B|9|EV3
+bus-jogja-city-mall-e-58185771,Jogja City Mall (Timur),5A|9|EV3
+bus-jogjatronik-061d67dd,Jogjatronik,2A
+bus-kppn-jalan-cendana-52add500,KPPN (Jl. Cendana),2A
+bus-ks-tubun-aa0fe678,KS Tubun,1B
+bus-kua-depok-w-f1a5344e,KUA Depok (B),14
+bus-kua-depok-e-f2c00954,KUA Depok (T),14
+bus-kampus-unriyo-445e1f15,Kampus Unriyo,14
+bus-kampus-unriyo-2-3037d304,Kampus Unriyo 2,14
+bus-kantor-badan-kesatuan-bangsa-politik-c2b0ae66,Kantor Badan Kesatuan Bangsa & Politik,15
+bus-kantor-badan-kesatuan-bangsa-politik-hal-a008e6f1,Kantor Badan Kesatuan Bangsa & Politik (Halte 2),15
+bus-kantor-camat-ngaglik-91c4f095,Kantor Camat Ngaglik,12
+bus-kantor-desa-sidoarum-bf0f3167,Kantor Desa Sidoarum,13
+bus-kantor-desa-wedomartani-ca280dac,Kantor Desa Wedomartani,14
+bus-kantor-desa-wedomartani-halte-2-8ca3a4ae,Kantor Desa Wedomartani (Halte 2),14
+bus-kantor-kal-sidoarum-s-5d651e88,Kantor Kal. Sidoarum (S),13
+bus-kantor-kal-sidoarum-n-075c84d5,Kantor Kal. Sidoarum (U),13
+bus-kantor-kal-wedomartani-w-b2444079,Kantor Kal. Wedomartani (B),14
+bus-kantor-kal-wedomartani-e-69397429,Kantor Kal. Wedomartani (T),14
+bus-kantor-kecamatan-godean-c51005b9,Kantor Kecamatan Godean,13
+bus-kantor-kecamatan-godean-halte-2-b731f16c,Kantor Kecamatan Godean (Halte 2),13
+bus-kantor-kesehatan-pelabuhan-yogya-46efdf82,Kantor Kesehatan Pelabuhan Yogya,14|3A
+bus-kantor-pos-demak-ijo-9a532390,Kantor Pos Demak Ijo,13|8
+bus-kantor-pos-demak-ijo-s-7564089a,Kantor Pos Demak Ijo (S),13
+bus-kantor-pos-demak-ijo-n-94aec63b,Kantor Pos Demak Ijo (U),13
+bus-kantor-pos-demak-ijo-2-8eeba9b2,Kantor Pos Demak Ijo 2,13|8
+bus-kantor-urusan-agama-depok-6e09f175,Kantor Urusan Agama Depok,14
+bus-kantor-urusan-agama-depok-halte-2-d63f74be,Kantor Urusan Agama Depok (Halte 2),14
+bus-kantor-wilayah-djpb-f617b1d2,Kantor Wilayah DJPb,1A|1B|3A|5B
+bus-kledokan-6604b0d7,Kledokan,1B
+bus-koramil-godean-ddb7c21d,Koramil Godean,13
+bus-koramil-godean-s-aac3dfdd,Koramil Godean (S),13
+bus-koramil-godean-n-20a03d03,Koramil Godean (U),13
+bus-koramil-godean-2-02c30cae,Koramil Godean 2,13
+bus-lap-klidon-s-f6751617,Lap. Klidon (S),14
+bus-lap-klidon-n-1a4bde03,Lap. Klidon (U),14
+bus-lapangan-klidon-8f908bd2,Lapangan Klidon,14
+bus-lapangan-klidon-2-f0819a6d,Lapangan Klidon 2,14
+bus-letjen-suprapto-73f7595c,Letjen Suprapto,1B
+bus-man-2-sleman-190352c8,MAN 2 Sleman,14
+bus-man-2-sleman-w-1f50db53,MAN 2 Sleman (B),14
+bus-man-2-sleman-halte-2-16734ec3,MAN 2 Sleman (Halte 2),14
+bus-man-2-sleman-e-5a810501,MAN 2 Sleman (T),14
+bus-mm-ugm-6d86cbe8,MM UGM,12|3B|4A
+bus-mm-ugm-n-b464f66e,MM UGM (U),12
+bus-makam-gajah-s-7e2af406,Makam Gajah (Selatan),1B|2A
+bus-makam-gajah-n-5baf9986,Makam Gajah (Utara),1B|2B
+bus-makam-prajurit-e-331fb8be,Makam Prajurit (Timur),4A
+bus-mako-lanal-yogyakarta-8cfe6215,Mako Lanal Yogyakarta,10
+bus-muallimin-s-2f1d1246,Muallimin (Selatan),10|6
+bus-muallimin-n-49002d1a,Muallimin (Utara),10|6
+bus-museum-biologi-1a19a994,Museum Biologi,1B|4A
+bus-neutron-godean-s-9bdb8999,Neutron Godean (S),13
+bus-neutron-godean-n-9dbb4be6,Neutron Godean (U),13
+bus-neutron-yogyakarta-godean-845b1965,Neutron Yogyakarta Godean,13
+bus-neutron-yogyakarta-godean-halte-2-b83475d4,Neutron Yogyakarta Godean (Halte 2),13
+bus-nogotirto-metro-s-e4ea92a9,Nogotirto Metro (S),13
+bus-nogotirto-metro-n-4198d454,Nogotirto Metro (U),13
+bus-nyutran-tamansiswa-080d9b74,Nyutran Tamansiswa,4A
+bus-olive-glagahsari-w-48c71355,Olive Glagahsari (Barat),4B
+bus-pln-gardu-induk-kentungan-ccdb7caf,PLN Gardu Induk Kentungan,12
+bus-pakualaman-afc81afa,Pakualaman,1B|4B
+bus-palem-gurih-2929ac62,Palem Gurih,10
+bus-pandeyan-w-cd4dd021,Pandeyan (Barat),4B
+bus-park-and-ride-dongkelan-pasty-7561163e,Park and Ride Dongkelan (Pasty),15
+bus-pasar-angkasa-e-020347ed,Pasar Angkasa (Timur),1B|3B
+bus-pasar-gamping-s-09bd18f9,Pasar Gamping (Selatan),10|6
+bus-pasar-gamping-n-afa34dac,Pasar Gamping (Utara),10|6
+bus-pasar-kolombo-69cbcaf2,Pasar Kolombo,12
+bus-pasar-kolombo-w-8477d636,Pasar Kolombo (B),12
+bus-pasar-kolombo-e-853be528,Pasar Kolombo (Timur),12
+bus-pasar-sentul-s-84478365,Pasar Sentul (Selatan),1B|4A
+bus-pasar-stan-3701dec0,Pasar Stan,14
+bus-pasar-tlogorejo-a9a5b6ae,Pasar Tlogorejo,13|8
+bus-pasar-tlogorejo-s-60c6acc1,Pasar Tlogorejo (S),13
+bus-pasar-tlogorejo-n-f99b5a4c,Pasar Tlogorejo (U),13
+bus-pasar-tlogorejo-2-43254f03,Pasar Tlogorejo 2,13|8
+bus-polsek-godean-s-0104f8d4,Polsek Godean (S),13
+bus-polsek-godean-n-3c7bcc85,Polsek Godean (U),13
+bus-bsi-98bb411e,Portabel BSI,6
+bus-dentes-ruko-godean-2ce70ad6,Portabel Dentes (Ruko Godean),13|8
+bus-jalan-mayjen-sutoyo-jokteng-wetan-fb44ee8b,Portabel Jl. Mayjen Sutoyo (Jokteng Wetan),3B|9
+bus-jalan-mayjen-sutoyo-pasar-gading-4125f520,Portabel Jl. Mayjen Sutoyo (Pasar Gading),3B|9
+bus-jogokaryan-kimia-farma-1-89e48fc3,Portabel Jogokaryan Kimia Farma 1,11|9
+bus-simpang-demak-ijo-d6a576b5,Portabel Simpang Demak Ijo,8
+bus-soragan-1-0aad9df9,Portabel Soragan 1,13|8
+bus-soragan-2-49e0e9cb,Portabel Soragan 2,13|8
+bus-total-security-sp-demak-ijo-1a6933c9,Portabel Total Security (SP Demak Ijo),8
+bus-pasar-kalasan-a79eab4a,Portable Pasar Kalasan,1A
+bus-prayan-w-756ecdc4,Prayan (Barat),12|2A|4B
+bus-prayan-e-d22ce9c8,Prayan (Timur),12|2B|4A
+bus-progo-e27cb7fc,Progo,10|15|1A|1B|6
+bus-pusat-kuliner-belut-godean-7bc5eef1,Pusat Kuliner Belut Godean,13
+bus-pusat-rehabilitasi-yakkum-c69b76c2,Pusat Rehabilitasi YAKKUM,12|14
+bus-pusat-rehabilitasi-yakkum-halte-2-8dc4e258,Pusat Rehabilitasi YAKKUM (Halte 2),12|14
+bus-puskesmas-ngaglik-w-6d1129d1,Puskesmas Ngaglik (B),12
+bus-puskesmas-ngaglik-e-30242ad9,Puskesmas Ngaglik (T),12
+bus-puskesmas-ngaglik-1-halte-2-356048c0,Puskesmas Ngaglik 1 (Halte 2),12
+bus-puskesmas-ngaglik-i-ac4d2b11,Puskesmas Ngaglik I,12
+bus-puskesmas-ngemplak-s-a008b614,Puskesmas Ngemplak (S),14
+bus-puskesmas-ngemplak-n-e2f0f0c6,Puskesmas Ngemplak (U),14
+bus-puskesmas-ngemplak-2-145b1653,Puskesmas Ngemplak 2,14
+bus-puskesmas-ngemplak-2-halte-2-baf9532f,Puskesmas Ngemplak 2 (Halte 2),14
+bus-rs-hardjolukito-9e48d6f4,RS Hardjolukito,3B
+bus-rs-kemasan-b3d3f265,RS Kemasan,14
+bus-rs-kemasan-w-62b71712,RS Kemasan (B),14
+bus-rs-kemasan-halte-2-d40e54c3,RS Kemasan (Halte 2),14
+bus-rs-kemasan-e-e928a0fb,RS Kemasan (T),14
+bus-rs-queen-latifa-f8657100,RS Queen Latifa,8
+bus-rsu-gramedika-268ded80,RSU Gramedika,14
+bus-rsu-gramedika-s-d662374f,RSU Gramedika (S),14
+bus-rsu-gramedika-n-bf416e83,RSU Gramedika (U),14
+bus-rsu-gramedika-2-cb945382,RSU Gramedika 2,14
+bus-raminten-w-04c634dd,Raminten (B),12
+bus-raminten-e-eb1b3bbb,Raminten (T),12
+bus-raminten-boutique-cafe-ea7b41ba,Raminten Boutique & Cafe,12|14
+bus-raminten-boutique-cafe-halte-2-0e5ed010,Raminten Boutique & Cafe (Halte 2),12|14
+bus-randubelang-w-52dbb8d9,Randubelang (Barat),11
+bus-randubelang-e-f45783e6,Randubelang (Timur),11
+bus-sd-n-1-depok-4283089a,SD N 1 Depok,14
+bus-sd-n-percobaan-3-pakem-6d3873f6,SD N Percobaan 3 Pakem,14
+bus-sd-negeri-selomulyo-halte-2-e4b1ce33,SD Negeri Selomulyo (Halte 2),14
+bus-sdn-1-demak-ijo-c2c3b953,SDN 1 Demak Ijo,13|8
+bus-sdn-1-demak-ijo-s-62cb8e60,SDN 1 Demak Ijo (S),13
+bus-sdn-1-demak-ijo-n-6c5c9e34,SDN 1 Demak Ijo (U),13
+bus-sdn-1-demak-ijo-2-4199d9d2,SDN 1 Demak Ijo 2,13|8
+bus-sdn-1-depok-w-0e6bec37,SDN 1 Depok (B),14
+bus-sdn-1-depok-e-a96ed8de,SDN 1 Depok (T),14
+bus-sdn-gedong-tengen-fb792715,SDN Gedong Tengen,1B
+bus-sdn-kintelan-e54b7bb2,SDN Kintelan,2A
+bus-sdn-percobaan-3-pakem-cdf97104,SDN Percobaan 3 Pakem,12
+bus-sdn-percobaan-3-pakem-e-591b75a7,SDN Percobaan 3 Pakem (T),14
+bus-sdn-selomulyo-b39b4b23,SDN Selomulyo,14
+bus-sdn-selomulyo-s-70488509,SDN Selomulyo (S),14
+bus-sdn-selomulyo-n-4159e337,SDN Selomulyo (U),14
+bus-sgm-kusumanegara-s-c3683ba7,SGM Kusumanegara (Selatan),10|1B|2A|4A
+bus-sgm-kusumanegara-n-ff7fc910,SGM Kusumanegara (Utara),1B|2B|4B
+bus-sma-budi-mulia-dua-4466124f,SMA Budi Mulia Dua,14
+bus-sma-budi-mulia-dua-halte-2-a875f96a,SMA Budi Mulia Dua (Halte 2),14
+bus-sma-muhammadiyah-3-6d7172c5,SMA Muhammadiyah 3,10
+bus-sma-negeri-2-ngaglik-9e9eeab5,SMA Negeri 2 Ngaglik,14
+bus-sma-negeri-2-ngaglik-halte-2-da0e0964,SMA Negeri 2 Ngaglik (Halte 2),14
+bus-sman-2-ngaglik-s-a47bf6f9,SMAN 2 Ngaglik (S),14
+bus-sman-2-ngaglik-n-2e4cef65,SMAN 2 Ngaglik (U),14
+bus-smk-n-5-s-0d099053,SMK N 5 (Selatan),4B
+bus-smk-n-5-n-5d2e3d5f,SMK N 5 (Utara),10|4A
+bus-smkn-1-depok-16f4e579,SMKN 1 Depok,14
+bus-smkn-1-depok-w-346d033d,SMKN 1 Depok (B),14
+bus-smkn-1-depok-halte-2-25f1181b,SMKN 1 Depok (Halte 2),14
+bus-smkn-1-depok-e-34fb5c69,SMKN 1 Depok (T),14
+bus-smp-3-gamping-6fb14f1c,SMP 3 Gamping,8
+bus-smp-muhammadiyah-3-8d306de7,SMP Muhammadiyah 3,10
+bus-smp-n-4-depok-ced1844f,SMP N 4 Depok,5B
+bus-smp-negeri-2-ngaglik-15131f5b,SMP Negeri 2 Ngaglik,12
+bus-smp-negeri-2-ngaglik-e-849e20e5,SMP Negeri 2 Ngaglik (Timur),12
+bus-smpn-2-ngaglik-w-aa32d431,SMPN 2 Ngaglik (B),12
+bus-smpn-2-ngaglik-e-896a85b0,SMPN 2 Ngaglik (T),12
+bus-smpn-4-pakem-c5d3922a,SMPN 4 Pakem,12|14
+bus-smpn-4-pakem-e-ca3b6e77,SMPN 4 Pakem (T),12
+bus-spbu-concat-w-5ef7d708,SPBU Concat (B),12
+bus-spbu-concat-e-e9b46f87,SPBU Concat (T),12
+bus-spbu-condongcatur-w-a4e66ecc,SPBU Condongcatur (Barat),12|2A|4B
+bus-spbu-condongcatur-e-794333df,SPBU Condongcatur (Timur),12|2B|4A
+bus-spbu-jakal-w-5de81e09,SPBU Jakal (B),12
+bus-spbu-jakal-e-21fa9d89,SPBU Jakal (T),12
+bus-spbu-kaliurang-5896c57f,SPBU Kaliurang,12
+bus-spbu-mindi-6c8960fa,SPBU Mindi,14
+bus-spbu-mindi-s-47802fe3,SPBU Mindi (S),14
+bus-spbu-mindi-n-d1ad7bf8,SPBU Mindi (U),14
+bus-spbu-mindi-2-ce3fb31c,SPBU Mindi 2,14
+bus-spbu-monjali-w-7e90b609,SPBU Monjali (Barat),2B|5A
+bus-spbu-monjali-e-8ca8e172,SPBU Monjali (Timur),2A|5B
+bus-stsrd-visi-tamansiswa-77a7a21f,STSRD Visi Tamansiswa,4B
+bus-salakan-druwo-4c17bc86,Salakan Druwo,9
+bus-selokan-mataram-maguwo-6164f755,Selokan Mataram Maguwo,14
+bus-simpang-babadan-c39aa2ae,Simpang Babadan,14
+bus-simpang-babadan-w-27e9420a,Simpang Babadan (B),14
+bus-simpang-babadan-e-3395a15a,Simpang Babadan (T),14
+bus-simpang-babadan-2-e5b06fc4,Simpang Babadan 2,14
+bus-simpang-bantulan-s-6078c446,Simpang Bantulan (S),13
+bus-simpang-bantulan-n-a468e92b,Simpang Bantulan (U),13
+bus-simpang-besi-jakal-w-586c481c,Simpang Besi Jakal (B),12
+bus-simpang-besi-jakal-e-f8dc4eec,Simpang Besi Jakal (T),12
+bus-simpang-besi-jangkang-4d0a717a,Simpang Besi Jangkang,12|14
+bus-simpang-besi-jangkang-2-3ce47645,Simpang Besi Jangkang 2,12|14
+bus-simpang-degolan-w-7a0abd76,Simpang Degolan (B),12
+bus-simpang-degolan-e-2f99e19e,Simpang Degolan (T),12
+bus-simpang-dogolan-dab8862a,Simpang Dogolan,12|14
+bus-simpang-dogolan-2-b22541ba,Simpang Dogolan 2,12|14
+bus-simpang-dongkelan-d0234b3a,Simpang Dongkelan,15
+bus-simpang-dongkelan-halte-2-40d99d82,Simpang Dongkelan (Halte 2),15
+bus-simpang-gesikan-3cb84e29,Simpang Gesikan,13
+bus-simpang-gesikan-s-97fee7b8,Simpang Gesikan (S),13
+bus-simpang-gesikan-n-5f50bca2,Simpang Gesikan (U),13
+bus-simpang-gesikan-2-fc161a14,Simpang Gesikan 2,13
+bus-simpang-godean-nogotirto-1b7226f0,Simpang Godean Nogotirto,13|8
+bus-simpang-kabunan-9d1322f0,Simpang Kabunan,14
+bus-simpang-kabunan-halte-2-36d11693,Simpang Kabunan (Halte 2),14
+bus-simpang-kabunan-n-7a88e0fe,Simpang Kabunan (U),14
+bus-simpang-kenti-w-9f31bb58,Simpang Kenti (B),14
+bus-simpang-kenti-e-7adc0592,Simpang Kenti (T),14
+bus-simpang-losari-cozy-51845a25,Simpang Losari (Cozy),14
+bus-simpang-losari-s-6d79dc16,Simpang Losari (S),14
+bus-simpang-losari-n-66931fad,Simpang Losari (U),14
+bus-simpang-mandungan-iwak-kalen-9f9a83fc,Simpang Mandungan (Iwak Kalen),13
+bus-simpang-mandungan-iwak-kalen-2-e86f2aa4,Simpang Mandungan (Iwak Kalen) 2,13
+bus-simpang-mandungan-s-47f3abcf,Simpang Mandungan (S),13
+bus-simpang-mandungan-n-8202f0dc,Simpang Mandungan (U),13
+bus-simpang-munggur-94a899fe,Simpang Munggur,13
+bus-simpang-munggur-s-cd527d2a,Simpang Munggur (S),13
+bus-simpang-munggur-n-d001f974,Simpang Munggur (U),13
+bus-simpang-munggur-sidomoyo-153bef9c,Simpang Munggur Sidomoyo,13
+bus-simpang-palem-raya-w-c647ecce,Simpang Palem Raya (B),12
+bus-simpang-palem-raya-e-c72c93bc,Simpang Palem Raya (Timur),12
+bus-simpang-pasar-jangkang-6b931381,Simpang Pasar Jangkang,14
+bus-simpang-pasar-jangkang-halte-2-b656e0eb,Simpang Pasar Jangkang (Halte 2),14
+bus-simpang-polsek-godean-e69bfb23,Simpang Polsek Godean,13
+bus-simpang-polsek-godean-2-a9bcfcc0,Simpang Polsek Godean 2,13
+bus-simpang-selomartani-884b05f3,Simpang Selomartani,14
+bus-simpang-selomartani-n-8a80108b,Simpang Selomartani (U),14
+bus-simpang-selomartani-2-71176374,Simpang Selomartani 2,14
+bus-sosrowijayan-dcdae1fc,Sosrowijayan,3B|8|EV3
+bus-superindo-jakal-w-7c86126c,Superindo Jakal (B),12
+bus-superindo-jakal-e-c89a3713,Superindo Jakal (T),12
+bus-superindo-kaliurang-55a294ae,Superindo Kaliurang,12
+bus-superindo-kaliurang-halte-2-ac22e6e8,Superindo Kaliurang (Halte 2),12
+bus-suryodiningratan-w-774bda0f,Suryodiningratan (Barat),11
+bus-suryodiningratan-e-0ee7519f,Suryodiningratan (Timur),11
+bus-susteran-novisiat-33aaae59,Susteran Novisiat,12|2B|4A
+bus-susteran-novisiat-e-5af4d58e,Susteran Novisiat (T),12
+bus-rru-disnaker-eeaaa2dd,TJ RRU Disnaker,14|3A
+bus-tk-bias-e-49f1378f,TK BIAS (T),12
+bus-tk-bias-kaliurang-cb4024c2,TK Bias Kaliurang,12
+bus-amik-bsi-60e8ad5a,TPB AMIK BSI,6
+bus-apotek-muji-sehat-948061e4,TPB Apotek Muji Sehat,6
+bus-bkpm-diy-c690757d,TPB BKPM DIY,1B
+bus-bri-umy-8fdcca3e,TPB BRI UMY,6
+bus-banguntapan-1-gedong-kuning-50b8a187,TPB Banguntapan 1 Gedong Kuning,2A|3A
+bus-eks-bioskop-mataram-fcd6b8b6,TPB Eks Bioskop Mataram,2A
+bus-gambiran-2-jalan-veteran-kota-1d0703dd,TPB Gambiran 2 Jl. Veteran Kota,2A
+bus-gedung-madu-candhya-1-7aa1ea1b,TPB Gedung Madu Candhya 1,6
+bus-gedung-madu-candhya-2-3a76d53b,TPB Gedung Madu Candhya 2,6
+bus-hotel-pramesthi-063819fe,TPB Hotel Pramesthi,11
+bus-hotel-vidi-jakal-f9ee9a87,TPB Hotel Vidi Jakal,12|3B|4A|5B
+bus-jalan-mayjen-sutoyo-plengkung-gading-e73901f8,TPB Jl. Mayjen Sutoyo (Plengkung Gading),3A|9
+bus-jalan-mayor-suryotomo-78bd4048,TPB Jl. Mayor Suryotomo,6
+bus-jalan-mayor-suryotomo-1-c556f1ef,TPB Jl. Mayor Suryotomo 1,1A
+bus-jalan-pramuka-f6939358,TPB Jl. Pramuka,4A|4B
+bus-jalan-veteran-d6be785d,TPB Jl. Veteran,2B
+bus-kasihan-d9bd2111,TPB Kasihan,6
+bus-katamso-1-purawisata-5990e6fb,TPB Katamso 1 (Purawisata),2A
+bus-kehutanan-gedongkuning-d6464bd8,TPB Kehutanan Gedongkuning,2B|3B
+bus-lap-karang-kotagede-85bec77d,TPB Lap. Karang Kotagede,3B
+bus-lap-kasihan-b684de58,TPB Lap. Kasihan,6
+bus-lapangan-karang-5bfabf8e,TPB Lapangan Karang,3A
+bus-mt-haryono-1-jokteng-kulon-be1d0306,TPB MT Haryono 1 (Jokteng Kulon),11|3A|9
+bus-makam-sorogenen-1814bab5,TPB Makam Sorogenen,1A
+bus-manna-kampus-d2f38df1,TPB Manna Kampus,1B|3A|5B
+bus-manna-kampus-transmart-maguwo-85fe6e11,TPB Manna Kampus- Transmart Maguwo,1A
+bus-museum-bahari-1-6c9571e7,TPB Museum Bahari 1,10
+bus-museum-bahari-2-26c36bd9,TPB Museum Bahari 2,10
+bus-pa-muhammadiyah-a2f5c15d,TPB PA Muhammadiyah,3B
+bus-pasar-sepeda-tunjungsari-c4695341,TPB Pasar Sepeda Tunjungsari,2B|4A
+bus-pasar-telo-1-a1824672,TPB Pasar Telo 1,11
+bus-pasar-telo-2-124ef082,TPB Pasar Telo 2,11
+bus-pegadaian-edf98ce4,TPB Pegadaian,3B
+bus-pelem-gurih-b79f91fc,TPB Pelem Gurih,10
+bus-pilar-1-gedong-kuning-kota-31b75629,TPB Pilar 1 Gedong Kuning Kota,2A|3A
+bus-polsek-depok-timur-74b977a6,TPB Polsek Depok Timur,3A|3B
+bus-poltekkes-bsi-a1e35c13,TPB Poltekkes BSI,2B|3B
+bus-ponpes-hamatul-quran-0542f85d,TPB Ponpes Hamatul Quran,6
+bus-purawisata-39337894,TPB Purawisata,2B
+bus-re-martadinata-51558c5d,TPB RE Martadinata,11|9
+bus-rru-instiper-1-baca4daa,TPB RRU Instiper 1,3B
+bus-ruba-graha-1-1f748207,TPB Ruba Graha 1,11
+bus-ruba-graha-2-31bc4852,TPB Ruba Graha 2,11
+bus-ruko-babarsari-3ba71551,TPB Ruko Babarsari,1B|5A
+bus-ruko-bayeman-1-0f4e80e5,TPB Ruko Bayeman 1,10
+bus-ruko-bayeman-2-23c4a9d2,TPB Ruko Bayeman 2,10
+bus-sma-5-7ee38138,TPB SMA 5,3A
+bus-smk-tajem-ringroad-utara-5c71b7ff,TPB SMK Tajem Ringroad Utara,3B
+bus-smp-9-basen-5068183c,TPB SMP 9 Basen,2B
+bus-smp-9-kota-a0cfd8bc,TPB SMP 9 Kota,2A
+bus-sorogenen-wirosaban-a0db3a0a,TPB Sorogenen (Wirosaban),3A
+bus-suroto-1-321a9677,TPB Suroto 1,5B
+bus-tni-al-1-713b0f9f,TPB TNI AL 1,10
+bus-tambak-bayan-1-6c8972ca,TPB Tambak Bayan 1,1B|5A
+bus-tarumartani-e70598d0,TPB Tarumartani,10
+bus-unisa-51efca60,TPB UNISA,8
+bus-wirobrajan-1-372c96cd,TPB Wirobrajan 1,10
+bus-taman-makam-pahlawan-s-b570770d,Taman Makam Pahlawan (Selatan),1B
+bus-taman-makam-pahlawan-n-ca938221,Taman Makam Pahlawan (Utara),1B
+bus-tarumartani-n-f5b09b35,Tarumartani (Utara),10
+bus-teknik-ugm-n-590d475e,Teknik UGM (Utara),5B
+bus-terminal-pakem-ee26af28,Terminal Pakem,12|14
+bus-timoho-w-b557460d,Timoho (Barat),10|4B
+bus-timoho-e-91beeecd,Timoho (Timur),10|4A
+bus-timur-jembatan-yapah-f9e728bc,Timur Jembatan Yapah,14
+bus-timur-jembatan-yapah-s-bc77fe61,Timur Jembatan Yapah (S),14
+bus-timur-jembatan-yapah-n-99a51436,Timur Jembatan Yapah (U),14
+bus-timur-jembatan-yapah-2-c23c9c0a,Timur Jembatan Yapah 2,14
+bus-timur-simpang-bantulan-022eaf0f,Timur Simpang Bantulan,13
+bus-toko-saerah-s-526320bd,Toko Saerah (S),13
+bus-toko-saerah-n-27c4075a,Toko Saerah (U),13
+bus-tugu-batas-desa-yapah-89c1dac7,Tugu Batas Desa Yapah,14
+bus-tugu-batas-desa-yapah-s-833f3792,Tugu Batas Desa Yapah (S),14
+bus-tugu-batas-desa-yapah-n-c5ad09e1,Tugu Batas Desa Yapah (U),14
+bus-tugu-batas-desa-yapah-2-d76e547f,Tugu Batas Desa Yapah 2,14
+bus-uii-w-d1ee7fb5,UII (B),12
+bus-uii-barat-jalan-38ce747d,UII (Barat Jalan),12|14
+bus-uii-e-1d36c15a,UII (T),12
+bus-uii-timur-jalan-4bb919c8,UII (Timur Jalan),12|14
+bus-unriyo-w-b750694f,UNRIYO (B),14
+bus-unriyo-e-2a33f7d2,UNRIYO (T),14
+bus-warung-sego-penyetan-banyuwangi-c614c8b7,Warung Sego Penyetan Banyuwangi,12
+bus-wedangan-kampoeng-1ea8493d,Wedangan Kampoeng,12
+bus-wedangan-kampoeng-w-12246027,Wedangan Kampoeng (B),12
+bus-wedangan-kampoeng-e-ceacc5d5,Wedangan Kampoeng (Timur),12
+bus-wirogunan-w-d030e655,Wirogunan (Barat),4A
+bus-wirogunan-e-42aa1c47,Wirogunan (Timur),4B
+bus-yakkum-w-f4278b8b,YAKKUM (B),12
+bus-yakkum-e-64febcd3,YAKKUM (T),12

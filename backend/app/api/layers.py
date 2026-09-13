@@ -5,7 +5,13 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_session
-from app.data.repository import ViewportDataType, fetch_stop_departures, query_features_in_viewport
+from app.data.repository import (
+    ViewportDataType,
+    fetch_estimated_transit_segments,
+    fetch_manually_reviewed_stop_external_ids,
+    fetch_stop_departures,
+    query_features_in_viewport,
+)
 from app.data.schema import Isochrone
 from app.models.geo import BBox
 from app.models.layers import IsochroneOut, LayerMeta
@@ -50,6 +56,28 @@ _QUERYABLE_LAYERS: set[ViewportDataType] = {"poi", "properti", "transit", "pangk
 @router.get("/layers", response_model=list[LayerMeta])
 async def list_layers() -> list[LayerMeta]:
     return LAYER_CATALOGUE
+
+
+@router.get("/layers/manual-reviews", response_model=list[str])
+async def manually_reviewed_stops(session: AsyncSession = Depends(get_session)) -> list[str]:
+    """external_ids of stops whose Activity match came from human review, not
+    an automated match — the frontend marks these with a real pin instead of
+    the flat circle every other mission-layer feature gets."""
+    return await fetch_manually_reviewed_stop_external_ids(session)
+
+
+@router.get("/transit/estimated-segments")
+async def estimated_transit_segments(
+    min_lon: float,
+    min_lat: float,
+    max_lon: float,
+    max_lat: float,
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, object]:
+    """OSM driving estimates for adjacent, Activity-backed bus stop pairs."""
+    return await fetch_estimated_transit_segments(
+        session, BBox(min_lon=min_lon, min_lat=min_lat, max_lon=max_lon, max_lat=max_lat)
+    )
 
 
 @router.get("/layers/{layer_id}/features", response_model=list[Feature])

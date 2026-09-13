@@ -2,6 +2,7 @@ import { bboxKey, memo, SESSION, snapBBox } from "./cache";
 import type { Place, PlaceHit } from "./places";
 import { placeFromHit } from "./places";
 import type { BBox, LayerMeta, MissionFeature, StopDeparture } from "./types";
+import type { FeatureCollection, LineString } from "geojson";
 
 const base = import.meta.env.VITE_API_BASE ?? "";
 
@@ -45,6 +46,41 @@ export function fetchLayerFeatures(
     const response = await fetch(`${base}/api/layers/${layerId}/features?${params}`);
     if (!response.ok) throw new Error(`GET /api/layers/${layerId}/features → ${response.status}`);
     return (await response.json()) as MissionFeature[];
+  });
+}
+
+/** external_ids of stops whose Activity match came from human review, not an
+ *  automated match — small, session-static, so it's fetched once and used to
+ *  mark those features with a real pin instead of the flat circle dot. */
+export function fetchManualReviewStopIds(): Promise<string[]> {
+  return memo("manual-review-stops", SESSION, async () => {
+    const response = await fetch(`${base}/api/layers/manual-reviews`);
+    if (!response.ok) throw new Error(`GET /api/layers/manual-reviews → ${response.status}`);
+    return (await response.json()) as string[];
+  });
+}
+
+/** Road-following OSM estimates for pairs of consecutive reviewed bus stops.
+ * They are partial by design: an unresolved stop creates a visible gap. */
+export function fetchTransitEstimatedSegments(
+  bbox: BBox,
+): Promise<FeatureCollection<LineString>> {
+  const area = snapBBox(bbox);
+  return memo(`transit-road-segments:${bboxKey(area)}`, FEATURES_TTL_MS, async () => {
+    const params = new URLSearchParams({
+      min_lon: String(area.min_lon),
+      min_lat: String(area.min_lat),
+      max_lon: String(area.max_lon),
+      max_lat: String(area.max_lat),
+    });
+    const response = await fetch(`${base}/api/transit/estimated-segments?${params}`);
+    if (response.ok) return (await response.json()) as FeatureCollection<LineString>;
+    // The generated artifact keeps verified OSM geometry drawable during a
+    // hackathon demo before its normal Postgres import has run. Production API
+    // responses always win, including viewport filtering.
+    const artifact = await fetch("/transit-road-segments.geojson");
+    if (artifact.ok) return (await artifact.json()) as FeatureCollection<LineString>;
+    throw new Error(`GET /api/transit/estimated-segments → ${response.status}`);
   });
 }
 
