@@ -46,13 +46,15 @@ uses for a real walk edge — not invented.
 The closing andong leg (`demo_andong_polyline.json`) is the actual last-mile
 point the demo script asks about: a ride from that same stand to Titik Nol
 Kilometer Yogyakarta (110.364444, -7.801389 — the landmark itself, no survey
-row for it in `poi` to key off), 1216.8m by the straight line down Jl.
-Malioboro/Jl. A. Yani, both streets running close enough to that line that it
-tracks the real route. `fare_base`/`fare_per_km` are null on every andong
-`pangkalan` row today (the activity-survey harvest carries no fare field), so
-this leg's numbers use the same `andong_edge_attrs` formula
-(`routing/edges.py`) real routing would, fed the flat rate `tests/routing`
-already uses for an andong edge (`fare_base=5000, fare_per_km=2000,
+row for it in `poi` to key off). The polyline is a real shortest path down
+Jl. Malioboro/Jl. A. Yani — 21 points, 1352.5m — computed with `networkx`
+over the actual OSM pedestrian network already ingested into `walk_nodes`/
+`walk_edges` for this corridor (`ingest walk-network`), not a straight line.
+`fare_base`/`fare_per_km` are null on every andong `pangkalan` row today
+(the activity-survey harvest carries no fare field), so this leg's numbers
+use the same `andong_edge_attrs` formula (`routing/edges.py`) real routing
+would, fed the flat rate `tests/routing` already uses for an andong edge
+(`fare_base=5000, fare_per_km=2000,
 speed_mps=ANDONG_SPEED_MPS`) rather than inventing a separate one here.
 """
 
