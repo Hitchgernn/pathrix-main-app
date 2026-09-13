@@ -1224,8 +1224,13 @@ async def import_normalized_schedule(
             # route are still blocked (mirrors the partial stop-time
             # attachment below). Never touches transit_stops itself, so this
             # cannot trip the _stop_fingerprint invariant.
-            reviewed_rows = [
-                {
+            # Keyed by (stop_id, route_id) and deduped: a route's path can list
+            # the same real Activity under more than one source stop entry
+            # (two adjacent PDF rows resolving to one physical halte), and
+            # Postgres's ON CONFLICT DO UPDATE errors if one INSERT would hit
+            # the same conflict target twice.
+            reviewed_by_key = {
+                (stop_database_ids[stop.activity_id], route.route_id): {
                     "stop_id": stop_database_ids[stop.activity_id],
                     "route_id": route.route_id,
                     "reviewer": stop.review["reviewer"],
@@ -1236,7 +1241,8 @@ async def import_normalized_schedule(
                 if stop.match_status == "reviewed_activity"
                 and stop.activity_id in stop_database_ids
                 and stop.review is not None
-            ]
+            }
+            reviewed_rows = list(reviewed_by_key.values())
             if reviewed_rows:
                 insert_reviewed = pg_insert(StopManualReview).values(reviewed_rows)
                 await session.execute(
