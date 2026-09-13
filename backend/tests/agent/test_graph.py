@@ -3,7 +3,7 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.tools import tool
 
-from app.agent.graph import MAX_TOOL_ROUNDS, build_agent_graph
+from app.agent.graph import MAX_TOOL_ROUNDS, ROUND_BUDGET_FALLBACK, build_agent_graph
 from app.agent.tools import make_toggle_layer_tool
 from app.models.agent import Viewport
 from app.models.geo import BBox, Coord
@@ -27,7 +27,7 @@ class ScriptedChatModel(BaseChatModel):
         return "scripted"
 
 
-def _initial_state():
+def _initial_state(locale: str = "id"):
     return {
         "messages": [HumanMessage(content="turn on the transjogja layer")],
         "viewport": Viewport(
@@ -39,7 +39,7 @@ def _initial_state():
         "last_route": None,
         "last_carbon": None,
         "ui_commands": [],
-        "locale": "id",
+        "locale": locale,
     }
 
 
@@ -88,19 +88,20 @@ async def test_agent_handles_unknown_tool_gracefully():
     assert result["messages"][-1].content == "Sorry, I could not do that."
 
 
-async def test_agent_stops_looping_after_the_tool_round_budget():
-    def _tool_call_response(round_num: int) -> AIMessage:
-        return AIMessage(
-            content="",
-            tool_calls=[
-                {
-                    "name": "toggle_layer",
-                    "args": {"layer_id": "x", "on": True},
-                    "id": f"call{round_num}",
-                }
-            ],
-        )
+def _tool_call_response(round_num: int) -> AIMessage:
+    return AIMessage(
+        content="",
+        tool_calls=[
+            {
+                "name": "toggle_layer",
+                "args": {"layer_id": "x", "on": True},
+                "id": f"call{round_num}",
+            }
+        ],
+    )
 
+
+async def test_agent_stops_looping_after_the_tool_round_budget():
     # Always returns a tool call — the graph must still terminate via the round budget.
     llm = ScriptedChatModel(responses=[_tool_call_response(i) for i in range(MAX_TOOL_ROUNDS + 5)])
     graph = build_agent_graph(llm, [make_toggle_layer_tool()])
@@ -109,6 +110,31 @@ async def test_agent_stops_looping_after_the_tool_round_budget():
 
     tool_message_count = sum(1 for m in result["messages"] if isinstance(m, ToolMessage))
     assert tool_message_count == MAX_TOOL_ROUNDS
+    # The cutoff lands on an unexecuted tool call (empty .content) - the user
+    # must still see a real, honest message, never a silent empty reply, and
+    # it must match the turn's own locale rather than always falling to English.
+    assert result["messages"][-1].content == ROUND_BUDGET_FALLBACK["id"]
+
+
+async def test_agent_fallback_reply_matches_an_english_locale_turn():
+    llm = ScriptedChatModel(responses=[_tool_call_response(i) for i in range(MAX_TOOL_ROUNDS + 5)])
+    graph = build_agent_graph(llm, [make_toggle_layer_tool()])
+
+    result = await graph.ainvoke(_initial_state(locale="en"), config={"recursion_limit": 100})
+
+    assert result["messages"][-1].content == ROUND_BUDGET_FALLBACK["en"]
+
+
+async def test_agent_never_ends_a_turn_with_an_empty_reply():
+    # Degenerate case: the model's final message has no tool calls and no
+    # text at all (not just the round-budget path) - respond() must still
+    # substitute a real message rather than let an empty one through.
+    llm = ScriptedChatModel(responses=[AIMessage(content="")])
+    graph = build_agent_graph(llm, [make_toggle_layer_tool()])
+
+    result = await graph.ainvoke(_initial_state())
+
+    assert result["messages"][-1].content.strip() != ""
 
 
 async def test_agent_carries_the_last_route_tool_result_into_state():

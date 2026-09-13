@@ -1,7 +1,7 @@
 import json
 
 from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.messages import SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, SystemMessage, ToolMessage
 from langchain_core.tools import BaseTool
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
@@ -13,6 +13,23 @@ from app.models.agent import AgentState
 from app.models.routing import CarbonResult, Route
 
 MAX_TOOL_ROUNDS = 5  # per-turn tool-call budget, ARCHITECTURE.md §8.4/§12
+
+# Hitting the round budget can land on a message that is itself an unexecuted
+# tool call (empty .content) — ws.py sends this text straight to the user, so
+# without this fallback a cut-off turn shows up as a silent, empty reply.
+# Keyed by AgentState's locale so it matches whichever language the rest of
+# the turn was in, rather than always breaking into English mid-conversation.
+ROUND_BUDGET_FALLBACK = {
+    "id": (
+        "Aku butuh lebih banyak langkah dari yang diizinkan untuk menyelesaikan "
+        "permintaan ini. Coba tanya dengan nama halte/tempat yang lebih spesifik, "
+        "atau tanya lagi."
+    ),
+    "en": (
+        "I needed more steps than I'm allowed to finish this request. "
+        "Try asking with a more specific stop or place name, or ask again."
+    ),
+}
 
 
 def _serialize(result: object) -> str:
@@ -95,6 +112,10 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
         return update
 
     def respond(state: AgentState) -> dict:
+        last = state["messages"][-1]
+        if not (last.content or "").strip():
+            fallback = ROUND_BUDGET_FALLBACK.get(state["locale"], ROUND_BUDGET_FALLBACK["en"])
+            return {"messages": [AIMessage(content=fallback)]}
         return {}
 
     graph = StateGraph(AgentState)
