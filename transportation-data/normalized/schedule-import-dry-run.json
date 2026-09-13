@@ -162,7 +162,6 @@
       "reasons": [
         "bus-hokben-jakal-w-08061330:unmatched",
         "bus-hotel-vidi-jakal-f9ee9a87:unmatched",
-        "bus-jalan-pramuka-f6939358:unmatched",
         "bus-nyutran-tamansiswa-080d9b74:unmatched",
         "bus-pasar-sentul-s-84478365:unmatched",
         "bus-pasar-sepeda-tunjungsari-c4695341:unmatched",
@@ -170,8 +169,7 @@
         "bus-psky-255eae47:unmatched",
         "bus-spbu-condongcatur-e-794333df:unmatched",
         "bus-susteran-novisiat-33aaae59:unmatched",
-        "bus-timoho-e-91beeecd:unmatched",
-        "bus-univeristas-ahmad-dahlan-0f60ec71:unmatched"
+        "bus-timoho-e-91beeecd:unmatched"
       ]
     },
     {
@@ -180,9 +178,7 @@
       "reasons": [
         "bus-bulog-970050c0:unmatched",
         "bus-hokben-jakal-e-d425d6fc:unmatched",
-        "bus-jalan-pramuka-f6939358:unmatched",
         "bus-man-1-yogyakarta-f2a678cf:review_fuzzy",
-        "bus-olive-glagahsari-w-48c71355:unmatched",
         "bus-pandeyan-w-cd4dd021:unmatched",
         "bus-prayan-w-756ecdc4:unmatched",
         "bus-spbu-condongcatur-w-a4e66ecc:unmatched",
@@ -414,7 +410,6 @@
         "bus-kantor-kecamatan-godean-halte-2-b731f16c:unmatched",
         "bus-kantor-pos-demak-ijo-2-8eeba9b2:unmatched",
         "bus-kantor-pos-demak-ijo-9a532390:unmatched",
-        "bus-kha-dahlan-s-065936ef:review_fuzzy",
         "bus-kompi-senapan-c-s-e0038af6:review_fuzzy",
         "bus-koramil-godean-2-02c30cae:unmatched",
         "bus-koramil-godean-ddb7c21d:unmatched",
@@ -422,7 +417,6 @@
         "bus-neutron-yogyakarta-godean-845b1965:unmatched",
         "bus-neutron-yogyakarta-godean-halte-2-b83475d4:unmatched",
         "bus-pasar-kranggan-b6b88028:review_fuzzy",
-        "bus-pasar-pingit-n-b419e949:review_fuzzy",
         "bus-pasar-serangan-0fab18f3:review_fuzzy",
         "bus-pasar-tlogorejo-2-43254f03:unmatched",
         "bus-pasar-tlogorejo-a9a5b6ae:unmatched",
@@ -526,44 +520,15 @@
       "route_id": "15",
       "mode": "bus",
       "reasons": [
-        "bus-bri-cabang-bantul-ca5f6e41:review_fuzzy",
-        "bus-dukuh-e-9d567c71:review_fuzzy",
-        "bus-dukuh-w-69bdab86:review_fuzzy",
-        "bus-eks-stasiun-ka-bantul-aaacaef2:review_fuzzy",
         "bus-fip-uny-ffd961ca:unmatched",
-        "bus-gereja-pugeran-ab090bbd:review_fuzzy",
-        "bus-jalan-mataram-hotel-akur-bfbbe7b3:review_fuzzy",
         "bus-kantor-badan-kesatuan-bangsa-politik-c2b0ae66:unmatched",
         "bus-kantor-badan-kesatuan-bangsa-politik-hal-a008e6f1:unmatched",
-        "bus-kantor-kapanewon-bantul-cdd6be86:review_fuzzy",
-        "bus-kantor-kelurahan-pendowoharjo-0862e377:review_fuzzy",
         "bus-karanggede-044ebf69:unmatched",
-        "bus-kha-dahlan-n-3fb74d20:review_fuzzy",
-        "bus-kha-dahlan-s-065936ef:review_fuzzy",
-        "bus-malioboro-2-kepatihan-edeea5b5:review_fuzzy",
         "bus-park-and-ride-dongkelan-pasty-7561163e:unmatched",
-        "bus-pasar-bantul-de60e961:review_fuzzy",
-        "bus-pasar-bantul-halte-2-a4a1fd5f:review_fuzzy",
-        "bus-pasar-niten-b37a4715:review_fuzzy",
-        "bus-pasar-niten-halte-2-cc89169e:review_fuzzy",
-        "bus-pasty-a2ad35ef:review_fuzzy",
         "bus-progo-e27cb7fc:unmatched",
-        "bus-sd-unggulan-aisyiyah-1-66442619:review_fuzzy",
-        "bus-sd-unggulan-aisyiyah-2-873ecdff:review_fuzzy",
         "bus-simpang-dongkelan-d0234b3a:unmatched",
         "bus-simpang-dongkelan-halte-2-40d99d82:unmatched",
-        "bus-simpang-gose-halte-1-986d3737:review_fuzzy",
-        "bus-simpang-gose-halte-2-9d1af7ff:review_fuzzy",
-        "bus-simpang-kasongan-e0220233:review_fuzzy",
-        "bus-simpang-kasongan-halte-2-57f682a0:review_fuzzy",
-        "bus-sma-n-1-bantul-2-5de4317a:review_fuzzy",
-        "bus-sma-n-1-bantul-i-bd617eae:review_fuzzy",
-        "bus-smp-n-2-bantul-5cb13e64:review_fuzzy",
-        "bus-tejokusuman-tamansari-e7596b7b:review_fuzzy",
-        "bus-teras-malioboro-2-d4789a15:review_fuzzy",
-        "bus-terminal-palbapang-w-c84e2640:review_fuzzy",
-        "bus-tugu-adipura-bantul-halte-2-b6a74e9c:review_fuzzy",
-        "bus-tugu-adipura-bantul-polres-bantul-40ff2d29:review_fuzzy"
+        "bus-terminal-palbapang-w-c84e2640:review_fuzzy"
       ]
     },
     {
@@ -571,19 +536,7 @@
       "mode": "bus",
       "reasons": [
         "bus-eks-perpusda-80a03598:unmatched",
-        "bus-hotel-utara-e-a8afeab1:review_fuzzy",
-        "bus-hotel-utara-ea824463:review_fuzzy",
-        "bus-jlagran-402c26ac:unmatched",
-        "bus-jogja-city-mall-e-58185771:unmatched",
-        "bus-jogja-city-mall-w-5608534c:unmatched",
-        "bus-karangwaru-e-d57a2b75:review_fuzzy",
-        "bus-karangwaru-w-2eff8d12:review_fuzzy",
-        "bus-malioboro-2-kepatihan-edeea5b5:review_fuzzy",
-        "bus-mmtc-yogya-27d0c99b:review_fuzzy",
-        "bus-pasar-kranggan-b6b88028:review_fuzzy",
-        "bus-sosrowijayan-dcdae1fc:unmatched",
-        "bus-tvri-e-436715b2:review_fuzzy",
-        "bus-tvri-w-05cc82e3:review_fuzzy"
+        "bus-jogja-city-mall-e-58185771:unmatched"
       ]
     },
     {
@@ -695,11 +648,11 @@
     "prameks_yogyakarta_kutoarjo",
     "prameks_kutoarjo_yogyakarta"
   ],
-  "trip_count": 181,
-  "attached_stop_times": 1432,
-  "stop_time_count": 1432,
-  "database_activity_stop_count": 322,
-  "database_activity_raw_digest": "09060ff4b3fb2084af85864a5856f42a03eae38a6398595c46a6cd499644581b",
+  "trip_count": 213,
+  "attached_stop_times": 2028,
+  "stop_time_count": 2028,
+  "database_activity_stop_count": 311,
+  "database_activity_raw_digest": "bb9ab91c884864a2b80b02910f8b0ddb608f806fef734ac52daaa11d5601779f",
   "database_schedule_routes": [
     "1A",
     "1B",
@@ -729,7 +682,138 @@
     "prameks_kutoarjo_yogyakarta"
   ],
   "database_routable_routes": [],
-  "database_attached_stop_times": 1432,
-  "database_blocked_routes": [],
+  "database_attached_stop_times": 1647,
+  "database_blocked_routes": [
+    {
+      "route_id": "1B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "2A",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850"
+      ]
+    },
+    {
+      "route_id": "2B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850"
+      ]
+    },
+    {
+      "route_id": "3B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "5A",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8279ea70c999b67933d38e",
+        "6a8287f89870dcf66e45637e",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "5B",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8276c070c999b67933d100",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e"
+      ]
+    },
+    {
+      "route_id": "8",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "9",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a8276c070c999b67933d100",
+        "6a8279ea70c999b67933d38e",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "EV3",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a82732138bb192425f47850",
+        "6a82762f38bb192425f47b1b",
+        "6a8276c070c999b67933d100",
+        "6a8279ea70c999b67933d38e",
+        "6a827b319870dcf66e45516e",
+        "6a8287f89870dcf66e45637e",
+        "6a8a88b40d6732db988bfbb8",
+        "6a8a8a110d6732db988bfe24",
+        "6a8a8dda52d86e03b519227c",
+        "6a8abfd40d6732db988c587d"
+      ]
+    },
+    {
+      "route_id": "krl_yogyakarta_palur",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "krl_palur_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "yia_yogyakarta_airport",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "yia_airport_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "prameks_yogyakarta_kutoarjo",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    },
+    {
+      "route_id": "prameks_kutoarjo_yogyakarta",
+      "reason": "activity_not_ingested",
+      "activity_ids": [
+        "6a8a8dda52d86e03b519227c"
+      ]
+    }
+  ],
   "would_write": false
 }
