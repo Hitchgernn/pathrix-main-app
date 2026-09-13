@@ -77,6 +77,8 @@ export const LAYER_ROWS: LayerRow[] = [
   { id: "transit", backendId: "transit", nameKey: "layer.transit.name", metaKey: "layer.transit.meta", on: true, color: "#1f6592" },
   { id: "pangkalan", backendId: "pangkalan", nameKey: "layer.pangkalan.name", metaKey: "layer.pangkalan.meta", on: true, color: "#7c5e13" },
   { id: "pariwisata", backendId: "poi", nameKey: "layer.pariwisata.name", metaKey: "layer.pariwisata.meta", on: false, color: "#5b3a8e" },
+  { id: "menugo", backendId: "menugo", nameKey: "layer.menugo.name", metaKey: "layer.menugo.meta", on: false, color: "#5b3a8e" },
+  { id: "struckgo", backendId: "struckgo", nameKey: "layer.struckgo.name", metaKey: "layer.struckgo.meta", on: false, color: "#7c5e13" },
   { id: "properti", backendId: "properti", nameKey: "layer.properti.name", metaKey: "layer.properti.meta", on: false, color: "#17293a" },
   { id: "jangkauan", backendId: null, nameKey: "layer.jangkauan.name", metaKey: "layer.jangkauan.meta", on: false, color: "#c6d9e8" },
   { id: "bangunan", backendId: null, nameKey: "layer.bangunan.name", metaKey: "layer.bangunan.meta", on: false, color: "rgba(23,41,58,.12)" },
@@ -146,6 +148,7 @@ export const FILTER_CHIPS: FilterChip[] = [
   { id: "transit", labelKey: "filter.transit", layers: ["transit"] },
   { id: "pangkalan", labelKey: "filter.pangkalan", layers: ["pangkalan"] },
   { id: "pariwisata", labelKey: "filter.tourism", layers: ["pariwisata"] },
+  { id: "kuliner", labelKey: "filter.culinary", layers: ["menugo", "struckgo"] },
   { id: "properti", labelKey: "filter.property", layers: ["properti"] },
   { id: "jangkauan", labelKey: "filter.reach", layers: ["jangkauan"] },
 ];

@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from typing import Literal
 
-from sqlalchemy import func, or_, select
+from sqlalchemy import String, func, or_, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -42,10 +42,12 @@ from app.models.network import (
 from app.models.routing import EmissionFactor, StopDeparture
 from app.models.search import PlaceHit
 
-ViewportDataType = Literal["poi", "properti", "transit", "pangkalan"]
+ViewportDataType = Literal["poi", "menugo", "struckgo", "properti", "transit", "pangkalan"]
 
 _VIEWPORT_TABLES = {
     "poi": Poi,
+    "menugo": Poi,
+    "struckgo": Poi,
     "properti": Properti,
     "transit": TransitStop,
     "pangkalan": Pangkalan,
@@ -97,16 +99,30 @@ async def query_features_in_viewport(
 ) -> list[Feature]:
     table = _VIEWPORT_TABLES[data_type]
     envelope = func.ST_MakeEnvelope(bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat, 4326)
+    source_type = table.source if table is Poi else data_type
     stmt = (
-        select(table.external_id, table.raw, func.ST_AsGeoJSON(table.geom).label("geom_json"))
+        select(
+            table.external_id,
+            table.raw,
+            source_type.label("source_type")
+            if table is Poi
+            else func.cast(source_type, String).label("source_type"),
+            func.ST_AsGeoJSON(table.geom).label("geom_json"),
+        )
         .where(func.ST_Intersects(table.geom, envelope))
         .limit(limit)
     )
     if data_type == "poi":
-        stmt = stmt.where(*_not_filed_as_infrastructure())
+        stmt = stmt.where(Poi.source == "activities", *_not_filed_as_infrastructure())
+    elif data_type in {"menugo", "struckgo"}:
+        stmt = stmt.where(Poi.source == data_type)
     result = await session.execute(stmt)
     return [
-        Feature(external_id=row.external_id, properties=row.raw, geometry=json.loads(row.geom_json))
+        Feature(
+            external_id=row.external_id,
+            properties={**row.raw, "source_type": row.source_type},
+            geometry=json.loads(row.geom_json),
+        )
         for row in result
     ]
 

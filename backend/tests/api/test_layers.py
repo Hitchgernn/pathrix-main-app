@@ -12,7 +12,7 @@ def test_list_layers_returns_the_catalogue():
         response = client.get("/api/layers")
     assert response.status_code == 200
     ids = {layer["id"] for layer in response.json()}
-    assert ids == {"poi", "properti", "transit", "pangkalan"}
+    assert ids == {"poi", "menugo", "struckgo", "properti", "transit", "pangkalan"}
 
 
 def test_layer_features_501_for_a_layer_with_no_query_wired():
@@ -70,21 +70,35 @@ async def test_layer_features_returns_seeded_transit_stops(db_session):
     assert body[0]["properties"]["NAMA"] == "TJ MANGKUBUMI 1"
 
 
-async def test_layer_features_returns_seeded_poi(db_session):
-    feature = Feature(
-        external_id="layerfeat1",
-        properties={"nama_tempat": "Warung Layer Test"},
+async def test_culinary_layers_keep_mission_sources_distinct(db_session):
+    menu = Feature(
+        external_id="menu-layerfeat1",
+        properties={"nama_tempat": "Warung Layer Test", "menu_utama": "Gudeg"},
         geometry={"type": "Point", "coordinates": [110.37, -7.80]},
     )
-    await upsert_poi(db_session, [feature], "menugo")
+    receipt = Feature(
+        external_id="receipt-layerfeat1",
+        properties={"nama_tempat": "Toko Layer Test", "metode_pembayaran": "Tunai"},
+        geometry={"type": "Point", "coordinates": [110.38, -7.81]},
+    )
+    await upsert_poi(db_session, [menu], "menugo")
+    await upsert_poi(db_session, [receipt], "struckgo")
 
     with TestClient(app) as client:
-        response = client.get(
-            "/api/layers/poi/features",
+        menu_response = client.get(
+            "/api/layers/menugo/features",
             params={"min_lon": 110.30, "min_lat": -7.85, "max_lon": 110.45, "max_lat": -7.75},
         )
-    assert response.status_code == 200
-    assert any(f["external_id"] == "layerfeat1" for f in response.json())
+        receipt_response = client.get(
+            "/api/layers/struckgo/features",
+            params={"min_lon": 110.30, "min_lat": -7.85, "max_lon": 110.45, "max_lat": -7.75},
+        )
+    assert menu_response.status_code == 200
+    assert receipt_response.status_code == 200
+    assert [f["external_id"] for f in menu_response.json()] == ["menu-layerfeat1"]
+    assert menu_response.json()[0]["properties"]["source_type"] == "menugo"
+    assert [f["external_id"] for f in receipt_response.json()] == ["receipt-layerfeat1"]
+    assert receipt_response.json()[0]["properties"]["source_type"] == "struckgo"
 
 
 def test_isochrone_404_when_not_computed():

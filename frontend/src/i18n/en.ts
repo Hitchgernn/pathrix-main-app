@@ -67,6 +67,10 @@ export const en: Messages = {
   "layer.pangkalan.meta": "42 points from field survey",
   "layer.pariwisata.name": "Tourism & culture",
   "layer.pariwisata.meta": "96 points",
+  "layer.menugo.name": "Menu Go",
+  "layer.menugo.meta": "Menus, prices, and venue photos from MAPID surveys",
+  "layer.struckgo.name": "Struck Go",
+  "layer.struckgo.meta": "Categories, payments, and receipt photos from MAPID surveys",
   "layer.properti.name": "Property",
   "layer.properti.meta": "310 points from Properti Go",
   "layer.jangkauan.name": "Walking reach",
@@ -143,6 +147,7 @@ export const en: Messages = {
   "filter.transit": "Halte & KRL",
   "filter.pangkalan": "Andong & becak",
   "filter.tourism": "Tourism",
+  "filter.culinary": "Culinary",
   "filter.property": "Property",
   "filter.reach": "Walking reach",
 
