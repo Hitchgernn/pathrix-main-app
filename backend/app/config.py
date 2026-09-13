@@ -38,5 +38,15 @@ class Settings(BaseSettings):
 
     rate_limit_per_minute: int = 60
 
+    # Comma-separated browser origins allowed to call this API cross-origin
+    # (the frontend is deployed separately, e.g. on Vercel). Vite's dev
+    # server proxies /api and /ws itself, so localhost is only needed for a
+    # production-mode build served from a different port locally.
+    cors_allow_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_allow_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_allow_origins.split(",") if origin.strip()]
+
 
 settings = Settings()
