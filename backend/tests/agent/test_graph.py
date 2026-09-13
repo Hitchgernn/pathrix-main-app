@@ -3,7 +3,12 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.tools import tool
 
-from app.agent.graph import MAX_TOOL_ROUNDS, ROUND_BUDGET_FALLBACK, build_agent_graph
+from app.agent.graph import (
+    MAX_TOOL_ROUNDS,
+    ROUND_BUDGET_FALLBACK,
+    _clean_reply,
+    build_agent_graph,
+)
 from app.agent.tools import make_toggle_layer_tool
 from app.models.agent import Viewport
 from app.models.geo import BBox, Coord
@@ -167,3 +172,36 @@ async def test_agent_carries_the_last_route_tool_result_into_state():
     result = await graph.ainvoke(_initial_state())
 
     assert result["last_route"] == route
+
+
+def test_clean_reply_strips_emoji_markdown_and_bullets():
+    dirty = "**Rutenya** singkat! 🚌\n- jalan kaki 5 menit\n- naik bus 3A ✨"
+
+    cleaned = _clean_reply(dirty)
+
+    assert "🚌" not in cleaned
+    assert "✨" not in cleaned
+    assert "*" not in cleaned
+    assert "- " not in cleaned
+    assert "Rutenya" in cleaned
+    assert "jalan kaki 5 menit" in cleaned
+
+
+def test_clean_reply_leaves_already_plain_text_unchanged():
+    plain = "Rutenya lewat jalan kaki lalu naik bus 3A."
+
+    assert _clean_reply(plain) == plain
+
+
+async def test_agent_final_reply_is_cleaned_of_emoji_and_markdown():
+    llm = ScriptedChatModel(
+        responses=[AIMessage(content="**Siap!** Rutenya jalan kaki lalu bus 3A. 🚌")]
+    )
+    graph = build_agent_graph(llm, [make_toggle_layer_tool()])
+
+    result = await graph.ainvoke(_initial_state())
+
+    final = result["messages"][-1].content
+    assert "🚌" not in final
+    assert "*" not in final
+    assert "Rutenya jalan kaki lalu bus 3A." in final

@@ -1,4 +1,5 @@
 import json
+import re
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage, SystemMessage, ToolMessage
@@ -30,6 +31,32 @@ ROUND_BUDGET_FALLBACK = {
         "Try asking with a more specific stop or place name, or ask again."
     ),
 }
+
+
+# Belt-and-suspenders companion to SYSTEM_PROMPT's plain-text instruction —
+# prompt compliance is probabilistic, this is deterministic. Strips emoji,
+# markdown emphasis/heading/quote markers, and bullet prefixes the model
+# still occasionally emits.
+_EMOJI_RE = re.compile(
+    "["
+    "\U0001f300-\U0001faff"  # symbols, pictographs, emoticons, transport, supplemental
+    "\U00002600-\U000027bf"  # misc symbols and dingbats
+    "\U0001f1e6-\U0001f1ff"  # regional indicators (flag emoji)
+    "\U00002b00-\U00002bff"  # misc symbols and arrows
+    "\U0000fe0f"  # emoji presentation selector
+    "]+"
+)
+_BULLET_PREFIX_RE = re.compile(r"^[ \t]*[-*•][ \t]+", flags=re.MULTILINE)
+_MARKDOWN_MARKUP_RE = re.compile(r"[*_`#>~]+")
+
+
+def _clean_reply(text: str) -> str:
+    cleaned = _EMOJI_RE.sub("", text)
+    cleaned = _BULLET_PREFIX_RE.sub("", cleaned)
+    cleaned = _MARKDOWN_MARKUP_RE.sub("", cleaned)
+    cleaned = re.sub(r"[ \t]+", " ", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def _serialize(result: object) -> str:
@@ -116,7 +143,10 @@ def build_agent_graph(llm: BaseChatModel, tools: list[BaseTool]) -> CompiledStat
         if not (last.content or "").strip():
             fallback = ROUND_BUDGET_FALLBACK.get(state["locale"], ROUND_BUDGET_FALLBACK["en"])
             return {"messages": [AIMessage(content=fallback)]}
-        return {}
+        cleaned = _clean_reply(last.content)
+        if cleaned == last.content or not cleaned:
+            return {}
+        return {"messages": [AIMessage(content=cleaned)]}
 
     graph = StateGraph(AgentState)
     graph.add_node("plan", plan)
