@@ -83,6 +83,35 @@ def test_pangkalan_connects_only_within_radius():
     assert PANGKALAN_CONNECT_RADIUS_M == 500.0
 
 
+def test_pangkalan_also_gets_a_walk_edge_for_last_mile():
+    near_stop = StopRow(id=1, lon=110.30, lat=-7.80)
+    pangkalan = PangkalanRow(
+        id=5, type="becak", lon=110.3002, lat=-7.8002, fare_base=5000, fare_per_km=2000
+    )
+    network = NetworkData(stops=[near_stop], routes=[], route_stops=[], pangkalan=[pangkalan])
+
+    graph, _ = build_graph_from_network(network)
+
+    to_stop_types = {data["type"] for data in graph[pangkalan_node(5)][stop_node(1)].values()}
+    to_pangkalan_types = {data["type"] for data in graph[stop_node(1)][pangkalan_node(5)].values()}
+    assert to_stop_types == {"becak", "walk"}
+    assert to_pangkalan_types == {"becak", "walk"}
+
+
+def test_short_pangkalan_leg_prefers_walking_over_a_ride():
+    near_stop = StopRow(id=1, lon=110.30, lat=-7.80)
+    pangkalan = PangkalanRow(
+        id=5, type="becak", lon=110.3002, lat=-7.8002, fare_base=5000, fare_per_km=2000
+    )
+    network = NetworkData(stops=[near_stop], routes=[], route_stops=[], pangkalan=[pangkalan])
+
+    graph, _ = build_graph_from_network(network)
+
+    route = calculate_route(graph, stop_node(1), pangkalan_node(5), "tercepat")
+    assert [leg.mode for leg in route.legs] == ["walk"]
+    assert route.total_fare_idr == 0
+
+
 def test_walk_network_does_not_snap_a_stop_outside_its_local_area():
     network = NetworkData(
         stops=[StopRow(id=1, lon=110.300, lat=-7.800), StopRow(id=2, lon=110.500, lat=-7.950)],

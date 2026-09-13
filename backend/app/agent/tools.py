@@ -73,7 +73,12 @@ def make_get_data_in_viewport_tool(
     async def get_data_in_viewport(
         bbox: BBox, data_type: ViewportDataType, limit: int = 50
     ) -> list[Feature]:
-        """List features of a data type within the current map viewport."""
+        """List features of a data type within the current map viewport.
+
+        data_type="pangkalan" finds andong/becak stands — use it to locate the
+        nearest one for a last-mile leg, then pass its coordinate as a Coord
+        end to calculate_route.
+        """
         if _bbox_area(bbox) > max_area_deg2:
             raise ViewportTooLargeError(
                 f"viewport area {_bbox_area(bbox):.4f} deg^2 exceeds cap {max_area_deg2} deg^2"
@@ -129,7 +134,12 @@ def make_calculate_route_tool(
     async def calculate_route(
         start: str | Coord, end: str | Coord, modes: list[TransitMode], optimize: Optimize
     ) -> Route:
-        """Compute a multimodal route. Use public modes such as bus, rail, or walk."""
+        """Compute a multimodal route. Use public modes such as bus, rail, or walk.
+
+        start/end accept a place name, a known node id, or a Coord — pass a
+        Coord (e.g. a pangkalan's coordinate from get_data_in_viewport) to
+        route all the way to that exact point instead of the nearest stop.
+        """
         coords = coords_provider()
         start_node = await _resolve_node(start, coords, geocode_resolver)
         end_node = await _resolve_node(end, coords, geocode_resolver)
